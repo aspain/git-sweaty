@@ -7,6 +7,11 @@ on:
     paths:
       - site/**
       - .github/workflows/pages.yml
+  workflow_run:
+    workflows:
+      - Sync Strava Heatmaps
+    types:
+      - completed
 
 permissions:
   contents: read
@@ -20,9 +25,12 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
