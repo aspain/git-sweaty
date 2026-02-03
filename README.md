@@ -83,4 +83,8 @@ Then enable the scheduled workflow in `.github/workflows/sync.yml`.
 ## Heatmaps
 
 Heatmaps are published on the GitHub Pages site linked above.
+
+Preview:
+
+![Run 2025](heatmaps/Run/2025.svg)
 <!-- HEATMAPS:END -->

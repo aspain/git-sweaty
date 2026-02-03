@@ -183,6 +183,10 @@ def _readme_section(types: List[str], years_desc: List[int]) -> str:
     lines.append("")
     lines.append("Heatmaps are published on the GitHub Pages site linked above.")
     lines.append("")
+    lines.append("Preview:")
+    lines.append("")
+    lines.append("![Run 2025](heatmaps/Run/2025.svg)")
+    lines.append("")
     return "\n".join(lines).rstrip() + "\n"
 
 
