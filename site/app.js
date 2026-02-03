@@ -4,6 +4,7 @@ const TYPE_COLORS = {
   Ride: ["#f3f5f8", "#dff1e7", "#bcdcc9", "#8cbda2", "#5c9674"],
   WeightTraining: ["#f3f5f8", "#f3dddd", "#e7bcbc", "#d59393", "#b66565"],
 };
+const MULTI_TYPE_COLOR = "#7b6fb3";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -183,14 +184,9 @@ function buildSummary(payload, types, years, showTypeBreakdown, showActiveDays, 
   }
 }
 
-function buildHeatmapArea(aggregates, year, units, colors, type, layout) {
+function buildHeatmapArea(aggregates, year, units, colors, type, layout, options = {}) {
   const heatmapArea = document.createElement("div");
   heatmapArea.className = "heatmap-area";
-
-  const yearLabel = document.createElement("div");
-  yearLabel.className = "year-label";
-  yearLabel.textContent = year;
-  heatmapArea.appendChild(yearLabel);
 
   const monthRow = document.createElement("div");
   monthRow.className = "month-row";
@@ -255,7 +251,11 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout) {
     }
 
     const filled = (entry.count || 0) > 0;
-    cell.style.background = filled ? colors[4] : colors[0];
+    if (filled && typeof options.colorForEntry === "function") {
+      cell.style.background = options.colorForEntry(entry);
+    } else {
+      cell.style.background = filled ? colors[4] : colors[0];
+    }
 
     const durationMinutes = Math.round((entry.moving_time || 0) / 60);
     const duration = durationMinutes >= 60
@@ -267,7 +267,21 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout) {
       `${entry.count} workout${entry.count === 1 ? "" : "s"}`,
     ];
 
-    if (type !== "WeightTraining") {
+    const showDistanceElevation = (() => {
+      if (type === "WeightTraining") return false;
+      if (type === "all") {
+        if (entry.types && entry.types.length === 1 && entry.types[0] === "WeightTraining") {
+          return false;
+        }
+      }
+      return true;
+    })();
+
+    if (type === "all" && entry.types && entry.types.length) {
+      lines.push(`Types: ${entry.types.map(displayType).join(", ")}`);
+    }
+
+    if (showDistanceElevation) {
       const distance = units.distance === "km"
         ? `${(entry.distance / 1000).toFixed(2)} km`
         : `${(entry.distance / 1609.344).toFixed(2)} mi`;
@@ -296,20 +310,57 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout) {
   return heatmapArea;
 }
 
-function buildCard(type, year, aggregates, units) {
+function buildCard(type, year, aggregates, units, options = {}) {
   const card = document.createElement("div");
   card.className = "card";
 
   const title = document.createElement("div");
   title.className = "card-title";
-  title.textContent = `${displayType(type)} · ${year}`;
+  title.textContent = String(year);
   card.appendChild(title);
 
-  const colors = getColors(type);
+  const colors = type === "all" ? DEFAULT_COLORS : getColors(type);
   const layout = getLayout();
-  const heatmapArea = buildHeatmapArea(aggregates, year, units, colors, type, layout);
+  const heatmapArea = buildHeatmapArea(aggregates, year, units, colors, type, layout, options);
   card.appendChild(heatmapArea);
   return card;
+}
+
+function combineYearAggregates(yearData, types) {
+  const combined = {};
+  types.forEach((type) => {
+    const entries = yearData?.[type] || {};
+    Object.entries(entries).forEach(([dateStr, entry]) => {
+      if (!combined[dateStr]) {
+        combined[dateStr] = {
+          count: 0,
+          distance: 0,
+          moving_time: 0,
+          elevation_gain: 0,
+          types: new Set(),
+        };
+      }
+      combined[dateStr].count += entry.count || 0;
+      combined[dateStr].distance += entry.distance || 0;
+      combined[dateStr].moving_time += entry.moving_time || 0;
+      combined[dateStr].elevation_gain += entry.elevation_gain || 0;
+      if ((entry.count || 0) > 0) {
+        combined[dateStr].types.add(type);
+      }
+    });
+  });
+
+  const result = {};
+  Object.entries(combined).forEach(([dateStr, entry]) => {
+    result[dateStr] = {
+      count: entry.count,
+      distance: entry.distance,
+      moving_time: entry.moving_time,
+      elevation_gain: entry.elevation_gain,
+      types: Array.from(entry.types),
+    };
+  });
+  return result;
 }
 
 async function init() {
@@ -357,31 +408,62 @@ async function init() {
     years.sort((a, b) => b - a);
 
     heatmaps.innerHTML = "";
-    types.forEach((type) => {
+    if (selectedType === "all") {
       const section = document.createElement("div");
       section.className = "type-section";
       const header = document.createElement("div");
       header.className = "type-header";
-      header.textContent = displayType(type);
+      header.textContent = "All Workouts";
       section.appendChild(header);
 
       const list = document.createElement("div");
       list.className = "type-list";
       years.forEach((year) => {
-        const aggregates = payload.aggregates?.[String(year)]?.[type] || {};
-        const hasActivity = Object.values(aggregates).some((entry) => (entry?.count || 0) > 0);
-        if (selectedType === "all" && selectedYear === "all" && !hasActivity) {
-          return;
-        }
-        const card = buildCard(type, year, aggregates, payload.units || { distance: "mi", elevation: "ft" });
+        const yearData = payload.aggregates?.[String(year)] || {};
+        const aggregates = combineYearAggregates(yearData, types);
+        const colorForEntry = (entry) => {
+          if (!entry.types || entry.types.length === 0) {
+            return DEFAULT_COLORS[0];
+          }
+          if (entry.types.length === 1) {
+            return getColors(entry.types[0])[4];
+          }
+          return MULTI_TYPE_COLOR;
+        };
+        const card = buildCard(
+          "all",
+          year,
+          aggregates,
+          payload.units || { distance: "mi", elevation: "ft" },
+          { colorForEntry },
+        );
         list.appendChild(card);
       });
-      if (!list.childElementCount) {
-        return;
-      }
       section.appendChild(list);
       heatmaps.appendChild(section);
-    });
+    } else {
+      types.forEach((type) => {
+        const section = document.createElement("div");
+        section.className = "type-section";
+        const header = document.createElement("div");
+        header.className = "type-header";
+        header.textContent = displayType(type);
+        section.appendChild(header);
+
+        const list = document.createElement("div");
+        list.className = "type-list";
+        years.forEach((year) => {
+          const aggregates = payload.aggregates?.[String(year)]?.[type] || {};
+          const card = buildCard(type, year, aggregates, payload.units || { distance: "mi", elevation: "ft" });
+          list.appendChild(card);
+        });
+        if (!list.childElementCount) {
+          return;
+        }
+        section.appendChild(list);
+        heatmaps.appendChild(section);
+      });
+    }
 
     const showTypeBreakdown = selectedType === "all";
     const showActiveDays = selectedType === "all" && selectedYear === "all";
