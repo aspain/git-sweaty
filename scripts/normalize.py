@@ -50,7 +50,6 @@ def _normalize_activity(activity: Dict, type_aliases: Dict[str, str]) -> Dict:
         "distance": float(activity.get("distance", 0.0)),
         "moving_time": float(activity.get("moving_time", 0.0)),
         "elevation_gain": float(activity.get("total_elevation_gain", 0.0)),
-        "strava_url": f"https://www.strava.com/activities/{activity_id}",
     }
 
 

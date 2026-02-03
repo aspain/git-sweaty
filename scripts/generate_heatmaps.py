@@ -15,7 +15,6 @@ from utils import (
 )
 
 AGG_PATH = os.path.join("data", "daily_aggregates.json")
-NORM_PATH = os.path.join("data", "activities_normalized.json")
 README_PATH = "README.md"
 SITE_DATA_PATH = os.path.join("site", "data.json")
 
@@ -81,7 +80,6 @@ def _svg_for_year(
     activity_type: str,
     year: int,
     entries: Dict[str, Dict],
-    id_to_url: Dict[int, str],
     units: Dict[str, str],
 ) -> str:
     start = _monday_on_or_before(date(year, 1, 1))
@@ -149,14 +147,9 @@ def _svg_for_year(
             level = _level(count)
             color = colors[level]
             title = _build_title(date_str, entry, units)
-            activity_ids = entry.get("activity_ids", [])
-            link = None
-            if count == 1 and activity_ids:
-                link = id_to_url.get(activity_ids[0])
         else:
             color = "#ffffff"
             title = None
-            link = None
 
         rect = (
             f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" '
@@ -165,9 +158,6 @@ def _svg_for_year(
 
         if title:
             rect = rect[:-2] + f' data-date="{date_str}"><title>{title}</title></rect>'
-
-        if link:
-            rect = f'<a href="{link}" target="_blank">{rect}</a>'
 
         lines.append(rect)
         current += timedelta(days=1)
@@ -237,9 +227,6 @@ def generate():
     aggregates = read_json(AGG_PATH)
     years = _year_range_from_config(config)
 
-    normalized = read_json(NORM_PATH) if os.path.exists(NORM_PATH) else []
-    id_to_url = {int(item["id"]): item.get("strava_url") for item in normalized}
-
     for activity_type in types:
         type_dir = os.path.join("heatmaps", activity_type)
         ensure_dir(type_dir)
@@ -249,7 +236,7 @@ def generate():
                 .get(str(year), {})
                 .get(activity_type, {})
             )
-            svg = _svg_for_year(activity_type, year, year_entries, id_to_url, units)
+            svg = _svg_for_year(activity_type, year, year_entries, units)
             path = os.path.join(type_dir, f"{year}.svg")
             with open(path, "w", encoding="utf-8") as f:
                 f.write(svg)
