@@ -64,6 +64,12 @@
         margin: 0 0 16px;
       }
 
+      .updated {
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 8px;
+      }
+
       .controls {
         display: flex;
         flex-wrap: wrap;
@@ -77,6 +83,46 @@
         border-radius: 10px;
         padding: 8px 12px;
         font-size: 14px;
+      }
+
+      .summary {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+
+      .summary-card {
+        background: var(--card);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: var(--shadow);
+      }
+
+      .summary-title {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+      }
+
+      .summary-value {
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .summary-type {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+      }
+
+      .summary-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
       }
 
       .card {
@@ -213,8 +259,10 @@
           <select id="typeSelect"></select>
           <select id="yearSelect"></select>
         </div>
+        <div id="updated" class="updated"></div>
       </header>
 
+      <div id="summary" class="summary"></div>
       <div id="heatmaps" class="heatmaps"></div>
     </div>
 

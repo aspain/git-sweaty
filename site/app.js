@@ -17,6 +17,8 @@ const typeSelect = document.getElementById("typeSelect");
 const yearSelect = document.getElementById("yearSelect");
 const heatmaps = document.getElementById("heatmaps");
 const tooltip = document.getElementById("tooltip");
+const summary = document.getElementById("summary");
+const updated = document.getElementById("updated");
 
 function level(count, maxCount) {
   if (count <= 0 || maxCount <= 0) return 0;
@@ -58,6 +60,21 @@ function getColors(type) {
   return TYPE_COLORS[type] || DEFAULT_COLORS;
 }
 
+function formatDistance(meters, units) {
+  if (units.distance === "km") {
+    return `${(meters / 1000).toFixed(1)} km`;
+  }
+  return `${(meters / 1609.344).toFixed(1)} mi`;
+}
+
+function formatDuration(seconds) {
+  const minutes = Math.round(seconds / 60);
+  if (minutes >= 60) {
+    return `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
+  }
+  return `${minutes}m`;
+}
+
 function buildLegend(colors) {
   const legend = document.createElement("div");
   legend.className = "legend";
@@ -73,6 +90,76 @@ function buildLegend(colors) {
   more.textContent = "More";
   legend.appendChild(more);
   return legend;
+}
+
+function buildSummary(payload) {
+  summary.innerHTML = "";
+
+  const totals = {
+    count: 0,
+    distance: 0,
+    moving_time: 0,
+  };
+  const typeTotals = {};
+  const activeDays = new Set();
+
+  Object.entries(payload.aggregates || {}).forEach(([year, yearData]) => {
+    Object.entries(yearData || {}).forEach(([type, entries]) => {
+      if (!typeTotals[type]) {
+        typeTotals[type] = { count: 0 };
+      }
+      Object.entries(entries || {}).forEach(([dateStr, entry]) => {
+        if ((entry.count || 0) > 0) {
+          activeDays.add(dateStr);
+        }
+        totals.count += entry.count || 0;
+        totals.distance += entry.distance || 0;
+        totals.moving_time += entry.moving_time || 0;
+        typeTotals[type].count += entry.count || 0;
+      });
+    });
+  });
+
+  const cards = [
+    { title: "Total Workouts", value: totals.count.toLocaleString() },
+    { title: "Total Distance", value: formatDistance(totals.distance, payload.units || { distance: "mi" }) },
+    { title: "Total Time", value: formatDuration(totals.moving_time) },
+    { title: "Active Days", value: activeDays.size.toLocaleString() },
+  ];
+
+  cards.forEach((card) => {
+    const el = document.createElement("div");
+    el.className = "summary-card";
+    const title = document.createElement("div");
+    title.className = "summary-title";
+    title.textContent = card.title;
+    const value = document.createElement("div");
+    value.className = "summary-value";
+    value.textContent = card.value;
+    el.appendChild(title);
+    el.appendChild(value);
+    summary.appendChild(el);
+  });
+
+  payload.types.forEach((type) => {
+    const typeCard = document.createElement("div");
+    typeCard.className = "summary-card";
+    const title = document.createElement("div");
+    title.className = "summary-title";
+    title.textContent = `${type} Workouts`;
+    const value = document.createElement("div");
+    value.className = "summary-type";
+    const dot = document.createElement("span");
+    dot.className = "summary-dot";
+    dot.style.background = getColors(type)[4];
+    const text = document.createElement("span");
+    text.textContent = (typeTotals[type]?.count || 0).toLocaleString();
+    value.appendChild(dot);
+    value.appendChild(text);
+    typeCard.appendChild(title);
+    typeCard.appendChild(value);
+    summary.appendChild(typeCard);
+  });
 }
 
 function buildHeatmapArea(aggregates, year, units, colors, type) {
@@ -203,6 +290,15 @@ function buildCard(type, year, aggregates, units) {
 async function init() {
   const resp = await fetch("data.json");
   const payload = await resp.json();
+
+  if (payload.generated_at) {
+    const updatedAt = new Date(payload.generated_at);
+    if (!Number.isNaN(updatedAt.getTime())) {
+      updated.textContent = `Last updated: ${updatedAt.toLocaleString()}`;
+    }
+  }
+
+  buildSummary(payload);
 
   const allTypesOption = document.createElement("option");
   allTypesOption.value = "all";
