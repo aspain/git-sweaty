@@ -62,6 +62,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 12px;
+        margin-bottom: 16px;
       }
 
       .repo-link {
@@ -74,8 +75,15 @@
         color: var(--accent);
       }
 
+      .header-center {
+        text-align: center;
+        display: grid;
+        gap: 12px;
+        justify-items: center;
+      }
+
       h1 {
-        margin: 0 0 8px;
+        margin: 0;
         font-size: 28px;
         letter-spacing: 0.4px;
       }
@@ -88,13 +96,14 @@
       .updated {
         color: var(--muted);
         font-size: 12px;
-        margin-top: 8px;
+        margin: 0;
       }
 
       .controls {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
+        justify-content: center;
       }
 
       select {
@@ -356,6 +365,9 @@
         h1 {
           font-size: 22px;
         }
+        .header-top {
+          margin-bottom: 12px;
+        }
         .summary {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -389,14 +401,16 @@
     <div class="app">
       <header>
         <div class="header-top">
-          <h1>Workout Heatmaps</h1>
+          <div id="updated" class="updated"></div>
           <a class="repo-link" href="https://github.com/aspain/git-sweaty">github.com/aspain/git-sweaty</a>
         </div>
-        <div class="controls">
-          <select id="typeSelect"></select>
-          <select id="yearSelect"></select>
+        <div class="header-center">
+          <h1>Workout Heatmaps</h1>
+          <div class="controls">
+            <select id="typeSelect"></select>
+            <select id="yearSelect"></select>
+          </div>
         </div>
-        <div id="updated" class="updated"></div>
       </header>
 
       <div id="summary" class="summary"></div>
