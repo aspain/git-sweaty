@@ -288,10 +288,20 @@
         height: var(--cell);
         border-radius: 3px;
         background: #ebedf0;
+        transition: box-shadow 0.15s ease, filter 0.15s ease;
       }
 
       .cell.outside {
         background: transparent;
+      }
+
+      .cell:hover:not(.outside) {
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.85), 0 0 8px rgba(255, 255, 255, 0.5);
+      }
+
+      .cell.active {
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9), 0 0 10px rgba(255, 255, 255, 0.6);
+        filter: brightness(1.15);
       }
 
       .tooltip {
@@ -313,8 +323,8 @@
 
       .tooltip.touch {
         pointer-events: auto;
-        width: min(320px, 88vw);
-        max-width: 88vw;
+        width: auto;
+        max-width: min(260px, 80vw);
         text-align: left;
       }
 
@@ -324,7 +334,7 @@
       }
 
       .tooltip.touch.visible {
-        transform: translateX(-50%);
+        transform: none;
       }
 
       @media (max-width: 720px) {
@@ -395,6 +405,6 @@
 
     <div id="tooltip" class="tooltip"></div>
 
-    <script src="app.js?v=2"></script>
+    <script src="app.js?v=3"></script>
   </body>
 </html>

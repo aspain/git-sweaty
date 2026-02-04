@@ -1,10 +1,10 @@
-const DEFAULT_COLORS = ["#f3f5f8", "#dfeae4", "#bdd8cf", "#8ebfad", "#5f9f8a"];
+const DEFAULT_COLORS = ["#f3f5f8", "#f3f5f8", "#f3f5f8", "#f3f5f8", "#f3f5f8"];
 const TYPE_COLORS = {
-  Run: ["#f3f5f8", "#dee8f6", "#bfcfe9", "#93aed7", "#5d82c1"],
-  Ride: ["#f3f5f8", "#dff1e7", "#bcdcc9", "#8cbda2", "#5c9674"],
-  WeightTraining: ["#f3f5f8", "#f3dddd", "#e7bcbc", "#d59393", "#b66565"],
+  Run: ["#f3f5f8", "#f3f5f8", "#f3f5f8", "#f3f5f8", "#01cdfe"],
+  Ride: ["#f3f5f8", "#f3f5f8", "#f3f5f8", "#f3f5f8", "#05ffa1"],
+  WeightTraining: ["#f3f5f8", "#f3f5f8", "#f3f5f8", "#f3f5f8", "#ff71ce"],
 };
-const MULTI_TYPE_COLOR = "#7b6fb3";
+const MULTI_TYPE_COLOR = "#b967ff";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -48,22 +48,33 @@ function sundayOnOrAfter(d) {
   return result;
 }
 
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function positionTooltip(x, y) {
+  const padding = 12;
+  const rect = tooltip.getBoundingClientRect();
+  const maxX = window.innerWidth - rect.width - padding;
+  const maxY = window.innerHeight - rect.height - padding;
+  const left = clamp(x + 12, padding, maxX);
+  const top = clamp(y + 12, padding, maxY);
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+  tooltip.style.bottom = "auto";
+}
+
 function showTooltip(text, x, y) {
   tooltip.textContent = text;
   if (isTouch) {
     tooltip.classList.add("touch");
-    tooltip.style.left = "50%";
-    tooltip.style.top = "auto";
-    tooltip.style.bottom = "16px";
-    tooltip.style.transform = "translateX(-50%)";
+    tooltip.style.transform = "none";
   } else {
     tooltip.classList.remove("touch");
-    tooltip.style.left = `${x + 12}px`;
-    tooltip.style.top = `${y + 12}px`;
-    tooltip.style.bottom = "auto";
     tooltip.style.transform = "translateY(-8px)";
   }
   tooltip.classList.add("visible");
+  requestAnimationFrame(() => positionTooltip(x, y));
 }
 
 function hideTooltip() {
