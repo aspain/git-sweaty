@@ -150,7 +150,7 @@ def _svg_for_year(
             color = colors[level]
             title = _build_title(date_str, entry, units)
         else:
-            color = "#ffffff"
+            color = BG_COLOR
             title = None
 
         rect = (
@@ -173,7 +173,7 @@ def _readme_section(types: List[str], years_desc: List[int]) -> str:
     lines = []
     lines.append("## Heatmaps")
     lines.append("")
-    lines.append("Heatmaps are published on the GitHub Pages site linked above.")
+    lines.append("Heatmaps are published on the GitHub Pages site: [Interactive Heatmaps](https://aspain.github.io/git-sweaty/).")
     lines.append("")
     lines.append("Preview:")
     lines.append("")

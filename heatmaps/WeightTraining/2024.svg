@@ -1852,10 +1852,10 @@ Elevation: 0 ft</title></rect>
 Distance: 0.00 mi
 Duration: 1h 11m
 Elevation: 0 ft</title></rect>
-<rect x="728" y="28" width="12" height="12" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
-<rect x="728" y="42" width="12" height="12" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
-<rect x="728" y="56" width="12" height="12" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
-<rect x="728" y="70" width="12" height="12" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
-<rect x="728" y="84" width="12" height="12" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+<rect x="728" y="28" width="12" height="12" fill="#0f172a" stroke="#0f172a" stroke-width="1"/>
+<rect x="728" y="42" width="12" height="12" fill="#0f172a" stroke="#0f172a" stroke-width="1"/>
+<rect x="728" y="56" width="12" height="12" fill="#0f172a" stroke="#0f172a" stroke-width="1"/>
+<rect x="728" y="70" width="12" height="12" fill="#0f172a" stroke="#0f172a" stroke-width="1"/>
+<rect x="728" y="84" width="12" height="12" fill="#0f172a" stroke="#0f172a" stroke-width="1"/>
 </g>
 </svg>

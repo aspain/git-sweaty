@@ -22,11 +22,11 @@
 <text x="46" y="116" font-size="9" fill="#cbd5e1" font-family="Arial, sans-serif" text-anchor="end">Sat</text>
 <text x="46" y="130" font-size="9" fill="#cbd5e1" font-family="Arial, sans-serif" text-anchor="end">Sun</text>
 <g transform="translate(52,36)">
-<rect x="0" y="0" width="12" height="12" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
-<rect x="0" y="14" width="12" height="12" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
-<rect x="0" y="28" width="12" height="12" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
-<rect x="0" y="42" width="12" height="12" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
-<rect x="0" y="56" width="12" height="12" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+<rect x="0" y="0" width="12" height="12" fill="#0f172a" stroke="#0f172a" stroke-width="1"/>
+<rect x="0" y="14" width="12" height="12" fill="#0f172a" stroke="#0f172a" stroke-width="1"/>
+<rect x="0" y="28" width="12" height="12" fill="#0f172a" stroke="#0f172a" stroke-width="1"/>
+<rect x="0" y="42" width="12" height="12" fill="#0f172a" stroke="#0f172a" stroke-width="1"/>
+<rect x="0" y="56" width="12" height="12" fill="#0f172a" stroke="#0f172a" stroke-width="1"/>
 <rect x="0" y="70" width="12" height="12" fill="#1f2937" stroke="#0f172a" stroke-width="1" data-date="2022-01-01"><title>2022-01-01
 0 workouts
 Distance: 0.00 mi
@@ -1852,6 +1852,6 @@ Elevation: 0 ft</title></rect>
 Distance: 0.00 mi
 Duration: 0m
 Elevation: 0 ft</title></rect>
-<rect x="728" y="84" width="12" height="12" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+<rect x="728" y="84" width="12" height="12" fill="#0f172a" stroke="#0f172a" stroke-width="1"/>
 </g>
 </svg>
