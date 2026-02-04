@@ -176,6 +176,39 @@
         margin-bottom: 12px;
       }
 
+      .card-body {
+        display: grid;
+        grid-template-columns: max-content minmax(180px, 1fr);
+        gap: 24px;
+        align-items: start;
+      }
+
+      .card-stats {
+        display: grid;
+        gap: 10px;
+        align-content: start;
+      }
+
+      .card-stat {
+        background: rgba(15, 23, 42, 0.45);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 10px;
+        padding: 10px 12px;
+      }
+
+      .card-stat-label {
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 6px;
+      }
+
+      .card-stat-value {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
       .heatmaps {
         display: grid;
         gap: 24px;
@@ -277,9 +310,20 @@
         transition: opacity 0.15s ease, transform 0.15s ease;
       }
 
+      .tooltip.touch {
+        pointer-events: auto;
+        width: min(320px, 88vw);
+        max-width: 88vw;
+        text-align: left;
+      }
+
       .tooltip.visible {
         opacity: 1;
         transform: translateY(0);
+      }
+
+      .tooltip.touch.visible {
+        transform: translateX(-50%);
       }
 
       @media (max-width: 720px) {
@@ -313,6 +357,12 @@
         }
         .day-label {
           font-size: 9px;
+        }
+        .card-body {
+          grid-template-columns: 1fr;
+        }
+        .card-stats {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
 

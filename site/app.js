@@ -15,6 +15,7 @@ const heatmaps = document.getElementById("heatmaps");
 const tooltip = document.getElementById("tooltip");
 const summary = document.getElementById("summary");
 const updated = document.getElementById("updated");
+const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
 function readCssVar(name, fallback) {
   const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -49,8 +50,19 @@ function sundayOnOrAfter(d) {
 
 function showTooltip(text, x, y) {
   tooltip.textContent = text;
-  tooltip.style.left = `${x + 12}px`;
-  tooltip.style.top = `${y + 12}px`;
+  if (isTouch) {
+    tooltip.classList.add("touch");
+    tooltip.style.left = "50%";
+    tooltip.style.top = "auto";
+    tooltip.style.bottom = "16px";
+    tooltip.style.transform = "translateX(-50%)";
+  } else {
+    tooltip.classList.remove("touch");
+    tooltip.style.left = `${x + 12}px`;
+    tooltip.style.top = `${y + 12}px`;
+    tooltip.style.bottom = "auto";
+    tooltip.style.transform = "translateY(-8px)";
+  }
   tooltip.classList.add("visible");
 }
 
@@ -294,14 +306,29 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
 
     lines.push(`Duration: ${duration}`);
     const tooltipText = lines.join("\n");
-
-    cell.addEventListener("mouseenter", (event) => {
-      showTooltip(tooltipText, event.clientX, event.clientY);
-    });
-    cell.addEventListener("mousemove", (event) => {
-      showTooltip(tooltipText, event.clientX, event.clientY);
-    });
-    cell.addEventListener("mouseleave", hideTooltip);
+    if (!isTouch) {
+      cell.addEventListener("mouseenter", (event) => {
+        showTooltip(tooltipText, event.clientX, event.clientY);
+      });
+      cell.addEventListener("mousemove", (event) => {
+        showTooltip(tooltipText, event.clientX, event.clientY);
+      });
+      cell.addEventListener("mouseleave", hideTooltip);
+    } else {
+      cell.addEventListener("pointerdown", (event) => {
+        if (event.pointerType !== "touch") return;
+        event.preventDefault();
+        if (cell.classList.contains("active")) {
+          cell.classList.remove("active");
+          hideTooltip();
+          return;
+        }
+        const active = grid.querySelector(".cell.active");
+        if (active) active.classList.remove("active");
+        cell.classList.add("active");
+        showTooltip(tooltipText, event.clientX, event.clientY);
+      });
+    }
 
     grid.appendChild(cell);
   }
@@ -319,10 +346,67 @@ function buildCard(type, year, aggregates, units, options = {}) {
   title.textContent = String(year);
   card.appendChild(title);
 
+  const body = document.createElement("div");
+  body.className = "card-body";
+
   const colors = type === "all" ? DEFAULT_COLORS : getColors(type);
   const layout = getLayout();
   const heatmapArea = buildHeatmapArea(aggregates, year, units, colors, type, layout, options);
-  card.appendChild(heatmapArea);
+  body.appendChild(heatmapArea);
+
+  const stats = document.createElement("div");
+  stats.className = "card-stats";
+  const totals = {
+    count: 0,
+    distance: 0,
+    moving_time: 0,
+    elevation: 0,
+  };
+  const activeDays = new Set();
+  Object.entries(aggregates || {}).forEach(([dateStr, entry]) => {
+    if ((entry.count || 0) > 0) {
+      activeDays.add(dateStr);
+    }
+    totals.count += entry.count || 0;
+    totals.distance += entry.distance || 0;
+    totals.moving_time += entry.moving_time || 0;
+    totals.elevation += entry.elevation_gain || 0;
+  });
+
+  const statItems = [
+    { label: "Total Workouts", value: totals.count.toLocaleString() },
+    { label: "Active Days", value: activeDays.size.toLocaleString() },
+    { label: "Total Time", value: formatDuration(totals.moving_time) },
+  ];
+
+  const hideDistanceElevation = type === "WeightTraining";
+  if (!hideDistanceElevation) {
+    statItems.splice(2, 0, {
+      label: "Total Distance",
+      value: formatDistance(totals.distance, units || { distance: "mi" }),
+    });
+    statItems.push({
+      label: "Total Elevation",
+      value: formatElevation(totals.elevation, units || { elevation: "ft" }),
+    });
+  }
+
+  statItems.forEach((item) => {
+    const stat = document.createElement("div");
+    stat.className = "card-stat";
+    const label = document.createElement("div");
+    label.className = "card-stat-label";
+    label.textContent = item.label;
+    const value = document.createElement("div");
+    value.className = "card-stat-value";
+    value.textContent = item.value;
+    stat.appendChild(label);
+    stat.appendChild(value);
+    stats.appendChild(stat);
+  });
+
+  body.appendChild(stats);
+  card.appendChild(body);
   return card;
 }
 
@@ -486,6 +570,34 @@ async function init() {
       update();
     }, 150);
   });
+
+  if (isTouch) {
+    document.addEventListener("pointerdown", (event) => {
+      if (!tooltip.classList.contains("visible")) return;
+      const target = event.target;
+      if (tooltip.contains(target)) {
+        hideTooltip();
+        const active = document.querySelector(".cell.active");
+        if (active) active.classList.remove("active");
+        return;
+      }
+      if (!target.classList.contains("cell")) {
+        hideTooltip();
+        const active = document.querySelector(".cell.active");
+        if (active) active.classList.remove("active");
+      }
+    });
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        hideTooltip();
+        const active = document.querySelector(".cell.active");
+        if (active) active.classList.remove("active");
+      },
+      { passive: true },
+    );
+  }
 }
 
 init().catch((error) => {
