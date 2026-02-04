@@ -50,7 +50,6 @@ This will:
 - normalize + merge into `data/activities_normalized.json` (persisted history)
 - aggregate into `data/daily_aggregates.json`
 - generate SVGs in `heatmaps/`
-- update the README heatmap section
 - build `site/data.json`
 - commit the changes (one commit per run)
 
