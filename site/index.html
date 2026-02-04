@@ -58,11 +58,10 @@
       }
 
       .header-top {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
         align-items: center;
-        justify-content: space-between;
         gap: 12px;
-        margin-bottom: 16px;
       }
 
       .repo-link {
@@ -76,10 +75,10 @@
       }
 
       .header-center {
-        text-align: center;
-        display: grid;
-        gap: 12px;
-        justify-items: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
       }
 
       h1 {
@@ -97,6 +96,7 @@
         color: var(--muted);
         font-size: 12px;
         margin: 0;
+        justify-self: start;
       }
 
       .controls {
@@ -366,7 +366,17 @@
           font-size: 22px;
         }
         .header-top {
-          margin-bottom: 12px;
+          grid-template-columns: 1fr;
+          justify-items: start;
+          gap: 8px;
+        }
+        .header-center {
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .repo-link {
+          justify-self: start;
         }
         .summary {
           grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -402,14 +412,14 @@
       <header>
         <div class="header-top">
           <div id="updated" class="updated"></div>
-          <a class="repo-link" href="https://github.com/aspain/git-sweaty">github.com/aspain/git-sweaty</a>
-        </div>
-        <div class="header-center">
-          <h1>Workout Heatmaps</h1>
-          <div class="controls">
-            <select id="typeSelect"></select>
-            <select id="yearSelect"></select>
+          <div class="header-center">
+            <h1>Workout Heatmaps</h1>
+            <div class="controls">
+              <select id="typeSelect"></select>
+              <select id="yearSelect"></select>
+            </div>
           </div>
+          <a class="repo-link" href="https://github.com/aspain/git-sweaty">github.com/aspain/git-sweaty</a>
         </div>
       </header>
 
