@@ -4237,7 +4237,27 @@
       }
     }
   },
-  "generated_at": "2026-02-05T03:27:30.147356+00:00",
+  "distance_levels": {
+    "Ride": {
+      "level_1": 20,
+      "level_2": 50,
+      "level_3": 80,
+      "level_4": 120
+    },
+    "Run": {
+      "level_1": 3,
+      "level_2": 5,
+      "level_3": 10,
+      "level_4": 21
+    },
+    "WeightTraining": {
+      "level_1": 0,
+      "level_2": 0,
+      "level_3": 0,
+      "level_4": 0
+    }
+  },
+  "generated_at": "2026-02-05T03:32:39.361469+00:00",
   "types": [
     "Ride"
   ],
