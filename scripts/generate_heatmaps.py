@@ -24,11 +24,11 @@ PADDING = 16
 LABEL_LEFT = 36
 LABEL_TOP = 20
 
-DEFAULT_COLORS = ["#1f2937", "#1f2937", "#1f2937", "#1f2937", "#1f2937"]
+DEFAULT_COLORS = ["#1f2937", "#374151", "#4b5563", "#6b7280", "#9ca3af"]
 TYPE_COLORS = {
-    "Run": ["#1f2937", "#1f2937", "#1f2937", "#1f2937", "#01cdfe"],
-    "Ride": ["#1f2937", "#1f2937", "#1f2937", "#1f2937", "#05ffa1"],
-    "WeightTraining": ["#1f2937", "#1f2937", "#1f2937", "#1f2937", "#ff71ce"],
+    "Run": ["#1f2937", "#0a3d4d", "#0e5c6e", "#128a9e", "#01cdfe"],
+    "Ride": ["#1f2937", "#0a3d2d", "#0e5c45", "#12a06a", "#05ffa1"],
+    "WeightTraining": ["#1f2937", "#4d1a3d", "#7a2960", "#b84090", "#ff71ce"],
 }
 LABEL_COLOR = "#cbd5e1"
 TEXT_COLOR = "#e5e7eb"
@@ -59,8 +59,37 @@ def _sunday_on_or_after(d: date) -> date:
     return d + timedelta(days=(6 - d.weekday()))
 
 
-def _level(count: int) -> int:
-    return 4 if count > 0 else 0
+def _distance_to_level(distance_meters: float, thresholds: Dict, unit: str) -> int:
+    if not thresholds or all(v == 0 for v in thresholds.values()):
+        return 4 if distance_meters > 0 else 0
+
+    if unit == "km":
+        distance = distance_meters / 1000.0
+    else:
+        distance = distance_meters / 1609.344
+
+    level_1 = thresholds.get("level_1", 0)
+    level_2 = thresholds.get("level_2", 0)
+    level_3 = thresholds.get("level_3", 0)
+    level_4 = thresholds.get("level_4", 0)
+
+    if distance >= level_4:
+        return 4
+    elif distance >= level_3:
+        return 3
+    elif distance >= level_2:
+        return 2
+    elif distance >= level_1:
+        return 1
+    elif distance > 0:
+        return 1
+    return 0
+
+
+def _level(count: int, distance: float, thresholds: Dict, unit: str) -> int:
+    if count == 0:
+        return 0
+    return _distance_to_level(distance, thresholds, unit)
 
 
 def _build_title(date_str: str, entry: Dict, units: Dict[str, str]) -> str:
@@ -83,6 +112,7 @@ def _svg_for_year(
     year: int,
     entries: Dict[str, Dict],
     units: Dict[str, str],
+    distance_thresholds: Dict,
 ) -> str:
     start = _monday_on_or_before(date(year, 1, 1))
     end = _sunday_on_or_after(date(year, 12, 31))
@@ -146,7 +176,8 @@ def _svg_for_year(
                 "activity_ids": [],
             })
             count = int(entry.get("count", 0))
-            level = _level(count)
+            distance = float(entry.get("distance", 0.0))
+            level = _level(count, distance, distance_thresholds, units["distance"])
             color = colors[level]
             title = _build_title(date_str, entry, units)
         else:
@@ -212,7 +243,9 @@ def _write_site_data(payload: Dict) -> None:
 
 def generate():
     config = load_config()
-    types = config.get("activities", {}).get("types", []) or []
+    activities_cfg = config.get("activities", {})
+    types = activities_cfg.get("types", []) or []
+    distance_levels = activities_cfg.get("distance_levels", {})
 
     units = config.get("units", {})
     units = {
@@ -226,13 +259,14 @@ def generate():
     for activity_type in types:
         type_dir = os.path.join("heatmaps", activity_type)
         ensure_dir(type_dir)
+        thresholds = distance_levels.get(activity_type, {})
         for year in years:
             year_entries = (
                 aggregates.get("years", {})
                 .get(str(year), {})
                 .get(activity_type, {})
             )
-            svg = _svg_for_year(activity_type, year, year_entries, units)
+            svg = _svg_for_year(activity_type, year, year_entries, units, thresholds)
             path = os.path.join(type_dir, f"{year}.svg")
             with open(path, "w", encoding="utf-8") as f:
                 f.write(svg)
