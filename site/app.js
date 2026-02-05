@@ -1,8 +1,8 @@
-const DEFAULT_COLORS = ["#1f2937", "#1f2937", "#1f2937", "#1f2937", "#1f2937"];
+const DEFAULT_COLORS = ["#1f2937", "#374151", "#4b5563", "#6b7280", "#9ca3af"];
 const TYPE_COLORS = {
-  Run: ["#1f2937", "#1f2937", "#1f2937", "#1f2937", "#01cdfe"],
-  Ride: ["#1f2937", "#1f2937", "#1f2937", "#1f2937", "#05ffa1"],
-  WeightTraining: ["#1f2937", "#1f2937", "#1f2937", "#1f2937", "#ff71ce"],
+  Run: ["#1f2937", "#0a3d4d", "#0e5c6e", "#128a9e", "#01cdfe"],
+  Ride: ["#1f2937", "#0a3d2d", "#0e5c45", "#12a06a", "#05ffa1"],
+  WeightTraining: ["#1f2937", "#4d1a3d", "#7a2960", "#b84090", "#ff71ce"],
 };
 const MULTI_TYPE_COLOR = "#b967ff";
 
@@ -85,6 +85,21 @@ function hideTooltip() {
 
 function getColors(type) {
   return TYPE_COLORS[type] || DEFAULT_COLORS;
+}
+
+function distanceToLevel(distanceMeters, thresholds, unit) {
+  if (!thresholds || Object.values(thresholds).every((v) => v === 0)) {
+    return distanceMeters > 0 ? 4 : 0;
+  }
+
+  const distance = unit === "km" ? distanceMeters / 1000 : distanceMeters / 1609.344;
+
+  if (distance >= thresholds.level_4) return 4;
+  if (distance >= thresholds.level_3) return 3;
+  if (distance >= thresholds.level_2) return 2;
+  if (distance >= thresholds.level_1) return 1;
+  if (distance > 0) return 1;
+  return 0;
 }
 
 function displayType(type) {
@@ -209,7 +224,7 @@ function buildSummary(payload, types, years, showTypeBreakdown, showActiveDays, 
   }
 }
 
-function buildHeatmapArea(aggregates, year, units, colors, type, layout, options = {}) {
+function buildHeatmapArea(aggregates, year, units, colors, type, layout, distanceThresholds, options = {}) {
   const heatmapArea = document.createElement("div");
   heatmapArea.className = "heatmap-area";
 
@@ -279,7 +294,8 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
     if (filled && typeof options.colorForEntry === "function") {
       cell.style.background = options.colorForEntry(entry);
     } else {
-      cell.style.background = filled ? colors[4] : colors[0];
+      const level = distanceToLevel(entry.distance || 0, distanceThresholds, units.distance);
+      cell.style.background = filled ? colors[level] : colors[0];
     }
 
     const durationMinutes = Math.round((entry.moving_time || 0) / 60);
@@ -350,7 +366,7 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
   return heatmapArea;
 }
 
-function buildCard(type, year, aggregates, units, options = {}) {
+function buildCard(type, year, aggregates, units, distanceLevels, options = {}) {
   const card = document.createElement("div");
   card.className = "card";
 
@@ -364,7 +380,8 @@ function buildCard(type, year, aggregates, units, options = {}) {
 
   const colors = type === "all" ? DEFAULT_COLORS : getColors(type);
   const layout = getLayout();
-  const heatmapArea = buildHeatmapArea(aggregates, year, units, colors, type, layout, options);
+  const thresholds = type === "all" ? {} : (distanceLevels?.[type] || {});
+  const heatmapArea = buildHeatmapArea(aggregates, year, units, colors, type, layout, thresholds, options);
   body.appendChild(heatmapArea);
 
   const stats = document.createElement("div");

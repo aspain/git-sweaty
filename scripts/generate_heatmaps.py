@@ -280,6 +280,7 @@ def generate():
         "types": types,
         "aggregates": aggregates.get("years", {}),
         "units": units,
+        "distance_levels": distance_levels,
     }
     _write_site_data(site_payload)
 
