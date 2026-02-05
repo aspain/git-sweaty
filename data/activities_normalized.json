@@ -1,0 +1,5252 @@
+[
+  {
+    "date": "2019-02-06",
+    "distance": 3837.1,
+    "elevation_gain": 12.9,
+    "id": 2127441310,
+    "moving_time": 1361.0,
+    "start_date_local": "2019-02-06T15:40:47Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-02-22",
+    "distance": 4900.4,
+    "elevation_gain": 46.6,
+    "id": 2166295390,
+    "moving_time": 1755.0,
+    "start_date_local": "2019-02-22T14:10:38Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-02-24",
+    "distance": 4837.7,
+    "elevation_gain": 55.7,
+    "id": 2171021651,
+    "moving_time": 1770.0,
+    "start_date_local": "2019-02-24T17:01:41Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-02-25",
+    "distance": 5285.9,
+    "elevation_gain": 57.8,
+    "id": 2173831212,
+    "moving_time": 1946.0,
+    "start_date_local": "2019-02-25T15:43:06Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-03-01",
+    "distance": 4732.5,
+    "elevation_gain": 48.3,
+    "id": 2183147543,
+    "moving_time": 1532.0,
+    "start_date_local": "2019-03-01T16:29:42Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-03-03",
+    "distance": 4832.9,
+    "elevation_gain": 55.4,
+    "id": 2187389271,
+    "moving_time": 1666.0,
+    "start_date_local": "2019-03-03T13:42:41Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-03-08",
+    "distance": 1528.8,
+    "elevation_gain": 16.5,
+    "id": 2198461200,
+    "moving_time": 424.0,
+    "start_date_local": "2019-03-08T13:18:37Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-03-08",
+    "distance": 1647.8,
+    "elevation_gain": 15.9,
+    "id": 2198469819,
+    "moving_time": 546.0,
+    "start_date_local": "2019-03-08T14:21:42Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-03-09",
+    "distance": 4828.0,
+    "elevation_gain": 0.0,
+    "id": 2202982168,
+    "moving_time": 1665.0,
+    "start_date_local": "2019-03-09T23:52:01Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-03-13",
+    "distance": 4838.0,
+    "elevation_gain": 55.5,
+    "id": 2210173210,
+    "moving_time": 1627.0,
+    "start_date_local": "2019-03-13T17:34:36Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-03-17",
+    "distance": 4837.4,
+    "elevation_gain": 54.9,
+    "id": 2218874446,
+    "moving_time": 1524.0,
+    "start_date_local": "2019-03-17T18:08:25Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-03-26",
+    "distance": 4836.9,
+    "elevation_gain": 55.4,
+    "id": 2241379681,
+    "moving_time": 1701.0,
+    "start_date_local": "2019-03-26T17:22:15Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-04-08",
+    "distance": 3248.7,
+    "elevation_gain": 10.5,
+    "id": 2273480401,
+    "moving_time": 1114.0,
+    "start_date_local": "2019-04-08T06:49:00Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-07-17",
+    "distance": 3228.3,
+    "elevation_gain": 12.7,
+    "id": 2538334970,
+    "moving_time": 1060.0,
+    "start_date_local": "2019-07-17T07:13:23Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-07-22",
+    "distance": 2906.6,
+    "elevation_gain": 11.7,
+    "id": 2552832281,
+    "moving_time": 1417.0,
+    "start_date_local": "2019-07-22T15:58:39Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-07-24",
+    "distance": 4838.6,
+    "elevation_gain": 20.5,
+    "id": 2558493506,
+    "moving_time": 1818.0,
+    "start_date_local": "2019-07-24T15:57:17Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-07-31",
+    "distance": 4033.7,
+    "elevation_gain": 18.4,
+    "id": 2577682316,
+    "moving_time": 1546.0,
+    "start_date_local": "2019-07-31T15:48:20Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-08-25",
+    "distance": 7274.9,
+    "elevation_gain": 330.5,
+    "id": 2648808829,
+    "moving_time": 3821.0,
+    "start_date_local": "2019-08-25T12:49:59Z",
+    "type": "Hike",
+    "year": 2019
+  },
+  {
+    "date": "2019-08-26",
+    "distance": 5378.3,
+    "elevation_gain": 192.3,
+    "id": 2652312132,
+    "moving_time": 3340.0,
+    "start_date_local": "2019-08-26T15:46:59Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-09-10",
+    "distance": 4869.6,
+    "elevation_gain": 26.7,
+    "id": 2695223959,
+    "moving_time": 1740.0,
+    "start_date_local": "2019-09-10T14:21:11Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-09-12",
+    "distance": 7090.7,
+    "elevation_gain": 271.8,
+    "id": 2701035072,
+    "moving_time": 3063.0,
+    "start_date_local": "2019-09-12T12:57:51Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-09-15",
+    "distance": 8060.2,
+    "elevation_gain": 287.0,
+    "id": 2709618523,
+    "moving_time": 3567.0,
+    "start_date_local": "2019-09-15T15:35:39Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-09-16",
+    "distance": 4835.6,
+    "elevation_gain": 18.1,
+    "id": 2712964700,
+    "moving_time": 1819.0,
+    "start_date_local": "2019-09-16T15:28:27Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-09-19",
+    "distance": 38.9,
+    "elevation_gain": 0.0,
+    "id": 2721570908,
+    "moving_time": 713.0,
+    "start_date_local": "2019-09-19T16:44:41Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-09-19",
+    "distance": 6300.7,
+    "elevation_gain": 198.0,
+    "id": 2721658120,
+    "moving_time": 3583.0,
+    "start_date_local": "2019-09-19T16:57:42Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-09-24",
+    "distance": 4835.9,
+    "elevation_gain": 15.6,
+    "id": 2735314548,
+    "moving_time": 1707.0,
+    "start_date_local": "2019-09-24T16:37:56Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-09-27",
+    "distance": 6445.3,
+    "elevation_gain": 204.3,
+    "id": 2743282623,
+    "moving_time": 2994.0,
+    "start_date_local": "2019-09-27T16:52:41Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-09-29",
+    "distance": 4987.2,
+    "elevation_gain": 19.1,
+    "id": 2748203808,
+    "moving_time": 1742.0,
+    "start_date_local": "2019-09-29T15:34:39Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-10-03",
+    "distance": 2455.0,
+    "elevation_gain": 16.0,
+    "id": 2758940047,
+    "moving_time": 638.0,
+    "start_date_local": "2019-10-03T15:48:31Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-10-05",
+    "distance": 4833.7,
+    "elevation_gain": 19.8,
+    "id": 2763621387,
+    "moving_time": 1577.0,
+    "start_date_local": "2019-10-05T16:09:35Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-10-17",
+    "distance": 2135.1,
+    "elevation_gain": 0.0,
+    "id": 2795126871,
+    "moving_time": 763.0,
+    "start_date_local": "2019-10-17T01:37:27Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-10-23",
+    "distance": 2249.6,
+    "elevation_gain": 0.0,
+    "id": 2812207322,
+    "moving_time": 782.0,
+    "start_date_local": "2019-10-23T17:03:11Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-10-31",
+    "distance": 6825.4,
+    "elevation_gain": 232.6,
+    "id": 2830252532,
+    "moving_time": 3662.0,
+    "start_date_local": "2019-10-31T16:08:36Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-11-25",
+    "distance": 3242.6,
+    "elevation_gain": 42.6,
+    "id": 2889748744,
+    "moving_time": 1148.0,
+    "start_date_local": "2019-11-25T15:49:59Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-12-02",
+    "distance": 4992.1,
+    "elevation_gain": 0.0,
+    "id": 2905673199,
+    "moving_time": 1500.0,
+    "start_date_local": "2019-12-02T01:38:30Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-12-05",
+    "distance": 4951.9,
+    "elevation_gain": 0.0,
+    "id": 2912267639,
+    "moving_time": 1678.0,
+    "start_date_local": "2019-12-05T00:49:04Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2019-12-14",
+    "distance": 263.0,
+    "elevation_gain": 0.0,
+    "id": 2932252281,
+    "moving_time": 94.0,
+    "start_date_local": "2019-12-14T02:12:49Z",
+    "type": "Run",
+    "year": 2019
+  },
+  {
+    "date": "2020-03-17",
+    "distance": 74.9,
+    "elevation_gain": 0.0,
+    "id": 3190274173,
+    "moving_time": 68.0,
+    "start_date_local": "2020-03-17T16:18:20Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-03-17",
+    "distance": 4831.8,
+    "elevation_gain": 24.3,
+    "id": 3190322584,
+    "moving_time": 1985.0,
+    "start_date_local": "2020-03-17T16:20:39Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-03-23",
+    "distance": 3237.7,
+    "elevation_gain": 0.0,
+    "id": 3211713572,
+    "moving_time": 961.0,
+    "start_date_local": "2020-03-23T20:08:20Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-03-24",
+    "distance": 3249.2,
+    "elevation_gain": 0.0,
+    "id": 3215153372,
+    "moving_time": 966.0,
+    "start_date_local": "2020-03-24T20:06:41Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-03-26",
+    "distance": 3222.1,
+    "elevation_gain": 0.0,
+    "id": 3222307895,
+    "moving_time": 1015.0,
+    "start_date_local": "2020-03-26T20:17:30Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-03-29",
+    "distance": 4999.8,
+    "elevation_gain": 93.7,
+    "id": 3229890690,
+    "moving_time": 1662.0,
+    "start_date_local": "2020-03-29T13:02:36Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-03-31",
+    "distance": 5638.0,
+    "elevation_gain": 176.5,
+    "id": 3236872535,
+    "moving_time": 2599.0,
+    "start_date_local": "2020-03-31T10:55:39Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-04-14",
+    "distance": 3536.1,
+    "elevation_gain": 39.3,
+    "id": 3296027091,
+    "moving_time": 1146.0,
+    "start_date_local": "2020-04-14T11:34:09Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-04-14",
+    "distance": 1618.8,
+    "elevation_gain": 23.2,
+    "id": 3296040690,
+    "moving_time": 685.0,
+    "start_date_local": "2020-04-14T11:55:13Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-04-16",
+    "distance": 4984.6,
+    "elevation_gain": 15.5,
+    "id": 3305644210,
+    "moving_time": 1740.0,
+    "start_date_local": "2020-04-16T15:23:29Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-04-20",
+    "distance": 4989.3,
+    "elevation_gain": 71.5,
+    "id": 3324920818,
+    "moving_time": 1654.0,
+    "start_date_local": "2020-04-20T16:04:34Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-04-22",
+    "distance": 3230.6,
+    "elevation_gain": 12.7,
+    "id": 3334417039,
+    "moving_time": 1489.0,
+    "start_date_local": "2020-04-22T15:27:54Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-04-27",
+    "distance": 4993.3,
+    "elevation_gain": 67.1,
+    "id": 3359482861,
+    "moving_time": 1567.0,
+    "start_date_local": "2020-04-27T11:38:33Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-04-29",
+    "distance": 4985.0,
+    "elevation_gain": 67.6,
+    "id": 3369184429,
+    "moving_time": 1619.0,
+    "start_date_local": "2020-04-29T14:54:33Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-05-08",
+    "distance": 6452.0,
+    "elevation_gain": 69.1,
+    "id": 3416014716,
+    "moving_time": 2215.0,
+    "start_date_local": "2020-05-08T07:32:32Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-05-10",
+    "distance": 6440.6,
+    "elevation_gain": 61.9,
+    "id": 3428001243,
+    "moving_time": 2257.0,
+    "start_date_local": "2020-05-10T16:08:13Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-05-12",
+    "distance": 9903.9,
+    "elevation_gain": 119.8,
+    "id": 3437716306,
+    "moving_time": 3704.0,
+    "start_date_local": "2020-05-12T14:48:32Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-05-15",
+    "distance": 10070.7,
+    "elevation_gain": 95.2,
+    "id": 3453700478,
+    "moving_time": 3493.0,
+    "start_date_local": "2020-05-15T16:37:01Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-05-17",
+    "distance": 6492.9,
+    "elevation_gain": 51.3,
+    "id": 3464420623,
+    "moving_time": 2329.0,
+    "start_date_local": "2020-05-17T17:22:22Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-05-18",
+    "distance": 2449.4,
+    "elevation_gain": 0.0,
+    "id": 3470196297,
+    "moving_time": 1088.0,
+    "start_date_local": "2020-05-18T02:16:00Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-05-19",
+    "distance": 10048.9,
+    "elevation_gain": 102.7,
+    "id": 3475610041,
+    "moving_time": 3442.0,
+    "start_date_local": "2020-05-19T17:04:37Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-05-22",
+    "distance": 5631.8,
+    "elevation_gain": 75.4,
+    "id": 3492211368,
+    "moving_time": 2089.0,
+    "start_date_local": "2020-05-22T17:07:21Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-05-27",
+    "distance": 8065.2,
+    "elevation_gain": 75.9,
+    "id": 3518682709,
+    "moving_time": 2915.0,
+    "start_date_local": "2020-05-27T16:24:58Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-06-01",
+    "distance": 8071.2,
+    "elevation_gain": 91.1,
+    "id": 3545635119,
+    "moving_time": 3012.0,
+    "start_date_local": "2020-06-01T16:13:20Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-06-11",
+    "distance": 4025.9,
+    "elevation_gain": 50.5,
+    "id": 3596498249,
+    "moving_time": 1579.0,
+    "start_date_local": "2020-06-11T16:18:26Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-06-23",
+    "distance": 6461.6,
+    "elevation_gain": 95.3,
+    "id": 3657408079,
+    "moving_time": 2636.0,
+    "start_date_local": "2020-06-23T16:26:11Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-06-26",
+    "distance": 6442.4,
+    "elevation_gain": 72.3,
+    "id": 3672613719,
+    "moving_time": 2405.0,
+    "start_date_local": "2020-06-26T15:52:36Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-06-28",
+    "distance": 6443.4,
+    "elevation_gain": 97.2,
+    "id": 3681080377,
+    "moving_time": 2340.0,
+    "start_date_local": "2020-06-28T10:21:24Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-07-02",
+    "distance": 4840.3,
+    "elevation_gain": 69.1,
+    "id": 3700143971,
+    "moving_time": 1715.0,
+    "start_date_local": "2020-07-02T06:45:19Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-07-06",
+    "distance": 4842.5,
+    "elevation_gain": 63.2,
+    "id": 3720607260,
+    "moving_time": 1716.0,
+    "start_date_local": "2020-07-06T15:34:41Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-07-14",
+    "distance": 2746.2,
+    "elevation_gain": 10.9,
+    "id": 3835638349,
+    "moving_time": 976.0,
+    "start_date_local": "2020-07-14T15:49:02Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-07-27",
+    "distance": 5647.8,
+    "elevation_gain": 89.4,
+    "id": 3835639494,
+    "moving_time": 2122.0,
+    "start_date_local": "2020-07-27T16:13:51Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-08-11",
+    "distance": 8054.9,
+    "elevation_gain": 89.2,
+    "id": 3896906354,
+    "moving_time": 3283.0,
+    "start_date_local": "2020-08-11T20:07:21Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-08-13",
+    "distance": 6446.3,
+    "elevation_gain": 69.4,
+    "id": 3906622112,
+    "moving_time": 2397.0,
+    "start_date_local": "2020-08-13T19:57:31Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-08-15",
+    "distance": 8051.1,
+    "elevation_gain": 105.6,
+    "id": 3916094695,
+    "moving_time": 3071.0,
+    "start_date_local": "2020-08-15T20:43:13Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-08-17",
+    "distance": 4831.2,
+    "elevation_gain": 56.2,
+    "id": 3924852130,
+    "moving_time": 1766.0,
+    "start_date_local": "2020-08-17T15:51:37Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-08-19",
+    "distance": 8050.3,
+    "elevation_gain": 93.9,
+    "id": 3935354082,
+    "moving_time": 2903.0,
+    "start_date_local": "2020-08-19T20:01:28Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-08-21",
+    "distance": 8046.0,
+    "elevation_gain": 106.0,
+    "id": 3944818261,
+    "moving_time": 2999.0,
+    "start_date_local": "2020-08-21T20:11:12Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-08-23",
+    "distance": 8055.5,
+    "elevation_gain": 91.6,
+    "id": 3953906521,
+    "moving_time": 2851.0,
+    "start_date_local": "2020-08-23T19:49:55Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-08-28",
+    "distance": 8055.8,
+    "elevation_gain": 102.5,
+    "id": 3977110851,
+    "moving_time": 2929.0,
+    "start_date_local": "2020-08-28T19:54:10Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-08-30",
+    "distance": 6441.4,
+    "elevation_gain": 92.6,
+    "id": 3986112031,
+    "moving_time": 2367.0,
+    "start_date_local": "2020-08-30T19:51:22Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-08-31",
+    "distance": 8083.6,
+    "elevation_gain": 100.8,
+    "id": 3990736435,
+    "moving_time": 2623.0,
+    "start_date_local": "2020-08-31T19:38:02Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-09-08",
+    "distance": 2536.8,
+    "elevation_gain": 23.1,
+    "id": 4027480045,
+    "moving_time": 790.0,
+    "start_date_local": "2020-09-08T07:11:56Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-09-09",
+    "distance": 6459.6,
+    "elevation_gain": 105.1,
+    "id": 4033335961,
+    "moving_time": 2300.0,
+    "start_date_local": "2020-09-09T15:18:09Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-09-11",
+    "distance": 2671.8,
+    "elevation_gain": 20.2,
+    "id": 4057321743,
+    "moving_time": 910.0,
+    "start_date_local": "2020-09-11T06:53:54Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-09-14",
+    "distance": 8046.7,
+    "elevation_gain": 98.7,
+    "id": 4057323254,
+    "moving_time": 2686.0,
+    "start_date_local": "2020-09-14T16:08:28Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-09-16",
+    "distance": 4827.8,
+    "elevation_gain": 62.4,
+    "id": 4066551814,
+    "moving_time": 1658.0,
+    "start_date_local": "2020-09-16T12:56:52Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-09-28",
+    "distance": 6440.0,
+    "elevation_gain": 85.1,
+    "id": 4122524401,
+    "moving_time": 2244.0,
+    "start_date_local": "2020-09-28T15:38:53Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-09-30",
+    "distance": 6840.9,
+    "elevation_gain": 89.0,
+    "id": 4131497436,
+    "moving_time": 2243.0,
+    "start_date_local": "2020-09-30T15:39:33Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-10-02",
+    "distance": 8050.5,
+    "elevation_gain": 114.0,
+    "id": 4140324826,
+    "moving_time": 2709.0,
+    "start_date_local": "2020-10-02T15:41:01Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-10-05",
+    "distance": 10469.8,
+    "elevation_gain": 155.3,
+    "id": 4153306577,
+    "moving_time": 3840.0,
+    "start_date_local": "2020-10-05T15:52:21Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-10-07",
+    "distance": 11281.9,
+    "elevation_gain": 72.6,
+    "id": 4162077994,
+    "moving_time": 4129.0,
+    "start_date_local": "2020-10-07T15:19:35Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-10-09",
+    "distance": 6851.5,
+    "elevation_gain": 222.1,
+    "id": 4169640673,
+    "moving_time": 3113.0,
+    "start_date_local": "2020-10-09T06:48:22Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-10-11",
+    "distance": 7246.1,
+    "elevation_gain": 86.7,
+    "id": 4178691833,
+    "moving_time": 2450.0,
+    "start_date_local": "2020-10-11T10:30:24Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-10-12",
+    "distance": 12884.6,
+    "elevation_gain": 94.9,
+    "id": 4184869222,
+    "moving_time": 4643.0,
+    "start_date_local": "2020-10-12T19:38:31Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-10-14",
+    "distance": 6833.3,
+    "elevation_gain": 82.3,
+    "id": 4192737227,
+    "moving_time": 2176.0,
+    "start_date_local": "2020-10-14T16:07:14Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-10-16",
+    "distance": 12887.5,
+    "elevation_gain": 87.6,
+    "id": 4201218299,
+    "moving_time": 4333.0,
+    "start_date_local": "2020-10-16T15:20:54Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-10-19",
+    "distance": 13753.3,
+    "elevation_gain": 109.2,
+    "id": 4214767650,
+    "moving_time": 4707.0,
+    "start_date_local": "2020-10-19T15:32:35Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-10-26",
+    "distance": 12888.4,
+    "elevation_gain": 162.0,
+    "id": 4245436293,
+    "moving_time": 4610.0,
+    "start_date_local": "2020-10-26T19:07:41Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-11-04",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 4283564946,
+    "moving_time": 1024.0,
+    "start_date_local": "2020-11-04T00:23:22Z",
+    "type": "WeightTraining",
+    "year": 2020
+  },
+  {
+    "date": "2020-11-04",
+    "distance": 8063.2,
+    "elevation_gain": 114.5,
+    "id": 4283692197,
+    "moving_time": 2920.0,
+    "start_date_local": "2020-11-04T15:48:52Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-11-16",
+    "distance": 5744.6,
+    "elevation_gain": 0.0,
+    "id": 4344875727,
+    "moving_time": 2350.0,
+    "start_date_local": "2020-11-16T00:41:26Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-11-21",
+    "distance": 10058.6,
+    "elevation_gain": 132.5,
+    "id": 4367332043,
+    "moving_time": 3321.0,
+    "start_date_local": "2020-11-21T14:27:22Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-12-12",
+    "distance": 2369.5,
+    "elevation_gain": 0.0,
+    "id": 4465113250,
+    "moving_time": 765.0,
+    "start_date_local": "2020-12-12T22:50:25Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-12-17",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 4481963516,
+    "moving_time": 1378.0,
+    "start_date_local": "2020-12-17T00:17:12Z",
+    "type": "WeightTraining",
+    "year": 2020
+  },
+  {
+    "date": "2020-12-18",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 4489201858,
+    "moving_time": 1534.0,
+    "start_date_local": "2020-12-18T20:40:49Z",
+    "type": "WeightTraining",
+    "year": 2020
+  },
+  {
+    "date": "2020-12-22",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 4506848632,
+    "moving_time": 2403.0,
+    "start_date_local": "2020-12-22T22:58:52Z",
+    "type": "WeightTraining",
+    "year": 2020
+  },
+  {
+    "date": "2020-12-25",
+    "distance": 4386.2,
+    "elevation_gain": 0.0,
+    "id": 4517877773,
+    "moving_time": 1804.0,
+    "start_date_local": "2020-12-25T22:40:29Z",
+    "type": "Run",
+    "year": 2020
+  },
+  {
+    "date": "2020-12-27",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 4527619421,
+    "moving_time": 1911.0,
+    "start_date_local": "2020-12-27T20:21:22Z",
+    "type": "WeightTraining",
+    "year": 2020
+  },
+  {
+    "date": "2021-01-04",
+    "distance": 6447.2,
+    "elevation_gain": 80.8,
+    "id": 4564027863,
+    "moving_time": 2432.0,
+    "start_date_local": "2021-01-04T13:17:27Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-01-25",
+    "distance": 7245.5,
+    "elevation_gain": 96.7,
+    "id": 4677832437,
+    "moving_time": 2692.0,
+    "start_date_local": "2021-01-25T17:58:07Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-01-27",
+    "distance": 4830.2,
+    "elevation_gain": 54.4,
+    "id": 4687819485,
+    "moving_time": 1809.0,
+    "start_date_local": "2021-01-27T14:58:35Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-02-07",
+    "distance": 4889.1,
+    "elevation_gain": 49.7,
+    "id": 4747800131,
+    "moving_time": 1766.0,
+    "start_date_local": "2021-02-07T14:18:20Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-02-21",
+    "distance": 4831.6,
+    "elevation_gain": 12.5,
+    "id": 4823821919,
+    "moving_time": 1696.0,
+    "start_date_local": "2021-02-21T06:29:58Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-02-23",
+    "distance": 6435.0,
+    "elevation_gain": 19.0,
+    "id": 4838183471,
+    "moving_time": 2333.0,
+    "start_date_local": "2021-02-23T14:55:03Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-02-25",
+    "distance": 4829.8,
+    "elevation_gain": 12.5,
+    "id": 4849143106,
+    "moving_time": 1669.0,
+    "start_date_local": "2021-02-25T12:03:22Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-02-27",
+    "distance": 6448.8,
+    "elevation_gain": 18.9,
+    "id": 4858480933,
+    "moving_time": 2300.0,
+    "start_date_local": "2021-02-27T06:23:24Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-03-02",
+    "distance": 6450.8,
+    "elevation_gain": 19.1,
+    "id": 4877623854,
+    "moving_time": 2218.0,
+    "start_date_local": "2021-03-02T09:09:19Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-03-06",
+    "distance": 6442.9,
+    "elevation_gain": 19.0,
+    "id": 4901993258,
+    "moving_time": 2157.0,
+    "start_date_local": "2021-03-06T11:49:11Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-03-09",
+    "distance": 6444.8,
+    "elevation_gain": 19.0,
+    "id": 4920520671,
+    "moving_time": 2362.0,
+    "start_date_local": "2021-03-09T14:46:56Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-03-14",
+    "distance": 9663.4,
+    "elevation_gain": 24.7,
+    "id": 4948461050,
+    "moving_time": 3517.0,
+    "start_date_local": "2021-03-14T16:11:58Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-03-19",
+    "distance": 10065.9,
+    "elevation_gain": 27.4,
+    "id": 4974629825,
+    "moving_time": 3679.0,
+    "start_date_local": "2021-03-19T15:16:42Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-03-21",
+    "distance": 12886.3,
+    "elevation_gain": 39.6,
+    "id": 4986612989,
+    "moving_time": 4573.0,
+    "start_date_local": "2021-03-21T11:19:34Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-03-28",
+    "distance": 6443.5,
+    "elevation_gain": 19.1,
+    "id": 5026551792,
+    "moving_time": 2319.0,
+    "start_date_local": "2021-03-28T09:24:53Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-03-29",
+    "distance": 6442.1,
+    "elevation_gain": 18.6,
+    "id": 5033623733,
+    "moving_time": 2162.0,
+    "start_date_local": "2021-03-29T15:07:54Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-03-31",
+    "distance": 9660.2,
+    "elevation_gain": 17.0,
+    "id": 5046711623,
+    "moving_time": 3652.0,
+    "start_date_local": "2021-03-31T16:55:25Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-04-10",
+    "distance": 4835.9,
+    "elevation_gain": 12.0,
+    "id": 5103946036,
+    "moving_time": 1611.0,
+    "start_date_local": "2021-04-10T13:01:23Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-04-14",
+    "distance": 9663.5,
+    "elevation_gain": 15.0,
+    "id": 5127380489,
+    "moving_time": 3363.0,
+    "start_date_local": "2021-04-14T12:46:17Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-04-16",
+    "distance": 4835.2,
+    "elevation_gain": 8.0,
+    "id": 5138217461,
+    "moving_time": 1590.0,
+    "start_date_local": "2021-04-16T13:30:06Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-04-18",
+    "distance": 6444.8,
+    "elevation_gain": 9.0,
+    "id": 5151600503,
+    "moving_time": 2312.0,
+    "start_date_local": "2021-04-18T14:34:38Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-04-19",
+    "distance": 2424.1,
+    "elevation_gain": 6.0,
+    "id": 5157163596,
+    "moving_time": 1005.0,
+    "start_date_local": "2021-04-19T16:47:16Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-04-24",
+    "distance": 3569.2,
+    "elevation_gain": 15.0,
+    "id": 5186549768,
+    "moving_time": 2027.0,
+    "start_date_local": "2021-04-24T16:46:01Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-05-06",
+    "distance": 1727.9,
+    "elevation_gain": 6.0,
+    "id": 5253178077,
+    "moving_time": 524.0,
+    "start_date_local": "2021-05-06T14:17:06Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-05-06",
+    "distance": 1281.8,
+    "elevation_gain": 4.0,
+    "id": 5253434778,
+    "moving_time": 551.0,
+    "start_date_local": "2021-05-06T15:24:30Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-05-13",
+    "distance": 1180.2,
+    "elevation_gain": 3.0,
+    "id": 5291056669,
+    "moving_time": 432.0,
+    "start_date_local": "2021-05-13T11:56:46Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-05-13",
+    "distance": 1618.2,
+    "elevation_gain": 4.0,
+    "id": 5291438910,
+    "moving_time": 615.0,
+    "start_date_local": "2021-05-13T12:57:04Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-05-17",
+    "distance": 2183.1,
+    "elevation_gain": 0.0,
+    "id": 5314020455,
+    "moving_time": 1013.0,
+    "start_date_local": "2021-05-17T14:36:52Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-05-20",
+    "distance": 2131.6,
+    "elevation_gain": 0.0,
+    "id": 5332250494,
+    "moving_time": 830.0,
+    "start_date_local": "2021-05-20T19:57:58Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-06-24",
+    "distance": 3225.2,
+    "elevation_gain": 6.0,
+    "id": 5522518837,
+    "moving_time": 1181.0,
+    "start_date_local": "2021-06-24T11:08:40Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-06-28",
+    "distance": 4834.7,
+    "elevation_gain": 10.0,
+    "id": 5544949775,
+    "moving_time": 1908.0,
+    "start_date_local": "2021-06-28T16:16:25Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-07-04",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 5574723447,
+    "moving_time": 1087.0,
+    "start_date_local": "2021-07-04T10:29:35Z",
+    "type": "WeightTraining",
+    "year": 2021
+  },
+  {
+    "date": "2021-07-04",
+    "distance": 6457.5,
+    "elevation_gain": 10.0,
+    "id": 5574997294,
+    "moving_time": 2516.0,
+    "start_date_local": "2021-07-04T10:51:55Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-07-06",
+    "distance": 4832.9,
+    "elevation_gain": 9.0,
+    "id": 5586427727,
+    "moving_time": 1670.0,
+    "start_date_local": "2021-07-06T15:59:08Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-07-11",
+    "distance": 3225.6,
+    "elevation_gain": 9.0,
+    "id": 5613236070,
+    "moving_time": 1094.0,
+    "start_date_local": "2021-07-11T16:38:31Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-07-16",
+    "distance": 4831.8,
+    "elevation_gain": 8.0,
+    "id": 5638438724,
+    "moving_time": 1829.0,
+    "start_date_local": "2021-07-16T16:02:07Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-07-19",
+    "distance": 6881.6,
+    "elevation_gain": 9.0,
+    "id": 5653081181,
+    "moving_time": 2512.0,
+    "start_date_local": "2021-07-19T10:45:30Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-07-21",
+    "distance": 3222.1,
+    "elevation_gain": 6.0,
+    "id": 5664107062,
+    "moving_time": 1037.0,
+    "start_date_local": "2021-07-21T11:04:47Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-07-24",
+    "distance": 6444.5,
+    "elevation_gain": 9.0,
+    "id": 5679107406,
+    "moving_time": 2399.0,
+    "start_date_local": "2021-07-24T07:41:00Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-07-26",
+    "distance": 10068.2,
+    "elevation_gain": 9.0,
+    "id": 5692775908,
+    "moving_time": 4114.0,
+    "start_date_local": "2021-07-26T18:49:24Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-08-03",
+    "distance": 4843.6,
+    "elevation_gain": 7.0,
+    "id": 5731678348,
+    "moving_time": 1658.0,
+    "start_date_local": "2021-08-03T07:33:49Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-08-05",
+    "distance": 6444.0,
+    "elevation_gain": 9.0,
+    "id": 5743487932,
+    "moving_time": 2442.0,
+    "start_date_local": "2021-08-05T09:41:06Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-08-11",
+    "distance": 3232.9,
+    "elevation_gain": 9.0,
+    "id": 5777755217,
+    "moving_time": 1146.0,
+    "start_date_local": "2021-08-11T16:53:05Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-08-23",
+    "distance": 2425.8,
+    "elevation_gain": 4.0,
+    "id": 5840547470,
+    "moving_time": 804.0,
+    "start_date_local": "2021-08-23T11:49:08Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-08-27",
+    "distance": 2418.3,
+    "elevation_gain": 5.0,
+    "id": 5860732903,
+    "moving_time": 799.0,
+    "start_date_local": "2021-08-27T05:49:06Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-09-09",
+    "distance": 2413.4,
+    "elevation_gain": 5.0,
+    "id": 5934263349,
+    "moving_time": 805.0,
+    "start_date_local": "2021-09-09T15:59:59Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-09-11",
+    "distance": 3234.3,
+    "elevation_gain": 7.0,
+    "id": 5943475531,
+    "moving_time": 1088.0,
+    "start_date_local": "2021-09-11T11:03:09Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-09-12",
+    "distance": 6269.3,
+    "elevation_gain": 17.0,
+    "id": 5950446146,
+    "moving_time": 2760.0,
+    "start_date_local": "2021-09-12T12:57:25Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-09-19",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 5987057183,
+    "moving_time": 2529.0,
+    "start_date_local": "2021-09-19T11:17:36Z",
+    "type": "WeightTraining",
+    "year": 2021
+  },
+  {
+    "date": "2021-09-20",
+    "distance": 6442.6,
+    "elevation_gain": 3.0,
+    "id": 5990590181,
+    "moving_time": 2407.0,
+    "start_date_local": "2021-09-20T07:33:42Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-09-22",
+    "distance": 4836.0,
+    "elevation_gain": 5.0,
+    "id": 6002261979,
+    "moving_time": 1656.0,
+    "start_date_local": "2021-09-22T11:04:14Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-09-23",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 6007032870,
+    "moving_time": 875.0,
+    "start_date_local": "2021-09-23T10:39:09Z",
+    "type": "WeightTraining",
+    "year": 2021
+  },
+  {
+    "date": "2021-09-23",
+    "distance": 6440.6,
+    "elevation_gain": 12.0,
+    "id": 6007251218,
+    "moving_time": 2260.0,
+    "start_date_local": "2021-09-23T10:56:56Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-09-27",
+    "distance": 8054.9,
+    "elevation_gain": 12.0,
+    "id": 6029573406,
+    "moving_time": 3043.0,
+    "start_date_local": "2021-09-27T16:04:13Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-09-29",
+    "distance": 6448.1,
+    "elevation_gain": 9.0,
+    "id": 6039903210,
+    "moving_time": 2269.0,
+    "start_date_local": "2021-09-29T15:54:35Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-10-10",
+    "distance": 2781.2,
+    "elevation_gain": 4.0,
+    "id": 6094851418,
+    "moving_time": 1205.0,
+    "start_date_local": "2021-10-10T16:34:11Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-10-13",
+    "distance": 8055.5,
+    "elevation_gain": 13.0,
+    "id": 6109096982,
+    "moving_time": 3026.0,
+    "start_date_local": "2021-10-13T15:36:20Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-10-17",
+    "distance": 6456.3,
+    "elevation_gain": 15.0,
+    "id": 6127188212,
+    "moving_time": 2214.0,
+    "start_date_local": "2021-10-17T09:01:33Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-10-18",
+    "distance": 3236.3,
+    "elevation_gain": 6.0,
+    "id": 6133045771,
+    "moving_time": 1021.0,
+    "start_date_local": "2021-10-18T15:10:25Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-11-11",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 6244930905,
+    "moving_time": 1755.0,
+    "start_date_local": "2021-11-11T14:36:30Z",
+    "type": "WeightTraining",
+    "year": 2021
+  },
+  {
+    "date": "2021-11-15",
+    "distance": 4964.7,
+    "elevation_gain": 0.0,
+    "id": 6263405751,
+    "moving_time": 1996.0,
+    "start_date_local": "2021-11-15T17:07:22Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-11-17",
+    "distance": 4837.2,
+    "elevation_gain": 0.0,
+    "id": 6272512485,
+    "moving_time": 1760.0,
+    "start_date_local": "2021-11-17T16:49:45Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2021-12-15",
+    "distance": 2436.8,
+    "elevation_gain": 6.0,
+    "id": 6388787516,
+    "moving_time": 772.0,
+    "start_date_local": "2021-12-15T16:28:17Z",
+    "type": "Run",
+    "year": 2021
+  },
+  {
+    "date": "2022-01-04",
+    "distance": 4842.1,
+    "elevation_gain": 9.0,
+    "id": 6473772043,
+    "moving_time": 1756.0,
+    "start_date_local": "2022-01-04T16:10:33Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-01-07",
+    "distance": 6449.2,
+    "elevation_gain": 9.0,
+    "id": 6488223570,
+    "moving_time": 2311.0,
+    "start_date_local": "2022-01-07T15:58:43Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-01-10",
+    "distance": 4838.0,
+    "elevation_gain": 8.0,
+    "id": 6503803887,
+    "moving_time": 1688.0,
+    "start_date_local": "2022-01-10T16:04:37Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-01-12",
+    "distance": 2416.4,
+    "elevation_gain": 7.0,
+    "id": 6514125277,
+    "moving_time": 771.0,
+    "start_date_local": "2022-01-12T15:30:29Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-01-12",
+    "distance": 1618.8,
+    "elevation_gain": 2.0,
+    "id": 6514166932,
+    "moving_time": 593.0,
+    "start_date_local": "2022-01-12T15:44:14Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-02-04",
+    "distance": 2395.7,
+    "elevation_gain": 10.0,
+    "id": 6644401444,
+    "moving_time": 825.0,
+    "start_date_local": "2022-02-04T06:22:38Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-02-08",
+    "distance": 4026.5,
+    "elevation_gain": 12.0,
+    "id": 6652862226,
+    "moving_time": 1419.0,
+    "start_date_local": "2022-02-08T15:45:20Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-02-22",
+    "distance": 2413.2,
+    "elevation_gain": 6.0,
+    "id": 6723643642,
+    "moving_time": 792.0,
+    "start_date_local": "2022-02-22T16:38:24Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-02-26",
+    "distance": 4832.3,
+    "elevation_gain": 7.0,
+    "id": 6741724022,
+    "moving_time": 1695.0,
+    "start_date_local": "2022-02-26T09:56:51Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-03-02",
+    "distance": 4851.2,
+    "elevation_gain": 13.7,
+    "id": 6763941895,
+    "moving_time": 1609.0,
+    "start_date_local": "2022-03-02T16:29:21Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-03-05",
+    "distance": 8885.3,
+    "elevation_gain": 17.0,
+    "id": 6777245082,
+    "moving_time": 3196.0,
+    "start_date_local": "2022-03-05T09:02:46Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-03-06",
+    "distance": 3241.1,
+    "elevation_gain": 7.4,
+    "id": 6783863384,
+    "moving_time": 1078.0,
+    "start_date_local": "2022-03-06T11:44:18Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-03-09",
+    "distance": 4841.0,
+    "elevation_gain": 18.0,
+    "id": 6798571875,
+    "moving_time": 1660.0,
+    "start_date_local": "2022-03-09T11:43:24Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-03-23",
+    "distance": 6443.3,
+    "elevation_gain": 7.4,
+    "id": 6871279037,
+    "moving_time": 2285.0,
+    "start_date_local": "2022-03-23T12:48:43Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-03-26",
+    "distance": 9672.4,
+    "elevation_gain": 0.0,
+    "id": 6887160465,
+    "moving_time": 3497.0,
+    "start_date_local": "2022-03-26T12:31:00Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-03-28",
+    "distance": 8050.0,
+    "elevation_gain": 16.0,
+    "id": 6898272787,
+    "moving_time": 2879.0,
+    "start_date_local": "2022-03-28T14:25:08Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-03-31",
+    "distance": 8044.8,
+    "elevation_gain": 18.0,
+    "id": 6913073365,
+    "moving_time": 2992.0,
+    "start_date_local": "2022-03-31T15:06:25Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-04-03",
+    "distance": 6442.1,
+    "elevation_gain": 13.0,
+    "id": 6928087442,
+    "moving_time": 2214.0,
+    "start_date_local": "2022-04-03T16:34:54Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-04-06",
+    "distance": 8052.9,
+    "elevation_gain": 17.0,
+    "id": 6941973235,
+    "moving_time": 2920.0,
+    "start_date_local": "2022-04-06T14:24:50Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-04-09",
+    "distance": 2415.3,
+    "elevation_gain": 9.0,
+    "id": 6956347051,
+    "moving_time": 734.0,
+    "start_date_local": "2022-04-09T15:52:59Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-04-09",
+    "distance": 2423.5,
+    "elevation_gain": 6.0,
+    "id": 6956392072,
+    "moving_time": 865.0,
+    "start_date_local": "2022-04-09T16:06:39Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-04-15",
+    "distance": 8052.9,
+    "elevation_gain": 15.0,
+    "id": 6987726400,
+    "moving_time": 2794.0,
+    "start_date_local": "2022-04-15T15:09:54Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-04-17",
+    "distance": 6439.2,
+    "elevation_gain": 16.0,
+    "id": 6998241285,
+    "moving_time": 2144.0,
+    "start_date_local": "2022-04-17T12:57:17Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-04-18",
+    "distance": 9665.5,
+    "elevation_gain": 22.0,
+    "id": 7004420157,
+    "moving_time": 3509.0,
+    "start_date_local": "2022-04-18T17:10:04Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-04-23",
+    "distance": 6442.5,
+    "elevation_gain": 15.0,
+    "id": 7029668229,
+    "moving_time": 2181.0,
+    "start_date_local": "2022-04-23T13:26:25Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-04-25",
+    "distance": 8053.0,
+    "elevation_gain": 11.0,
+    "id": 7040748585,
+    "moving_time": 2880.0,
+    "start_date_local": "2022-04-25T15:29:34Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-04-30",
+    "distance": 9657.1,
+    "elevation_gain": 18.0,
+    "id": 7067181884,
+    "moving_time": 3627.0,
+    "start_date_local": "2022-04-30T16:00:45Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-05-09",
+    "distance": 6448.4,
+    "elevation_gain": 20.0,
+    "id": 7115501073,
+    "moving_time": 2231.0,
+    "start_date_local": "2022-05-09T14:50:28Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-05-11",
+    "distance": 8050.7,
+    "elevation_gain": 13.0,
+    "id": 7127380053,
+    "moving_time": 2823.0,
+    "start_date_local": "2022-05-11T16:16:39Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-05-13",
+    "distance": 4833.2,
+    "elevation_gain": 18.0,
+    "id": 7137204419,
+    "moving_time": 1572.0,
+    "start_date_local": "2022-05-13T14:31:21Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-05-14",
+    "distance": 3222.0,
+    "elevation_gain": 11.0,
+    "id": 7142934798,
+    "moving_time": 1106.0,
+    "start_date_local": "2022-05-14T14:09:25Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-05-27",
+    "distance": 4141.2,
+    "elevation_gain": 0.0,
+    "id": 7211738050,
+    "moving_time": 1492.0,
+    "start_date_local": "2022-05-27T10:58:34Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-06-12",
+    "distance": 2377.3,
+    "elevation_gain": 0.0,
+    "id": 7301736851,
+    "moving_time": 706.0,
+    "start_date_local": "2022-06-12T13:39:24Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-06-14",
+    "distance": 2377.2,
+    "elevation_gain": 0.0,
+    "id": 7310055582,
+    "moving_time": 682.0,
+    "start_date_local": "2022-06-14T17:42:00Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-07-06",
+    "distance": 3217.7,
+    "elevation_gain": 4.0,
+    "id": 7427707192,
+    "moving_time": 1146.0,
+    "start_date_local": "2022-07-06T19:42:33Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-07-16",
+    "distance": 4325.3,
+    "elevation_gain": 13.0,
+    "id": 7480013575,
+    "moving_time": 1718.0,
+    "start_date_local": "2022-07-16T13:48:09Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-07-19",
+    "distance": 3221.4,
+    "elevation_gain": 6.0,
+    "id": 7496336382,
+    "moving_time": 1046.0,
+    "start_date_local": "2022-07-19T16:37:37Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-07-26",
+    "distance": 3216.1,
+    "elevation_gain": 11.0,
+    "id": 7533928176,
+    "moving_time": 1117.0,
+    "start_date_local": "2022-07-26T16:17:55Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-07-31",
+    "distance": 4829.5,
+    "elevation_gain": 5.0,
+    "id": 7560768352,
+    "moving_time": 1768.0,
+    "start_date_local": "2022-07-31T12:45:21Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-08-06",
+    "distance": 6442.6,
+    "elevation_gain": 9.0,
+    "id": 7594567576,
+    "moving_time": 2325.0,
+    "start_date_local": "2022-08-06T16:39:17Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-08-12",
+    "distance": 2252.1,
+    "elevation_gain": 0.0,
+    "id": 7638596390,
+    "moving_time": 694.0,
+    "start_date_local": "2022-08-12T06:40:40Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-08-14",
+    "distance": 3239.3,
+    "elevation_gain": 5.8,
+    "id": 7638516345,
+    "moving_time": 1190.0,
+    "start_date_local": "2022-08-14T12:54:04Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-08-16",
+    "distance": 6462.2,
+    "elevation_gain": 18.7,
+    "id": 7650637648,
+    "moving_time": 2326.0,
+    "start_date_local": "2022-08-16T08:42:20Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-09-02",
+    "distance": 3248.0,
+    "elevation_gain": 6.0,
+    "id": 7772559220,
+    "moving_time": 1119.0,
+    "start_date_local": "2022-09-02T10:11:32Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-09-06",
+    "distance": 4846.8,
+    "elevation_gain": 17.1,
+    "id": 7772559374,
+    "moving_time": 1741.0,
+    "start_date_local": "2022-09-06T07:23:34Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-09-13",
+    "distance": 4841.3,
+    "elevation_gain": 17.1,
+    "id": 7801303804,
+    "moving_time": 1663.0,
+    "start_date_local": "2022-09-13T07:20:35Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-09-19",
+    "distance": 3240.9,
+    "elevation_gain": 8.4,
+    "id": 7836057209,
+    "moving_time": 1057.0,
+    "start_date_local": "2022-09-19T12:56:33Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-09-20",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 7837889109,
+    "moving_time": 1107.0,
+    "start_date_local": "2022-09-20T07:00:48Z",
+    "type": "WeightTraining",
+    "year": 2022
+  },
+  {
+    "date": "2022-10-03",
+    "distance": 4824.4,
+    "elevation_gain": 5.5,
+    "id": 7925265415,
+    "moving_time": 1726.0,
+    "start_date_local": "2022-10-03T14:19:47Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-10-13",
+    "distance": 4823.2,
+    "elevation_gain": 8.4,
+    "id": 7958059824,
+    "moving_time": 1673.0,
+    "start_date_local": "2022-10-13T11:39:50Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-10-17",
+    "distance": 6451.1,
+    "elevation_gain": 17.1,
+    "id": 7979279623,
+    "moving_time": 2485.0,
+    "start_date_local": "2022-10-17T15:48:56Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-10-24",
+    "distance": 4812.1,
+    "elevation_gain": 6.7,
+    "id": 8014080863,
+    "moving_time": 1607.0,
+    "start_date_local": "2022-10-24T15:58:58Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-10-26",
+    "distance": 6477.6,
+    "elevation_gain": 17.2,
+    "id": 8024438068,
+    "moving_time": 2261.0,
+    "start_date_local": "2022-10-26T15:53:27Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-10-31",
+    "distance": 4850.2,
+    "elevation_gain": 6.7,
+    "id": 8049691763,
+    "moving_time": 1619.0,
+    "start_date_local": "2022-10-31T15:51:03Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-11-28",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8212664332,
+    "moving_time": 1830.0,
+    "start_date_local": "2022-11-28T11:37:17Z",
+    "type": "WeightTraining",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-05",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8212664352,
+    "moving_time": 1308.0,
+    "start_date_local": "2022-12-05T11:49:18Z",
+    "type": "WeightTraining",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-05",
+    "distance": 3235.8,
+    "elevation_gain": 19.8,
+    "id": 8212665059,
+    "moving_time": 1151.0,
+    "start_date_local": "2022-12-05T12:20:42Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-07",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8232605190,
+    "moving_time": 1433.0,
+    "start_date_local": "2022-12-07T11:14:43Z",
+    "type": "WeightTraining",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-07",
+    "distance": 2289.0,
+    "elevation_gain": 67.0,
+    "id": 8232605298,
+    "moving_time": 937.0,
+    "start_date_local": "2022-12-07T11:42:59Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-10",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8232605261,
+    "moving_time": 1927.0,
+    "start_date_local": "2022-12-10T10:45:07Z",
+    "type": "WeightTraining",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-10",
+    "distance": 4075.5,
+    "elevation_gain": 100.0,
+    "id": 8232605467,
+    "moving_time": 1999.0,
+    "start_date_local": "2022-12-10T11:19:36Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-13",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8299095674,
+    "moving_time": 2105.0,
+    "start_date_local": "2022-12-13T15:11:33Z",
+    "type": "WeightTraining",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-13",
+    "distance": 395.2,
+    "elevation_gain": 9.2,
+    "id": 8299095682,
+    "moving_time": 173.0,
+    "start_date_local": "2022-12-13T15:47:48Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-27",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8299095809,
+    "moving_time": 1324.0,
+    "start_date_local": "2022-12-27T11:28:44Z",
+    "type": "WeightTraining",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-27",
+    "distance": 3228.6,
+    "elevation_gain": 25.0,
+    "id": 8299095841,
+    "moving_time": 1209.0,
+    "start_date_local": "2022-12-27T12:00:50Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-29",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8313171782,
+    "moving_time": 2286.0,
+    "start_date_local": "2022-12-29T15:49:06Z",
+    "type": "WeightTraining",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-29",
+    "distance": 345.0,
+    "elevation_gain": 3.4,
+    "id": 8313171820,
+    "moving_time": 230.0,
+    "start_date_local": "2022-12-29T16:28:10Z",
+    "type": "Run",
+    "year": 2022
+  },
+  {
+    "date": "2022-12-30",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8313171817,
+    "moving_time": 2150.0,
+    "start_date_local": "2022-12-30T14:24:23Z",
+    "type": "WeightTraining",
+    "year": 2022
+  },
+  {
+    "date": "2023-01-02",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8333768508,
+    "moving_time": 2621.0,
+    "start_date_local": "2023-01-02T16:13:14Z",
+    "type": "WeightTraining",
+    "year": 2023
+  },
+  {
+    "date": "2023-01-03",
+    "distance": 4842.2,
+    "elevation_gain": 46.4,
+    "id": 8333768562,
+    "moving_time": 1711.0,
+    "start_date_local": "2023-01-03T15:34:42Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-01-04",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8339988560,
+    "moving_time": 2285.0,
+    "start_date_local": "2023-01-04T15:26:38Z",
+    "type": "WeightTraining",
+    "year": 2023
+  },
+  {
+    "date": "2023-01-07",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8361643405,
+    "moving_time": 2925.0,
+    "start_date_local": "2023-01-07T16:53:35Z",
+    "type": "WeightTraining",
+    "year": 2023
+  },
+  {
+    "date": "2023-01-08",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8361643431,
+    "moving_time": 2987.0,
+    "start_date_local": "2023-01-08T14:47:15Z",
+    "type": "WeightTraining",
+    "year": 2023
+  },
+  {
+    "date": "2023-01-09",
+    "distance": 4818.8,
+    "elevation_gain": 32.4,
+    "id": 8366909047,
+    "moving_time": 1696.0,
+    "start_date_local": "2023-01-09T07:42:45Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-01-11",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8392080785,
+    "moving_time": 3149.0,
+    "start_date_local": "2023-01-11T16:58:32Z",
+    "type": "WeightTraining",
+    "year": 2023
+  },
+  {
+    "date": "2023-01-14",
+    "distance": 7901.3,
+    "elevation_gain": 65.0,
+    "id": 8392080959,
+    "moving_time": 2975.0,
+    "start_date_local": "2023-01-14T12:11:10Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-01-20",
+    "distance": 2337.9,
+    "elevation_gain": 28.4,
+    "id": 8424240351,
+    "moving_time": 714.0,
+    "start_date_local": "2023-01-20T07:36:25Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-02-16",
+    "distance": 3237.4,
+    "elevation_gain": 31.2,
+    "id": 8573247430,
+    "moving_time": 1109.0,
+    "start_date_local": "2023-02-16T14:46:06Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-02-20",
+    "distance": 6482.7,
+    "elevation_gain": 48.6,
+    "id": 8594123471,
+    "moving_time": 2252.0,
+    "start_date_local": "2023-02-20T11:26:53Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-02-24",
+    "distance": 4322.5,
+    "elevation_gain": 28.6,
+    "id": 8616227198,
+    "moving_time": 1533.0,
+    "start_date_local": "2023-02-24T14:04:09Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-02-25",
+    "distance": 4838.5,
+    "elevation_gain": 8.0,
+    "id": 8621551668,
+    "moving_time": 1644.0,
+    "start_date_local": "2023-02-25T11:41:15Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-02-27",
+    "distance": 8055.5,
+    "elevation_gain": 107.6,
+    "id": 8633067155,
+    "moving_time": 2934.0,
+    "start_date_local": "2023-02-27T15:01:32Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-02-28",
+    "distance": 3231.3,
+    "elevation_gain": 34.0,
+    "id": 8637379651,
+    "moving_time": 1105.0,
+    "start_date_local": "2023-02-28T11:29:39Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-03-03",
+    "distance": 8057.4,
+    "elevation_gain": 19.4,
+    "id": 8653090312,
+    "moving_time": 2807.0,
+    "start_date_local": "2023-03-03T08:25:15Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-03-05",
+    "distance": 4845.4,
+    "elevation_gain": 45.4,
+    "id": 8666135802,
+    "moving_time": 1589.0,
+    "start_date_local": "2023-03-05T11:31:33Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-03-07",
+    "distance": 4837.4,
+    "elevation_gain": 58.6,
+    "id": 8676392685,
+    "moving_time": 1658.0,
+    "start_date_local": "2023-03-07T10:42:12Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-03-09",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 8687077551,
+    "moving_time": 1589.0,
+    "start_date_local": "2023-03-09T09:52:24Z",
+    "type": "WeightTraining",
+    "year": 2023
+  },
+  {
+    "date": "2023-03-16",
+    "distance": 6444.9,
+    "elevation_gain": 75.0,
+    "id": 8726248712,
+    "moving_time": 2237.0,
+    "start_date_local": "2023-03-16T14:42:13Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-04-03",
+    "distance": 3857.8,
+    "elevation_gain": 51.0,
+    "id": 8827310243,
+    "moving_time": 1374.0,
+    "start_date_local": "2023-04-03T15:38:34Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-04-16",
+    "distance": 3229.9,
+    "elevation_gain": 34.2,
+    "id": 8912985228,
+    "moving_time": 1086.0,
+    "start_date_local": "2023-04-16T12:29:10Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-04-22",
+    "distance": 4834.9,
+    "elevation_gain": 10.6,
+    "id": 8938924975,
+    "moving_time": 1701.0,
+    "start_date_local": "2023-04-22T14:54:35Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-04-28",
+    "distance": 4036.7,
+    "elevation_gain": 80.2,
+    "id": 8973273853,
+    "moving_time": 1413.0,
+    "start_date_local": "2023-04-28T12:02:01Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-04-29",
+    "distance": 5640.0,
+    "elevation_gain": 44.6,
+    "id": 8985427337,
+    "moving_time": 1916.0,
+    "start_date_local": "2023-04-29T10:12:26Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-05-07",
+    "distance": 4837.4,
+    "elevation_gain": 27.2,
+    "id": 9025367596,
+    "moving_time": 1675.0,
+    "start_date_local": "2023-05-07T15:32:04Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-05-10",
+    "distance": 6446.9,
+    "elevation_gain": 66.0,
+    "id": 9044142516,
+    "moving_time": 2298.0,
+    "start_date_local": "2023-05-10T15:12:47Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-05-12",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 9055706174,
+    "moving_time": 1094.0,
+    "start_date_local": "2023-05-12T12:48:36Z",
+    "type": "WeightTraining",
+    "year": 2023
+  },
+  {
+    "date": "2023-05-12",
+    "distance": 5024.0,
+    "elevation_gain": 0.0,
+    "id": 9055706219,
+    "moving_time": 1623.0,
+    "start_date_local": "2023-05-12T13:21:09Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-05-15",
+    "distance": 3417.4,
+    "elevation_gain": 16.8,
+    "id": 9103091873,
+    "moving_time": 1109.0,
+    "start_date_local": "2023-05-15T16:46:30Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-05-20",
+    "distance": 6473.7,
+    "elevation_gain": 241.8,
+    "id": 9103092063,
+    "moving_time": 3222.0,
+    "start_date_local": "2023-05-20T07:54:04Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-05-25",
+    "distance": 5198.1,
+    "elevation_gain": 230.6,
+    "id": 9136515533,
+    "moving_time": 2669.0,
+    "start_date_local": "2023-05-25T16:35:23Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-05-29",
+    "distance": 3095.0,
+    "elevation_gain": 0.0,
+    "id": 9160122685,
+    "moving_time": 1212.0,
+    "start_date_local": "2023-05-29T09:14:08Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-06-01",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 9202326268,
+    "moving_time": 1614.0,
+    "start_date_local": "2023-06-01T10:23:41Z",
+    "type": "WeightTraining",
+    "year": 2023
+  },
+  {
+    "date": "2023-06-01",
+    "distance": 3360.0,
+    "elevation_gain": 0.0,
+    "id": 9202326441,
+    "moving_time": 1500.0,
+    "start_date_local": "2023-06-01T10:51:44Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-06-04",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 9202326425,
+    "moving_time": 1549.0,
+    "start_date_local": "2023-06-04T21:17:22Z",
+    "type": "WeightTraining",
+    "year": 2023
+  },
+  {
+    "date": "2023-06-04",
+    "distance": 2426.0,
+    "elevation_gain": 9.6,
+    "id": 9202326549,
+    "moving_time": 742.0,
+    "start_date_local": "2023-06-04T21:44:49Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-06-07",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 9218693470,
+    "moving_time": 638.0,
+    "start_date_local": "2023-06-07T17:29:40Z",
+    "type": "WeightTraining",
+    "year": 2023
+  },
+  {
+    "date": "2023-06-07",
+    "distance": 4835.0,
+    "elevation_gain": 0.0,
+    "id": 9218693505,
+    "moving_time": 1591.0,
+    "start_date_local": "2023-06-07T17:41:23Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-06-20",
+    "distance": 2351.2,
+    "elevation_gain": 0.0,
+    "id": 9347844169,
+    "moving_time": 788.0,
+    "start_date_local": "2023-06-20T12:21:57Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-06-27",
+    "distance": 4839.1,
+    "elevation_gain": 49.6,
+    "id": 9347844190,
+    "moving_time": 1806.0,
+    "start_date_local": "2023-06-27T14:11:09Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-07-13",
+    "distance": 2414.5,
+    "elevation_gain": 0.0,
+    "id": 9554658859,
+    "moving_time": 999.0,
+    "start_date_local": "2023-07-13T09:21:05Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-07-31",
+    "distance": 3221.6,
+    "elevation_gain": 0.0,
+    "id": 9554658946,
+    "moving_time": 1267.0,
+    "start_date_local": "2023-07-31T17:51:54Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-08-05",
+    "distance": 4845.2,
+    "elevation_gain": 34.6,
+    "id": 9586541624,
+    "moving_time": 1692.0,
+    "start_date_local": "2023-08-05T19:01:40Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-08-09",
+    "distance": 4836.2,
+    "elevation_gain": 34.8,
+    "id": 9611304402,
+    "moving_time": 1654.0,
+    "start_date_local": "2023-08-09T05:20:36Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-08-13",
+    "distance": 4037.5,
+    "elevation_gain": 3.6,
+    "id": 9635451693,
+    "moving_time": 1253.0,
+    "start_date_local": "2023-08-13T05:50:02Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-08-14",
+    "distance": 6448.2,
+    "elevation_gain": 53.6,
+    "id": 9642990972,
+    "moving_time": 2364.0,
+    "start_date_local": "2023-08-14T05:27:22Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-08-17",
+    "distance": 4275.3,
+    "elevation_gain": 11.2,
+    "id": 9663122972,
+    "moving_time": 1449.0,
+    "start_date_local": "2023-08-17T09:12:57Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-09-07",
+    "distance": 4834.8,
+    "elevation_gain": 17.4,
+    "id": 9800579615,
+    "moving_time": 1737.0,
+    "start_date_local": "2023-09-07T12:35:28Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-09-11",
+    "distance": 6444.0,
+    "elevation_gain": 22.6,
+    "id": 9826409290,
+    "moving_time": 2218.0,
+    "start_date_local": "2023-09-11T16:08:10Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-09-14",
+    "distance": 6445.6,
+    "elevation_gain": 29.0,
+    "id": 9847676663,
+    "moving_time": 2156.0,
+    "start_date_local": "2023-09-14T21:28:01Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-09-17",
+    "distance": 12887.5,
+    "elevation_gain": 77.0,
+    "id": 9866842825,
+    "moving_time": 5369.0,
+    "start_date_local": "2023-09-17T17:11:52Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-09-20",
+    "distance": 4838.0,
+    "elevation_gain": 0.0,
+    "id": 9884181460,
+    "moving_time": 2121.0,
+    "start_date_local": "2023-09-20T14:08:17Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-09-21",
+    "distance": 12869.5,
+    "elevation_gain": 24.5,
+    "id": 9890878392,
+    "moving_time": 6741.0,
+    "start_date_local": "2023-09-21T14:11:05Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-09-25",
+    "distance": 9896.9,
+    "elevation_gain": 66.9,
+    "id": 9915450313,
+    "moving_time": 4702.0,
+    "start_date_local": "2023-09-25T13:02:38Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-09-26",
+    "distance": 9901.0,
+    "elevation_gain": 0.0,
+    "id": 9921447181,
+    "moving_time": 4526.0,
+    "start_date_local": "2023-09-26T12:03:30Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-09-29",
+    "distance": 5063.1,
+    "elevation_gain": 13.1,
+    "id": 9940288975,
+    "moving_time": 1595.0,
+    "start_date_local": "2023-09-29T08:19:34Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-10-02",
+    "distance": 15303.4,
+    "elevation_gain": 34.5,
+    "id": 9959728350,
+    "moving_time": 7227.0,
+    "start_date_local": "2023-10-02T12:16:58Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-10-14",
+    "distance": 5714.4,
+    "elevation_gain": 100.7,
+    "id": 10034442093,
+    "moving_time": 2451.0,
+    "start_date_local": "2023-10-14T14:23:53Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-10-14",
+    "distance": 6930.5,
+    "elevation_gain": 31.1,
+    "id": 10034588450,
+    "moving_time": 2733.0,
+    "start_date_local": "2023-10-14T15:07:34Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-10-16",
+    "distance": 9671.2,
+    "elevation_gain": 85.7,
+    "id": 10047810470,
+    "moving_time": 4232.0,
+    "start_date_local": "2023-10-16T17:23:56Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-10-19",
+    "distance": 5036.8,
+    "elevation_gain": 12.5,
+    "id": 10064064803,
+    "moving_time": 1718.0,
+    "start_date_local": "2023-10-19T07:03:00Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-10-23",
+    "distance": 10017.7,
+    "elevation_gain": 86.7,
+    "id": 10089026694,
+    "moving_time": 4042.0,
+    "start_date_local": "2023-10-23T16:58:46Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-10-25",
+    "distance": 11281.8,
+    "elevation_gain": 58.8,
+    "id": 10099798428,
+    "moving_time": 4111.0,
+    "start_date_local": "2023-10-25T10:31:51Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-10-28",
+    "distance": 6882.3,
+    "elevation_gain": 94.2,
+    "id": 10116701852,
+    "moving_time": 2630.0,
+    "start_date_local": "2023-10-28T15:27:24Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-11-03",
+    "distance": 16090.0,
+    "elevation_gain": 146.8,
+    "id": 10152404170,
+    "moving_time": 6456.0,
+    "start_date_local": "2023-11-03T18:39:12Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-12-05",
+    "distance": 7009.3,
+    "elevation_gain": 148.0,
+    "id": 10330313499,
+    "moving_time": 3036.0,
+    "start_date_local": "2023-12-05T13:39:44Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-12-23",
+    "distance": 6808.5,
+    "elevation_gain": 55.9,
+    "id": 10422851491,
+    "moving_time": 2461.0,
+    "start_date_local": "2023-12-23T15:33:58Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-12-29",
+    "distance": 1919.3,
+    "elevation_gain": 16.2,
+    "id": 10454739032,
+    "moving_time": 709.0,
+    "start_date_local": "2023-12-29T18:07:58Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-12-29",
+    "distance": 11814.0,
+    "elevation_gain": 108.1,
+    "id": 10455958074,
+    "moving_time": 4807.0,
+    "start_date_local": "2023-12-29T20:13:07Z",
+    "type": "Run",
+    "year": 2023
+  },
+  {
+    "date": "2023-12-31",
+    "distance": 1983.3,
+    "elevation_gain": 95.4,
+    "id": 10465727484,
+    "moving_time": 2084.0,
+    "start_date_local": "2023-12-31T14:21:57Z",
+    "type": "Hike",
+    "year": 2023
+  },
+  {
+    "date": "2024-01-02",
+    "distance": 7831.6,
+    "elevation_gain": 136.7,
+    "id": 10476853259,
+    "moving_time": 3315.0,
+    "start_date_local": "2024-01-02T09:27:37Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-01-04",
+    "distance": 11279.3,
+    "elevation_gain": 123.1,
+    "id": 10489624795,
+    "moving_time": 4021.0,
+    "start_date_local": "2024-01-04T09:29:59Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-01-06",
+    "distance": 8072.0,
+    "elevation_gain": 87.1,
+    "id": 10502744673,
+    "moving_time": 2802.0,
+    "start_date_local": "2024-01-06T15:52:06Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-01-08",
+    "distance": 12350.2,
+    "elevation_gain": 357.0,
+    "id": 10515972698,
+    "moving_time": 5834.0,
+    "start_date_local": "2024-01-08T13:36:43Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-01-10",
+    "distance": 14507.5,
+    "elevation_gain": 77.6,
+    "id": 10528785415,
+    "moving_time": 5346.0,
+    "start_date_local": "2024-01-10T12:56:19Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-01-13",
+    "distance": 5011.0,
+    "elevation_gain": 32.1,
+    "id": 10547468082,
+    "moving_time": 1561.0,
+    "start_date_local": "2024-01-13T14:01:11Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-01-15",
+    "distance": 20244.8,
+    "elevation_gain": 41.9,
+    "id": 10561466420,
+    "moving_time": 7233.0,
+    "start_date_local": "2024-01-15T14:47:08Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-01-19",
+    "distance": 9675.1,
+    "elevation_gain": 116.7,
+    "id": 10586328955,
+    "moving_time": 3751.0,
+    "start_date_local": "2024-01-19T13:31:54Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-01-28",
+    "distance": 3334.3,
+    "elevation_gain": 183.9,
+    "id": 10643800593,
+    "moving_time": 3057.0,
+    "start_date_local": "2024-01-28T11:00:39Z",
+    "type": "Hike",
+    "year": 2024
+  },
+  {
+    "date": "2024-01-29",
+    "distance": 2414.0,
+    "elevation_gain": 0.0,
+    "id": 10651064698,
+    "moving_time": 687.0,
+    "start_date_local": "2024-01-29T10:22:02Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-01-31",
+    "distance": 8061.9,
+    "elevation_gain": 87.2,
+    "id": 10665412463,
+    "moving_time": 3047.0,
+    "start_date_local": "2024-01-31T14:29:58Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-02-19",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 10790229346,
+    "moving_time": 3611.0,
+    "start_date_local": "2024-02-19T05:21:14Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-03-06",
+    "distance": 8058.2,
+    "elevation_gain": 69.4,
+    "id": 10902232318,
+    "moving_time": 3302.0,
+    "start_date_local": "2024-03-06T20:39:57Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-03-10",
+    "distance": 5519.8,
+    "elevation_gain": 0.0,
+    "id": 10930427959,
+    "moving_time": 2139.0,
+    "start_date_local": "2024-03-10T21:21:20Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-03-12",
+    "distance": 7346.0,
+    "elevation_gain": 0.0,
+    "id": 10937318797,
+    "moving_time": 3001.0,
+    "start_date_local": "2024-03-12T00:01:20Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-03-14",
+    "distance": 6292.3,
+    "elevation_gain": 22.6,
+    "id": 10957105701,
+    "moving_time": 2194.0,
+    "start_date_local": "2024-03-14T19:57:06Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-03-16",
+    "distance": 12187.2,
+    "elevation_gain": 53.4,
+    "id": 10965697956,
+    "moving_time": 4800.0,
+    "start_date_local": "2024-03-16T00:26:17Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-03-18",
+    "distance": 8019.0,
+    "elevation_gain": 5.0,
+    "id": 10984594650,
+    "moving_time": 2700.0,
+    "start_date_local": "2024-03-18T15:24:55Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-03-19",
+    "distance": 5553.6,
+    "elevation_gain": 47.0,
+    "id": 10990301923,
+    "moving_time": 2104.0,
+    "start_date_local": "2024-03-19T12:47:41Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-03-21",
+    "distance": 8328.6,
+    "elevation_gain": 4.0,
+    "id": 11005307394,
+    "moving_time": 2822.0,
+    "start_date_local": "2024-03-21T11:20:19Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-03-23",
+    "distance": 14076.6,
+    "elevation_gain": 61.0,
+    "id": 11019016760,
+    "moving_time": 5409.0,
+    "start_date_local": "2024-03-23T16:20:50Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-03-25",
+    "distance": 59139.3,
+    "elevation_gain": 572.0,
+    "id": 11032432234,
+    "moving_time": 12591.0,
+    "start_date_local": "2024-03-25T08:12:43Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-03-30",
+    "distance": 6650.7,
+    "elevation_gain": 19.0,
+    "id": 11066233049,
+    "moving_time": 2102.0,
+    "start_date_local": "2024-03-30T14:38:58Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-03-31",
+    "distance": 45508.9,
+    "elevation_gain": 177.0,
+    "id": 11073337510,
+    "moving_time": 7702.0,
+    "start_date_local": "2024-03-31T07:38:07Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-01",
+    "distance": 5640.4,
+    "elevation_gain": 10.0,
+    "id": 11080639939,
+    "moving_time": 1864.0,
+    "start_date_local": "2024-04-01T14:16:55Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-03",
+    "distance": 13499.5,
+    "elevation_gain": 104.0,
+    "id": 11095675922,
+    "moving_time": 5186.0,
+    "start_date_local": "2024-04-03T14:02:33Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-05",
+    "distance": 4033.1,
+    "elevation_gain": 58.0,
+    "id": 11108990633,
+    "moving_time": 1503.0,
+    "start_date_local": "2024-04-05T10:25:39Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-06",
+    "distance": 8493.2,
+    "elevation_gain": 74.0,
+    "id": 11115442457,
+    "moving_time": 3002.0,
+    "start_date_local": "2024-04-06T10:13:18Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-07",
+    "distance": 2098.6,
+    "elevation_gain": 103.0,
+    "id": 11123703881,
+    "moving_time": 1903.0,
+    "start_date_local": "2024-04-07T14:15:20Z",
+    "type": "Hike",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-10",
+    "distance": 16471.4,
+    "elevation_gain": 37.0,
+    "id": 11147411839,
+    "moving_time": 6003.0,
+    "start_date_local": "2024-04-10T14:26:04Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-12",
+    "distance": 1780.4,
+    "elevation_gain": 109.0,
+    "id": 11160820861,
+    "moving_time": 1632.0,
+    "start_date_local": "2024-04-12T07:43:38Z",
+    "type": "Hike",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-12",
+    "distance": 5196.5,
+    "elevation_gain": 30.0,
+    "id": 11162529689,
+    "moving_time": 1802.0,
+    "start_date_local": "2024-04-12T16:40:20Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-13",
+    "distance": 6253.6,
+    "elevation_gain": 55.0,
+    "id": 11168935152,
+    "moving_time": 2399.0,
+    "start_date_local": "2024-04-13T14:56:54Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-14",
+    "distance": 87172.5,
+    "elevation_gain": 629.0,
+    "id": 11176471696,
+    "moving_time": 16528.0,
+    "start_date_local": "2024-04-14T06:38:29Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-17",
+    "distance": 6629.4,
+    "elevation_gain": 17.0,
+    "id": 11200296917,
+    "moving_time": 2222.0,
+    "start_date_local": "2024-04-17T14:55:44Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-18",
+    "distance": 12880.8,
+    "elevation_gain": 27.0,
+    "id": 11206891550,
+    "moving_time": 4382.0,
+    "start_date_local": "2024-04-18T09:32:42Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-21",
+    "distance": 13769.8,
+    "elevation_gain": 292.0,
+    "id": 11228583730,
+    "moving_time": 4293.0,
+    "start_date_local": "2024-04-21T14:18:34Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-23",
+    "distance": 4041.0,
+    "elevation_gain": 58.0,
+    "id": 11242782267,
+    "moving_time": 1505.0,
+    "start_date_local": "2024-04-23T09:39:32Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-04-28",
+    "distance": 21165.4,
+    "elevation_gain": 81.0,
+    "id": 11279734831,
+    "moving_time": 7868.0,
+    "start_date_local": "2024-04-28T09:31:14Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-05-08",
+    "distance": 6083.3,
+    "elevation_gain": 78.0,
+    "id": 11357236032,
+    "moving_time": 2288.0,
+    "start_date_local": "2024-05-08T07:08:25Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-05-10",
+    "distance": 25825.9,
+    "elevation_gain": 132.0,
+    "id": 11373371007,
+    "moving_time": 3829.0,
+    "start_date_local": "2024-05-10T07:22:41Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-05-12",
+    "distance": 56367.9,
+    "elevation_gain": 494.0,
+    "id": 11389730901,
+    "moving_time": 10086.0,
+    "start_date_local": "2024-05-12T08:44:14Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-05-15",
+    "distance": 5069.4,
+    "elevation_gain": 0.0,
+    "id": 11414213419,
+    "moving_time": 1719.0,
+    "start_date_local": "2024-05-15T15:15:58Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-05-18",
+    "distance": 9986.8,
+    "elevation_gain": 16.0,
+    "id": 11434902148,
+    "moving_time": 3063.0,
+    "start_date_local": "2024-05-18T08:03:16Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-05-19",
+    "distance": 73728.8,
+    "elevation_gain": 213.0,
+    "id": 11444876710,
+    "moving_time": 11549.0,
+    "start_date_local": "2024-05-19T13:04:41Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-06-08",
+    "distance": 5045.2,
+    "elevation_gain": 25.0,
+    "id": 11600507977,
+    "moving_time": 1792.0,
+    "start_date_local": "2024-06-08T15:17:47Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-06-09",
+    "distance": 65855.3,
+    "elevation_gain": 184.0,
+    "id": 11607626271,
+    "moving_time": 10906.0,
+    "start_date_local": "2024-06-09T05:20:32Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-06-13",
+    "distance": 2232.4,
+    "elevation_gain": 0.0,
+    "id": 11639369706,
+    "moving_time": 666.0,
+    "start_date_local": "2024-06-13T08:48:40Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-06-15",
+    "distance": 53881.3,
+    "elevation_gain": 129.0,
+    "id": 11654430813,
+    "moving_time": 7936.0,
+    "start_date_local": "2024-06-15T08:22:48Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-06-15",
+    "distance": 53178.5,
+    "elevation_gain": 242.0,
+    "id": 11654839756,
+    "moving_time": 8299.0,
+    "start_date_local": "2024-06-15T10:07:39Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-06-20",
+    "distance": 37381.2,
+    "elevation_gain": 125.0,
+    "id": 11693143839,
+    "moving_time": 5106.0,
+    "start_date_local": "2024-06-20T05:31:40Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-06-21",
+    "distance": 61797.3,
+    "elevation_gain": 396.0,
+    "id": 11701227445,
+    "moving_time": 9787.0,
+    "start_date_local": "2024-06-21T05:41:41Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-07-12",
+    "distance": 5501.0,
+    "elevation_gain": 71.6,
+    "id": 11867410938,
+    "moving_time": 2024.0,
+    "start_date_local": "2024-07-12T08:32:28Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-07-14",
+    "distance": 72734.2,
+    "elevation_gain": 287.0,
+    "id": 11882060513,
+    "moving_time": 12418.0,
+    "start_date_local": "2024-07-14T06:04:05Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-07-21",
+    "distance": 6028.0,
+    "elevation_gain": 32.8,
+    "id": 11939608898,
+    "moving_time": 2098.0,
+    "start_date_local": "2024-07-21T08:34:02Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-07-23",
+    "distance": 5306.7,
+    "elevation_gain": 22.0,
+    "id": 11959432783,
+    "moving_time": 2102.0,
+    "start_date_local": "2024-07-23T20:05:03Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-07-25",
+    "distance": 6198.9,
+    "elevation_gain": 71.0,
+    "id": 11972629881,
+    "moving_time": 2251.0,
+    "start_date_local": "2024-07-25T05:02:21Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-07-27",
+    "distance": 6166.6,
+    "elevation_gain": 34.0,
+    "id": 11988784502,
+    "moving_time": 2402.0,
+    "start_date_local": "2024-07-27T05:27:29Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-07-29",
+    "distance": 6813.3,
+    "elevation_gain": 15.0,
+    "id": 12009319390,
+    "moving_time": 2400.0,
+    "start_date_local": "2024-07-29T19:38:03Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-07-30",
+    "distance": 6227.1,
+    "elevation_gain": 32.0,
+    "id": 12017684068,
+    "moving_time": 2400.0,
+    "start_date_local": "2024-07-30T19:36:46Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-01",
+    "distance": 6603.3,
+    "elevation_gain": 41.0,
+    "id": 12034708650,
+    "moving_time": 2401.0,
+    "start_date_local": "2024-08-01T19:33:33Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-03",
+    "distance": 7706.4,
+    "elevation_gain": 32.0,
+    "id": 12050953165,
+    "moving_time": 3000.0,
+    "start_date_local": "2024-08-03T19:35:34Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-05",
+    "distance": 7425.2,
+    "elevation_gain": 20.0,
+    "id": 12067222027,
+    "moving_time": 2580.0,
+    "start_date_local": "2024-08-05T18:54:10Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-06",
+    "distance": 7191.3,
+    "elevation_gain": 32.0,
+    "id": 12076276085,
+    "moving_time": 2700.0,
+    "start_date_local": "2024-08-06T19:42:35Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-08",
+    "distance": 8271.2,
+    "elevation_gain": 51.0,
+    "id": 12094274300,
+    "moving_time": 2908.0,
+    "start_date_local": "2024-08-08T19:55:34Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-10",
+    "distance": 9507.0,
+    "elevation_gain": 37.0,
+    "id": 12110227119,
+    "moving_time": 3602.0,
+    "start_date_local": "2024-08-10T19:15:13Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-13",
+    "distance": 6505.2,
+    "elevation_gain": 17.0,
+    "id": 12135515340,
+    "moving_time": 2049.0,
+    "start_date_local": "2024-08-13T19:23:31Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-14",
+    "distance": 5147.8,
+    "elevation_gain": 15.0,
+    "id": 12144527088,
+    "moving_time": 1803.0,
+    "start_date_local": "2024-08-14T19:36:21Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-17",
+    "distance": 6876.1,
+    "elevation_gain": 23.0,
+    "id": 12169532907,
+    "moving_time": 2400.0,
+    "start_date_local": "2024-08-17T19:22:17Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-18",
+    "distance": 5566.0,
+    "elevation_gain": 26.0,
+    "id": 12177986355,
+    "moving_time": 1862.0,
+    "start_date_local": "2024-08-18T19:21:43Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-19",
+    "distance": 6351.0,
+    "elevation_gain": 14.0,
+    "id": 12186146411,
+    "moving_time": 2100.0,
+    "start_date_local": "2024-08-19T19:19:30Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-20",
+    "distance": 6550.5,
+    "elevation_gain": 19.0,
+    "id": 12194454694,
+    "moving_time": 2334.0,
+    "start_date_local": "2024-08-20T18:47:03Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-23",
+    "distance": 9258.9,
+    "elevation_gain": 18.0,
+    "id": 12220850985,
+    "moving_time": 3125.0,
+    "start_date_local": "2024-08-23T18:59:52Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-24",
+    "distance": 11576.2,
+    "elevation_gain": 34.0,
+    "id": 12228799121,
+    "moving_time": 4090.0,
+    "start_date_local": "2024-08-24T18:29:49Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-26",
+    "distance": 9176.3,
+    "elevation_gain": 17.0,
+    "id": 12245647559,
+    "moving_time": 3001.0,
+    "start_date_local": "2024-08-26T19:13:58Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-27",
+    "distance": 7653.2,
+    "elevation_gain": 27.0,
+    "id": 12253851051,
+    "moving_time": 2702.0,
+    "start_date_local": "2024-08-27T18:57:05Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-29",
+    "distance": 9305.0,
+    "elevation_gain": 14.0,
+    "id": 12272222637,
+    "moving_time": 3061.0,
+    "start_date_local": "2024-08-29T19:31:52Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-08-31",
+    "distance": 14492.3,
+    "elevation_gain": 75.0,
+    "id": 12284412847,
+    "moving_time": 5099.0,
+    "start_date_local": "2024-08-31T05:45:12Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-02",
+    "distance": 6454.5,
+    "elevation_gain": 15.0,
+    "id": 12303879775,
+    "moving_time": 2000.0,
+    "start_date_local": "2024-09-02T15:19:47Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-04",
+    "distance": 6755.2,
+    "elevation_gain": 61.0,
+    "id": 12322929056,
+    "moving_time": 2405.0,
+    "start_date_local": "2024-09-04T19:22:05Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-07",
+    "distance": 15301.2,
+    "elevation_gain": 46.0,
+    "id": 12347609641,
+    "moving_time": 5402.0,
+    "start_date_local": "2024-09-07T17:24:35Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-09",
+    "distance": 5108.7,
+    "elevation_gain": 20.0,
+    "id": 12363110889,
+    "moving_time": 1803.0,
+    "start_date_local": "2024-09-09T10:17:39Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-10",
+    "distance": 5762.0,
+    "elevation_gain": 19.0,
+    "id": 12370046467,
+    "moving_time": 1744.0,
+    "start_date_local": "2024-09-10T07:08:47Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-12",
+    "distance": 5983.9,
+    "elevation_gain": 42.0,
+    "id": 12390565919,
+    "moving_time": 1862.0,
+    "start_date_local": "2024-09-12T19:04:31Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-16",
+    "distance": 30118.8,
+    "elevation_gain": 106.0,
+    "id": 12420463308,
+    "moving_time": 4651.0,
+    "start_date_local": "2024-09-16T06:28:34Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-16",
+    "distance": 7862.5,
+    "elevation_gain": 21.0,
+    "id": 12423123905,
+    "moving_time": 2516.0,
+    "start_date_local": "2024-09-16T18:34:23Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-17",
+    "distance": 7039.7,
+    "elevation_gain": 21.0,
+    "id": 12431483596,
+    "moving_time": 2404.0,
+    "start_date_local": "2024-09-17T19:06:11Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-19",
+    "distance": 7099.6,
+    "elevation_gain": 23.0,
+    "id": 12449205555,
+    "moving_time": 2401.0,
+    "start_date_local": "2024-09-19T19:15:19Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-21",
+    "distance": 17719.9,
+    "elevation_gain": 60.0,
+    "id": 12464094177,
+    "moving_time": 6007.0,
+    "start_date_local": "2024-09-21T15:27:00Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-22",
+    "distance": 69666.0,
+    "elevation_gain": 419.0,
+    "id": 12472168382,
+    "moving_time": 13440.0,
+    "start_date_local": "2024-09-22T09:22:15Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-24",
+    "distance": 7057.9,
+    "elevation_gain": 20.0,
+    "id": 12490522902,
+    "moving_time": 2400.0,
+    "start_date_local": "2024-09-24T18:39:43Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-26",
+    "distance": 6947.2,
+    "elevation_gain": 37.0,
+    "id": 12507214433,
+    "moving_time": 2103.0,
+    "start_date_local": "2024-09-26T18:40:20Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-09-29",
+    "distance": 12891.7,
+    "elevation_gain": 47.0,
+    "id": 12527961381,
+    "moving_time": 4201.0,
+    "start_date_local": "2024-09-29T08:45:24Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-10-01",
+    "distance": 5403.0,
+    "elevation_gain": 18.0,
+    "id": 12546672433,
+    "moving_time": 1802.0,
+    "start_date_local": "2024-10-01T18:56:27Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-10-05",
+    "distance": 3835.6,
+    "elevation_gain": 131.0,
+    "id": 12576876075,
+    "moving_time": 3565.0,
+    "start_date_local": "2024-10-05T12:25:39Z",
+    "type": "Hike",
+    "year": 2024
+  },
+  {
+    "date": "2024-10-06",
+    "distance": 13242.2,
+    "elevation_gain": 48.0,
+    "id": 12587405659,
+    "moving_time": 4411.0,
+    "start_date_local": "2024-10-06T16:50:28Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-10-08",
+    "distance": 6032.5,
+    "elevation_gain": 17.0,
+    "id": 12604011035,
+    "moving_time": 1807.0,
+    "start_date_local": "2024-10-08T18:34:01Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-10-10",
+    "distance": 4449.0,
+    "elevation_gain": 12.0,
+    "id": 12619228685,
+    "moving_time": 1501.0,
+    "start_date_local": "2024-10-10T15:20:01Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-10-13",
+    "distance": 21144.0,
+    "elevation_gain": 49.0,
+    "id": 12641262954,
+    "moving_time": 6854.0,
+    "start_date_local": "2024-10-13T08:07:40Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-10-19",
+    "distance": 2096.5,
+    "elevation_gain": 84.0,
+    "id": 12689622483,
+    "moving_time": 1802.0,
+    "start_date_local": "2024-10-19T14:18:34Z",
+    "type": "Hike",
+    "year": 2024
+  },
+  {
+    "date": "2024-10-27",
+    "distance": 68941.4,
+    "elevation_gain": 215.0,
+    "id": 12753694736,
+    "moving_time": 10921.0,
+    "start_date_local": "2024-10-27T09:12:36Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-10-31",
+    "distance": 3226.3,
+    "elevation_gain": 11.0,
+    "id": 12787751562,
+    "moving_time": 922.0,
+    "start_date_local": "2024-10-31T18:27:24Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-11-03",
+    "distance": 85217.8,
+    "elevation_gain": 607.0,
+    "id": 12809481695,
+    "moving_time": 12601.0,
+    "start_date_local": "2024-11-03T08:10:57Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-11-07",
+    "distance": 17466.8,
+    "elevation_gain": 42.0,
+    "id": 12842188843,
+    "moving_time": 2111.0,
+    "start_date_local": "2024-11-07T14:55:27Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-11-10",
+    "distance": 47810.3,
+    "elevation_gain": 175.0,
+    "id": 12864462952,
+    "moving_time": 6816.0,
+    "start_date_local": "2024-11-10T11:17:41Z",
+    "type": "Ride",
+    "year": 2024
+  },
+  {
+    "date": "2024-11-22",
+    "distance": 5069.3,
+    "elevation_gain": 5.0,
+    "id": 12956491994,
+    "moving_time": 1406.0,
+    "start_date_local": "2024-11-22T16:22:17Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-11-25",
+    "distance": 7410.0,
+    "elevation_gain": 68.0,
+    "id": 12977580216,
+    "moving_time": 2449.0,
+    "start_date_local": "2024-11-25T15:00:46Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-12-04",
+    "distance": 8362.7,
+    "elevation_gain": 50.0,
+    "id": 13043343987,
+    "moving_time": 2865.0,
+    "start_date_local": "2024-12-04T16:51:15Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-12-06",
+    "distance": 5006.3,
+    "elevation_gain": 15.0,
+    "id": 13056582618,
+    "moving_time": 1406.0,
+    "start_date_local": "2024-12-06T14:32:51Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-12-08",
+    "distance": 7879.0,
+    "elevation_gain": 7.0,
+    "id": 13070707619,
+    "moving_time": 2665.0,
+    "start_date_local": "2024-12-08T16:36:04Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-12-19",
+    "distance": 6747.6,
+    "elevation_gain": 43.0,
+    "id": 13147044489,
+    "moving_time": 2243.0,
+    "start_date_local": "2024-12-19T16:49:13Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-12-21",
+    "distance": 7683.9,
+    "elevation_gain": 36.0,
+    "id": 13159045182,
+    "moving_time": 2401.0,
+    "start_date_local": "2024-12-21T15:14:43Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-12-22",
+    "distance": 7797.9,
+    "elevation_gain": 108.0,
+    "id": 13165574740,
+    "moving_time": 2701.0,
+    "start_date_local": "2024-12-22T13:53:44Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-12-26",
+    "distance": 8778.8,
+    "elevation_gain": 43.0,
+    "id": 13190959109,
+    "moving_time": 3001.0,
+    "start_date_local": "2024-12-26T15:00:48Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-12-28",
+    "distance": 5870.2,
+    "elevation_gain": 40.0,
+    "id": 13205398155,
+    "moving_time": 1869.0,
+    "start_date_local": "2024-12-28T15:19:55Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2024-12-31",
+    "distance": 8057.2,
+    "elevation_gain": 30.0,
+    "id": 13228485100,
+    "moving_time": 2400.0,
+    "start_date_local": "2024-12-31T15:23:48Z",
+    "type": "Run",
+    "year": 2024
+  },
+  {
+    "date": "2025-01-02",
+    "distance": 10383.4,
+    "elevation_gain": 49.0,
+    "id": 13243507819,
+    "moving_time": 3600.0,
+    "start_date_local": "2025-01-02T14:10:28Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-01-06",
+    "distance": 7081.1,
+    "elevation_gain": 0.0,
+    "id": 13278399028,
+    "moving_time": 1979.0,
+    "start_date_local": "2025-01-06T15:37:50Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-01-11",
+    "distance": 12880.8,
+    "elevation_gain": 50.0,
+    "id": 13321797268,
+    "moving_time": 4328.0,
+    "start_date_local": "2025-01-11T15:04:03Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-01-15",
+    "distance": 9579.5,
+    "elevation_gain": 0.0,
+    "id": 13359006915,
+    "moving_time": 2999.0,
+    "start_date_local": "2025-01-15T15:34:27Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-01-17",
+    "distance": 12892.4,
+    "elevation_gain": 81.0,
+    "id": 13376796363,
+    "moving_time": 4338.0,
+    "start_date_local": "2025-01-17T16:09:01Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-01-19",
+    "distance": 9627.7,
+    "elevation_gain": 27.0,
+    "id": 13393477099,
+    "moving_time": 3004.0,
+    "start_date_local": "2025-01-19T15:24:11Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-01-22",
+    "distance": 10804.2,
+    "elevation_gain": 0.0,
+    "id": 13420595524,
+    "moving_time": 3241.0,
+    "start_date_local": "2025-01-22T15:38:18Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-01-24",
+    "distance": 14489.1,
+    "elevation_gain": 38.0,
+    "id": 13437719419,
+    "moving_time": 4887.0,
+    "start_date_local": "2025-01-24T15:34:29Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-01-26",
+    "distance": 10418.1,
+    "elevation_gain": 33.0,
+    "id": 13454476458,
+    "moving_time": 3302.0,
+    "start_date_local": "2025-01-26T16:46:13Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-02-01",
+    "distance": 17337.1,
+    "elevation_gain": 97.0,
+    "id": 13507579097,
+    "moving_time": 6212.0,
+    "start_date_local": "2025-02-01T17:08:43Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-02-02",
+    "distance": 4023.3,
+    "elevation_gain": 200.0,
+    "id": 13515275675,
+    "moving_time": 4762.0,
+    "start_date_local": "2025-02-02T10:58:56Z",
+    "type": "Hike",
+    "year": 2025
+  },
+  {
+    "date": "2025-02-08",
+    "distance": 14142.1,
+    "elevation_gain": 337.0,
+    "id": 13569674652,
+    "moving_time": 5971.0,
+    "start_date_local": "2025-02-08T15:06:08Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-02-10",
+    "distance": 7206.5,
+    "elevation_gain": 547.0,
+    "id": 13587486030,
+    "moving_time": 9701.0,
+    "start_date_local": "2025-02-10T09:03:43Z",
+    "type": "Hike",
+    "year": 2025
+  },
+  {
+    "date": "2025-02-20",
+    "distance": 12879.0,
+    "elevation_gain": 37.0,
+    "id": 13675932100,
+    "moving_time": 4487.0,
+    "start_date_local": "2025-02-20T15:38:30Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-03-08",
+    "distance": 25066.2,
+    "elevation_gain": 127.0,
+    "id": 13820204095,
+    "moving_time": 4003.0,
+    "start_date_local": "2025-03-08T15:47:23Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-03-15",
+    "distance": 26950.2,
+    "elevation_gain": 90.0,
+    "id": 13885420231,
+    "moving_time": 3944.0,
+    "start_date_local": "2025-03-15T12:54:18Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-03-21",
+    "distance": 5884.0,
+    "elevation_gain": 51.0,
+    "id": 13942104764,
+    "moving_time": 2042.0,
+    "start_date_local": "2025-03-21T13:44:53Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-03-23",
+    "distance": 65992.5,
+    "elevation_gain": 470.0,
+    "id": 13959825004,
+    "moving_time": 10542.0,
+    "start_date_local": "2025-03-23T09:17:29Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-03-26",
+    "distance": 6551.0,
+    "elevation_gain": 102.0,
+    "id": 13988921093,
+    "moving_time": 2330.0,
+    "start_date_local": "2025-03-26T11:51:34Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-07",
+    "distance": 6257.7,
+    "elevation_gain": 29.0,
+    "id": 14103742370,
+    "moving_time": 1955.0,
+    "start_date_local": "2025-04-07T14:48:49Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-09",
+    "distance": 4325.3,
+    "elevation_gain": 15.0,
+    "id": 14124022100,
+    "moving_time": 1502.0,
+    "start_date_local": "2025-04-09T15:54:22Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-11",
+    "distance": 4849.6,
+    "elevation_gain": 43.0,
+    "id": 14143647062,
+    "moving_time": 1622.0,
+    "start_date_local": "2025-04-11T16:30:44Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-13",
+    "distance": 5310.8,
+    "elevation_gain": 0.0,
+    "id": 14161881784,
+    "moving_time": 1803.0,
+    "start_date_local": "2025-04-13T16:05:04Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-15",
+    "distance": 5074.6,
+    "elevation_gain": 16.0,
+    "id": 14181474048,
+    "moving_time": 1622.0,
+    "start_date_local": "2025-04-15T15:45:50Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-16",
+    "distance": 4363.4,
+    "elevation_gain": 21.0,
+    "id": 14191616432,
+    "moving_time": 1501.0,
+    "start_date_local": "2025-04-16T16:46:01Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-18",
+    "distance": 4939.2,
+    "elevation_gain": 18.0,
+    "id": 14209902415,
+    "moving_time": 1562.0,
+    "start_date_local": "2025-04-18T15:24:49Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-19",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": 14218795730,
+    "moving_time": 2656.0,
+    "start_date_local": "2025-04-19T12:53:35Z",
+    "type": "WeightTraining",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-20",
+    "distance": 12882.8,
+    "elevation_gain": 52.0,
+    "id": 14228129429,
+    "moving_time": 4920.0,
+    "start_date_local": "2025-04-20T08:48:00Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-22",
+    "distance": 6447.5,
+    "elevation_gain": 31.0,
+    "id": 14249082571,
+    "moving_time": 2337.0,
+    "start_date_local": "2025-04-22T15:29:01Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-23",
+    "distance": 6442.6,
+    "elevation_gain": 22.0,
+    "id": 14259821259,
+    "moving_time": 2137.0,
+    "start_date_local": "2025-04-23T16:21:18Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-25",
+    "distance": 8054.6,
+    "elevation_gain": 52.0,
+    "id": 14278886505,
+    "moving_time": 2907.0,
+    "start_date_local": "2025-04-25T14:05:42Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-27",
+    "distance": 13683.6,
+    "elevation_gain": 98.0,
+    "id": 14296947658,
+    "moving_time": 4548.0,
+    "start_date_local": "2025-04-27T09:49:44Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-29",
+    "distance": 8051.3,
+    "elevation_gain": 41.0,
+    "id": 14316641275,
+    "moving_time": 2972.0,
+    "start_date_local": "2025-04-29T07:07:51Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-04-30",
+    "distance": 8011.8,
+    "elevation_gain": 36.0,
+    "id": 14327829370,
+    "moving_time": 2505.0,
+    "start_date_local": "2025-04-30T07:57:36Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-02",
+    "distance": 6922.8,
+    "elevation_gain": 29.0,
+    "id": 14350681475,
+    "moving_time": 2389.0,
+    "start_date_local": "2025-05-02T13:05:06Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-04",
+    "distance": 15303.2,
+    "elevation_gain": 99.0,
+    "id": 14371030232,
+    "moving_time": 5633.0,
+    "start_date_local": "2025-05-04T13:13:04Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-06",
+    "distance": 5638.0,
+    "elevation_gain": 26.0,
+    "id": 14392353900,
+    "moving_time": 1981.0,
+    "start_date_local": "2025-05-06T17:21:06Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-07",
+    "distance": 6811.4,
+    "elevation_gain": 60.0,
+    "id": 14402867650,
+    "moving_time": 2407.0,
+    "start_date_local": "2025-05-07T17:09:08Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-09",
+    "distance": 7247.1,
+    "elevation_gain": 45.0,
+    "id": 14423185188,
+    "moving_time": 2678.0,
+    "start_date_local": "2025-05-09T16:28:46Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-11",
+    "distance": 8858.4,
+    "elevation_gain": 57.0,
+    "id": 14442453825,
+    "moving_time": 3162.0,
+    "start_date_local": "2025-05-11T15:20:41Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-13",
+    "distance": 8055.8,
+    "elevation_gain": 76.0,
+    "id": 14463917790,
+    "moving_time": 2872.0,
+    "start_date_local": "2025-05-13T15:47:03Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-17",
+    "distance": 10024.7,
+    "elevation_gain": 33.0,
+    "id": 14503013190,
+    "moving_time": 3092.0,
+    "start_date_local": "2025-05-17T08:00:18Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-22",
+    "distance": 2400.0,
+    "elevation_gain": 0.0,
+    "id": 14555884178,
+    "moving_time": 636.0,
+    "start_date_local": "2025-05-22T08:23:32Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-23",
+    "distance": 100006.0,
+    "elevation_gain": 444.0,
+    "id": 14567396591,
+    "moving_time": 17438.0,
+    "start_date_local": "2025-05-23T08:41:22Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-24",
+    "distance": 96094.2,
+    "elevation_gain": 490.0,
+    "id": 14576555832,
+    "moving_time": 17822.0,
+    "start_date_local": "2025-05-24T09:21:36Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-25",
+    "distance": 97958.7,
+    "elevation_gain": 782.0,
+    "id": 14586604106,
+    "moving_time": 16841.0,
+    "start_date_local": "2025-05-25T09:11:44Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-26",
+    "distance": 82521.0,
+    "elevation_gain": 220.0,
+    "id": 14596847277,
+    "moving_time": 13134.0,
+    "start_date_local": "2025-05-26T09:16:22Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-27",
+    "distance": 94549.1,
+    "elevation_gain": 667.0,
+    "id": 14607319017,
+    "moving_time": 16770.0,
+    "start_date_local": "2025-05-27T09:06:55Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-05-28",
+    "distance": 91124.4,
+    "elevation_gain": 223.0,
+    "id": 14617376197,
+    "moving_time": 13958.0,
+    "start_date_local": "2025-05-28T09:09:11Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-06-01",
+    "distance": 20255.7,
+    "elevation_gain": 124.0,
+    "id": 14658917966,
+    "moving_time": 2860.0,
+    "start_date_local": "2025-06-01T14:38:37Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-06-03",
+    "distance": 5237.8,
+    "elevation_gain": 22.0,
+    "id": 14680302554,
+    "moving_time": 1881.0,
+    "start_date_local": "2025-06-03T16:35:29Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-06-04",
+    "distance": 21626.7,
+    "elevation_gain": 71.0,
+    "id": 14691144775,
+    "moving_time": 2909.0,
+    "start_date_local": "2025-06-04T15:46:29Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-06-08",
+    "distance": 9666.9,
+    "elevation_gain": 30.0,
+    "id": 14731661306,
+    "moving_time": 3207.0,
+    "start_date_local": "2025-06-08T17:21:55Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-06-10",
+    "distance": 9660.0,
+    "elevation_gain": 37.0,
+    "id": 14753540990,
+    "moving_time": 3443.0,
+    "start_date_local": "2025-06-10T18:56:48Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-06-15",
+    "distance": 19312.5,
+    "elevation_gain": 77.0,
+    "id": 14801535947,
+    "moving_time": 7191.0,
+    "start_date_local": "2025-06-15T06:58:00Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-06-18",
+    "distance": 9661.1,
+    "elevation_gain": 38.0,
+    "id": 14837378781,
+    "moving_time": 3155.0,
+    "start_date_local": "2025-06-18T18:51:33Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-06-21",
+    "distance": 7441.8,
+    "elevation_gain": 337.0,
+    "id": 14865556376,
+    "moving_time": 8787.0,
+    "start_date_local": "2025-06-21T09:16:28Z",
+    "type": "Hike",
+    "year": 2025
+  },
+  {
+    "date": "2025-07-11",
+    "distance": 6446.4,
+    "elevation_gain": 8.0,
+    "id": 15073163513,
+    "moving_time": 2240.0,
+    "start_date_local": "2025-07-11T06:05:33Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-07-21",
+    "distance": 7248.0,
+    "elevation_gain": 43.0,
+    "id": 15185502834,
+    "moving_time": 2632.0,
+    "start_date_local": "2025-07-21T19:26:52Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-07-25",
+    "distance": 2839.2,
+    "elevation_gain": 2.0,
+    "id": 15225711779,
+    "moving_time": 906.0,
+    "start_date_local": "2025-07-25T05:43:47Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-07-27",
+    "distance": 9660.4,
+    "elevation_gain": 28.0,
+    "id": 15251905257,
+    "moving_time": 3682.0,
+    "start_date_local": "2025-07-27T19:04:18Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-07-30",
+    "distance": 7410.1,
+    "elevation_gain": 23.0,
+    "id": 15285008085,
+    "moving_time": 2531.0,
+    "start_date_local": "2025-07-30T19:29:19Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-08-01",
+    "distance": 8854.5,
+    "elevation_gain": 34.0,
+    "id": 15301905056,
+    "moving_time": 3271.0,
+    "start_date_local": "2025-08-01T04:34:41Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-08-02",
+    "distance": 43210.8,
+    "elevation_gain": 156.0,
+    "id": 15313144978,
+    "moving_time": 6786.0,
+    "start_date_local": "2025-08-02T05:46:03Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-08-06",
+    "distance": 8865.8,
+    "elevation_gain": 20.0,
+    "id": 15357596118,
+    "moving_time": 3294.0,
+    "start_date_local": "2025-08-06T04:59:28Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-08-08",
+    "distance": 10470.9,
+    "elevation_gain": 8.0,
+    "id": 15381713794,
+    "moving_time": 3681.0,
+    "start_date_local": "2025-08-08T06:01:21Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-08-10",
+    "distance": 134812.0,
+    "elevation_gain": 414.0,
+    "id": 15405833895,
+    "moving_time": 19227.0,
+    "start_date_local": "2025-08-10T06:06:02Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-08-17",
+    "distance": 8858.6,
+    "elevation_gain": 24.0,
+    "id": 15488797179,
+    "moving_time": 2958.0,
+    "start_date_local": "2025-08-17T19:50:04Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-08-20",
+    "distance": 10465.4,
+    "elevation_gain": 25.0,
+    "id": 15523744941,
+    "moving_time": 3731.0,
+    "start_date_local": "2025-08-20T20:01:47Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-08-24",
+    "distance": 6334.4,
+    "elevation_gain": 835.0,
+    "id": 15563972178,
+    "moving_time": 9905.0,
+    "start_date_local": "2025-08-24T06:23:31Z",
+    "type": "Hike",
+    "year": 2025
+  },
+  {
+    "date": "2025-09-07",
+    "distance": 12074.7,
+    "elevation_gain": 40.0,
+    "id": 15725686948,
+    "moving_time": 4336.0,
+    "start_date_local": "2025-09-07T16:33:58Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-09-14",
+    "distance": 9656.8,
+    "elevation_gain": 43.0,
+    "id": 15804300990,
+    "moving_time": 3518.0,
+    "start_date_local": "2025-09-14T14:27:43Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-09-17",
+    "distance": 9767.1,
+    "elevation_gain": 35.0,
+    "id": 15839903558,
+    "moving_time": 3243.0,
+    "start_date_local": "2025-09-17T16:45:07Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-09-25",
+    "distance": 8990.8,
+    "elevation_gain": 36.0,
+    "id": 15929480628,
+    "moving_time": 3023.0,
+    "start_date_local": "2025-09-25T16:42:20Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-09-29",
+    "distance": 5025.1,
+    "elevation_gain": 56.0,
+    "id": 15972700159,
+    "moving_time": 1779.0,
+    "start_date_local": "2025-09-29T16:26:55Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-10-01",
+    "distance": 6155.5,
+    "elevation_gain": 22.0,
+    "id": 15995652784,
+    "moving_time": 1970.0,
+    "start_date_local": "2025-10-01T17:03:24Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-10-02",
+    "distance": 34893.6,
+    "elevation_gain": 146.0,
+    "id": 16005878101,
+    "moving_time": 5051.0,
+    "start_date_local": "2025-10-02T12:18:32Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-10-03",
+    "distance": 9664.2,
+    "elevation_gain": 47.0,
+    "id": 16017369441,
+    "moving_time": 3284.0,
+    "start_date_local": "2025-10-03T15:35:23Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-10-05",
+    "distance": 17719.3,
+    "elevation_gain": 52.0,
+    "id": 16036336268,
+    "moving_time": 5678.0,
+    "start_date_local": "2025-10-05T09:26:06Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-10-08",
+    "distance": 6302.2,
+    "elevation_gain": 20.0,
+    "id": 16071822321,
+    "moving_time": 2053.0,
+    "start_date_local": "2025-10-08T16:34:47Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-10-10",
+    "distance": 9664.4,
+    "elevation_gain": 12.0,
+    "id": 16089954271,
+    "moving_time": 3181.0,
+    "start_date_local": "2025-10-10T05:58:46Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-10-19",
+    "distance": 21260.3,
+    "elevation_gain": 100.0,
+    "id": 16186236093,
+    "moving_time": 7572.0,
+    "start_date_local": "2025-10-19T09:00:35Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-11-05",
+    "distance": 5033.9,
+    "elevation_gain": 47.0,
+    "id": 16357444748,
+    "moving_time": 1852.0,
+    "start_date_local": "2025-11-05T07:07:23Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-11-08",
+    "distance": 2940.7,
+    "elevation_gain": 132.0,
+    "id": 16389634872,
+    "moving_time": 3256.0,
+    "start_date_local": "2025-11-08T12:07:54Z",
+    "type": "Hike",
+    "year": 2025
+  },
+  {
+    "date": "2025-11-10",
+    "distance": 3535.2,
+    "elevation_gain": 39.0,
+    "id": 16410416747,
+    "moving_time": 2987.0,
+    "start_date_local": "2025-11-10T10:13:16Z",
+    "type": "Hike",
+    "year": 2025
+  },
+  {
+    "date": "2025-11-11",
+    "distance": 4949.6,
+    "elevation_gain": 134.0,
+    "id": 16421005227,
+    "moving_time": 4535.0,
+    "start_date_local": "2025-11-11T14:37:04Z",
+    "type": "Hike",
+    "year": 2025
+  },
+  {
+    "date": "2025-11-12",
+    "distance": 7043.7,
+    "elevation_gain": 31.0,
+    "id": 16432681557,
+    "moving_time": 2438.0,
+    "start_date_local": "2025-11-12T16:17:28Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-11-16",
+    "distance": 65642.5,
+    "elevation_gain": 458.0,
+    "id": 16472627882,
+    "moving_time": 10175.0,
+    "start_date_local": "2025-11-16T15:12:22Z",
+    "type": "Ride",
+    "year": 2025
+  },
+  {
+    "date": "2025-11-21",
+    "distance": 5024.5,
+    "elevation_gain": 5.0,
+    "id": 16521570685,
+    "moving_time": 1411.0,
+    "start_date_local": "2025-11-21T16:10:11Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-11-28",
+    "distance": 7608.2,
+    "elevation_gain": 859.0,
+    "id": 16588255259,
+    "moving_time": 12107.0,
+    "start_date_local": "2025-11-28T08:58:46Z",
+    "type": "Hike",
+    "year": 2025
+  },
+  {
+    "date": "2025-12-13",
+    "distance": 5032.6,
+    "elevation_gain": 161.0,
+    "id": 16727713248,
+    "moving_time": 2232.0,
+    "start_date_local": "2025-12-13T15:14:57Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-12-19",
+    "distance": 5245.4,
+    "elevation_gain": 32.0,
+    "id": 16782274096,
+    "moving_time": 1885.0,
+    "start_date_local": "2025-12-19T15:16:02Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-12-27",
+    "distance": 6756.0,
+    "elevation_gain": 9.0,
+    "id": 16852196106,
+    "moving_time": 2153.0,
+    "start_date_local": "2025-12-27T16:24:59Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2025-12-28",
+    "distance": 6444.9,
+    "elevation_gain": 2.0,
+    "id": 16861058370,
+    "moving_time": 2077.0,
+    "start_date_local": "2025-12-28T14:55:34Z",
+    "type": "Run",
+    "year": 2025
+  },
+  {
+    "date": "2026-01-03",
+    "distance": 7283.5,
+    "elevation_gain": 218.0,
+    "id": 16919760903,
+    "moving_time": 3126.0,
+    "start_date_local": "2026-01-03T15:06:26Z",
+    "type": "Run",
+    "year": 2026
+  },
+  {
+    "date": "2026-01-09",
+    "distance": 7696.7,
+    "elevation_gain": 113.0,
+    "id": 16987003438,
+    "moving_time": 2851.0,
+    "start_date_local": "2026-01-09T15:46:57Z",
+    "type": "Run",
+    "year": 2026
+  },
+  {
+    "date": "2026-01-15",
+    "distance": 5828.6,
+    "elevation_gain": 33.0,
+    "id": 17054802830,
+    "moving_time": 1909.0,
+    "start_date_local": "2026-01-15T14:01:47Z",
+    "type": "Run",
+    "year": 2026
+  },
+  {
+    "date": "2026-01-19",
+    "distance": 12990.9,
+    "elevation_gain": 1144.0,
+    "id": 17100432852,
+    "moving_time": 18188.0,
+    "start_date_local": "2026-01-19T09:30:29Z",
+    "type": "Hike",
+    "year": 2026
+  },
+  {
+    "date": "2026-01-30",
+    "distance": 9835.7,
+    "elevation_gain": 809.0,
+    "id": 17223706616,
+    "moving_time": 12880.0,
+    "start_date_local": "2026-01-30T08:35:33Z",
+    "type": "Hike",
+    "year": 2026
+  },
+  {
+    "date": "2026-02-02",
+    "distance": 7251.8,
+    "elevation_gain": 13.0,
+    "id": 17257184396,
+    "moving_time": 2471.0,
+    "start_date_local": "2026-02-02T15:29:24Z",
+    "type": "Run",
+    "year": 2026
+  },
+  {
+    "date": "2026-02-04",
+    "distance": 6573.3,
+    "elevation_gain": 11.0,
+    "id": 17280306468,
+    "moving_time": 2253.0,
+    "start_date_local": "2026-02-04T15:21:12Z",
+    "type": "Run",
+    "year": 2026
+  }
+]
