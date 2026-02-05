@@ -6,7 +6,7 @@ strava:
 
 sync:
   lookback_years: 5
-  start_date: "2010-01-01" # optional; overrides lookback_years when set
+  start_date: "2019-01-01" # optional; overrides lookback_years when set
   recent_days: 7
   resume_backfill: true
   per_page: 200
@@ -22,7 +22,6 @@ rate_limits:
 
 activities:
   types:
-    - Run
     - Ride
   type_aliases:
     TrailRun: Run
