@@ -25,10 +25,12 @@ activities:
     - Run
     - Ride
     - WeightTraining
+    - Hike
   type_aliases:
     TrailRun: Run
     VirtualRun: Run
     Treadmill: Run
+    Hike: Hike
     Ride: Ride
     VirtualRide: Ride
     EBikeRide: Ride
