@@ -27,10 +27,10 @@ activities:
   # Distances below level_1 get the darkest color; above level_4 get the brightest
   distance_levels:
     Ride:
-      level_1: 20    # km - light
+      level_1: 25    # km - light
       level_2: 50    # km - medium
-      level_3: 80    # km - bright
-      level_4: 120   # km - brightest
+      level_3: 75    # km - bright
+      level_4: 100   # km - brightest
     Run:
       level_1: 3     # km
       level_2: 5     # km
