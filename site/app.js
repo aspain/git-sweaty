@@ -557,7 +557,10 @@ async function init() {
             return DEFAULT_COLORS[0];
           }
           if (entry.types.length === 1) {
-            return getColors(entry.types[0])[4];
+            const type = entry.types[0];
+            const thresholds = payload.distance_levels?.[type] || {};
+            const level = distanceToLevel(entry.distance || 0, thresholds, payload.units?.distance || "km");
+            return getColors(type)[level];
           }
           return MULTI_TYPE_COLOR;
         };
