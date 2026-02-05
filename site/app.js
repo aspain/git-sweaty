@@ -566,6 +566,7 @@ async function init() {
           year,
           aggregates,
           payload.units || { distance: "mi", elevation: "ft" },
+          payload.distance_levels || {},
           { colorForEntry },
         );
         list.appendChild(card);
@@ -585,7 +586,7 @@ async function init() {
         list.className = "type-list";
         years.forEach((year) => {
           const aggregates = payload.aggregates?.[String(year)]?.[type] || {};
-          const card = buildCard(type, year, aggregates, payload.units || { distance: "mi", elevation: "ft" });
+          const card = buildCard(type, year, aggregates, payload.units || { distance: "mi", elevation: "ft" }, payload.distance_levels || {});
           list.appendChild(card);
         });
         if (!list.childElementCount) {
