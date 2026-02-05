@@ -11063,6 +11063,17 @@
       }
     },
     "2026": {
+      "Hike": {
+        "2026-01-30": {
+          "activity_ids": [
+            17223706616
+          ],
+          "count": 1,
+          "distance": 9835.7,
+          "elevation_gain": 809.0,
+          "moving_time": 12880.0
+        }
+      },
       "Ride": {
         "2026-01-23": {
           "activity_ids": [
@@ -11278,11 +11289,12 @@
       }
     }
   },
-  "generated_at": "2026-02-05T10:31:10.153676+00:00",
+  "generated_at": "2026-02-05T10:50:07.957288+00:00",
   "types": [
     "Run",
     "Ride",
-    "WeightTraining"
+    "WeightTraining",
+    "Hike"
   ],
   "units": {
     "distance": "mi",

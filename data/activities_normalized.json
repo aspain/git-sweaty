@@ -12500,6 +12500,16 @@
     "year": 2026
   },
   {
+    "date": "2026-01-30",
+    "distance": 9835.7,
+    "elevation_gain": 809.0,
+    "id": 17223706616,
+    "moving_time": 12880.0,
+    "start_date_local": "2026-01-30T08:35:33Z",
+    "type": "Hike",
+    "year": 2026
+  },
+  {
     "date": "2026-02-01",
     "distance": 0.0,
     "elevation_gain": 0.0,
