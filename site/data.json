@@ -19776,7 +19776,7 @@
       }
     }
   },
-  "generated_at": "2026-02-06T16:50:41.996443+00:00",
+  "generated_at": "2026-02-06T21:43:21.899470+00:00",
   "type_meta": {
     "Ride": {
       "accent": "#05ffa1",
@@ -19797,8 +19797,8 @@
     "WeightTraining"
   ],
   "units": {
-    "distance": "mi",
-    "elevation": "ft"
+    "distance": "km",
+    "elevation": "m"
   },
   "years": [
     2018,
