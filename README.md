@@ -1,6 +1,6 @@
 # Workout --> GitHub Heatmap Dashboard
 
-Sync Strava activities, normalize and aggregate them, and generate GitHub-style calendar heatmaps (SVG) per workout type/year. A single preview is shown in this README, with the full interactive view on GitHub Pages.
+Sync Strava activities, normalize and aggregate them, and generate GitHub-style heatmaps per workout type/year. Automatically populated and refreshed interactive dashboard on GitHub Pages.
 
 - Live site: [Interactive Heatmaps](https://aspain.github.io/git-sweaty/)
 - For forks, this link is auto-updated to your own GitHub Pages URL after your first successful sync run.
