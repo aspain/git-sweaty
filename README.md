@@ -11,28 +11,33 @@ Preview:
 ![All Workouts 2025](heatmaps/AllWorkouts/2025.svg)
 <!-- HEATMAPS:END -->
 
-## Strava App Setup
+## Quick Start
 
-Create a Strava API application at [Strava API Settings](https://www.strava.com/settings/api). Use `localhost` for the **Authorization Callback Domain**.
-After creating the app, copy only:
+No local clone is required for this setup. You can run everything from GitHub Actions. Clone locally only if you want to customize or run the scripts yourself.
+
+1. Fork this repo to your account: [Fork this repository](../../fork)
+
+2. Create a Strava API application at [Strava API Settings](https://www.strava.com/settings/api). Set **Authorization Callback Domain** to `localhost`, then copy:
 - `STRAVA_CLIENT_ID`
 - `STRAVA_CLIENT_SECRET`
 
-Do not copy a refresh token from the Strava app page; you will generate `STRAVA_REFRESH_TOKEN` in the next step.
-
-## Quick start (GitHub Actions only)
-
-Forking the repo is enough for this setup; no local clone is required. You can run everything from GitHub Actions. Clone locally only if you want to customize or run the scripts yourself.
-
-1. Generate a **refresh token** via OAuth (the token shown on the Strava API page often does **not** work):
-
-Open this URL in your browser (replace `CLIENT_ID`):
+3. Generate a **refresh token** via OAuth (the token shown on the Strava API page often does **not** work).
+Open this URL in your browser (replace `CLIENT_ID` with the Client ID value created in your Strava API application page):
 
 ```
 https://www.strava.com/oauth/authorize?client_id=CLIENT_ID&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=read,activity:read_all
 ```
 
-After approval you’ll be redirected to a `localhost` URL that won’t load. That’s expected. Copy the `code` from the URL and exchange it:
+After approval you’ll be redirected to a `localhost` URL that won’t load. That’s expected.
+Example redirect URL:
+
+```text
+http://localhost/exchange_token?state=&code=12345&scope=read,activity:read_all
+```
+
+Copy the value of the `code` query parameter from the failed URL (in this example, `12345`) and exchange it.
+Run this command in a terminal app (macOS/Linux Terminal, or Windows PowerShell/Command Prompt):
+Use the `CLIENT_ID` and `CLIENT_SECRET` values from your Strava API application page in Step 2.
 
 ```bash
 curl -X POST https://www.strava.com/oauth/token \
@@ -44,32 +49,31 @@ curl -X POST https://www.strava.com/oauth/token \
 
 Copy the `refresh_token` from the response.
 
-2. Add GitHub secrets (repo → Settings → Secrets and variables → Actions):
+4. Add GitHub secrets (repo → [Settings → Secrets and variables → Actions](../../settings/secrets/actions)):
 - `STRAVA_CLIENT_ID`
 - `STRAVA_CLIENT_SECRET`
 - `STRAVA_REFRESH_TOKEN` (from the OAuth exchange above)
 
-3. Run the workflow:
-If GitHub shows an **Enable workflows** button in the Actions tab, click it first.
-Go to **Actions → Sync Strava Heatmaps → Run workflow**.
-The same workflow is also scheduled in `.github/workflows/sync.yml` (daily at `06:00 UTC`).
+5. Enable GitHub Pages (repo → [Settings → Pages](../../settings/pages)):
+- Under **Build and deployment**, set **Source** to **GitHub Actions**.
 
-This will:
+6. Run [Sync Strava Heatmaps](../../actions/workflows/sync.yml):
+- If GitHub shows an **Enable workflows** button in [Actions](../../actions), click it first.
+- Go to [Actions](../../actions) → [Sync Strava Heatmaps](../../actions/workflows/sync.yml) → **Run workflow**.
+- The same workflow is also scheduled in `.github/workflows/sync.yml` (daily at `06:00 UTC`).
+
+7. Open your live site at `https://<your-username>.github.io/<repo-name>/` after deploy finishes.
+
+This workflow will:
 - sync raw activities into `activities/raw/` (local-only; not committed)
 - normalize + merge into `data/activities_normalized.json` (persisted history)
 - aggregate into `data/daily_aggregates.json`
 - generate SVGs in `heatmaps/`
 - build `site/data.json`
 
-## GitHub Pages setup
+## Configuration (Optional)
 
-1. Go to **Settings → Pages**.
-2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-3. Run the workflow once (Actions → Sync Strava Heatmaps). The **Deploy Pages** workflow will publish `site/` automatically.
-4. Your site will be available at `https://<your-username>.github.io/<repo-name>/` once the deploy finishes.
-
-## Configuration
-
+Everything in this section is optional. Defaults work without changes.
 Base settings live in `config.yaml`.
 
 Key options:
