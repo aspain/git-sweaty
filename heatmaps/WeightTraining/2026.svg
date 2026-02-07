@@ -23,35 +23,35 @@
 <text x="52" y="116.0" font-size="10" fill="#f1f5f9" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" text-anchor="end" dominant-baseline="middle">Fri</text>
 <text x="52" y="130.0" font-size="10" fill="#f1f5f9" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" text-anchor="end" dominant-baseline="middle">Sat</text>
 <g transform="translate(66,40)">
-<rect x="0" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-01"><title>2026-01-01
-1 workout
+<rect x="0" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-01"><title>2026-01-01
+0 workouts
 Distance: 0.00 km
-Duration: 43m
+Duration: 0m
 Elevation: 0 m</title></rect>
 <rect x="0" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-02"><title>2026-01-02
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="0" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-03"><title>2026-01-03
-1 workout
+<rect x="0" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-03"><title>2026-01-03
+0 workouts
 Distance: 0.00 km
-Duration: 41m
+Duration: 0m
 Elevation: 0 m</title></rect>
 <rect x="14" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-04"><title>2026-01-04
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="14" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-05"><title>2026-01-05
+<rect x="14" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-05"><title>2026-01-05
+1 workout
+Distance: 0.00 km
+Duration: 43m
+Elevation: 0 m</title></rect>
+<rect x="14" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-06"><title>2026-01-06
 0 workouts
 Distance: 0.00 km
 Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="14" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-06"><title>2026-01-06
-1 workout
-Distance: 0.00 km
-Duration: 52m
 Elevation: 0 m</title></rect>
 <rect x="14" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-07"><title>2026-01-07
 0 workouts
@@ -66,7 +66,7 @@ Elevation: 0 m</title></rect>
 <rect x="14" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-09"><title>2026-01-09
 1 workout
 Distance: 0.00 km
-Duration: 48m
+Duration: 34m
 Elevation: 0 m</title></rect>
 <rect x="14" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-10"><title>2026-01-10
 0 workouts
@@ -81,7 +81,7 @@ Elevation: 0 m</title></rect>
 <rect x="28" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-12"><title>2026-01-12
 1 workout
 Distance: 0.00 km
-Duration: 45m
+Duration: 37m
 Elevation: 0 m</title></rect>
 <rect x="28" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-13"><title>2026-01-13
 0 workouts
@@ -93,30 +93,30 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="28" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-15"><title>2026-01-15
-1 workout
-Distance: 0.00 km
-Duration: 55m
-Elevation: 0 m</title></rect>
-<rect x="28" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-16"><title>2026-01-16
+<rect x="28" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-15"><title>2026-01-15
 0 workouts
 Distance: 0.00 km
 Duration: 0m
+Elevation: 0 m</title></rect>
+<rect x="28" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-16"><title>2026-01-16
+1 workout
+Distance: 0.00 km
+Duration: 38m
 Elevation: 0 m</title></rect>
 <rect x="28" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-17"><title>2026-01-17
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="42" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-18"><title>2026-01-18
-1 workout
-Distance: 0.00 km
-Duration: 52m
-Elevation: 0 m</title></rect>
-<rect x="42" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-19"><title>2026-01-19
+<rect x="42" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-18"><title>2026-01-18
 0 workouts
 Distance: 0.00 km
 Duration: 0m
+Elevation: 0 m</title></rect>
+<rect x="42" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-19"><title>2026-01-19
+1 workout
+Distance: 0.00 km
+Duration: 21m
 Elevation: 0 m</title></rect>
 <rect x="42" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-20"><title>2026-01-20
 0 workouts
@@ -128,15 +128,15 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="42" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-22"><title>2026-01-22
-1 workout
-Distance: 0.00 km
-Duration: 57m
-Elevation: 0 m</title></rect>
-<rect x="42" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-23"><title>2026-01-23
+<rect x="42" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-22"><title>2026-01-22
 0 workouts
 Distance: 0.00 km
 Duration: 0m
+Elevation: 0 m</title></rect>
+<rect x="42" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-23"><title>2026-01-23
+1 workout
+Distance: 0.00 km
+Duration: 30m
 Elevation: 0 m</title></rect>
 <rect x="42" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-24"><title>2026-01-24
 0 workouts
@@ -148,10 +148,10 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="56" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-26"><title>2026-01-26
-0 workouts
+<rect x="56" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-26"><title>2026-01-26
+1 workout
 Distance: 0.00 km
-Duration: 0m
+Duration: 35m
 Elevation: 0 m</title></rect>
 <rect x="56" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-27"><title>2026-01-27
 0 workouts
@@ -163,25 +163,25 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="56" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-29"><title>2026-01-29
-1 workout
-Distance: 0.00 km
-Duration: 38m
-Elevation: 0 m</title></rect>
-<rect x="56" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-30"><title>2026-01-30
+<rect x="56" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-29"><title>2026-01-29
 0 workouts
 Distance: 0.00 km
 Duration: 0m
+Elevation: 0 m</title></rect>
+<rect x="56" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-01-30"><title>2026-01-30
+1 workout
+Distance: 0.00 km
+Duration: 42m
 Elevation: 0 m</title></rect>
 <rect x="56" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-01-31"><title>2026-01-31
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="70" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-02-01"><title>2026-02-01
-1 workout
+<rect x="70" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-02-01"><title>2026-02-01
+0 workouts
 Distance: 0.00 km
-Duration: 56m
+Duration: 0m
 Elevation: 0 m</title></rect>
 <rect x="70" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-02-02"><title>2026-02-02
 0 workouts
@@ -206,7 +206,7 @@ Elevation: 0 m</title></rect>
 <rect x="70" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2026-02-06"><title>2026-02-06
 1 workout
 Distance: 0.00 km
-Duration: 45m
+Duration: 31m
 Elevation: 0 m</title></rect>
 <rect x="70" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2026-02-07"><title>2026-02-07
 0 workouts

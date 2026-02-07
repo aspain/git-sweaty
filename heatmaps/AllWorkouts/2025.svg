@@ -24,715 +24,715 @@
 <text x="52" y="116.0" font-size="10" fill="#f1f5f9" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" text-anchor="end" dominant-baseline="middle">Fri</text>
 <text x="52" y="130.0" font-size="10" fill="#f1f5f9" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" text-anchor="end" dominant-baseline="middle">Sat</text>
 <g transform="translate(66,40)">
-<rect x="0" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-01"><title>2025-01-01
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="0" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-01-02"><title>2025-01-02
+<rect x="0" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-01-01"><title>2025-01-01
 1 workout
-Distance: 0.00 km
-Duration: 31m
+Distance: 35.18 km
+Duration: 1h 3m
 Elevation: 0 m</title></rect>
-<rect x="0" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-03"><title>2025-01-03
+<rect x="0" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-01-02"><title>2025-01-02
 1 workout
-Distance: 4.01 km
-Duration: 23m
-Elevation: 40 m</title></rect>
-<rect x="0" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-04"><title>2025-01-04
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="14" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-05"><title>2025-01-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="14" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-06"><title>2025-01-06
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="14" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-01-07"><title>2025-01-07
+Distance: 66.75 km
+Duration: 2h 20m
+Elevation: 523 m</title></rect>
+<rect x="0" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-03"><title>2025-01-03
+4 workouts
+Distance: 21.06 km
+Duration: 1h 39m
+Elevation: 197 m</title></rect>
+<rect x="0" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-04"><title>2025-01-04
 1 workout
-Distance: 0.00 km
-Duration: 33m
-Elevation: 0 m</title></rect>
-<rect x="14" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-08"><title>2025-01-08
-1 workout
-Distance: 5.04 km
-Duration: 31m
-Elevation: 48 m</title></rect>
-<rect x="14" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-09"><title>2025-01-09
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="14" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-01-10"><title>2025-01-10
-1 workout
-Distance: 0.00 km
+Distance: 5.03 km
 Duration: 30m
+Elevation: 122 m</title></rect>
+<rect x="14" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-05"><title>2025-01-05
+1 workout
+Distance: 14.15 km
+Duration: 1h 53m
+Elevation: 623 m</title></rect>
+<rect x="14" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-06"><title>2025-01-06
+2 workouts
+Distance: 18.65 km
+Duration: 1h 13m
+Elevation: 0 m</title></rect>
+<rect x="14" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-01-07"><title>2025-01-07
+1 workout
+Distance: 16.46 km
+Duration: 26m
+Elevation: 0 m</title></rect>
+<rect x="14" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-08"><title>2025-01-08
+0 workouts
+Distance: 0.00 km
+Duration: 0m
+Elevation: 0 m</title></rect>
+<rect x="14" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-09"><title>2025-01-09
+2 workouts
+Distance: 40.40 km
+Duration: 1h 31m
+Elevation: 0 m</title></rect>
+<rect x="14" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-10"><title>2025-01-10
+2 workouts
+Distance: 33.07 km
+Duration: 1h 39m
 Elevation: 0 m</title></rect>
 <rect x="14" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-11"><title>2025-01-11
 1 workout
-Distance: 5.03 km
-Duration: 34m
-Elevation: 52 m</title></rect>
-<rect x="28" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-12"><title>2025-01-12
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="28" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-01-13"><title>2025-01-13
+Distance: 8.03 km
+Duration: 47m
+Elevation: 182 m</title></rect>
+<rect x="28" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-01-12"><title>2025-01-12
 1 workout
-Distance: 0.00 km
-Duration: 27m
+Distance: 61.80 km
+Duration: 3h 48m
+Elevation: 309 m</title></rect>
+<rect x="28" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-13"><title>2025-01-13
+2 workouts
+Distance: 1.40 km
+Duration: 1h 6m
 Elevation: 0 m</title></rect>
-<rect x="28" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-14"><title>2025-01-14
+<rect x="28" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-14"><title>2025-01-14
+3 workouts
+Distance: 33.84 km
+Duration: 2h 35m
+Elevation: 644 m</title></rect>
+<rect x="28" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-01-15"><title>2025-01-15
 1 workout
-Distance: 4.01 km
-Duration: 24m
-Elevation: 45 m</title></rect>
-<rect x="28" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-15"><title>2025-01-15
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+Distance: 33.42 km
+Duration: 1h 5m
 Elevation: 0 m</title></rect>
-<rect x="28" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-01-16"><title>2025-01-16
+<rect x="28" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-16"><title>2025-01-16
+4 workouts
+Distance: 26.38 km
+Duration: 1h 23m
+Elevation: 14 m</title></rect>
+<rect x="28" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-17"><title>2025-01-17
+2 workouts
+Distance: 25.17 km
+Duration: 1h 23m
+Elevation: 0 m</title></rect>
+<rect x="28" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-01-18"><title>2025-01-18
 1 workout
-Distance: 0.00 km
-Duration: 27m
+Distance: 43.18 km
+Duration: 1h 30m
 Elevation: 0 m</title></rect>
-<rect x="28" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-17"><title>2025-01-17
+<rect x="42" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-19"><title>2025-01-19
 1 workout
-Distance: 5.02 km
-Duration: 32m
-Elevation: 46 m</title></rect>
-<rect x="28" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-18"><title>2025-01-18
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+Distance: 12.02 km
+Duration: 1h 7m
+Elevation: 138 m</title></rect>
+<rect x="42" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-20"><title>2025-01-20
+3 workouts
+Distance: 20.77 km
+Duration: 1h 59m
+Elevation: 280 m</title></rect>
+<rect x="42" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-21"><title>2025-01-21
+2 workouts
+Distance: 40.31 km
+Duration: 1h 33m
 Elevation: 0 m</title></rect>
-<rect x="42" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-19"><title>2025-01-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="42" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-22"><title>2025-01-22
+2 workouts
+Distance: 7.23 km
+Duration: 1h 9m
+Elevation: 132 m</title></rect>
+<rect x="42" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-01-23"><title>2025-01-23
+3 workouts
+Distance: 59.27 km
+Duration: 2h 27m
+Elevation: 367 m</title></rect>
+<rect x="42" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-24"><title>2025-01-24
+2 workouts
+Distance: 17.27 km
+Duration: 1h 12m
 Elevation: 0 m</title></rect>
-<rect x="42" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-20"><title>2025-01-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="42" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-01-21"><title>2025-01-21
+<rect x="42" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-25"><title>2025-01-25
 1 workout
-Distance: 0.00 km
-Duration: 23m
-Elevation: 0 m</title></rect>
-<rect x="42" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-22"><title>2025-01-22
+Distance: 21.77 km
+Duration: 2h 30m
+Elevation: 571 m</title></rect>
+<rect x="56" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-01-26"><title>2025-01-26
 1 workout
-Distance: 4.95 km
-Duration: 31m
-Elevation: 50 m</title></rect>
-<rect x="42" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-01-23"><title>2025-01-23
-1 workout
-Distance: 0.00 km
-Duration: 28m
+Distance: 43.29 km
+Duration: 1h 31m
 Elevation: 0 m</title></rect>
-<rect x="42" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-24"><title>2025-01-24
-1 workout
-Distance: 4.93 km
-Duration: 31m
-Elevation: 39 m</title></rect>
-<rect x="42" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-25"><title>2025-01-25
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="56" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-27"><title>2025-01-27
+2 workouts
+Distance: 25.25 km
+Duration: 1h 23m
 Elevation: 0 m</title></rect>
-<rect x="56" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-26"><title>2025-01-26
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="56" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-01-27"><title>2025-01-27
+<rect x="56" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-01-28"><title>2025-01-28
 1 workout
-Distance: 0.00 km
-Duration: 26m
+Distance: 28.51 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="56" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-28"><title>2025-01-28
-1 workout
-Distance: 5.02 km
-Duration: 33m
-Elevation: 49 m</title></rect>
-<rect x="56" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-01-29"><title>2025-01-29
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="56" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-29"><title>2025-01-29
+2 workouts
+Distance: 23.39 km
+Duration: 1h 9m
 Elevation: 0 m</title></rect>
-<rect x="56" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-01-30"><title>2025-01-30
-1 workout
-Distance: 0.00 km
-Duration: 25m
+<rect x="56" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-30"><title>2025-01-30
+2 workouts
+Distance: 36.60 km
+Duration: 1h 26m
+Elevation: 99 m</title></rect>
+<rect x="56" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-01-31"><title>2025-01-31
+2 workouts
+Distance: 35.66 km
+Duration: 1h 35m
 Elevation: 0 m</title></rect>
-<rect x="56" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-01-31"><title>2025-01-31
-1 workout
-Distance: 6.49 km
-Duration: 44m
-Elevation: 61 m</title></rect>
 <rect x="56" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-01"><title>2025-02-01
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="70" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-02"><title>2025-02-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="70" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-03"><title>2025-02-03
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="70" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-02-04"><title>2025-02-04
+<rect x="70" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-02-02"><title>2025-02-02
 1 workout
-Distance: 0.00 km
-Duration: 26m
+Distance: 80.33 km
+Duration: 2h 42m
 Elevation: 0 m</title></rect>
+<rect x="70" y="14" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-02-03"><title>2025-02-03
+1 workout
+Distance: 1.40 km
+Duration: 35m
+Elevation: 0 m</title></rect>
+<rect x="70" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-02-04"><title>2025-02-04
+2 workouts
+Distance: 42.45 km
+Duration: 1h 38m
+Elevation: 12 m</title></rect>
 <rect x="70" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-02-05"><title>2025-02-05
 1 workout
-Distance: 5.02 km
-Duration: 32m
-Elevation: 48 m</title></rect>
-<rect x="70" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-02-06"><title>2025-02-06
+Distance: 6.13 km
+Duration: 33m
+Elevation: 114 m</title></rect>
+<rect x="70" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-02-06"><title>2025-02-06
+3 workouts
+Distance: 35.09 km
+Duration: 1h 54m
+Elevation: 288 m</title></rect>
+<rect x="70" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-02-07"><title>2025-02-07
+2 workouts
+Distance: 41.64 km
+Duration: 1h 49m
+Elevation: 0 m</title></rect>
+<rect x="70" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-02-08"><title>2025-02-08
 1 workout
-Distance: 0.00 km
-Duration: 21m
+Distance: 14.03 km
+Duration: 1h 23m
+Elevation: 289 m</title></rect>
+<rect x="84" y="0" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-02-09"><title>2025-02-09
+2 workouts
+Distance: 51.81 km
+Duration: 2h 21m
 Elevation: 0 m</title></rect>
-<rect x="70" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-02-07"><title>2025-02-07
+<rect x="84" y="14" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-02-10"><title>2025-02-10
 1 workout
-Distance: 5.02 km
-Duration: 32m
-Elevation: 48 m</title></rect>
-<rect x="70" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-08"><title>2025-02-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="84" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-09"><title>2025-02-09
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="84" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-10"><title>2025-02-10
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="84" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-11"><title>2025-02-11
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="84" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-02-12"><title>2025-02-12
-1 workout
-Distance: 0.00 km
-Duration: 32m
-Elevation: 0 m</title></rect>
-<rect x="84" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-13"><title>2025-02-13
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="84" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-02-14"><title>2025-02-14
-1 workout
-Distance: 5.36 km
+Distance: 1.80 km
 Duration: 37m
-Elevation: 124 m</title></rect>
-<rect x="84" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-15"><title>2025-02-15
-0 workouts
-Distance: 0.00 km
-Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="98" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-02-16"><title>2025-02-16
+<rect x="84" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-02-11"><title>2025-02-11
+2 workouts
+Distance: 39.50 km
+Duration: 1h 47m
+Elevation: 226 m</title></rect>
+<rect x="84" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-02-12"><title>2025-02-12
 1 workout
-Distance: 0.00 km
-Duration: 40m
+Distance: 35.57 km
+Duration: 1h 2m
 Elevation: 0 m</title></rect>
+<rect x="84" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-02-13"><title>2025-02-13
+1 workout
+Distance: 27.25 km
+Duration: 45m
+Elevation: 0 m</title></rect>
+<rect x="84" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-02-14"><title>2025-02-14
+2 workouts
+Distance: 8.91 km
+Duration: 1h 20m
+Elevation: 96 m</title></rect>
+<rect x="84" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-02-15"><title>2025-02-15
+1 workout
+Distance: 26.03 km
+Duration: 3h 2m
+Elevation: 652 m</title></rect>
+<rect x="98" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-02-16"><title>2025-02-16
+1 workout
+Distance: 17.05 km
+Duration: 1h 44m
+Elevation: 257 m</title></rect>
 <rect x="98" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-17"><title>2025-02-17
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="98" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-18"><title>2025-02-18
+<rect x="98" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-02-18"><title>2025-02-18
+1 workout
+Distance: 32.23 km
+Duration: 1h 0m
+Elevation: 0 m</title></rect>
+<rect x="98" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-02-19"><title>2025-02-19
+1 workout
+Distance: 5.94 km
+Duration: 19m
+Elevation: 123 m</title></rect>
+<rect x="98" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-02-20"><title>2025-02-20
+3 workouts
+Distance: 42.38 km
+Duration: 2h 17m
+Elevation: 169 m</title></rect>
+<rect x="98" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-02-21"><title>2025-02-21
+2 workouts
+Distance: 9.90 km
+Duration: 1h 5m
+Elevation: 184 m</title></rect>
+<rect x="98" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-02-22"><title>2025-02-22
+1 workout
+Distance: 89.12 km
+Duration: 5h 10m
+Elevation: 774 m</title></rect>
+<rect x="112" y="0" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-02-23"><title>2025-02-23
+2 workouts
+Distance: 23.72 km
+Duration: 1h 17m
+Elevation: 205 m</title></rect>
+<rect x="112" y="14" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-02-24"><title>2025-02-24
+1 workout
+Distance: 1.55 km
+Duration: 37m
+Elevation: 0 m</title></rect>
+<rect x="112" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-02-25"><title>2025-02-25
+2 workouts
+Distance: 37.12 km
+Duration: 1h 50m
+Elevation: 9 m</title></rect>
+<rect x="112" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-26"><title>2025-02-26
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="98" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-02-19"><title>2025-02-19
+<rect x="112" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-02-27"><title>2025-02-27
+2 workouts
+Distance: 29.25 km
+Duration: 1h 33m
+Elevation: 163 m</title></rect>
+<rect x="112" y="70" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-02-28"><title>2025-02-28
 1 workout
-Distance: 0.00 km
-Duration: 29m
+Distance: 1.85 km
+Duration: 38m
 Elevation: 0 m</title></rect>
-<rect x="98" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-02-20"><title>2025-02-20
+<rect x="112" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-01"><title>2025-03-01
 1 workout
-Distance: 5.93 km
-Duration: 41m
-Elevation: 99 m</title></rect>
-<rect x="98" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-21"><title>2025-02-21
+Distance: 33.04 km
+Duration: 4h 18m
+Elevation: 991 m</title></rect>
+<rect x="126" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-03-02"><title>2025-03-02
+1 workout
+Distance: 29.20 km
+Duration: 1h 0m
+Elevation: 0 m</title></rect>
+<rect x="126" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-03"><title>2025-03-03
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="98" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-02-22"><title>2025-02-22
+<rect x="126" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-04"><title>2025-03-04
 1 workout
-Distance: 0.00 km
-Duration: 42m
+Distance: 12.03 km
+Duration: 1h 4m
+Elevation: 28 m</title></rect>
+<rect x="126" y="42" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-03-05"><title>2025-03-05
+1 workout
+Distance: 1.50 km
+Duration: 37m
 Elevation: 0 m</title></rect>
-<rect x="112" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-02-23"><title>2025-02-23
+<rect x="126" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-03-06"><title>2025-03-06
+3 workouts
+Distance: 47.28 km
+Duration: 2h 22m
+Elevation: 46 m</title></rect>
+<rect x="126" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-03-07"><title>2025-03-07
+2 workouts
+Distance: 7.04 km
+Duration: 1h 7m
+Elevation: 95 m</title></rect>
+<rect x="126" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-03-08"><title>2025-03-08
 1 workout
-Distance: 4.88 km
-Duration: 40m
-Elevation: 141 m</title></rect>
-<rect x="112" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-24"><title>2025-02-24
+Distance: 52.61 km
+Duration: 2h 0m
+Elevation: 0 m</title></rect>
+<rect x="140" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-09"><title>2025-03-09
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="112" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-02-25"><title>2025-02-25
-1 workout
-Distance: 0.00 km
-Duration: 28m
-Elevation: 0 m</title></rect>
-<rect x="112" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-02-26"><title>2025-02-26
-1 workout
-Distance: 4.17 km
-Duration: 34m
-Elevation: 118 m</title></rect>
-<rect x="112" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-27"><title>2025-02-27
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="112" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-02-28"><title>2025-02-28
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="112" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-03-01"><title>2025-03-01
-1 workout
-Distance: 0.00 km
-Duration: 40m
-Elevation: 0 m</title></rect>
-<rect x="126" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-02"><title>2025-03-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="126" y="14" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-03"><title>2025-03-03
-1 workout
-Distance: 5.00 km
-Duration: 35m
-Elevation: 134 m</title></rect>
-<rect x="126" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-03-04"><title>2025-03-04
-1 workout
-Distance: 0.00 km
-Duration: 26m
-Elevation: 0 m</title></rect>
-<rect x="126" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-05"><title>2025-03-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="126" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-06"><title>2025-03-06
-1 workout
-Distance: 4.86 km
-Duration: 36m
-Elevation: 132 m</title></rect>
-<rect x="126" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-03-07"><title>2025-03-07
-1 workout
-Distance: 0.00 km
-Duration: 33m
-Elevation: 0 m</title></rect>
-<rect x="126" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-08"><title>2025-03-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="140" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-09"><title>2025-03-09
-1 workout
-Distance: 4.90 km
-Duration: 33m
-Elevation: 135 m</title></rect>
-<rect x="140" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-03-10"><title>2025-03-10
-1 workout
-Distance: 0.00 km
-Duration: 27m
+<rect x="140" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-03-10"><title>2025-03-10
+2 workouts
+Distance: 36.73 km
+Duration: 1h 38m
 Elevation: 0 m</title></rect>
 <rect x="140" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-11"><title>2025-03-11
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="140" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-12"><title>2025-03-12
-1 workout
-Distance: 7.32 km
-Duration: 46m
-Elevation: 33 m</title></rect>
-<rect x="140" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-13"><title>2025-03-13
+<rect x="140" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-12"><title>2025-03-12
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="140" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-03-14"><title>2025-03-14
+<rect x="140" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-03-13"><title>2025-03-13
 1 workout
-Distance: 0.00 km
-Duration: 37m
+Distance: 41.22 km
+Duration: 1h 15m
 Elevation: 0 m</title></rect>
-<rect x="140" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-15"><title>2025-03-15
+<rect x="140" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-03-14"><title>2025-03-14
+2 workouts
+Distance: 12.07 km
+Duration: 1h 46m
+Elevation: 270 m</title></rect>
+<rect x="140" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-03-15"><title>2025-03-15
 1 workout
-Distance: 5.11 km
-Duration: 35m
-Elevation: 149 m</title></rect>
-<rect x="154" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-16"><title>2025-03-16
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+Distance: 39.35 km
+Duration: 1h 15m
 Elevation: 0 m</title></rect>
-<rect x="154" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-03-17"><title>2025-03-17
+<rect x="154" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-03-16"><title>2025-03-16
 1 workout
-Distance: 0.00 km
-Duration: 24m
+Distance: 43.82 km
+Duration: 1h 31m
 Elevation: 0 m</title></rect>
+<rect x="154" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-03-17"><title>2025-03-17
+2 workouts
+Distance: 8.91 km
+Duration: 1h 17m
+Elevation: 147 m</title></rect>
 <rect x="154" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-18"><title>2025-03-18
 1 workout
-Distance: 4.91 km
-Duration: 33m
-Elevation: 129 m</title></rect>
-<rect x="154" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-19"><title>2025-03-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="154" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-03-20"><title>2025-03-20
+Distance: 10.14 km
+Duration: 1h 5m
+Elevation: 262 m</title></rect>
+<rect x="154" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-03-19"><title>2025-03-19
 1 workout
-Distance: 0.00 km
-Duration: 34m
+Distance: 27.14 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="154" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-21"><title>2025-03-21
+<rect x="154" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-03-20"><title>2025-03-20
+2 workouts
+Distance: 43.29 km
+Duration: 2h 2m
+Elevation: 0 m</title></rect>
+<rect x="154" y="70" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-03-21"><title>2025-03-21
 1 workout
-Distance: 5.50 km
-Duration: 37m
-Elevation: 123 m</title></rect>
+Distance: 1.45 km
+Duration: 35m
+Elevation: 0 m</title></rect>
 <rect x="154" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-22"><title>2025-03-22
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="168" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-03-23"><title>2025-03-23
-1 workout
+<rect x="168" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-23"><title>2025-03-23
+0 workouts
 Distance: 0.00 km
-Duration: 31m
+Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="168" y="14" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-24"><title>2025-03-24
+<rect x="168" y="14" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-03-24"><title>2025-03-24
 1 workout
-Distance: 5.49 km
+Distance: 1.80 km
 Duration: 41m
-Elevation: 179 m</title></rect>
+Elevation: 0 m</title></rect>
 <rect x="168" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-25"><title>2025-03-25
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="168" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-03-26"><title>2025-03-26
+<rect x="168" y="42" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-03-26"><title>2025-03-26
 1 workout
-Distance: 0.00 km
-Duration: 37m
+Distance: 1.60 km
+Duration: 34m
 Elevation: 0 m</title></rect>
-<rect x="168" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-27"><title>2025-03-27
-1 workout
-Distance: 5.61 km
-Duration: 42m
-Elevation: 185 m</title></rect>
+<rect x="168" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-03-27"><title>2025-03-27
+3 workouts
+Distance: 27.83 km
+Duration: 1h 43m
+Elevation: 291 m</title></rect>
 <rect x="168" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-28"><title>2025-03-28
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="168" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-03-29"><title>2025-03-29
+<rect x="168" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-29"><title>2025-03-29
 1 workout
+Distance: 45.44 km
+Duration: 7h 36m
+Elevation: 1679 m</title></rect>
+<rect x="182" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-30"><title>2025-03-30
+0 workouts
 Distance: 0.00 km
+Duration: 0m
+Elevation: 0 m</title></rect>
+<rect x="182" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-03-31"><title>2025-03-31
+1 workout
+Distance: 6.59 km
+Duration: 21m
+Elevation: 150 m</title></rect>
+<rect x="182" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-04-01"><title>2025-04-01
+1 workout
+Distance: 33.88 km
+Duration: 1h 2m
+Elevation: 0 m</title></rect>
+<rect x="182" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-04-02"><title>2025-04-02
+2 workouts
+Distance: 3.70 km
+Duration: 49m
+Elevation: 43 m</title></rect>
+<rect x="182" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-04-03"><title>2025-04-03
+1 workout
+Distance: 41.15 km
+Duration: 1h 15m
+Elevation: 0 m</title></rect>
+<rect x="182" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-04-04"><title>2025-04-04
+2 workouts
+Distance: 33.50 km
+Duration: 1h 32m
+Elevation: 0 m</title></rect>
+<rect x="182" y="84" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-04-05"><title>2025-04-05
+3 workouts
+Distance: 13.67 km
+Duration: 1h 2m
+Elevation: 111 m</title></rect>
+<rect x="196" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-04-06"><title>2025-04-06
+1 workout
+Distance: 63.51 km
+Duration: 2h 0m
+Elevation: 0 m</title></rect>
+<rect x="196" y="14" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-04-07"><title>2025-04-07
+1 workout
+Distance: 1.70 km
 Duration: 40m
 Elevation: 0 m</title></rect>
-<rect x="182" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-03-30"><title>2025-03-30
-1 workout
-Distance: 5.72 km
-Duration: 44m
-Elevation: 196 m</title></rect>
-<rect x="182" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-03-31"><title>2025-03-31
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="182" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-04-01"><title>2025-04-01
-1 workout
-Distance: 0.00 km
-Duration: 30m
-Elevation: 0 m</title></rect>
-<rect x="182" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-04-02"><title>2025-04-02
-1 workout
-Distance: 4.97 km
-Duration: 35m
-Elevation: 155 m</title></rect>
-<rect x="182" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-03"><title>2025-04-03
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="182" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-04-04"><title>2025-04-04
-1 workout
-Distance: 0.00 km
-Duration: 33m
-Elevation: 0 m</title></rect>
-<rect x="182" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-04-05"><title>2025-04-05
-1 workout
-Distance: 0.00 km
-Duration: 37m
-Elevation: 0 m</title></rect>
-<rect x="196" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-06"><title>2025-04-06
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="196" y="14" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-04-07"><title>2025-04-07
-1 workout
-Distance: 4.97 km
-Duration: 36m
-Elevation: 157 m</title></rect>
-<rect x="196" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-04-08"><title>2025-04-08
-1 workout
-Distance: 0.00 km
-Duration: 33m
-Elevation: 0 m</title></rect>
-<rect x="196" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-04-09"><title>2025-04-09
-1 workout
-Distance: 0.00 km
-Duration: 22m
-Elevation: 0 m</title></rect>
+<rect x="196" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-04-08"><title>2025-04-08
+2 workouts
+Distance: 27.87 km
+Duration: 1h 22m
+Elevation: 10 m</title></rect>
+<rect x="196" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-04-09"><title>2025-04-09
+2 workouts
+Distance: 8.07 km
+Duration: 1h 12m
+Elevation: 110 m</title></rect>
 <rect x="196" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-10"><title>2025-04-10
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="196" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-11"><title>2025-04-11
+<rect x="196" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-04-11"><title>2025-04-11
+1 workout
+Distance: 5.74 km
+Duration: 20m
+Elevation: 95 m</title></rect>
+<rect x="196" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-04-12"><title>2025-04-12
+1 workout
+Distance: 65.06 km
+Duration: 2h 3m
+Elevation: 0 m</title></rect>
+<rect x="210" y="0" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-04-13"><title>2025-04-13
+2 workouts
+Distance: 12.16 km
+Duration: 1h 41m
+Elevation: 337 m</title></rect>
+<rect x="210" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-04-14"><title>2025-04-14
+2 workouts
+Distance: 13.62 km
+Duration: 1h 11m
+Elevation: 0 m</title></rect>
+<rect x="210" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-04-15"><title>2025-04-15
+2 workouts
+Distance: 30.99 km
+Duration: 1h 22m
+Elevation: 142 m</title></rect>
+<rect x="210" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-04-16"><title>2025-04-16
+2 workouts
+Distance: 1.80 km
+Duration: 1h 9m
+Elevation: 0 m</title></rect>
+<rect x="210" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-04-17"><title>2025-04-17
+2 workouts
+Distance: 45.17 km
+Duration: 2h 2m
+Elevation: 5 m</title></rect>
+<rect x="210" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-18"><title>2025-04-18
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="196" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-04-12"><title>2025-04-12
-1 workout
-Distance: 0.00 km
-Duration: 19m
-Elevation: 0 m</title></rect>
-<rect x="210" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-04-13"><title>2025-04-13
-1 workout
-Distance: 4.40 km
-Duration: 32m
-Elevation: 132 m</title></rect>
-<rect x="210" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-04-14"><title>2025-04-14
-1 workout
-Distance: 0.00 km
-Duration: 30m
-Elevation: 0 m</title></rect>
-<rect x="210" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-15"><title>2025-04-15
+<rect x="210" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-19"><title>2025-04-19
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="210" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-04-16"><title>2025-04-16
-1 workout
-Distance: 4.69 km
-Duration: 33m
-Elevation: 144 m</title></rect>
-<rect x="210" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-17"><title>2025-04-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="210" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-04-18"><title>2025-04-18
-1 workout
-Distance: 0.00 km
-Duration: 26m
-Elevation: 0 m</title></rect>
-<rect x="210" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-04-19"><title>2025-04-19
-1 workout
-Distance: 6.80 km
-Duration: 50m
-Elevation: 223 m</title></rect>
 <rect x="224" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-20"><title>2025-04-20
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="224" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-04-21"><title>2025-04-21
-1 workout
+<rect x="224" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-21"><title>2025-04-21
+0 workouts
 Distance: 0.00 km
-Duration: 21m
+Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="224" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-04-22"><title>2025-04-22
-1 workout
-Distance: 3.97 km
-Duration: 27m
-Elevation: 106 m</title></rect>
+<rect x="224" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-22"><title>2025-04-22
+0 workouts
+Distance: 0.00 km
+Duration: 0m
+Elevation: 0 m</title></rect>
 <rect x="224" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-23"><title>2025-04-23
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="224" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-04-24"><title>2025-04-24
-1 workout
+<rect x="224" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-24"><title>2025-04-24
+0 workouts
 Distance: 0.00 km
-Duration: 27m
+Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="224" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-04-25"><title>2025-04-25
-1 workout
-Distance: 4.90 km
-Duration: 33m
-Elevation: 131 m</title></rect>
+<rect x="224" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-25"><title>2025-04-25
+0 workouts
+Distance: 0.00 km
+Duration: 0m
+Elevation: 0 m</title></rect>
 <rect x="224" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-26"><title>2025-04-26
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="238" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-04-27"><title>2025-04-27
-1 workout
-Distance: 0.00 km
-Duration: 39m
-Elevation: 0 m</title></rect>
-<rect x="238" y="14" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-04-28"><title>2025-04-28
-1 workout
-Distance: 5.18 km
-Duration: 37m
-Elevation: 176 m</title></rect>
-<rect x="238" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-29"><title>2025-04-29
+<rect x="238" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-04-27"><title>2025-04-27
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="238" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-04-30"><title>2025-04-30
-1 workout
-Distance: 0.00 km
-Duration: 39m
+<rect x="238" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-04-28"><title>2025-04-28
+3 workouts
+Distance: 34.94 km
+Duration: 2h 7m
 Elevation: 0 m</title></rect>
-<rect x="238" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-05-01"><title>2025-05-01
+<rect x="238" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-04-29"><title>2025-04-29
 1 workout
-Distance: 5.36 km
-Duration: 36m
-Elevation: 158 m</title></rect>
-<rect x="238" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-05-02"><title>2025-05-02
+Distance: 6.54 km
+Duration: 38m
+Elevation: 68 m</title></rect>
+<rect x="238" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-04-30"><title>2025-04-30
 1 workout
-Distance: 0.00 km
-Duration: 34m
+Distance: 30.13 km
+Duration: 1h 1m
 Elevation: 0 m</title></rect>
-<rect x="238" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-03"><title>2025-05-03
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="252" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-04"><title>2025-05-04
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="252" y="14" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-05-05"><title>2025-05-05
+<rect x="238" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-05-01"><title>2025-05-01
 1 workout
-Distance: 5.00 km
-Duration: 33m
-Elevation: 131 m</title></rect>
-<rect x="252" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-05-06"><title>2025-05-06
+Distance: 80.10 km
+Duration: 3h 58m
+Elevation: 444 m</title></rect>
+<rect x="238" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-05-02"><title>2025-05-02
+2 workouts
+Distance: 7.61 km
+Duration: 1h 46m
+Elevation: 109 m</title></rect>
+<rect x="238" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-05-03"><title>2025-05-03
 1 workout
-Distance: 0.00 km
-Duration: 39m
+Distance: 31.72 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="252" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-07"><title>2025-05-07
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="252" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-05-04"><title>2025-05-04
+1 workout
+Distance: 23.11 km
+Duration: 45m
+Elevation: 0 m</title></rect>
+<rect x="252" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-05-05"><title>2025-05-05
+2 workouts
+Distance: 8.93 km
+Duration: 1h 20m
+Elevation: 53 m</title></rect>
+<rect x="252" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-05-06"><title>2025-05-06
+1 workout
+Distance: 10.11 km
+Duration: 55m
+Elevation: 20 m</title></rect>
+<rect x="252" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-05-07"><title>2025-05-07
+2 workouts
+Distance: 35.49 km
+Duration: 1h 40m
 Elevation: 0 m</title></rect>
 <rect x="252" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-05-08"><title>2025-05-08
 1 workout
-Distance: 4.73 km
-Duration: 30m
-Elevation: 126 m</title></rect>
-<rect x="252" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-05-09"><title>2025-05-09
-1 workout
-Distance: 0.00 km
-Duration: 42m
+Distance: 9.01 km
+Duration: 59m
+Elevation: 285 m</title></rect>
+<rect x="252" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-05-09"><title>2025-05-09
+2 workouts
+Distance: 40.08 km
+Duration: 2h 20m
 Elevation: 0 m</title></rect>
-<rect x="252" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-10"><title>2025-05-10
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="266" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-05-11"><title>2025-05-11
+<rect x="252" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-05-10"><title>2025-05-10
 1 workout
-Distance: 4.63 km
-Duration: 29m
-Elevation: 125 m</title></rect>
+Distance: 10.03 km
+Duration: 53m
+Elevation: 57 m</title></rect>
+<rect x="266" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-05-11"><title>2025-05-11
+2 workouts
+Distance: 73.14 km
+Duration: 3h 26m
+Elevation: 1175 m</title></rect>
 <rect x="266" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-12"><title>2025-05-12
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="266" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-05-13"><title>2025-05-13
+<rect x="266" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-05-13"><title>2025-05-13
 1 workout
-Distance: 0.00 km
-Duration: 38m
-Elevation: 0 m</title></rect>
-<rect x="266" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-14"><title>2025-05-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+Distance: 15.24 km
+Duration: 1h 50m
+Elevation: 450 m</title></rect>
+<rect x="266" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-05-14"><title>2025-05-14
+2 workouts
+Distance: 33.49 km
+Duration: 1h 34m
 Elevation: 0 m</title></rect>
 <rect x="266" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-05-15"><title>2025-05-15
 1 workout
-Distance: 4.58 km
-Duration: 30m
-Elevation: 125 m</title></rect>
-<rect x="266" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-05-16"><title>2025-05-16
+Distance: 12.20 km
+Duration: 1h 7m
+Elevation: 152 m</title></rect>
+<rect x="266" y="70" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-05-16"><title>2025-05-16
 1 workout
-Distance: 0.00 km
-Duration: 47m
+Distance: 1.45 km
+Duration: 36m
 Elevation: 0 m</title></rect>
 <rect x="266" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-17"><title>2025-05-17
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="280" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-05-18"><title>2025-05-18
-1 workout
-Distance: 5.40 km
-Duration: 37m
-Elevation: 163 m</title></rect>
-<rect x="280" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-05-19"><title>2025-05-19
-1 workout
+<rect x="280" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-18"><title>2025-05-18
+0 workouts
 Distance: 0.00 km
-Duration: 34m
+Duration: 0m
+Elevation: 0 m</title></rect>
+<rect x="280" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-19"><title>2025-05-19
+0 workouts
+Distance: 0.00 km
+Duration: 0m
 Elevation: 0 m</title></rect>
 <rect x="280" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-20"><title>2025-05-20
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="280" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-05-21"><title>2025-05-21
-1 workout
-Distance: 4.92 km
-Duration: 32m
-Elevation: 134 m</title></rect>
-<rect x="280" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-05-22"><title>2025-05-22
-1 workout
+<rect x="280" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-21"><title>2025-05-21
+0 workouts
 Distance: 0.00 km
-Duration: 32m
+Duration: 0m
+Elevation: 0 m</title></rect>
+<rect x="280" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-22"><title>2025-05-22
+0 workouts
+Distance: 0.00 km
+Duration: 0m
 Elevation: 0 m</title></rect>
 <rect x="280" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-23"><title>2025-05-23
 0 workouts
@@ -754,51 +754,51 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="294" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-27"><title>2025-05-27
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="294" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-05-28"><title>2025-05-28
+<rect x="294" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-05-27"><title>2025-05-27
 1 workout
-Distance: 0.00 km
-Duration: 42m
+Distance: 34.25 km
+Duration: 1h 2m
 Elevation: 0 m</title></rect>
-<rect x="294" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-05-29"><title>2025-05-29
+<rect x="294" y="42" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-05-28"><title>2025-05-28
 1 workout
-Distance: 4.68 km
-Duration: 30m
-Elevation: 126 m</title></rect>
-<rect x="294" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-05-30"><title>2025-05-30
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+Distance: 1.80 km
+Duration: 41m
 Elevation: 0 m</title></rect>
-<rect x="294" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-05-31"><title>2025-05-31
+<rect x="294" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-05-29"><title>2025-05-29
+3 workouts
+Distance: 61.76 km
+Duration: 2h 21m
+Elevation: 323 m</title></rect>
+<rect x="294" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-05-30"><title>2025-05-30
+2 workouts
+Distance: 6.58 km
+Duration: 1h 7m
+Elevation: 50 m</title></rect>
+<rect x="294" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-05-31"><title>2025-05-31
 1 workout
-Distance: 0.00 km
-Duration: 52m
+Distance: 51.06 km
+Duration: 1h 44m
+Elevation: 331 m</title></rect>
+<rect x="308" y="0" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-01"><title>2025-06-01
+2 workouts
+Distance: 54.06 km
+Duration: 2h 47m
+Elevation: 457 m</title></rect>
+<rect x="308" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-02"><title>2025-06-02
+2 workouts
+Distance: 1.65 km
+Duration: 1h 21m
 Elevation: 0 m</title></rect>
-<rect x="308" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-06-01"><title>2025-06-01
-1 workout
-Distance: 4.95 km
-Duration: 36m
-Elevation: 157 m</title></rect>
-<rect x="308" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-02"><title>2025-06-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="308" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-03"><title>2025-06-03
+2 workouts
+Distance: 28.05 km
+Duration: 1h 17m
+Elevation: 94 m</title></rect>
+<rect x="308" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-06-04"><title>2025-06-04
+2 workouts
+Distance: 34.24 km
+Duration: 1h 9m
 Elevation: 0 m</title></rect>
-<rect x="308" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-06-03"><title>2025-06-03
-1 workout
-Distance: 0.00 km
-Duration: 36m
-Elevation: 0 m</title></rect>
-<rect x="308" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-06-04"><title>2025-06-04
-1 workout
-Distance: 4.62 km
-Duration: 30m
-Elevation: 132 m</title></rect>
 <rect x="308" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-05"><title>2025-06-05
 0 workouts
 Distance: 0.00 km
@@ -809,1045 +809,1045 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="308" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-06-07"><title>2025-06-07
+<rect x="308" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-06-07"><title>2025-06-07
 1 workout
-Distance: 0.00 km
-Duration: 36m
-Elevation: 0 m</title></rect>
+Distance: 37.88 km
+Duration: 2h 25m
+Elevation: 769 m</title></rect>
 <rect x="322" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-06-08"><title>2025-06-08
 1 workout
-Distance: 4.95 km
-Duration: 32m
-Elevation: 138 m</title></rect>
-<rect x="322" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-09"><title>2025-06-09
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+Distance: 15.68 km
+Duration: 1h 31m
+Elevation: 110 m</title></rect>
+<rect x="322" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-09"><title>2025-06-09
+3 workouts
+Distance: 14.39 km
+Duration: 1h 15m
+Elevation: 180 m</title></rect>
+<rect x="322" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-10"><title>2025-06-10
+2 workouts
+Distance: 40.50 km
+Duration: 1h 48m
 Elevation: 0 m</title></rect>
-<rect x="322" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-06-10"><title>2025-06-10
+<rect x="322" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-06-11"><title>2025-06-11
 1 workout
-Distance: 0.00 km
-Duration: 48m
-Elevation: 0 m</title></rect>
-<rect x="322" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-11"><title>2025-06-11
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="322" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-12"><title>2025-06-12
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="322" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-06-13"><title>2025-06-13
+Distance: 6.16 km
+Duration: 37m
+Elevation: 146 m</title></rect>
+<rect x="322" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-12"><title>2025-06-12
+3 workouts
+Distance: 28.17 km
+Duration: 1h 59m
+Elevation: 587 m</title></rect>
+<rect x="322" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-13"><title>2025-06-13
+3 workouts
+Distance: 25.63 km
+Duration: 2h 4m
+Elevation: 218 m</title></rect>
+<rect x="322" y="84" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-14"><title>2025-06-14
+3 workouts
+Distance: 11.73 km
+Duration: 1h 45m
+Elevation: 170 m</title></rect>
+<rect x="336" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-06-15"><title>2025-06-15
 1 workout
-Distance: 6.72 km
-Duration: 39m
-Elevation: 16 m</title></rect>
-<rect x="322" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-14"><title>2025-06-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="336" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-15"><title>2025-06-15
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="336" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-06-16"><title>2025-06-16
+Distance: 16.10 km
+Duration: 1h 56m
+Elevation: 432 m</title></rect>
+<rect x="336" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-16"><title>2025-06-16
+3 workouts
+Distance: 29.69 km
+Duration: 2h 17m
+Elevation: 178 m</title></rect>
+<rect x="336" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-06-17"><title>2025-06-17
 1 workout
-Distance: 0.00 km
-Duration: 49m
-Elevation: 0 m</title></rect>
-<rect x="336" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-06-17"><title>2025-06-17
-1 workout
-Distance: 5.33 km
-Duration: 33m
-Elevation: 10 m</title></rect>
+Distance: 115.16 km
+Duration: 4h 58m
+Elevation: 1628 m</title></rect>
 <rect x="336" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-18"><title>2025-06-18
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="336" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-19"><title>2025-06-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="336" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-06-19"><title>2025-06-19
+1 workout
+Distance: 5.19 km
+Duration: 49m
+Elevation: 329 m</title></rect>
 <rect x="336" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-20"><title>2025-06-20
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="336" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-06-21"><title>2025-06-21
-1 workout
+<rect x="336" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-21"><title>2025-06-21
+0 workouts
 Distance: 0.00 km
-Duration: 48m
+Duration: 0m
 Elevation: 0 m</title></rect>
 <rect x="350" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-22"><title>2025-06-22
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="350" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-23"><title>2025-06-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="350" y="14" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-06-23"><title>2025-06-23
+1 workout
+Distance: 1.60 km
+Duration: 38m
 Elevation: 0 m</title></rect>
-<rect x="350" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-24"><title>2025-06-24
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="350" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-06-25"><title>2025-06-25
+<rect x="350" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-06-24"><title>2025-06-24
+2 workouts
+Distance: 38.55 km
+Duration: 1h 13m
+Elevation: 79 m</title></rect>
+<rect x="350" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-25"><title>2025-06-25
+2 workouts
+Distance: 8.67 km
+Duration: 1h 16m
+Elevation: 66 m</title></rect>
+<rect x="350" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-26"><title>2025-06-26
+2 workouts
+Distance: 34.55 km
+Duration: 2h 27m
+Elevation: 428 m</title></rect>
+<rect x="350" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-06-27"><title>2025-06-27
 1 workout
 Distance: 0.00 km
-Duration: 51m
+Duration: 45m
 Elevation: 0 m</title></rect>
-<rect x="350" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-06-26"><title>2025-06-26
+<rect x="350" y="84" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-28"><title>2025-06-28
+3 workouts
+Distance: 19.27 km
+Duration: 1h 23m
+Elevation: 164 m</title></rect>
+<rect x="364" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-06-29"><title>2025-06-29
 1 workout
-Distance: 0.00 km
-Duration: 35m
-Elevation: 0 m</title></rect>
-<rect x="350" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-06-27"><title>2025-06-27
+Distance: 33.23 km
+Duration: 2h 12m
+Elevation: 637 m</title></rect>
+<rect x="364" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-06-30"><title>2025-06-30
+4 workouts
+Distance: 16.50 km
+Duration: 2h 4m
+Elevation: 188 m</title></rect>
+<rect x="364" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-07-01"><title>2025-07-01
 1 workout
-Distance: 4.90 km
-Duration: 33m
-Elevation: 142 m</title></rect>
-<rect x="350" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-06-28"><title>2025-06-28
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="364" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-06-29"><title>2025-06-29
+Distance: 8.06 km
+Duration: 45m
+Elevation: 98 m</title></rect>
+<rect x="364" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-02"><title>2025-07-02
+3 workouts
+Distance: 17.61 km
+Duration: 1h 25m
+Elevation: 170 m</title></rect>
+<rect x="364" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-07-03"><title>2025-07-03
 1 workout
-Distance: 0.00 km
-Duration: 46m
-Elevation: 0 m</title></rect>
-<rect x="364" y="14" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-06-30"><title>2025-06-30
+Distance: 7.09 km
+Duration: 53m
+Elevation: 209 m</title></rect>
+<rect x="364" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-07-04"><title>2025-07-04
 1 workout
-Distance: 5.50 km
-Duration: 36m
-Elevation: 144 m</title></rect>
-<rect x="364" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-01"><title>2025-07-01
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+Distance: 25.62 km
+Duration: 47m
 Elevation: 0 m</title></rect>
-<rect x="364" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-07-02"><title>2025-07-02
+<rect x="364" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-07-05"><title>2025-07-05
 1 workout
-Distance: 0.00 km
-Duration: 51m
-Elevation: 0 m</title></rect>
-<rect x="364" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-03"><title>2025-07-03
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="364" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-07-04"><title>2025-07-04
+Distance: 5.14 km
+Duration: 30m
+Elevation: 17 m</title></rect>
+<rect x="378" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-07-06"><title>2025-07-06
 1 workout
-Distance: 4.88 km
-Duration: 33m
-Elevation: 129 m</title></rect>
-<rect x="364" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-05"><title>2025-07-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="378" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-07-06"><title>2025-07-06
-1 workout
-Distance: 0.00 km
-Duration: 41m
-Elevation: 0 m</title></rect>
-<rect x="378" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-07"><title>2025-07-07
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="378" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-07-08"><title>2025-07-08
-1 workout
-Distance: 0.00 km
-Duration: 41m
-Elevation: 0 m</title></rect>
-<rect x="378" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-07-09"><title>2025-07-09
-1 workout
-Distance: 4.90 km
-Duration: 37m
-Elevation: 122 m</title></rect>
-<rect x="378" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-10"><title>2025-07-10
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="378" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-07-11"><title>2025-07-11
-1 workout
-Distance: 0.00 km
-Duration: 37m
-Elevation: 0 m</title></rect>
+Distance: 25.96 km
+Duration: 3h 40m
+Elevation: 1287 m</title></rect>
+<rect x="378" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-07-07"><title>2025-07-07
+2 workouts
+Distance: 5.86 km
+Duration: 20m
+Elevation: 107 m</title></rect>
+<rect x="378" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-07-08"><title>2025-07-08
+3 workouts
+Distance: 44.44 km
+Duration: 1h 39m
+Elevation: 397 m</title></rect>
+<rect x="378" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-09"><title>2025-07-09
+3 workouts
+Distance: 12.94 km
+Duration: 1h 15m
+Elevation: 213 m</title></rect>
+<rect x="378" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-10"><title>2025-07-10
+2 workouts
+Distance: 40.63 km
+Duration: 1h 44m
+Elevation: 329 m</title></rect>
+<rect x="378" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-11"><title>2025-07-11
+5 workouts
+Distance: 14.74 km
+Duration: 1h 55m
+Elevation: 259 m</title></rect>
 <rect x="378" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-07-12"><title>2025-07-12
 1 workout
-Distance: 4.86 km
-Duration: 33m
-Elevation: 133 m</title></rect>
-<rect x="392" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-13"><title>2025-07-13
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="392" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-07-14"><title>2025-07-14
+Distance: 15.24 km
+Duration: 1h 45m
+Elevation: 413 m</title></rect>
+<rect x="392" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-07-13"><title>2025-07-13
 1 workout
-Distance: 0.00 km
-Duration: 1h 2m
-Elevation: 0 m</title></rect>
-<rect x="392" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-07-15"><title>2025-07-15
+Distance: 32.21 km
+Duration: 2h 21m
+Elevation: 676 m</title></rect>
+<rect x="392" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-14"><title>2025-07-14
+3 workouts
+Distance: 12.37 km
+Duration: 1h 12m
+Elevation: 213 m</title></rect>
+<rect x="392" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-15"><title>2025-07-15
+2 workouts
+Distance: 45.19 km
+Duration: 2h 2m
+Elevation: 13 m</title></rect>
+<rect x="392" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-16"><title>2025-07-16
+4 workouts
+Distance: 12.57 km
+Duration: 2h 1m
+Elevation: 207 m</title></rect>
+<rect x="392" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-07-17"><title>2025-07-17
 1 workout
-Distance: 6.51 km
-Duration: 47m
-Elevation: 169 m</title></rect>
-<rect x="392" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-07-16"><title>2025-07-16
+Distance: 16.22 km
+Duration: 31m
+Elevation: 0 m</title></rect>
+<rect x="392" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-07-18"><title>2025-07-18
 1 workout
-Distance: 0.00 km
-Duration: 41m
+Distance: 17.53 km
+Duration: 31m
 Elevation: 0 m</title></rect>
-<rect x="392" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-17"><title>2025-07-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="392" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-18"><title>2025-07-18
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="392" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-19"><title>2025-07-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="406" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-20"><title>2025-07-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="392" y="84" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-19"><title>2025-07-19
+2 workouts
+Distance: 25.84 km
+Duration: 1h 16m
+Elevation: 35 m</title></rect>
+<rect x="406" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-07-20"><title>2025-07-20
+1 workout
+Distance: 34.10 km
+Duration: 2h 29m
+Elevation: 836 m</title></rect>
 <rect x="406" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-07-21"><title>2025-07-21
-1 workout
-Distance: 0.00 km
-Duration: 39m
-Elevation: 0 m</title></rect>
-<rect x="406" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-22"><title>2025-07-22
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="406" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-07-23"><title>2025-07-23
-1 workout
-Distance: 0.00 km
-Duration: 45m
-Elevation: 0 m</title></rect>
-<rect x="406" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-07-24"><title>2025-07-24
-1 workout
-Distance: 4.86 km
-Duration: 35m
-Elevation: 117 m</title></rect>
-<rect x="406" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-25"><title>2025-07-25
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="406" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-07-26"><title>2025-07-26
-1 workout
-Distance: 0.00 km
-Duration: 54m
-Elevation: 0 m</title></rect>
-<rect x="420" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-07-27"><title>2025-07-27
-1 workout
-Distance: 5.21 km
-Duration: 36m
-Elevation: 137 m</title></rect>
-<rect x="420" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-07-28"><title>2025-07-28
-1 workout
-Distance: 0.00 km
-Duration: 29m
-Elevation: 0 m</title></rect>
-<rect x="420" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-07-29"><title>2025-07-29
-1 workout
-Distance: 0.00 km
-Duration: 45m
-Elevation: 0 m</title></rect>
-<rect x="420" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-07-30"><title>2025-07-30
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="420" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-07-31"><title>2025-07-31
-1 workout
-Distance: 0.00 km
-Duration: 37m
-Elevation: 0 m</title></rect>
-<rect x="420" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-01"><title>2025-08-01
-1 workout
-Distance: 5.24 km
-Duration: 37m
-Elevation: 132 m</title></rect>
-<rect x="420" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-02"><title>2025-08-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="434" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-08-03"><title>2025-08-03
-1 workout
-Distance: 0.00 km
-Duration: 56m
-Elevation: 0 m</title></rect>
-<rect x="434" y="14" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-04"><title>2025-08-04
-1 workout
-Distance: 5.25 km
-Duration: 37m
-Elevation: 142 m</title></rect>
-<rect x="434" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-05"><title>2025-08-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="434" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-08-06"><title>2025-08-06
-1 workout
-Distance: 0.00 km
-Duration: 1h 6m
-Elevation: 0 m</title></rect>
-<rect x="434" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-07"><title>2025-08-07
-1 workout
-Distance: 4.64 km
-Duration: 33m
-Elevation: 113 m</title></rect>
-<rect x="434" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-08"><title>2025-08-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="434" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-08-09"><title>2025-08-09
-1 workout
-Distance: 0.00 km
-Duration: 52m
-Elevation: 0 m</title></rect>
-<rect x="448" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-10"><title>2025-08-10
-1 workout
-Distance: 5.10 km
-Duration: 36m
-Elevation: 134 m</title></rect>
-<rect x="448" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-11"><title>2025-08-11
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="448" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-08-12"><title>2025-08-12
-1 workout
-Distance: 0.00 km
-Duration: 44m
-Elevation: 0 m</title></rect>
-<rect x="448" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-13"><title>2025-08-13
-1 workout
-Distance: 4.85 km
-Duration: 33m
-Elevation: 115 m</title></rect>
-<rect x="448" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-08-14"><title>2025-08-14
 1 workout
 Distance: 0.00 km
 Duration: 32m
 Elevation: 0 m</title></rect>
+<rect x="406" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-22"><title>2025-07-22
+3 workouts
+Distance: 32.37 km
+Duration: 2h 0m
+Elevation: 387 m</title></rect>
+<rect x="406" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-23"><title>2025-07-23
+4 workouts
+Distance: 31.01 km
+Duration: 1h 45m
+Elevation: 209 m</title></rect>
+<rect x="406" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-07-24"><title>2025-07-24
+1 workout
+Distance: 10.18 km
+Duration: 55m
+Elevation: 47 m</title></rect>
+<rect x="406" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-25"><title>2025-07-25
+4 workouts
+Distance: 19.56 km
+Duration: 1h 49m
+Elevation: 289 m</title></rect>
+<rect x="406" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-07-26"><title>2025-07-26
+1 workout
+Distance: 60.09 km
+Duration: 2h 11m
+Elevation: 455 m</title></rect>
+<rect x="420" y="0" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-27"><title>2025-07-27
+2 workouts
+Distance: 20.02 km
+Duration: 2h 1m
+Elevation: 523 m</title></rect>
+<rect x="420" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-28"><title>2025-07-28
+3 workouts
+Distance: 17.50 km
+Duration: 1h 28m
+Elevation: 312 m</title></rect>
+<rect x="420" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-29"><title>2025-07-29
+2 workouts
+Distance: 29.81 km
+Duration: 1h 20m
+Elevation: 13 m</title></rect>
+<rect x="420" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-30"><title>2025-07-30
+3 workouts
+Distance: 13.27 km
+Duration: 1h 18m
+Elevation: 212 m</title></rect>
+<rect x="420" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-07-31"><title>2025-07-31
+2 workouts
+Distance: 15.94 km
+Duration: 1h 19m
+Elevation: 210 m</title></rect>
+<rect x="420" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-08-01"><title>2025-08-01
+4 workouts
+Distance: 73.41 km
+Duration: 3h 21m
+Elevation: 589 m</title></rect>
+<rect x="420" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-08-02"><title>2025-08-02
+1 workout
+Distance: 25.68 km
+Duration: 50m
+Elevation: 0 m</title></rect>
+<rect x="434" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-03"><title>2025-08-03
+0 workouts
+Distance: 0.00 km
+Duration: 0m
+Elevation: 0 m</title></rect>
+<rect x="434" y="14" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-04"><title>2025-08-04
+1 workout
+Distance: 13.03 km
+Duration: 1h 15m
+Elevation: 152 m</title></rect>
+<rect x="434" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-08-05"><title>2025-08-05
+2 workouts
+Distance: 38.36 km
+Duration: 1h 54m
+Elevation: 383 m</title></rect>
+<rect x="434" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-06"><title>2025-08-06
+1 workout
+Distance: 11.43 km
+Duration: 1h 0m
+Elevation: 18 m</title></rect>
+<rect x="434" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-08-07"><title>2025-08-07
+1 workout
+Distance: 38.12 km
+Duration: 1h 38m
+Elevation: 656 m</title></rect>
+<rect x="434" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-08-08"><title>2025-08-08
+3 workouts
+Distance: 41.22 km
+Duration: 2h 4m
+Elevation: 156 m</title></rect>
+<rect x="434" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-09"><title>2025-08-09
+1 workout
+Distance: 8.22 km
+Duration: 49m
+Elevation: 43 m</title></rect>
+<rect x="448" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-08-10"><title>2025-08-10
+1 workout
+Distance: 70.51 km
+Duration: 2h 34m
+Elevation: 528 m</title></rect>
+<rect x="448" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-08-11"><title>2025-08-11
+3 workouts
+Distance: 27.20 km
+Duration: 1h 39m
+Elevation: 41 m</title></rect>
+<rect x="448" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-08-12"><title>2025-08-12
+2 workouts
+Distance: 38.86 km
+Duration: 1h 35m
+Elevation: 108 m</title></rect>
+<rect x="448" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-08-13"><title>2025-08-13
+2 workouts
+Distance: 12.29 km
+Duration: 1h 6m
+Elevation: 57 m</title></rect>
+<rect x="448" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-08-14"><title>2025-08-14
+2 workouts
+Distance: 56.55 km
+Duration: 2h 17m
+Elevation: 353 m</title></rect>
 <rect x="448" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-15"><title>2025-08-15
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="448" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-08-16"><title>2025-08-16
-1 workout
+<rect x="448" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-16"><title>2025-08-16
+0 workouts
 Distance: 0.00 km
-Duration: 49m
+Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="462" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-17"><title>2025-08-17
+<rect x="462" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-08-17"><title>2025-08-17
 1 workout
-Distance: 5.23 km
-Duration: 35m
-Elevation: 140 m</title></rect>
+Distance: 91.39 km
+Duration: 3h 17m
+Elevation: 829 m</title></rect>
 <rect x="462" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-18"><title>2025-08-18
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="462" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-19"><title>2025-08-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="462" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-08-20"><title>2025-08-20
+<rect x="462" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-19"><title>2025-08-19
 1 workout
-Distance: 0.00 km
-Duration: 58m
-Elevation: 0 m</title></rect>
-<rect x="462" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-21"><title>2025-08-21
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+Distance: 11.14 km
+Duration: 56m
+Elevation: 64 m</title></rect>
+<rect x="462" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-20"><title>2025-08-20
+1 workout
+Distance: 8.40 km
+Duration: 45m
+Elevation: 62 m</title></rect>
+<rect x="462" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-21"><title>2025-08-21
+1 workout
+Distance: 8.04 km
+Duration: 44m
+Elevation: 25 m</title></rect>
 <rect x="462" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-22"><title>2025-08-22
 1 workout
-Distance: 6.13 km
-Duration: 42m
-Elevation: 170 m</title></rect>
-<rect x="462" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-23"><title>2025-08-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="476" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-08-24"><title>2025-08-24
+Distance: 10.45 km
+Duration: 55m
+Elevation: 42 m</title></rect>
+<rect x="462" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-23"><title>2025-08-23
+1 workout
+Distance: 8.07 km
+Duration: 43m
+Elevation: 32 m</title></rect>
+<rect x="476" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-08-24"><title>2025-08-24
+1 workout
+Distance: 55.68 km
+Duration: 2h 1m
+Elevation: 598 m</title></rect>
+<rect x="476" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-08-25"><title>2025-08-25
 1 workout
 Distance: 0.00 km
-Duration: 47m
+Duration: 56m
 Elevation: 0 m</title></rect>
-<rect x="476" y="14" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-25"><title>2025-08-25
-1 workout
-Distance: 4.96 km
-Duration: 33m
-Elevation: 140 m</title></rect>
 <rect x="476" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-26"><title>2025-08-26
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="476" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-08-27"><title>2025-08-27
+<rect x="476" y="42" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-08-27"><title>2025-08-27
 1 workout
-Distance: 0.00 km
-Duration: 1h 7m
+Distance: 0.50 km
+Duration: 21m
 Elevation: 0 m</title></rect>
-<rect x="476" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-28"><title>2025-08-28
-1 workout
-Distance: 6.62 km
-Duration: 39m
-Elevation: 16 m</title></rect>
-<rect x="476" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-08-29"><title>2025-08-29
-1 workout
-Distance: 4.97 km
-Duration: 27m
-Elevation: 13 m</title></rect>
-<rect x="476" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-08-30"><title>2025-08-30
-1 workout
+<rect x="476" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-28"><title>2025-08-28
+0 workouts
 Distance: 0.00 km
-Duration: 29m
+Duration: 0m
+Elevation: 0 m</title></rect>
+<rect x="476" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-29"><title>2025-08-29
+0 workouts
+Distance: 0.00 km
+Duration: 0m
+Elevation: 0 m</title></rect>
+<rect x="476" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-30"><title>2025-08-30
+0 workouts
+Distance: 0.00 km
+Duration: 0m
 Elevation: 0 m</title></rect>
 <rect x="490" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-08-31"><title>2025-08-31
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="490" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-09-01"><title>2025-09-01
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="490" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-09-02"><title>2025-09-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="490" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-09-03"><title>2025-09-03
+<rect x="490" y="14" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-01"><title>2025-09-01
 1 workout
-Distance: 0.00 km
-Duration: 35m
+Distance: 12.03 km
+Duration: 1h 7m
+Elevation: 101 m</title></rect>
+<rect x="490" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-02"><title>2025-09-02
+3 workouts
+Distance: 28.65 km
+Duration: 1h 47m
+Elevation: 335 m</title></rect>
+<rect x="490" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-03"><title>2025-09-03
+2 workouts
+Distance: 5.36 km
+Duration: 1h 3m
+Elevation: 94 m</title></rect>
+<rect x="490" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-09-04"><title>2025-09-04
+1 workout
+Distance: 33.37 km
+Duration: 1h 1m
 Elevation: 0 m</title></rect>
-<rect x="490" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-04"><title>2025-09-04
+<rect x="490" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-05"><title>2025-09-05
+2 workouts
+Distance: 10.02 km
+Duration: 1h 20m
+Elevation: 18 m</title></rect>
+<rect x="490" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-09-06"><title>2025-09-06
 1 workout
-Distance: 4.52 km
-Duration: 32m
-Elevation: 122 m</title></rect>
-<rect x="490" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-09-05"><title>2025-09-05
-1 workout
-Distance: 0.00 km
-Duration: 33m
+Distance: 47.39 km
+Duration: 3h 9m
+Elevation: 1049 m</title></rect>
+<rect x="504" y="0" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-07"><title>2025-09-07
+2 workouts
+Distance: 65.19 km
+Duration: 2h 26m
 Elevation: 0 m</title></rect>
-<rect x="490" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-09-06"><title>2025-09-06
+<rect x="504" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-08"><title>2025-09-08
+3 workouts
+Distance: 30.61 km
+Duration: 1h 53m
+Elevation: 399 m</title></rect>
+<rect x="504" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-09-09"><title>2025-09-09
 1 workout
-Distance: 0.00 km
-Duration: 43m
+Distance: 24.13 km
+Duration: 46m
 Elevation: 0 m</title></rect>
-<rect x="504" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-07"><title>2025-09-07
-1 workout
-Distance: 5.23 km
-Duration: 36m
-Elevation: 152 m</title></rect>
-<rect x="504" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-09-08"><title>2025-09-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="504" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-09-09"><title>2025-09-09
-1 workout
-Distance: 0.00 km
-Duration: 42m
-Elevation: 0 m</title></rect>
-<rect x="504" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-10"><title>2025-09-10
-1 workout
-Distance: 5.23 km
-Duration: 36m
-Elevation: 157 m</title></rect>
-<rect x="504" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-09-11"><title>2025-09-11
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="504" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-09-12"><title>2025-09-12
-1 workout
-Distance: 0.00 km
-Duration: 48m
+<rect x="504" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-10"><title>2025-09-10
+2 workouts
+Distance: 11.37 km
+Duration: 55m
+Elevation: 53 m</title></rect>
+<rect x="504" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-11"><title>2025-09-11
+3 workouts
+Distance: 13.49 km
+Duration: 55m
+Elevation: 153 m</title></rect>
+<rect x="504" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-09-12"><title>2025-09-12
+2 workouts
+Distance: 40.65 km
+Duration: 1h 24m
 Elevation: 0 m</title></rect>
 <rect x="504" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-13"><title>2025-09-13
 1 workout
-Distance: 5.24 km
+Distance: 5.47 km
+Duration: 30m
+Elevation: 8 m</title></rect>
+<rect x="518" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-14"><title>2025-09-14
+1 workout
+Distance: 21.22 km
+Duration: 1h 50m
+Elevation: 115 m</title></rect>
+<rect x="518" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-15"><title>2025-09-15
+3 workouts
+Distance: 12.34 km
+Duration: 1h 10m
+Elevation: 215 m</title></rect>
+<rect x="518" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-09-16"><title>2025-09-16
+2 workouts
+Distance: 35.75 km
+Duration: 1h 18m
+Elevation: 64 m</title></rect>
+<rect x="518" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-09-17"><title>2025-09-17
+1 workout
+Distance: 34.27 km
+Duration: 1h 1m
+Elevation: 0 m</title></rect>
+<rect x="518" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-18"><title>2025-09-18
+2 workouts
+Distance: 26.40 km
+Duration: 1h 35m
+Elevation: 35 m</title></rect>
+<rect x="518" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-19"><title>2025-09-19
+4 workouts
+Distance: 33.32 km
+Duration: 1h 47m
+Elevation: 201 m</title></rect>
+<rect x="518" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-09-20"><title>2025-09-20
+2 workouts
+Distance: 57.16 km
+Duration: 1h 50m
+Elevation: 106 m</title></rect>
+<rect x="532" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-21"><title>2025-09-21
+1 workout
+Distance: 13.29 km
+Duration: 1h 10m
+Elevation: 36 m</title></rect>
+<rect x="532" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-22"><title>2025-09-22
+3 workouts
+Distance: 12.58 km
+Duration: 1h 15m
+Elevation: 234 m</title></rect>
+<rect x="532" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-23"><title>2025-09-23
+2 workouts
+Distance: 5.52 km
+Duration: 54m
+Elevation: 10 m</title></rect>
+<rect x="532" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-09-24"><title>2025-09-24
+0 workouts
+Distance: 0.00 km
+Duration: 0m
+Elevation: 0 m</title></rect>
+<rect x="532" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-25"><title>2025-09-25
+2 workouts
+Distance: 28.92 km
+Duration: 1h 35m
+Elevation: 18 m</title></rect>
+<rect x="532" y="70" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-09-26"><title>2025-09-26
+1 workout
+Distance: 1.60 km
 Duration: 35m
-Elevation: 142 m</title></rect>
-<rect x="518" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-09-14"><title>2025-09-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="518" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-09-15"><title>2025-09-15
+<rect x="532" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-27"><title>2025-09-27
 1 workout
-Distance: 0.00 km
-Duration: 43m
-Elevation: 0 m</title></rect>
-<rect x="518" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-16"><title>2025-09-16
-1 workout
-Distance: 5.24 km
-Duration: 35m
-Elevation: 151 m</title></rect>
-<rect x="518" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-09-17"><title>2025-09-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="518" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-09-18"><title>2025-09-18
-1 workout
-Distance: 0.00 km
-Duration: 53m
-Elevation: 0 m</title></rect>
-<rect x="518" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-19"><title>2025-09-19
-1 workout
-Distance: 5.15 km
-Duration: 36m
-Elevation: 149 m</title></rect>
-<rect x="518" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-09-20"><title>2025-09-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="532" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-09-21"><title>2025-09-21
-1 workout
-Distance: 0.00 km
-Duration: 49m
-Elevation: 0 m</title></rect>
-<rect x="532" y="14" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-22"><title>2025-09-22
-1 workout
-Distance: 5.23 km
-Duration: 35m
-Elevation: 145 m</title></rect>
-<rect x="532" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-09-23"><title>2025-09-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="532" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-09-24"><title>2025-09-24
-1 workout
-Distance: 0.00 km
-Duration: 39m
-Elevation: 0 m</title></rect>
-<rect x="532" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-09-25"><title>2025-09-25
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="532" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-26"><title>2025-09-26
-1 workout
-Distance: 5.10 km
-Duration: 35m
-Elevation: 150 m</title></rect>
-<rect x="532" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-09-27"><title>2025-09-27
-1 workout
-Distance: 0.00 km
-Duration: 59m
-Elevation: 0 m</title></rect>
+Distance: 6.02 km
+Duration: 32m
+Elevation: 38 m</title></rect>
 <rect x="546" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-09-28"><title>2025-09-28
 1 workout
-Distance: 5.23 km
-Duration: 36m
-Elevation: 132 m</title></rect>
-<rect x="546" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-09-29"><title>2025-09-29
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="546" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-09-30"><title>2025-09-30
-1 workout
-Distance: 0.00 km
-Duration: 1h 3m
-Elevation: 0 m</title></rect>
-<rect x="546" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-10-01"><title>2025-10-01
-1 workout
-Distance: 5.19 km
-Duration: 36m
-Elevation: 149 m</title></rect>
-<rect x="546" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-02"><title>2025-10-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="546" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-10-03"><title>2025-10-03
-1 workout
-Distance: 0.00 km
-Duration: 43m
-Elevation: 0 m</title></rect>
-<rect x="546" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-10-04"><title>2025-10-04
-1 workout
-Distance: 5.44 km
-Duration: 38m
-Elevation: 160 m</title></rect>
+Distance: 10.01 km
+Duration: 47m
+Elevation: 68 m</title></rect>
+<rect x="546" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-29"><title>2025-09-29
+4 workouts
+Distance: 18.11 km
+Duration: 1h 28m
+Elevation: 204 m</title></rect>
+<rect x="546" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-09-30"><title>2025-09-30
+2 workouts
+Distance: 46.39 km
+Duration: 2h 5m
+Elevation: 140 m</title></rect>
+<rect x="546" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-01"><title>2025-10-01
+4 workouts
+Distance: 12.52 km
+Duration: 1h 51m
+Elevation: 209 m</title></rect>
+<rect x="546" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-02"><title>2025-10-02
+2 workouts
+Distance: 15.19 km
+Duration: 1h 23m
+Elevation: 378 m</title></rect>
+<rect x="546" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-03"><title>2025-10-03
+2 workouts
+Distance: 33.21 km
+Duration: 1h 20m
+Elevation: 134 m</title></rect>
+<rect x="546" y="84" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-04"><title>2025-10-04
+3 workouts
+Distance: 63.90 km
+Duration: 3h 15m
+Elevation: 525 m</title></rect>
 <rect x="560" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-05"><title>2025-10-05
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="560" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-10-06"><title>2025-10-06
+<rect x="560" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-06"><title>2025-10-06
+5 workouts
+Distance: 37.63 km
+Duration: 2h 23m
+Elevation: 339 m</title></rect>
+<rect x="560" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-10-07"><title>2025-10-07
 1 workout
-Distance: 0.00 km
-Duration: 46m
+Distance: 40.56 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="560" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-10-07"><title>2025-10-07
+<rect x="560" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-08"><title>2025-10-08
+4 workouts
+Distance: 14.34 km
+Duration: 1h 49m
+Elevation: 246 m</title></rect>
+<rect x="560" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-10-09"><title>2025-10-09
+2 workouts
+Distance: 40.72 km
+Duration: 1h 30m
+Elevation: 113 m</title></rect>
+<rect x="560" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-10-10"><title>2025-10-10
 1 workout
-Distance: 5.21 km
-Duration: 35m
-Elevation: 145 m</title></rect>
-<rect x="560" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-08"><title>2025-10-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+Distance: 42.14 km
+Duration: 1h 1m
 Elevation: 0 m</title></rect>
-<rect x="560" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-10-09"><title>2025-10-09
+<rect x="560" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-10-11"><title>2025-10-11
 1 workout
-Distance: 0.00 km
-Duration: 48m
-Elevation: 0 m</title></rect>
-<rect x="560" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-10"><title>2025-10-10
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="560" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-11"><title>2025-10-11
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+Distance: 116.39 km
+Duration: 6h 32m
+Elevation: 813 m</title></rect>
 <rect x="574" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-10-12"><title>2025-10-12
 1 workout
-Distance: 5.10 km
-Duration: 35m
-Elevation: 147 m</title></rect>
-<rect x="574" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-10-13"><title>2025-10-13
+Distance: 8.02 km
+Duration: 43m
+Elevation: 145 m</title></rect>
+<rect x="574" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-10-13"><title>2025-10-13
 1 workout
-Distance: 0.00 km
-Duration: 38m
+Distance: 34.46 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="574" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-14"><title>2025-10-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="574" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-15"><title>2025-10-15
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="574" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-10-16"><title>2025-10-16
+<rect x="574" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-14"><title>2025-10-14
+2 workouts
+Distance: 29.71 km
+Duration: 2h 14m
+Elevation: 575 m</title></rect>
+<rect x="574" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-15"><title>2025-10-15
+4 workouts
+Distance: 12.65 km
+Duration: 1h 42m
+Elevation: 205 m</title></rect>
+<rect x="574" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-16"><title>2025-10-16
+2 workouts
+Distance: 17.79 km
+Duration: 1h 44m
+Elevation: 470 m</title></rect>
+<rect x="574" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-17"><title>2025-10-17
+3 workouts
+Distance: 38.77 km
+Duration: 1h 42m
+Elevation: 73 m</title></rect>
+<rect x="574" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-10-18"><title>2025-10-18
+2 workouts
+Distance: 75.79 km
+Duration: 3h 12m
+Elevation: 800 m</title></rect>
+<rect x="588" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-10-19"><title>2025-10-19
 1 workout
-Distance: 0.00 km
-Duration: 42m
-Elevation: 0 m</title></rect>
-<rect x="574" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-10-17"><title>2025-10-17
+Distance: 16.03 km
+Duration: 1h 50m
+Elevation: 473 m</title></rect>
+<rect x="588" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-20"><title>2025-10-20
+3 workouts
+Distance: 12.80 km
+Duration: 1h 11m
+Elevation: 211 m</title></rect>
+<rect x="588" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-10-21"><title>2025-10-21
 1 workout
-Distance: 5.14 km
-Duration: 35m
-Elevation: 148 m</title></rect>
-<rect x="574" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-18"><title>2025-10-18
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="588" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-10-19"><title>2025-10-19
+Distance: 11.26 km
+Duration: 1h 1m
+Elevation: 10 m</title></rect>
+<rect x="588" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-22"><title>2025-10-22
+4 workouts
+Distance: 30.38 km
+Duration: 1h 45m
+Elevation: 214 m</title></rect>
+<rect x="588" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-10-23"><title>2025-10-23
 1 workout
-Distance: 0.00 km
-Duration: 34m
+Distance: 31.29 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="588" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-20"><title>2025-10-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="588" y="28" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-10-21"><title>2025-10-21
-1 workout
-Distance: 0.00 km
-Duration: 42m
-Elevation: 0 m</title></rect>
-<rect x="588" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-10-22"><title>2025-10-22
-1 workout
-Distance: 5.12 km
-Duration: 34m
-Elevation: 155 m</title></rect>
-<rect x="588" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-23"><title>2025-10-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="588" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-10-24"><title>2025-10-24
-1 workout
-Distance: 0.00 km
-Duration: 50m
-Elevation: 0 m</title></rect>
-<rect x="588" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-10-25"><title>2025-10-25
-1 workout
-Distance: 5.24 km
-Duration: 35m
-Elevation: 133 m</title></rect>
-<rect x="602" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-26"><title>2025-10-26
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="602" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-10-27"><title>2025-10-27
-1 workout
-Distance: 0.00 km
-Duration: 39m
-Elevation: 0 m</title></rect>
-<rect x="602" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-10-28"><title>2025-10-28
-1 workout
-Distance: 5.19 km
-Duration: 36m
-Elevation: 147 m</title></rect>
-<rect x="602" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-29"><title>2025-10-29
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="602" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-10-30"><title>2025-10-30
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="602" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-10-31"><title>2025-10-31
-1 workout
-Distance: 0.00 km
+<rect x="588" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-10-24"><title>2025-10-24
+2 workouts
+Distance: 24.25 km
 Duration: 53m
 Elevation: 0 m</title></rect>
-<rect x="602" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-01"><title>2025-11-01
-1 workout
-Distance: 4.94 km
-Duration: 33m
-Elevation: 131 m</title></rect>
-<rect x="616" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-02"><title>2025-11-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="588" y="84" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-25"><title>2025-10-25
+2 workouts
+Distance: 40.31 km
+Duration: 2h 6m
 Elevation: 0 m</title></rect>
-<rect x="616" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-11-03"><title>2025-11-03
+<rect x="602" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-10-26"><title>2025-10-26
+1 workout
+Distance: 13.18 km
+Duration: 1h 31m
+Elevation: 389 m</title></rect>
+<rect x="602" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-10-27"><title>2025-10-27
+2 workouts
+Distance: 20.75 km
+Duration: 1h 5m
+Elevation: 294 m</title></rect>
+<rect x="602" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-28"><title>2025-10-28
+2 workouts
+Distance: 26.52 km
+Duration: 1h 41m
+Elevation: 279 m</title></rect>
+<rect x="602" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-29"><title>2025-10-29
+3 workouts
+Distance: 29.20 km
+Duration: 1h 51m
+Elevation: 252 m</title></rect>
+<rect x="602" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-30"><title>2025-10-30
+3 workouts
+Distance: 33.27 km
+Duration: 1h 55m
+Elevation: 45 m</title></rect>
+<rect x="602" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-10-31"><title>2025-10-31
+2 workouts
+Distance: 34.18 km
+Duration: 1h 12m
+Elevation: 0 m</title></rect>
+<rect x="602" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-11-01"><title>2025-11-01
 1 workout
 Distance: 0.00 km
-Duration: 44m
+Duration: 35m
 Elevation: 0 m</title></rect>
+<rect x="616" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-02"><title>2025-11-02
+1 workout
+Distance: 21.55 km
+Duration: 2h 10m
+Elevation: 324 m</title></rect>
+<rect x="616" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-11-03"><title>2025-11-03
+3 workouts
+Distance: 12.57 km
+Duration: 1h 12m
+Elevation: 212 m</title></rect>
 <rect x="616" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-04"><title>2025-11-04
 1 workout
 Distance: 5.23 km
-Duration: 34m
-Elevation: 140 m</title></rect>
-<rect x="616" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-05"><title>2025-11-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="616" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-11-06"><title>2025-11-06
+Duration: 31m
+Elevation: 16 m</title></rect>
+<rect x="616" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-11-05"><title>2025-11-05
 1 workout
-Distance: 0.00 km
-Duration: 50m
+Distance: 35.40 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
+<rect x="616" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-11-06"><title>2025-11-06
+2 workouts
+Distance: 44.93 km
+Duration: 2h 1m
+Elevation: 10 m</title></rect>
 <rect x="616" y="70" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-07"><title>2025-11-07
 1 workout
-Distance: 5.43 km
-Duration: 38m
-Elevation: 169 m</title></rect>
-<rect x="616" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-08"><title>2025-11-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+Distance: 5.57 km
+Duration: 31m
+Elevation: 133 m</title></rect>
+<rect x="616" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-11-08"><title>2025-11-08
+2 workouts
+Distance: 13.85 km
+Duration: 48m
+Elevation: 170 m</title></rect>
 <rect x="630" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-09"><title>2025-11-09
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="630" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-11-10"><title>2025-11-10
-1 workout
-Distance: 0.00 km
-Duration: 52m
-Elevation: 0 m</title></rect>
-<rect x="630" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-11"><title>2025-11-11
+<rect x="630" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-10"><title>2025-11-10
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
+<rect x="630" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-11"><title>2025-11-11
+1 workout
+Distance: 11.42 km
+Duration: 1h 7m
+Elevation: 58 m</title></rect>
 <rect x="630" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-12"><title>2025-11-12
 1 workout
-Distance: 5.41 km
+Distance: 13.04 km
+Duration: 1h 13m
+Elevation: 73 m</title></rect>
+<rect x="630" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-13"><title>2025-11-13
+1 workout
+Distance: 5.67 km
+Duration: 32m
+Elevation: 33 m</title></rect>
+<rect x="630" y="70" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-11-14"><title>2025-11-14
+1 workout
+Distance: 1.40 km
+Duration: 33m
+Elevation: 0 m</title></rect>
+<rect x="630" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-11-15"><title>2025-11-15
+1 workout
+Distance: 70.18 km
+Duration: 2h 1m
+Elevation: 0 m</title></rect>
+<rect x="644" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-11-16"><title>2025-11-16
+1 workout
+Distance: 24.14 km
+Duration: 1h 0m
+Elevation: 0 m</title></rect>
+<rect x="644" y="14" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-11-17"><title>2025-11-17
+1 workout
+Distance: 1.70 km
 Duration: 38m
-Elevation: 170 m</title></rect>
-<rect x="630" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-11-13"><title>2025-11-13
-1 workout
-Distance: 0.00 km
-Duration: 47m
-Elevation: 0 m</title></rect>
-<rect x="630" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-14"><title>2025-11-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="630" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-15"><title>2025-11-15
-1 workout
-Distance: 5.51 km
-Duration: 37m
-Elevation: 156 m</title></rect>
-<rect x="644" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-11-16"><title>2025-11-16
-1 workout
-Distance: 0.00 km
-Duration: 56m
-Elevation: 0 m</title></rect>
-<rect x="644" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-17"><title>2025-11-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
 Elevation: 0 m</title></rect>
 <rect x="644" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-18"><title>2025-11-18
 1 workout
-Distance: 4.91 km
-Duration: 35m
-Elevation: 125 m</title></rect>
-<rect x="644" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-11-19"><title>2025-11-19
+Distance: 11.30 km
+Duration: 1h 1m
+Elevation: 106 m</title></rect>
+<rect x="644" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-11-19"><title>2025-11-19
 1 workout
-Distance: 0.00 km
-Duration: 48m
+Distance: 37.17 km
+Duration: 1h 1m
 Elevation: 0 m</title></rect>
-<rect x="644" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-20"><title>2025-11-20
+<rect x="644" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-11-20"><title>2025-11-20
+1 workout
+Distance: 41.23 km
+Duration: 1h 15m
+Elevation: 0 m</title></rect>
+<rect x="644" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-11-21"><title>2025-11-21
+3 workouts
+Distance: 12.62 km
+Duration: 1h 14m
+Elevation: 240 m</title></rect>
+<rect x="644" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-22"><title>2025-11-22
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="644" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-21"><title>2025-11-21
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="644" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-22"><title>2025-11-22
+<rect x="658" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-23"><title>2025-11-23
 1 workout
-Distance: 4.95 km
-Duration: 35m
-Elevation: 122 m</title></rect>
-<rect x="658" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-11-23"><title>2025-11-23
+Distance: 20.03 km
+Duration: 2h 21m
+Elevation: 662 m</title></rect>
+<rect x="658" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-11-24"><title>2025-11-24
 1 workout
-Distance: 0.00 km
-Duration: 58m
-Elevation: 0 m</title></rect>
-<rect x="658" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-24"><title>2025-11-24
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="658" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-25"><title>2025-11-25
-1 workout
-Distance: 4.97 km
+Distance: 19.35 km
 Duration: 34m
-Elevation: 136 m</title></rect>
-<rect x="658" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-11-26"><title>2025-11-26
-1 workout
-Distance: 0.00 km
-Duration: 33m
 Elevation: 0 m</title></rect>
-<rect x="658" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-27"><title>2025-11-27
+<rect x="658" y="28" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-11-25"><title>2025-11-25
+3 workouts
+Distance: 22.92 km
+Duration: 1h 38m
+Elevation: 186 m</title></rect>
+<rect x="658" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-11-26"><title>2025-11-26
+3 workouts
+Distance: 12.61 km
+Duration: 1h 13m
+Elevation: 213 m</title></rect>
+<rect x="658" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-11-27"><title>2025-11-27
+3 workouts
+Distance: 39.51 km
+Duration: 2h 21m
+Elevation: 592 m</title></rect>
+<rect x="658" y="70" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-11-28"><title>2025-11-28
 1 workout
-Distance: 5.01 km
-Duration: 37m
-Elevation: 129 m</title></rect>
-<rect x="658" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-11-28"><title>2025-11-28
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+Distance: 1.70 km
+Duration: 41m
 Elevation: 0 m</title></rect>
-<rect x="658" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-11-29"><title>2025-11-29
+<rect x="658" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-11-29"><title>2025-11-29
 1 workout
-Distance: 0.00 km
-Duration: 42m
+Distance: 45.18 km
+Duration: 1h 16m
 Elevation: 0 m</title></rect>
 <rect x="672" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-11-30"><title>2025-11-30
 1 workout
-Distance: 4.98 km
-Duration: 35m
-Elevation: 130 m</title></rect>
-<rect x="672" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-01"><title>2025-12-01
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="672" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-02"><title>2025-12-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="672" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-12-03"><title>2025-12-03
+Distance: 15.31 km
+Duration: 1h 39m
+Elevation: 423 m</title></rect>
+<rect x="672" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-01"><title>2025-12-01
 1 workout
-Distance: 0.00 km
-Duration: 44m
-Elevation: 0 m</title></rect>
-<rect x="672" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-12-04"><title>2025-12-04
+Distance: 92.60 km
+Duration: 3h 31m
+Elevation: 932 m</title></rect>
+<rect x="672" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-12-02"><title>2025-12-02
 1 workout
-Distance: 4.97 km
+Distance: 9.17 km
+Duration: 50m
+Elevation: 11 m</title></rect>
+<rect x="672" y="42" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-12-03"><title>2025-12-03
+1 workout
+Distance: 1.85 km
+Duration: 41m
+Elevation: 0 m</title></rect>
+<rect x="672" y="56" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-12-04"><title>2025-12-04
+2 workouts
+Distance: 40.54 km
+Duration: 1h 35m
+Elevation: 111 m</title></rect>
+<rect x="672" y="70" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-12-05"><title>2025-12-05
+1 workout
+Distance: 1.75 km
 Duration: 37m
-Elevation: 124 m</title></rect>
-<rect x="672" y="70" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-12-05"><title>2025-12-05
-1 workout
-Distance: 0.00 km
-Duration: 40m
 Elevation: 0 m</title></rect>
 <rect x="672" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-12-06"><title>2025-12-06
 1 workout
-Distance: 4.84 km
-Duration: 36m
-Elevation: 125 m</title></rect>
-<rect x="686" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-07"><title>2025-12-07
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="686" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-08"><title>2025-12-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="686" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-09"><title>2025-12-09
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="686" y="42" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-12-10"><title>2025-12-10
+Distance: 5.15 km
+Duration: 33m
+Elevation: 112 m</title></rect>
+<rect x="686" y="0" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-12-07"><title>2025-12-07
 1 workout
-Distance: 0.00 km
-Duration: 56m
-Elevation: 0 m</title></rect>
-<rect x="686" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-12-11"><title>2025-12-11
+Distance: 16.84 km
+Duration: 2h 3m
+Elevation: 646 m</title></rect>
+<rect x="686" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-08"><title>2025-12-08
 1 workout
-Distance: 4.98 km
-Duration: 34m
-Elevation: 136 m</title></rect>
+Distance: 44.54 km
+Duration: 2h 34m
+Elevation: 697 m</title></rect>
+<rect x="686" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-09"><title>2025-12-09
+1 workout
+Distance: 43.83 km
+Duration: 1h 15m
+Elevation: 0 m</title></rect>
+<rect x="686" y="42" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-12-10"><title>2025-12-10
+1 workout
+Distance: 1.60 km
+Duration: 39m
+Elevation: 0 m</title></rect>
+<rect x="686" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-11"><title>2025-12-11
+2 workouts
+Distance: 20.52 km
+Duration: 1h 6m
+Elevation: 284 m</title></rect>
 <rect x="686" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-12"><title>2025-12-12
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="686" y="84" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-12-13"><title>2025-12-13
+<rect x="686" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-13"><title>2025-12-13
+2 workouts
+Distance: 80.51 km
+Duration: 2h 43m
+Elevation: 169 m</title></rect>
+<rect x="700" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-14"><title>2025-12-14
 1 workout
-Distance: 0.00 km
-Duration: 50m
+Distance: 51.14 km
+Duration: 1h 44m
+Elevation: 354 m</title></rect>
+<rect x="700" y="14" width="12" height="12" rx="3" ry="3" fill="#00e5ff" data-date="2025-12-15"><title>2025-12-15
+1 workout
+Distance: 1.60 km
+Duration: 38m
 Elevation: 0 m</title></rect>
-<rect x="700" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-14"><title>2025-12-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="700" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-16"><title>2025-12-16
+1 workout
+Distance: 43.78 km
+Duration: 1h 15m
 Elevation: 0 m</title></rect>
-<rect x="700" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-15"><title>2025-12-15
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="700" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-16"><title>2025-12-16
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="700" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-17"><title>2025-12-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="700" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-18"><title>2025-12-18
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="700" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-19"><title>2025-12-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="700" y="42" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-12-17"><title>2025-12-17
+3 workouts
+Distance: 12.53 km
+Duration: 1h 10m
+Elevation: 212 m</title></rect>
+<rect x="700" y="56" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-12-18"><title>2025-12-18
+1 workout
+Distance: 14.12 km
+Duration: 1h 17m
+Elevation: 32 m</title></rect>
+<rect x="700" y="70" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-12-19"><title>2025-12-19
+2 workouts
+Distance: 42.77 km
+Duration: 1h 53m
 Elevation: 0 m</title></rect>
 <rect x="700" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-20"><title>2025-12-20
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="714" y="0" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-12-21"><title>2025-12-21
-1 workout
-Distance: 0.00 km
-Duration: 52m
-Elevation: 0 m</title></rect>
-<rect x="714" y="14" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-12-22"><title>2025-12-22
-1 workout
-Distance: 4.94 km
-Duration: 37m
-Elevation: 141 m</title></rect>
-<rect x="714" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-23"><title>2025-12-23
+<rect x="714" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-21"><title>2025-12-21
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="714" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-12-24"><title>2025-12-24
+<rect x="714" y="14" width="12" height="12" rx="3" ry="3" fill="#b967ff" data-date="2025-12-22"><title>2025-12-22
+2 workouts
+Distance: 7.32 km
+Duration: 1h 9m
+Elevation: 40 m</title></rect>
+<rect x="714" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-12-23"><title>2025-12-23
 1 workout
-Distance: 5.00 km
-Duration: 36m
-Elevation: 124 m</title></rect>
-<rect x="714" y="56" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-12-25"><title>2025-12-25
+Distance: 11.03 km
+Duration: 1h 3m
+Elevation: 46 m</title></rect>
+<rect x="714" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-24"><title>2025-12-24
 1 workout
-Distance: 0.00 km
-Duration: 41m
+Distance: 84.17 km
+Duration: 2h 30m
 Elevation: 0 m</title></rect>
-<rect x="714" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-26"><title>2025-12-26
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="714" y="84" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-12-27"><title>2025-12-27
+<rect x="714" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-25"><title>2025-12-25
 1 workout
-Distance: 4.98 km
-Duration: 36m
-Elevation: 126 m</title></rect>
-<rect x="728" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-28"><title>2025-12-28
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+Distance: 40.60 km
+Duration: 1h 13m
 Elevation: 0 m</title></rect>
-<rect x="728" y="14" width="12" height="12" rx="3" ry="3" fill="#ff71ce" data-date="2025-12-29"><title>2025-12-29
+<rect x="714" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-26"><title>2025-12-26
 1 workout
-Distance: 0.00 km
-Duration: 58m
-Elevation: 0 m</title></rect>
-<rect x="728" y="28" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-12-30"><title>2025-12-30
+Distance: 60.56 km
+Duration: 2h 17m
+Elevation: 411 m</title></rect>
+<rect x="714" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-27"><title>2025-12-27
+2 workouts
+Distance: 103.01 km
+Duration: 3h 42m
+Elevation: 500 m</title></rect>
+<rect x="728" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-28"><title>2025-12-28
 1 workout
-Distance: 4.92 km
-Duration: 35m
-Elevation: 131 m</title></rect>
-<rect x="728" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2025-12-31"><title>2025-12-31
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+Distance: 82.08 km
+Duration: 4h 2m
+Elevation: 371 m</title></rect>
+<rect x="728" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-29"><title>2025-12-29
+1 workout
+Distance: 63.03 km
+Duration: 2h 25m
+Elevation: 494 m</title></rect>
+<rect x="728" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2025-12-30"><title>2025-12-30
+2 workouts
+Distance: 72.28 km
+Duration: 2h 34m
+Elevation: 435 m</title></rect>
+<rect x="728" y="42" width="12" height="12" rx="3" ry="3" fill="#01cdfe" data-date="2025-12-31"><title>2025-12-31
+1 workout
+Distance: 12.14 km
+Duration: 1h 3m
+Elevation: 17 m</title></rect>
 </g>
 </svg>

@@ -23,10 +23,10 @@
 <text x="52" y="116.0" font-size="10" fill="#f1f5f9" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" text-anchor="end" dominant-baseline="middle">Fri</text>
 <text x="52" y="130.0" font-size="10" fill="#f1f5f9" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" text-anchor="end" dominant-baseline="middle">Sat</text>
 <g transform="translate(66,40)">
-<rect x="0" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-01"><title>2023-01-01
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="0" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-01"><title>2023-01-01
+4 workouts
+Distance: 39.32 km
+Duration: 1h 20m
 Elevation: 0 m</title></rect>
 <rect x="0" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-02"><title>2023-01-02
 0 workouts
@@ -38,60 +38,60 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="0" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-04"><title>2023-01-04
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="0" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-04"><title>2023-01-04
+2 workouts
+Distance: 25.91 km
+Duration: 1h 22m
+Elevation: 368 m</title></rect>
+<rect x="0" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-05"><title>2023-01-05
+3 workouts
+Distance: 33.74 km
+Duration: 1h 39m
+Elevation: 254 m</title></rect>
+<rect x="0" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-06"><title>2023-01-06
+2 workouts
+Distance: 11.21 km
+Duration: 33m
+Elevation: 149 m</title></rect>
+<rect x="0" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-07"><title>2023-01-07
+1 workout
+Distance: 36.33 km
+Duration: 1h 2m
 Elevation: 0 m</title></rect>
-<rect x="0" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-05"><title>2023-01-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="14" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-08"><title>2023-01-08
+1 workout
+Distance: 29.24 km
+Duration: 53m
 Elevation: 0 m</title></rect>
-<rect x="0" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-06"><title>2023-01-06
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="14" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-09"><title>2023-01-09
+3 workouts
+Distance: 31.76 km
+Duration: 1h 41m
+Elevation: 398 m</title></rect>
+<rect x="14" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-10"><title>2023-01-10
+1 workout
+Distance: 28.17 km
+Duration: 51m
 Elevation: 0 m</title></rect>
-<rect x="0" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-07"><title>2023-01-07
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="14" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-11"><title>2023-01-11
+3 workouts
+Distance: 31.75 km
+Duration: 1h 33m
+Elevation: 426 m</title></rect>
+<rect x="14" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-12"><title>2023-01-12
+2 workouts
+Distance: 37.74 km
+Duration: 1h 29m
+Elevation: 122 m</title></rect>
+<rect x="14" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-13"><title>2023-01-13
+1 workout
+Distance: 25.15 km
+Duration: 50m
 Elevation: 0 m</title></rect>
-<rect x="14" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-08"><title>2023-01-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="14" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-09"><title>2023-01-09
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="14" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-10"><title>2023-01-10
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="14" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-11"><title>2023-01-11
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="14" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-12"><title>2023-01-12
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="14" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-13"><title>2023-01-13
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="14" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-14"><title>2023-01-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="14" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-14"><title>2023-01-14
+2 workouts
+Distance: 39.18 km
+Duration: 1h 49m
 Elevation: 0 m</title></rect>
 <rect x="28" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-15"><title>2023-01-15
 0 workouts
@@ -103,111 +103,111 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="28" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-17"><title>2023-01-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="28" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-17"><title>2023-01-17
+2 workouts
+Distance: 38.34 km
+Duration: 57m
 Elevation: 0 m</title></rect>
-<rect x="28" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-18"><title>2023-01-18
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="28" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-18"><title>2023-01-18
+1 workout
+Distance: 11.47 km
+Duration: 27m
 Elevation: 0 m</title></rect>
-<rect x="28" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-19"><title>2023-01-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="28" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-19"><title>2023-01-19
+1 workout
+Distance: 36.14 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="28" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-20"><title>2023-01-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="28" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-20"><title>2023-01-20
+1 workout
+Distance: 33.18 km
+Duration: 1h 1m
 Elevation: 0 m</title></rect>
-<rect x="28" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-21"><title>2023-01-21
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="28" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-21"><title>2023-01-21
+1 workout
+Distance: 40.14 km
+Duration: 1h 11m
 Elevation: 0 m</title></rect>
 <rect x="42" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-22"><title>2023-01-22
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="42" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-23"><title>2023-01-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="42" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-23"><title>2023-01-23
+2 workouts
+Distance: 12.13 km
+Duration: 35m
+Elevation: 129 m</title></rect>
+<rect x="42" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-24"><title>2023-01-24
+1 workout
+Distance: 28.51 km
+Duration: 1h 2m
 Elevation: 0 m</title></rect>
-<rect x="42" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-24"><title>2023-01-24
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="42" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-25"><title>2023-01-25
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="42" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-26"><title>2023-01-26
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="42" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-25"><title>2023-01-25
+2 workouts
+Distance: 11.96 km
+Duration: 35m
+Elevation: 123 m</title></rect>
+<rect x="42" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-26"><title>2023-01-26
+1 workout
+Distance: 37.16 km
+Duration: 58m
 Elevation: 0 m</title></rect>
 <rect x="42" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-27"><title>2023-01-27
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="42" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-28"><title>2023-01-28
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="42" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-28"><title>2023-01-28
+1 workout
+Distance: 61.37 km
+Duration: 2h 29m
+Elevation: 937 m</title></rect>
 <rect x="56" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-29"><title>2023-01-29
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="56" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-30"><title>2023-01-30
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="56" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-30"><title>2023-01-30
+2 workouts
+Distance: 12.40 km
+Duration: 38m
+Elevation: 127 m</title></rect>
+<rect x="56" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-01-31"><title>2023-01-31
+1 workout
+Distance: 21.20 km
+Duration: 41m
 Elevation: 0 m</title></rect>
-<rect x="56" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-01-31"><title>2023-01-31
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="56" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-01"><title>2023-02-01
+1 workout
+Distance: 23.24 km
+Duration: 42m
 Elevation: 0 m</title></rect>
-<rect x="56" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-01"><title>2023-02-01
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="56" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-02"><title>2023-02-02
+2 workouts
+Distance: 46.47 km
+Duration: 1h 25m
 Elevation: 0 m</title></rect>
-<rect x="56" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-02"><title>2023-02-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="56" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-03"><title>2023-02-03
+2 workouts
+Distance: 42.94 km
+Duration: 1h 13m
 Elevation: 0 m</title></rect>
-<rect x="56" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-03"><title>2023-02-03
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="56" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-04"><title>2023-02-04
+1 workout
+Distance: 21.16 km
+Duration: 1h 5m
 Elevation: 0 m</title></rect>
-<rect x="56" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-04"><title>2023-02-04
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="70" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-05"><title>2023-02-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="70" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-06"><title>2023-02-06
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="70" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-05"><title>2023-02-05
+2 workouts
+Distance: 39.82 km
+Duration: 1h 41m
+Elevation: 237 m</title></rect>
+<rect x="70" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-06"><title>2023-02-06
+2 workouts
+Distance: 12.60 km
+Duration: 38m
+Elevation: 132 m</title></rect>
 <rect x="70" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-07"><title>2023-02-07
 0 workouts
 Distance: 0.00 km
@@ -223,16 +223,16 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="70" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-10"><title>2023-02-10
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="70" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-10"><title>2023-02-10
+1 workout
+Distance: 28.18 km
+Duration: 1h 4m
 Elevation: 0 m</title></rect>
-<rect x="70" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-11"><title>2023-02-11
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="70" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-11"><title>2023-02-11
+1 workout
+Distance: 87.72 km
+Duration: 3h 7m
+Elevation: 1061 m</title></rect>
 <rect x="84" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-12"><title>2023-02-12
 0 workouts
 Distance: 0.00 km
@@ -243,56 +243,56 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="84" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-14"><title>2023-02-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="84" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-14"><title>2023-02-14
+1 workout
+Distance: 20.43 km
+Duration: 34m
 Elevation: 0 m</title></rect>
 <rect x="84" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-15"><title>2023-02-15
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="84" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-16"><title>2023-02-16
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="84" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-17"><title>2023-02-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="84" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-18"><title>2023-02-18
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="84" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-16"><title>2023-02-16
+3 workouts
+Distance: 23.59 km
+Duration: 1h 15m
+Elevation: 310 m</title></rect>
+<rect x="84" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-17"><title>2023-02-17
+2 workouts
+Distance: 13.64 km
+Duration: 42m
+Elevation: 163 m</title></rect>
+<rect x="84" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-18"><title>2023-02-18
+1 workout
+Distance: 46.13 km
+Duration: 1h 21m
 Elevation: 0 m</title></rect>
 <rect x="98" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-19"><title>2023-02-19
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="98" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-20"><title>2023-02-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="98" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-20"><title>2023-02-20
+2 workouts
+Distance: 14.88 km
+Duration: 45m
+Elevation: 164 m</title></rect>
 <rect x="98" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-21"><title>2023-02-21
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="98" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-22"><title>2023-02-22
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="98" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-23"><title>2023-02-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="98" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-22"><title>2023-02-22
+2 workouts
+Distance: 12.44 km
+Duration: 37m
+Elevation: 129 m</title></rect>
+<rect x="98" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-23"><title>2023-02-23
+2 workouts
+Distance: 20.65 km
+Duration: 1h 5m
+Elevation: 261 m</title></rect>
 <rect x="98" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-24"><title>2023-02-24
 0 workouts
 Distance: 0.00 km
@@ -308,65 +308,65 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="112" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-27"><title>2023-02-27
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="112" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-02-27"><title>2023-02-27
+2 workouts
+Distance: 11.24 km
+Duration: 32m
+Elevation: 143 m</title></rect>
 <rect x="112" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-02-28"><title>2023-02-28
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="112" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-01"><title>2023-03-01
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="112" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-01"><title>2023-03-01
+2 workouts
+Distance: 11.79 km
+Duration: 35m
+Elevation: 123 m</title></rect>
+<rect x="112" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-02"><title>2023-03-02
+1 workout
+Distance: 35.16 km
+Duration: 1h 1m
 Elevation: 0 m</title></rect>
-<rect x="112" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-02"><title>2023-03-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="112" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-03"><title>2023-03-03
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="112" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-03"><title>2023-03-03
+1 workout
+Distance: 25.03 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
 <rect x="112" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-04"><title>2023-03-04
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="126" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-05"><title>2023-03-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="126" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-05"><title>2023-03-05
+1 workout
+Distance: 25.31 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="126" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-06"><title>2023-03-06
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="126" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-06"><title>2023-03-06
+2 workouts
+Distance: 12.31 km
+Duration: 38m
+Elevation: 139 m</title></rect>
+<rect x="126" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-07"><title>2023-03-07
+1 workout
+Distance: 25.43 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="126" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-07"><title>2023-03-07
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="126" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-08"><title>2023-03-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="126" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-09"><title>2023-03-09
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="126" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-10"><title>2023-03-10
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="126" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-08"><title>2023-03-08
+2 workouts
+Distance: 12.44 km
+Duration: 41m
+Elevation: 128 m</title></rect>
+<rect x="126" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-09"><title>2023-03-09
+2 workouts
+Distance: 34.47 km
+Duration: 1h 24m
+Elevation: 140 m</title></rect>
+<rect x="126" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-10"><title>2023-03-10
+1 workout
+Distance: 25.16 km
+Duration: 1h 2m
 Elevation: 0 m</title></rect>
 <rect x="126" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-11"><title>2023-03-11
 0 workouts
@@ -378,245 +378,245 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="140" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-13"><title>2023-03-13
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="140" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-13"><title>2023-03-13
+2 workouts
+Distance: 12.31 km
+Duration: 36m
+Elevation: 125 m</title></rect>
+<rect x="140" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-14"><title>2023-03-14
+1 workout
+Distance: 25.92 km
+Duration: 1h 1m
 Elevation: 0 m</title></rect>
-<rect x="140" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-14"><title>2023-03-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="140" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-15"><title>2023-03-15
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="140" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-15"><title>2023-03-15
+2 workouts
+Distance: 28.28 km
+Duration: 1h 25m
+Elevation: 381 m</title></rect>
 <rect x="140" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-16"><title>2023-03-16
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="140" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-17"><title>2023-03-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="140" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-17"><title>2023-03-17
+1 workout
+Distance: 25.24 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="140" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-18"><title>2023-03-18
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="140" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-18"><title>2023-03-18
+1 workout
+Distance: 32.57 km
+Duration: 1h 16m
 Elevation: 0 m</title></rect>
 <rect x="154" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-19"><title>2023-03-19
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="154" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-20"><title>2023-03-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="154" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-20"><title>2023-03-20
+3 workouts
+Distance: 17.84 km
+Duration: 53m
+Elevation: 238 m</title></rect>
+<rect x="154" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-21"><title>2023-03-21
+2 workouts
+Distance: 24.07 km
+Duration: 1h 3m
+Elevation: 89 m</title></rect>
+<rect x="154" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-22"><title>2023-03-22
+2 workouts
+Distance: 13.63 km
+Duration: 39m
+Elevation: 168 m</title></rect>
+<rect x="154" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-23"><title>2023-03-23
+1 workout
+Distance: 25.94 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="154" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-21"><title>2023-03-21
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="154" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-24"><title>2023-03-24
+1 workout
+Distance: 24.71 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="154" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-22"><title>2023-03-22
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="154" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-25"><title>2023-03-25
+1 workout
+Distance: 29.31 km
+Duration: 1h 1m
 Elevation: 0 m</title></rect>
-<rect x="154" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-23"><title>2023-03-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="168" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-26"><title>2023-03-26
+2 workouts
+Distance: 14.86 km
+Duration: 47m
+Elevation: 232 m</title></rect>
+<rect x="168" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-27"><title>2023-03-27
+2 workouts
+Distance: 13.77 km
+Duration: 41m
+Elevation: 178 m</title></rect>
+<rect x="168" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-28"><title>2023-03-28
+1 workout
+Distance: 26.58 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="154" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-24"><title>2023-03-24
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="168" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-29"><title>2023-03-29
+2 workouts
+Distance: 34.54 km
+Duration: 1h 28m
+Elevation: 152 m</title></rect>
+<rect x="168" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-30"><title>2023-03-30
+1 workout
+Distance: 19.15 km
+Duration: 30m
 Elevation: 0 m</title></rect>
-<rect x="154" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-25"><title>2023-03-25
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="168" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-26"><title>2023-03-26
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="168" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-27"><title>2023-03-27
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="168" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-28"><title>2023-03-28
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="168" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-29"><title>2023-03-29
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="168" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-30"><title>2023-03-30
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="168" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-03-31"><title>2023-03-31
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="168" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-03-31"><title>2023-03-31
+4 workouts
+Distance: 25.26 km
+Duration: 1h 21m
+Elevation: 360 m</title></rect>
 <rect x="168" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-01"><title>2023-04-01
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="182" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-02"><title>2023-04-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="182" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-02"><title>2023-04-02
+2 workouts
+Distance: 73.98 km
+Duration: 3h 23m
+Elevation: 1071 m</title></rect>
+<rect x="182" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-03"><title>2023-04-03
+2 workouts
+Distance: 12.62 km
+Duration: 40m
+Elevation: 131 m</title></rect>
+<rect x="182" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-04"><title>2023-04-04
+1 workout
+Distance: 7.12 km
+Duration: 27m
+Elevation: 167 m</title></rect>
+<rect x="182" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-05"><title>2023-04-05
+2 workouts
+Distance: 11.95 km
+Duration: 38m
+Elevation: 142 m</title></rect>
+<rect x="182" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-06"><title>2023-04-06
+1 workout
+Distance: 37.11 km
+Duration: 1h 26m
+Elevation: 189 m</title></rect>
+<rect x="182" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-07"><title>2023-04-07
+2 workouts
+Distance: 10.88 km
+Duration: 1h 3m
+Elevation: 162 m</title></rect>
+<rect x="182" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-08"><title>2023-04-08
+2 workouts
+Distance: 24.70 km
+Duration: 1h 37m
+Elevation: 296 m</title></rect>
+<rect x="196" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-09"><title>2023-04-09
+1 workout
+Distance: 30.34 km
+Duration: 1h 9m
 Elevation: 0 m</title></rect>
-<rect x="182" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-03"><title>2023-04-03
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="196" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-10"><title>2023-04-10
+2 workouts
+Distance: 14.31 km
+Duration: 45m
+Elevation: 184 m</title></rect>
+<rect x="196" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-11"><title>2023-04-11
+2 workouts
+Distance: 42.85 km
+Duration: 1h 35m
+Elevation: 87 m</title></rect>
+<rect x="196" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-12"><title>2023-04-12
+2 workouts
+Distance: 15.27 km
+Duration: 49m
+Elevation: 163 m</title></rect>
+<rect x="196" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-13"><title>2023-04-13
+1 workout
+Distance: 3.85 km
+Duration: 11m
+Elevation: 86 m</title></rect>
+<rect x="196" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-14"><title>2023-04-14
+1 workout
+Distance: 34.01 km
+Duration: 1h 1m
 Elevation: 0 m</title></rect>
-<rect x="182" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-04"><title>2023-04-04
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="182" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-05"><title>2023-04-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="182" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-06"><title>2023-04-06
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="182" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-07"><title>2023-04-07
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="182" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-08"><title>2023-04-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="196" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-09"><title>2023-04-09
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="196" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-10"><title>2023-04-10
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="196" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-11"><title>2023-04-11
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="196" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-12"><title>2023-04-12
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="196" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-13"><title>2023-04-13
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="196" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-14"><title>2023-04-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="196" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-15"><title>2023-04-15
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="196" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-15"><title>2023-04-15
+3 workouts
+Distance: 43.09 km
+Duration: 1h 24m
 Elevation: 0 m</title></rect>
 <rect x="210" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-16"><title>2023-04-16
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="210" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-17"><title>2023-04-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="210" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-17"><title>2023-04-17
+2 workouts
+Distance: 13.55 km
+Duration: 42m
+Elevation: 173 m</title></rect>
+<rect x="210" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-18"><title>2023-04-18
+3 workouts
+Distance: 36.89 km
+Duration: 1h 18m
+Elevation: 74 m</title></rect>
+<rect x="210" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-19"><title>2023-04-19
+2 workouts
+Distance: 13.59 km
+Duration: 41m
+Elevation: 166 m</title></rect>
+<rect x="210" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-20"><title>2023-04-20
+3 workouts
+Distance: 53.39 km
+Duration: 2h 6m
+Elevation: 302 m</title></rect>
+<rect x="210" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-21"><title>2023-04-21
+1 workout
+Distance: 21.17 km
+Duration: 41m
 Elevation: 0 m</title></rect>
-<rect x="210" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-18"><title>2023-04-18
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="210" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-19"><title>2023-04-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="210" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-20"><title>2023-04-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="210" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-21"><title>2023-04-21
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="210" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-22"><title>2023-04-22
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="210" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-22"><title>2023-04-22
+1 workout
+Distance: 41.17 km
+Duration: 1h 26m
 Elevation: 0 m</title></rect>
 <rect x="224" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-23"><title>2023-04-23
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="224" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-24"><title>2023-04-24
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="224" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-24"><title>2023-04-24
+3 workouts
+Distance: 94.11 km
+Duration: 3h 51m
+Elevation: 275 m</title></rect>
 <rect x="224" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-25"><title>2023-04-25
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="224" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-26"><title>2023-04-26
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="224" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-26"><title>2023-04-26
+2 workouts
+Distance: 13.65 km
+Duration: 45m
+Elevation: 180 m</title></rect>
+<rect x="224" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-27"><title>2023-04-27
+3 workouts
+Distance: 42.17 km
+Duration: 1h 23m
+Elevation: 105 m</title></rect>
+<rect x="224" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-28"><title>2023-04-28
+1 workout
+Distance: 34.26 km
+Duration: 1h 2m
 Elevation: 0 m</title></rect>
-<rect x="224" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-27"><title>2023-04-27
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="224" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-28"><title>2023-04-28
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="224" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-29"><title>2023-04-29
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="224" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-04-29"><title>2023-04-29
+1 workout
+Distance: 26.27 km
+Duration: 45m
 Elevation: 0 m</title></rect>
 <rect x="238" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-04-30"><title>2023-04-30
 0 workouts
@@ -643,11 +643,11 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="238" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-05"><title>2023-05-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="238" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-05"><title>2023-05-05
+1 workout
+Distance: 4.73 km
+Duration: 15m
+Elevation: 107 m</title></rect>
 <rect x="238" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-06"><title>2023-05-06
 0 workouts
 Distance: 0.00 km
@@ -678,51 +678,51 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="252" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-12"><title>2023-05-12
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="252" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-13"><title>2023-05-13
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="252" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-12"><title>2023-05-12
+1 workout
+Distance: 11.48 km
+Duration: 41m
+Elevation: 190 m</title></rect>
+<rect x="252" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-13"><title>2023-05-13
+1 workout
+Distance: 51.34 km
+Duration: 1h 26m
 Elevation: 0 m</title></rect>
 <rect x="266" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-14"><title>2023-05-14
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="266" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-15"><title>2023-05-15
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="266" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-16"><title>2023-05-16
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="266" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-17"><title>2023-05-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="266" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-15"><title>2023-05-15
+2 workouts
+Distance: 12.51 km
+Duration: 40m
+Elevation: 166 m</title></rect>
+<rect x="266" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-16"><title>2023-05-16
+3 workouts
+Distance: 25.72 km
+Duration: 1h 26m
+Elevation: 400 m</title></rect>
+<rect x="266" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-17"><title>2023-05-17
+2 workouts
+Distance: 13.61 km
+Duration: 44m
+Elevation: 191 m</title></rect>
 <rect x="266" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-18"><title>2023-05-18
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="266" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-19"><title>2023-05-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="266" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-19"><title>2023-05-19
+1 workout
+Distance: 31.74 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="266" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-20"><title>2023-05-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="266" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-20"><title>2023-05-20
+2 workouts
+Distance: 11.81 km
+Duration: 36m
+Elevation: 127 m</title></rect>
 <rect x="280" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-21"><title>2023-05-21
 0 workouts
 Distance: 0.00 km
@@ -738,81 +738,81 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="280" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-24"><title>2023-05-24
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="280" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-24"><title>2023-05-24
+2 workouts
+Distance: 13.72 km
+Duration: 40m
+Elevation: 175 m</title></rect>
+<rect x="280" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-25"><title>2023-05-25
+2 workouts
+Distance: 20.15 km
+Duration: 1h 5m
+Elevation: 273 m</title></rect>
+<rect x="280" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-26"><title>2023-05-26
+1 workout
+Distance: 33.56 km
+Duration: 1h 0m
 Elevation: 0 m</title></rect>
-<rect x="280" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-25"><title>2023-05-25
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="280" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-26"><title>2023-05-26
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="280" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-27"><title>2023-05-27
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="294" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-28"><title>2023-05-28
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="294" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-29"><title>2023-05-29
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="280" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-27"><title>2023-05-27
+1 workout
+Distance: 51.00 km
+Duration: 1h 42m
+Elevation: 337 m</title></rect>
+<rect x="294" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-28"><title>2023-05-28
+1 workout
+Distance: 24.09 km
+Duration: 1h 30m
+Elevation: 327 m</title></rect>
+<rect x="294" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-29"><title>2023-05-29
+2 workouts
+Distance: 13.73 km
+Duration: 44m
+Elevation: 175 m</title></rect>
 <rect x="294" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-30"><title>2023-05-30
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="294" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-05-31"><title>2023-05-31
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="294" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-01"><title>2023-06-01
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="294" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-05-31"><title>2023-05-31
+2 workouts
+Distance: 13.63 km
+Duration: 42m
+Elevation: 173 m</title></rect>
+<rect x="294" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-01"><title>2023-06-01
+1 workout
+Distance: 34.57 km
+Duration: 1h 12m
+Elevation: 200 m</title></rect>
 <rect x="294" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-02"><title>2023-06-02
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="294" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-03"><title>2023-06-03
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="308" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-04"><title>2023-06-04
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="308" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-05"><title>2023-06-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="308" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-06"><title>2023-06-06
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="308" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-07"><title>2023-06-07
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="294" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-03"><title>2023-06-03
+2 workouts
+Distance: 11.83 km
+Duration: 38m
+Elevation: 131 m</title></rect>
+<rect x="308" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-04"><title>2023-06-04
+1 workout
+Distance: 18.25 km
+Duration: 1h 8m
+Elevation: 288 m</title></rect>
+<rect x="308" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-05"><title>2023-06-05
+2 workouts
+Distance: 13.73 km
+Duration: 45m
+Elevation: 170 m</title></rect>
+<rect x="308" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-06"><title>2023-06-06
+2 workouts
+Distance: 39.62 km
+Duration: 1h 25m
+Elevation: 275 m</title></rect>
+<rect x="308" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-07"><title>2023-06-07
+1 workout
+Distance: 45.10 km
+Duration: 1h 33m
+Elevation: 292 m</title></rect>
 <rect x="308" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-08"><title>2023-06-08
 0 workouts
 Distance: 0.00 km
@@ -833,121 +833,121 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="322" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-12"><title>2023-06-12
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="322" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-12"><title>2023-06-12
+1 workout
+Distance: 40.86 km
+Duration: 1h 26m
+Elevation: 328 m</title></rect>
 <rect x="322" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-13"><title>2023-06-13
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="322" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-14"><title>2023-06-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="322" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-15"><title>2023-06-15
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="322" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-14"><title>2023-06-14
+2 workouts
+Distance: 14.35 km
+Duration: 46m
+Elevation: 125 m</title></rect>
+<rect x="322" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-15"><title>2023-06-15
+2 workouts
+Distance: 38.13 km
+Duration: 1h 48m
+Elevation: 737 m</title></rect>
 <rect x="322" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-16"><title>2023-06-16
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="322" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-17"><title>2023-06-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="322" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-17"><title>2023-06-17
+2 workouts
+Distance: 63.93 km
+Duration: 2h 58m
+Elevation: 1037 m</title></rect>
 <rect x="336" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-18"><title>2023-06-18
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="336" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-19"><title>2023-06-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="336" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-20"><title>2023-06-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="336" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-21"><title>2023-06-21
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="336" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-22"><title>2023-06-22
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="336" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-23"><title>2023-06-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="336" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-24"><title>2023-06-24
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="350" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-25"><title>2023-06-25
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="350" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-26"><title>2023-06-26
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="336" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-19"><title>2023-06-19
+2 workouts
+Distance: 14.45 km
+Duration: 45m
+Elevation: 128 m</title></rect>
+<rect x="336" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-20"><title>2023-06-20
+1 workout
+Distance: 40.02 km
+Duration: 1h 16m
+Elevation: 278 m</title></rect>
+<rect x="336" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-21"><title>2023-06-21
+2 workouts
+Distance: 15.35 km
+Duration: 50m
+Elevation: 119 m</title></rect>
+<rect x="336" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-22"><title>2023-06-22
+1 workout
+Distance: 34.60 km
+Duration: 1h 11m
+Elevation: 206 m</title></rect>
+<rect x="336" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-23"><title>2023-06-23
+2 workouts
+Distance: 19.51 km
+Duration: 1h 14m
+Elevation: 348 m</title></rect>
+<rect x="336" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-24"><title>2023-06-24
+1 workout
+Distance: 100.42 km
+Duration: 4h 1m
+Elevation: 1407 m</title></rect>
+<rect x="350" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-25"><title>2023-06-25
+1 workout
+Distance: 20.43 km
+Duration: 58m
+Elevation: 345 m</title></rect>
+<rect x="350" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-26"><title>2023-06-26
+2 workouts
+Distance: 15.52 km
+Duration: 49m
+Elevation: 134 m</title></rect>
 <rect x="350" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-27"><title>2023-06-27
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="350" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-28"><title>2023-06-28
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="350" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-28"><title>2023-06-28
+3 workouts
+Distance: 20.43 km
+Duration: 1h 9m
+Elevation: 284 m</title></rect>
+<rect x="350" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-29"><title>2023-06-29
+2 workouts
+Distance: 18.35 km
+Duration: 1h 3m
+Elevation: 101 m</title></rect>
+<rect x="350" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-06-30"><title>2023-06-30
+1 workout
+Distance: 27.23 km
+Duration: 51m
 Elevation: 0 m</title></rect>
-<rect x="350" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-29"><title>2023-06-29
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="350" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-06-30"><title>2023-06-30
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="350" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-01"><title>2023-07-01
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="364" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-02"><title>2023-07-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="364" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-03"><title>2023-07-03
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="364" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-04"><title>2023-07-04
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="350" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-01"><title>2023-07-01
+2 workouts
+Distance: 13.81 km
+Duration: 48m
+Elevation: 182 m</title></rect>
+<rect x="364" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-02"><title>2023-07-02
+1 workout
+Distance: 103.22 km
+Duration: 3h 58m
+Elevation: 1161 m</title></rect>
+<rect x="364" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-03"><title>2023-07-03
+2 workouts
+Distance: 15.41 km
+Duration: 49m
+Elevation: 135 m</title></rect>
+<rect x="364" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-04"><title>2023-07-04
+1 workout
+Distance: 50.73 km
+Duration: 1h 46m
+Elevation: 375 m</title></rect>
 <rect x="364" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-05"><title>2023-07-05
 0 workouts
 Distance: 0.00 km
@@ -968,91 +968,91 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="378" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-09"><title>2023-07-09
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="378" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-09"><title>2023-07-09
+1 workout
+Distance: 58.61 km
+Duration: 4h 39m
+Elevation: 149 m</title></rect>
 <rect x="378" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-10"><title>2023-07-10
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="378" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-11"><title>2023-07-11
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="378" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-12"><title>2023-07-12
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="378" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-13"><title>2023-07-13
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="378" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-11"><title>2023-07-11
+1 workout
+Distance: 51.76 km
+Duration: 1h 51m
+Elevation: 355 m</title></rect>
+<rect x="378" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-12"><title>2023-07-12
+2 workouts
+Distance: 14.57 km
+Duration: 48m
+Elevation: 116 m</title></rect>
+<rect x="378" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-13"><title>2023-07-13
+1 workout
+Distance: 30.72 km
+Duration: 1h 9m
+Elevation: 350 m</title></rect>
 <rect x="378" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-14"><title>2023-07-14
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="378" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-15"><title>2023-07-15
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="392" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-16"><title>2023-07-16
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="392" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-17"><title>2023-07-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="392" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-18"><title>2023-07-18
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="392" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-19"><title>2023-07-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="392" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-20"><title>2023-07-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="378" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-15"><title>2023-07-15
+1 workout
+Distance: 17.83 km
+Duration: 1h 9m
+Elevation: 252 m</title></rect>
+<rect x="392" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-16"><title>2023-07-16
+1 workout
+Distance: 55.88 km
+Duration: 2h 0m
+Elevation: 416 m</title></rect>
+<rect x="392" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-17"><title>2023-07-17
+3 workouts
+Distance: 18.04 km
+Duration: 58m
+Elevation: 223 m</title></rect>
+<rect x="392" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-18"><title>2023-07-18
+1 workout
+Distance: 40.06 km
+Duration: 1h 45m
+Elevation: 695 m</title></rect>
+<rect x="392" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-19"><title>2023-07-19
+2 workouts
+Distance: 12.89 km
+Duration: 41m
+Elevation: 154 m</title></rect>
+<rect x="392" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-20"><title>2023-07-20
+1 workout
+Distance: 34.55 km
+Duration: 1h 9m
+Elevation: 204 m</title></rect>
 <rect x="392" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-21"><title>2023-07-21
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="392" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-22"><title>2023-07-22
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="406" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-23"><title>2023-07-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="406" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-24"><title>2023-07-24
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="406" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-25"><title>2023-07-25
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="392" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-22"><title>2023-07-22
+2 workouts
+Distance: 14.28 km
+Duration: 52m
+Elevation: 134 m</title></rect>
+<rect x="406" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-23"><title>2023-07-23
+1 workout
+Distance: 50.31 km
+Duration: 2h 5m
+Elevation: 620 m</title></rect>
+<rect x="406" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-24"><title>2023-07-24
+2 workouts
+Distance: 14.22 km
+Duration: 46m
+Elevation: 159 m</title></rect>
+<rect x="406" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-25"><title>2023-07-25
+1 workout
+Distance: 30.83 km
+Duration: 1h 6m
+Elevation: 221 m</title></rect>
 <rect x="406" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-26"><title>2023-07-26
 0 workouts
 Distance: 0.00 km
@@ -1063,51 +1063,51 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="406" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-28"><title>2023-07-28
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="406" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-29"><title>2023-07-29
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="420" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-30"><title>2023-07-30
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="420" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-07-31"><title>2023-07-31
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="406" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-28"><title>2023-07-28
+3 workouts
+Distance: 45.66 km
+Duration: 1h 56m
+Elevation: 322 m</title></rect>
+<rect x="406" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-29"><title>2023-07-29
+1 workout
+Distance: 48.37 km
+Duration: 1h 55m
+Elevation: 141 m</title></rect>
+<rect x="420" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-30"><title>2023-07-30
+1 workout
+Distance: 26.04 km
+Duration: 1h 2m
+Elevation: 420 m</title></rect>
+<rect x="420" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-07-31"><title>2023-07-31
+2 workouts
+Distance: 14.34 km
+Duration: 48m
+Elevation: 127 m</title></rect>
 <rect x="420" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-01"><title>2023-08-01
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="420" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-02"><title>2023-08-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="420" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-03"><title>2023-08-03
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="420" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-04"><title>2023-08-04
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="420" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-05"><title>2023-08-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="420" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-02"><title>2023-08-02
+2 workouts
+Distance: 40.98 km
+Duration: 1h 33m
+Elevation: 337 m</title></rect>
+<rect x="420" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-03"><title>2023-08-03
+2 workouts
+Distance: 41.58 km
+Duration: 1h 51m
+Elevation: 761 m</title></rect>
+<rect x="420" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-04"><title>2023-08-04
+1 workout
+Distance: 40.09 km
+Duration: 1h 27m
+Elevation: 313 m</title></rect>
+<rect x="420" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-05"><title>2023-08-05
+1 workout
+Distance: 31.56 km
+Duration: 1h 13m
+Elevation: 441 m</title></rect>
 <rect x="434" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-06"><title>2023-08-06
 0 workouts
 Distance: 0.00 km
@@ -1118,21 +1118,21 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="434" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-08"><title>2023-08-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="434" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-09"><title>2023-08-09
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="434" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-10"><title>2023-08-10
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="434" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-08"><title>2023-08-08
+1 workout
+Distance: 4.12 km
+Duration: 15m
+Elevation: 82 m</title></rect>
+<rect x="434" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-09"><title>2023-08-09
+2 workouts
+Distance: 45.78 km
+Duration: 1h 44m
+Elevation: 354 m</title></rect>
+<rect x="434" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-10"><title>2023-08-10
+1 workout
+Distance: 32.73 km
+Duration: 1h 6m
+Elevation: 224 m</title></rect>
 <rect x="434" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-11"><title>2023-08-11
 0 workouts
 Distance: 0.00 km
@@ -1148,76 +1148,76 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="448" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-14"><title>2023-08-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="448" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-14"><title>2023-08-14
+1 workout
+Distance: 2.44 km
+Duration: 8m
+Elevation: 49 m</title></rect>
 <rect x="448" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-15"><title>2023-08-15
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="448" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-16"><title>2023-08-16
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="448" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-17"><title>2023-08-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="448" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-16"><title>2023-08-16
+1 workout
+Distance: 2.44 km
+Duration: 8m
+Elevation: 50 m</title></rect>
+<rect x="448" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-17"><title>2023-08-17
+1 workout
+Distance: 5.02 km
+Duration: 16m
+Elevation: 115 m</title></rect>
 <rect x="448" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-18"><title>2023-08-18
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="448" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-19"><title>2023-08-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="462" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-20"><title>2023-08-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="462" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-21"><title>2023-08-21
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="462" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-22"><title>2023-08-22
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="462" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-23"><title>2023-08-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="462" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-24"><title>2023-08-24
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="462" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-25"><title>2023-08-25
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="462" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-26"><title>2023-08-26
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="476" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-27"><title>2023-08-27
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="448" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-19"><title>2023-08-19
+1 workout
+Distance: 51.10 km
+Duration: 1h 45m
+Elevation: 338 m</title></rect>
+<rect x="462" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-20"><title>2023-08-20
+1 workout
+Distance: 74.83 km
+Duration: 4h 2m
+Elevation: 510 m</title></rect>
+<rect x="462" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-21"><title>2023-08-21
+1 workout
+Distance: 45.76 km
+Duration: 1h 34m
+Elevation: 285 m</title></rect>
+<rect x="462" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-22"><title>2023-08-22
+2 workouts
+Distance: 24.57 km
+Duration: 1h 34m
+Elevation: 477 m</title></rect>
+<rect x="462" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-23"><title>2023-08-23
+2 workouts
+Distance: 20.21 km
+Duration: 1h 22m
+Elevation: 413 m</title></rect>
+<rect x="462" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-24"><title>2023-08-24
+2 workouts
+Distance: 53.54 km
+Duration: 1h 49m
+Elevation: 393 m</title></rect>
+<rect x="462" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-25"><title>2023-08-25
+2 workouts
+Distance: 21.36 km
+Duration: 1h 26m
+Elevation: 363 m</title></rect>
+<rect x="462" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-26"><title>2023-08-26
+2 workouts
+Distance: 66.34 km
+Duration: 3h 1m
+Elevation: 1154 m</title></rect>
+<rect x="476" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-08-27"><title>2023-08-27
+1 workout
+Distance: 45.10 km
+Duration: 2h 31m
+Elevation: 503 m</title></rect>
 <rect x="476" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-08-28"><title>2023-08-28
 0 workouts
 Distance: 0.00 km
@@ -1283,56 +1283,56 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="504" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-10"><title>2023-09-10
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="504" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-09-10"><title>2023-09-10
+1 workout
+Distance: 51.11 km
+Duration: 1h 40m
+Elevation: 335 m</title></rect>
 <rect x="504" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-11"><title>2023-09-11
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="504" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-12"><title>2023-09-12
+<rect x="504" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-09-12"><title>2023-09-12
+2 workouts
+Distance: 37.01 km
+Duration: 1h 24m
+Elevation: 324 m</title></rect>
+<rect x="504" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-13"><title>2023-09-13
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="504" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-09-13"><title>2023-09-13
-1 workout
-Distance: 9.63 km
-Duration: 47m
-Elevation: 46 m</title></rect>
-<rect x="504" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-14"><title>2023-09-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="504" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-09-14"><title>2023-09-14
+2 workouts
+Distance: 42.84 km
+Duration: 1h 35m
+Elevation: 348 m</title></rect>
 <rect x="504" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-15"><title>2023-09-15
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="504" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-16"><title>2023-09-16
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="518" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-17"><title>2023-09-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="518" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-18"><title>2023-09-18
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="518" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-19"><title>2023-09-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="504" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-09-16"><title>2023-09-16
+1 workout
+Distance: 8.07 km
+Duration: 28m
+Elevation: 141 m</title></rect>
+<rect x="518" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-09-17"><title>2023-09-17
+1 workout
+Distance: 27.27 km
+Duration: 2h 0m
+Elevation: 533 m</title></rect>
+<rect x="518" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-09-18"><title>2023-09-18
+2 workouts
+Distance: 14.41 km
+Duration: 49m
+Elevation: 114 m</title></rect>
+<rect x="518" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-09-19"><title>2023-09-19
+3 workouts
+Distance: 63.48 km
+Duration: 2h 38m
+Elevation: 552 m</title></rect>
 <rect x="518" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-20"><title>2023-09-20
 0 workouts
 Distance: 0.00 km
@@ -1358,46 +1358,46 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="532" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-25"><title>2023-09-25
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="532" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-09-25"><title>2023-09-25
+2 workouts
+Distance: 12.62 km
+Duration: 43m
+Elevation: 147 m</title></rect>
 <rect x="532" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-26"><title>2023-09-26
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="532" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-27"><title>2023-09-27
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="532" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-28"><title>2023-09-28
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="532" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-09-27"><title>2023-09-27
+2 workouts
+Distance: 13.64 km
+Duration: 51m
+Elevation: 129 m</title></rect>
+<rect x="532" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-09-28"><title>2023-09-28
+1 workout
+Distance: 30.23 km
+Duration: 1h 2m
+Elevation: 212 m</title></rect>
 <rect x="532" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-29"><title>2023-09-29
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="532" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-09-30"><title>2023-09-30
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="546" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-01"><title>2023-10-01
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="546" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-02"><title>2023-10-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="532" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-09-30"><title>2023-09-30
+1 workout
+Distance: 16.95 km
+Duration: 1h 10m
+Elevation: 209 m</title></rect>
+<rect x="546" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-01"><title>2023-10-01
+1 workout
+Distance: 71.35 km
+Duration: 3h 24m
+Elevation: 229 m</title></rect>
+<rect x="546" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-02"><title>2023-10-02
+2 workouts
+Distance: 14.49 km
+Duration: 54m
+Elevation: 125 m</title></rect>
 <rect x="546" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-03"><title>2023-10-03
 0 workouts
 Distance: 0.00 km
@@ -1413,115 +1413,115 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="546" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-06"><title>2023-10-06
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="546" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-07"><title>2023-10-07
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="546" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-06"><title>2023-10-06
+1 workout
+Distance: 49.27 km
+Duration: 4h 0m
+Elevation: 175 m</title></rect>
+<rect x="546" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-07"><title>2023-10-07
+1 workout
+Distance: 56.63 km
+Duration: 2h 42m
+Elevation: 473 m</title></rect>
 <rect x="560" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-08"><title>2023-10-08
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="560" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-09"><title>2023-10-09
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="560" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-09"><title>2023-10-09
+3 workouts
+Distance: 18.59 km
+Duration: 1h 9m
+Elevation: 214 m</title></rect>
 <rect x="560" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-10"><title>2023-10-10
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="560" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-11"><title>2023-10-11
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="560" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-12"><title>2023-10-12
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="560" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-11"><title>2023-10-11
+2 workouts
+Distance: 14.68 km
+Duration: 55m
+Elevation: 132 m</title></rect>
+<rect x="560" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-12"><title>2023-10-12
+1 workout
+Distance: 43.88 km
+Duration: 1h 28m
+Elevation: 310 m</title></rect>
 <rect x="560" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-13"><title>2023-10-13
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="560" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-14"><title>2023-10-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="560" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-14"><title>2023-10-14
+1 workout
+Distance: 54.09 km
+Duration: 1h 57m
+Elevation: 618 m</title></rect>
 <rect x="574" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-15"><title>2023-10-15
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="574" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-16"><title>2023-10-16
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="574" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-16"><title>2023-10-16
+2 workouts
+Distance: 15.23 km
+Duration: 53m
+Elevation: 142 m</title></rect>
+<rect x="574" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-17"><title>2023-10-17
+1 workout
+Distance: 35.43 km
+Duration: 1h 1m
 Elevation: 0 m</title></rect>
-<rect x="574" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-17"><title>2023-10-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="574" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-18"><title>2023-10-18
+2 workouts
+Distance: 14.40 km
+Duration: 57m
+Elevation: 119 m</title></rect>
+<rect x="574" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-19"><title>2023-10-19
+1 workout
+Distance: 33.32 km
+Duration: 1h 2m
 Elevation: 0 m</title></rect>
-<rect x="574" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-18"><title>2023-10-18
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="574" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-20"><title>2023-10-20
+1 workout
+Distance: 18.23 km
+Duration: 32m
 Elevation: 0 m</title></rect>
-<rect x="574" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-19"><title>2023-10-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="574" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-21"><title>2023-10-21
+2 workouts
+Distance: 14.44 km
+Duration: 50m
+Elevation: 129 m</title></rect>
+<rect x="588" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-22"><title>2023-10-22
+1 workout
+Distance: 28.67 km
+Duration: 1h 17m
 Elevation: 0 m</title></rect>
-<rect x="574" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-20"><title>2023-10-20
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="588" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-23"><title>2023-10-23
+2 workouts
+Distance: 14.36 km
+Duration: 55m
+Elevation: 112 m</title></rect>
+<rect x="588" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-24"><title>2023-10-24
+1 workout
+Distance: 27.32 km
+Duration: 47m
 Elevation: 0 m</title></rect>
-<rect x="574" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-21"><title>2023-10-21
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="588" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-22"><title>2023-10-22
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="588" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-23"><title>2023-10-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="588" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-24"><title>2023-10-24
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="588" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-25"><title>2023-10-25
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="588" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-26"><title>2023-10-26
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="588" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-27"><title>2023-10-27
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="588" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-25"><title>2023-10-25
+2 workouts
+Distance: 16.94 km
+Duration: 1h 9m
+Elevation: 138 m</title></rect>
+<rect x="588" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-26"><title>2023-10-26
+3 workouts
+Distance: 55.90 km
+Duration: 2h 11m
+Elevation: 260 m</title></rect>
+<rect x="588" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-27"><title>2023-10-27
+2 workouts
+Distance: 28.53 km
+Duration: 54m
 Elevation: 0 m</title></rect>
 <rect x="588" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-28"><title>2023-10-28
 0 workouts
@@ -1533,75 +1533,75 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="602" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-30"><title>2023-10-30
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="602" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-10-30"><title>2023-10-30
+2 workouts
+Distance: 14.54 km
+Duration: 57m
+Elevation: 114 m</title></rect>
 <rect x="602" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-10-31"><title>2023-10-31
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="602" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-01"><title>2023-11-01
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="602" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-01"><title>2023-11-01
+1 workout
+Distance: 64.43 km
+Duration: 2h 0m
 Elevation: 0 m</title></rect>
-<rect x="602" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-02"><title>2023-11-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="602" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-02"><title>2023-11-02
+1 workout
+Distance: 39.15 km
+Duration: 1h 15m
 Elevation: 0 m</title></rect>
 <rect x="602" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-03"><title>2023-11-03
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="602" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-04"><title>2023-11-04
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="602" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-04"><title>2023-11-04
+1 workout
+Distance: 35.59 km
+Duration: 1h 11m
 Elevation: 0 m</title></rect>
-<rect x="616" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-05"><title>2023-11-05
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="616" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-06"><title>2023-11-06
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="616" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-05"><title>2023-11-05
+1 workout
+Distance: 45.30 km
+Duration: 2h 52m
+Elevation: 755 m</title></rect>
+<rect x="616" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-06"><title>2023-11-06
+2 workouts
+Distance: 15.17 km
+Duration: 51m
+Elevation: 139 m</title></rect>
 <rect x="616" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-07"><title>2023-11-07
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="616" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-08"><title>2023-11-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="616" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-09"><title>2023-11-09
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="616" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-08"><title>2023-11-08
+2 workouts
+Distance: 14.50 km
+Duration: 51m
+Elevation: 121 m</title></rect>
+<rect x="616" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-09"><title>2023-11-09
+1 workout
+Distance: 45.31 km
+Duration: 1h 19m
 Elevation: 0 m</title></rect>
 <rect x="616" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-10"><title>2023-11-10
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="616" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-11"><title>2023-11-11
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="616" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-11"><title>2023-11-11
+1 workout
+Distance: 40.22 km
+Duration: 1h 8m
 Elevation: 0 m</title></rect>
-<rect x="630" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-12"><title>2023-11-12
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="630" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-12"><title>2023-11-12
+1 workout
+Distance: 38.31 km
+Duration: 1h 4m
 Elevation: 0 m</title></rect>
 <rect x="630" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-13"><title>2023-11-13
 0 workouts
@@ -1653,11 +1653,11 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="644" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-23"><title>2023-11-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="644" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-23"><title>2023-11-23
+3 workouts
+Distance: 57.01 km
+Duration: 2h 10m
+Elevation: 281 m</title></rect>
 <rect x="644" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-24"><title>2023-11-24
 0 workouts
 Distance: 0.00 km
@@ -1673,65 +1673,65 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="658" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-27"><title>2023-11-27
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="658" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-28"><title>2023-11-28
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="658" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-29"><title>2023-11-29
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="658" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-11-30"><title>2023-11-30
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="658" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-27"><title>2023-11-27
+2 workouts
+Distance: 14.64 km
+Duration: 55m
+Elevation: 119 m</title></rect>
+<rect x="658" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-28"><title>2023-11-28
+2 workouts
+Distance: 40.92 km
+Duration: 1h 12m
+Elevation: 68 m</title></rect>
+<rect x="658" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-29"><title>2023-11-29
+2 workouts
+Distance: 11.67 km
+Duration: 40m
+Elevation: 149 m</title></rect>
+<rect x="658" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-11-30"><title>2023-11-30
+1 workout
+Distance: 38.17 km
+Duration: 1h 11m
 Elevation: 0 m</title></rect>
 <rect x="658" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-01"><title>2023-12-01
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="658" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-02"><title>2023-12-02
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="658" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-02"><title>2023-12-02
+1 workout
+Distance: 52.23 km
+Duration: 1h 43m
 Elevation: 0 m</title></rect>
 <rect x="672" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-03"><title>2023-12-03
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="672" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-04"><title>2023-12-04
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
+<rect x="672" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-04"><title>2023-12-04
+2 workouts
+Distance: 14.54 km
+Duration: 54m
+Elevation: 127 m</title></rect>
 <rect x="672" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-05"><title>2023-12-05
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="672" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-06"><title>2023-12-06
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="672" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-07"><title>2023-12-07
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="672" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-08"><title>2023-12-08
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="672" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-06"><title>2023-12-06
+2 workouts
+Distance: 13.19 km
+Duration: 46m
+Elevation: 168 m</title></rect>
+<rect x="672" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-07"><title>2023-12-07
+3 workouts
+Distance: 56.28 km
+Duration: 2h 21m
+Elevation: 285 m</title></rect>
+<rect x="672" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-08"><title>2023-12-08
+1 workout
+Distance: 18.33 km
+Duration: 31m
 Elevation: 0 m</title></rect>
 <rect x="672" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-09"><title>2023-12-09
 0 workouts
@@ -1743,50 +1743,50 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="686" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-11"><title>2023-12-11
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="686" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-11"><title>2023-12-11
+3 workouts
+Distance: 18.45 km
+Duration: 1h 8m
+Elevation: 202 m</title></rect>
+<rect x="686" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-12"><title>2023-12-12
+2 workouts
+Distance: 25.30 km
+Duration: 1h 21m
+Elevation: 102 m</title></rect>
+<rect x="686" y="42" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-13"><title>2023-12-13
+2 workouts
+Distance: 14.45 km
+Duration: 50m
+Elevation: 127 m</title></rect>
+<rect x="686" y="56" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-14"><title>2023-12-14
+3 workouts
+Distance: 59.89 km
+Duration: 2h 13m
+Elevation: 279 m</title></rect>
+<rect x="686" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-15"><title>2023-12-15
+1 workout
+Distance: 27.33 km
+Duration: 44m
 Elevation: 0 m</title></rect>
-<rect x="686" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-12"><title>2023-12-12
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="686" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-16"><title>2023-12-16
+1 workout
+Distance: 4.00 km
+Duration: 15m
+Elevation: 92 m</title></rect>
+<rect x="700" y="0" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-17"><title>2023-12-17
+1 workout
+Distance: 18.29 km
+Duration: 33m
 Elevation: 0 m</title></rect>
-<rect x="686" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-13"><title>2023-12-13
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="686" y="56" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-14"><title>2023-12-14
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="686" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-15"><title>2023-12-15
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="686" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-16"><title>2023-12-16
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="700" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-17"><title>2023-12-17
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="700" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-18"><title>2023-12-18
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="700" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-19"><title>2023-12-19
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="700" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-18"><title>2023-12-18
+2 workouts
+Distance: 12.68 km
+Duration: 46m
+Elevation: 144 m</title></rect>
+<rect x="700" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-19"><title>2023-12-19
+1 workout
+Distance: 37.42 km
+Duration: 1h 1m
 Elevation: 0 m</title></rect>
 <rect x="700" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-20"><title>2023-12-20
 0 workouts
@@ -1798,30 +1798,30 @@ Elevation: 0 m</title></rect>
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="700" y="70" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-22"><title>2023-12-22
-0 workouts
-Distance: 0.00 km
-Duration: 0m
-Elevation: 0 m</title></rect>
-<rect x="700" y="84" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-23"><title>2023-12-23
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="700" y="70" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-22"><title>2023-12-22
+1 workout
+Distance: 77.10 km
+Duration: 4h 23m
+Elevation: 1155 m</title></rect>
+<rect x="700" y="84" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-23"><title>2023-12-23
+1 workout
+Distance: 28.73 km
+Duration: 50m
 Elevation: 0 m</title></rect>
 <rect x="714" y="0" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-24"><title>2023-12-24
 0 workouts
 Distance: 0.00 km
 Duration: 0m
 Elevation: 0 m</title></rect>
-<rect x="714" y="14" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-25"><title>2023-12-25
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="714" y="14" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-25"><title>2023-12-25
+1 workout
+Distance: 41.35 km
+Duration: 1h 1m
 Elevation: 0 m</title></rect>
-<rect x="714" y="28" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-26"><title>2023-12-26
-0 workouts
-Distance: 0.00 km
-Duration: 0m
+<rect x="714" y="28" width="12" height="12" rx="3" ry="3" fill="#05ffa1" data-date="2023-12-26"><title>2023-12-26
+1 workout
+Distance: 22.45 km
+Duration: 40m
 Elevation: 0 m</title></rect>
 <rect x="714" y="42" width="12" height="12" rx="3" ry="3" fill="#1f2937" data-date="2023-12-27"><title>2023-12-27
 0 workouts
