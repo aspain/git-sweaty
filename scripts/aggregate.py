@@ -10,7 +10,9 @@ OUT_PATH = "data/daily_aggregates.json"
 
 def aggregate():
     config = load_config()
-    allowed_types = set(config.get("activities", {}).get("types", []) or [])
+    activities_cfg = config.get("activities", {}) or {}
+    include_all_types = bool(activities_cfg.get("include_all_types", True))
+    featured_types = set(activities_cfg.get("types", []) or [])
 
     items = read_json(IN_PATH) if os.path.exists(IN_PATH) else []
 
@@ -18,7 +20,7 @@ def aggregate():
 
     for item in items:
         activity_type = item.get("type")
-        if allowed_types and activity_type not in allowed_types:
+        if not include_all_types and featured_types and activity_type not in featured_types:
             continue
         date = item.get("date")
         year = str(item.get("year"))

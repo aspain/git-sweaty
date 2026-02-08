@@ -1,6 +1,9 @@
 import argparse
+import hashlib
+import hmac
 import json
 import os
+import shutil
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -15,6 +18,7 @@ RAW_DIR = os.path.join("activities", "raw")
 SUMMARY_JSON = os.path.join("data", "last_sync_summary.json")
 SUMMARY_TXT = os.path.join("data", "last_sync_summary.txt")
 STATE_PATH = os.path.join("data", "backfill_state.json")
+ATHLETE_PATH = os.path.join("data", "athletes.json")
 
 
 class RateLimitExceeded(RuntimeError):
@@ -143,6 +147,37 @@ def _save_token_cache(payload: Dict) -> None:
     write_json(TOKEN_CACHE, payload)
 
 
+def _load_athlete_fingerprint() -> Optional[str]:
+    if not os.path.exists(ATHLETE_PATH):
+        return None
+    try:
+        payload = read_json(ATHLETE_PATH)
+    except Exception:
+        return None
+    if not isinstance(payload, dict):
+        return None
+    value = payload.get("fingerprint")
+    return value if isinstance(value, str) and value else None
+
+
+def _write_athlete_fingerprint(fingerprint: str) -> None:
+    ensure_dir("data")
+    write_json(
+        ATHLETE_PATH,
+        {
+            "fingerprint": fingerprint,
+            "updated_utc": utc_now().isoformat(),
+            "version": 1,
+        },
+    )
+
+
+def _athlete_fingerprint(athlete_id: int, secret: str) -> str:
+    key = (secret or "").encode("utf-8")
+    msg = str(athlete_id).encode("utf-8")
+    return hmac.new(key, msg, hashlib.sha256).hexdigest()
+
+
 def _get_access_token(config: Dict, limiter: Optional[RateLimiter]) -> str:
     strava = config.get("strava", {})
     client_id = strava.get("client_id")
@@ -180,6 +215,21 @@ def _get_access_token(config: Dict, limiter: Optional[RateLimiter]) -> str:
     return payload["access_token"]
 
 
+def _fetch_athlete(token: str, limiter: Optional[RateLimiter]) -> Dict:
+    if limiter:
+        limiter.before_request("read")
+    resp = requests.get(
+        "https://www.strava.com/api/v3/athlete",
+        headers={"Authorization": f"Bearer {token}"},
+        timeout=30,
+    )
+    if limiter:
+        limiter.record_request("read")
+        limiter.apply_headers(resp.headers)
+    resp.raise_for_status()
+    return resp.json()
+
+
 def _lookback_after_ts(years: int) -> int:
     now = datetime.now(timezone.utc)
     try:
@@ -196,8 +246,11 @@ def _start_after_ts(config: Dict) -> int:
     if start_date:
         dt = datetime.strptime(start_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
         return int(dt.timestamp())
-    lookback_years = int(sync_cfg.get("lookback_years", 5))
-    return _lookback_after_ts(lookback_years)
+    lookback_years = sync_cfg.get("lookback_years")
+    if lookback_years in (None, ""):
+        # Default: no lower bound, so Strava backfill can reach all available history.
+        return 0
+    return _lookback_after_ts(int(lookback_years))
 
 
 def _activity_start_ts(activity: Dict) -> Optional[int]:
@@ -236,6 +289,123 @@ def _fetch_page(
         limiter.apply_headers(resp.headers)
     resp.raise_for_status()
     return resp.json()
+
+
+def _load_existing_activity_ids() -> set:
+    path = os.path.join("data", "activities_normalized.json")
+    if not os.path.exists(path):
+        return set()
+    try:
+        items = read_json(path) or []
+    except Exception:
+        return set()
+    ids = set()
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        activity_id = item.get("id")
+        if activity_id is None:
+            continue
+        ids.add(str(activity_id))
+    return ids
+
+
+def _has_existing_data() -> bool:
+    candidates = [
+        os.path.join("data", "activities_normalized.json"),
+        os.path.join("data", "daily_aggregates.json"),
+        os.path.join("data", "backfill_state.json"),
+        os.path.join("data", "last_sync_summary.json"),
+        os.path.join("data", "last_sync_summary.txt"),
+        os.path.join("site", "data.json"),
+        "heatmaps",
+    ]
+    for path in candidates:
+        if os.path.exists(path):
+            return True
+    return False
+
+
+def _reset_persisted_data() -> None:
+    paths = [
+        os.path.join("data", "activities_normalized.json"),
+        os.path.join("data", "daily_aggregates.json"),
+        os.path.join("data", "backfill_state.json"),
+        os.path.join("data", "last_sync_summary.json"),
+        os.path.join("data", "last_sync_summary.txt"),
+        os.path.join("site", "data.json"),
+    ]
+    for path in paths:
+        if os.path.exists(path):
+            os.remove(path)
+
+    for dir_path in ["heatmaps", RAW_DIR]:
+        if os.path.exists(dir_path):
+            shutil.rmtree(dir_path)
+
+
+def _fetch_recent_activity_ids(
+    token: str, per_page: int, limiter: Optional[RateLimiter]
+) -> Optional[List[str]]:
+    try:
+        activities = _fetch_page(token, min(per_page, 50), 1, 0, None, limiter)
+    except Exception:
+        return None
+    activity_ids = []
+    for activity in activities or []:
+        activity_id = activity.get("id")
+        if activity_id:
+            activity_ids.append(str(activity_id))
+    return activity_ids
+
+
+def _maybe_reset_for_new_athlete(
+    config: Dict, token: str, per_page: int, limiter: Optional[RateLimiter]
+) -> None:
+    strava = config.get("strava", {}) or {}
+    secret = strava.get("client_secret") or strava.get("refresh_token") or ""
+    if not secret:
+        return
+
+    try:
+        athlete = _fetch_athlete(token, limiter)
+    except Exception as exc:
+        print(f"Warning: unable to fetch athlete profile; skipping reset ({exc})")
+        return
+    athlete_id = athlete.get("id")
+    if athlete_id is None:
+        print("Warning: athlete profile missing id; skipping reset")
+        return
+
+    current_fingerprint = _athlete_fingerprint(int(athlete_id), secret)
+    stored_fingerprint = _load_athlete_fingerprint()
+
+    if stored_fingerprint and stored_fingerprint == current_fingerprint:
+        return
+
+    if stored_fingerprint and stored_fingerprint != current_fingerprint:
+        print("Detected different athlete; resetting persisted data.")
+        _reset_persisted_data()
+        _write_athlete_fingerprint(current_fingerprint)
+        return
+
+    if not _has_existing_data():
+        _write_athlete_fingerprint(current_fingerprint)
+        return
+
+    recent_ids = _fetch_recent_activity_ids(token, per_page, limiter)
+    if recent_ids is None:
+        print("Warning: unable to verify recent activity overlap; skipping reset")
+        return
+
+    existing_ids = _load_existing_activity_ids()
+    if recent_ids and any(activity_id in existing_ids for activity_id in recent_ids):
+        _write_athlete_fingerprint(current_fingerprint)
+        return
+
+    print("No athlete fingerprint found and data does not match; resetting persisted data.")
+    _reset_persisted_data()
+    _write_athlete_fingerprint(current_fingerprint)
 
 
 def _write_activity(activity: Dict) -> bool:
@@ -341,13 +511,16 @@ def sync_strava(dry_run: bool, prune_deleted: bool) -> Dict:
         safety_buffer=int(rate_cfg.get("safety_buffer", 2)),
         min_interval_seconds=float(rate_cfg.get("min_interval_seconds", 10)),
     )
-    token = _get_access_token(config, limiter)
-    ensure_dir(RAW_DIR)
-
     per_page = int(config.get("sync", {}).get("per_page", 200))
     after = _start_after_ts(config)
     recent_days = int(config.get("sync", {}).get("recent_days", 7))
     resume_backfill = bool(config.get("sync", {}).get("resume_backfill", True))
+
+    token = _get_access_token(config, limiter)
+    if not dry_run:
+        _maybe_reset_for_new_athlete(config, token, per_page, limiter)
+
+    ensure_dir(RAW_DIR)
 
     recent_summary = _sync_recent(token, per_page, recent_days, limiter, dry_run)
 
@@ -362,6 +535,15 @@ def sync_strava(dry_run: bool, prune_deleted: bool) -> Dict:
     skip_backfill = False
 
     state = _load_state() if resume_backfill and not dry_run else {}
+    if state:
+        state_after = state.get("after")
+        try:
+            state_after = int(state_after)
+        except (TypeError, ValueError):
+            state_after = None
+        if state_after != after:
+            print("Backfill boundary changed; restarting cursor.")
+            state = {}
     if state and state.get("completed"):
         skip_backfill = True
     elif state and state.get("after") == after and state.get("next_before") is not None:

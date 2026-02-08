@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 from typing import Dict, List
 
+from activity_types import featured_types_from_config, normalize_activity_type
 from utils import ensure_dir, load_config, read_json, write_json
 
 RAW_DIR = os.path.join("activities", "raw")
@@ -73,9 +74,20 @@ def _load_existing() -> Dict[str, Dict]:
 
 def normalize() -> List[Dict]:
     config = load_config()
-    type_aliases = config.get("activities", {}).get("type_aliases", {}) or {}
-    allowed_types = set(config.get("activities", {}).get("types", []) or [])
+    activities_cfg = config.get("activities", {}) or {}
+    type_aliases = activities_cfg.get("type_aliases", {}) or {}
+    featured_types = featured_types_from_config(activities_cfg)
+    include_all_types = bool(activities_cfg.get("include_all_types", True))
+    group_other_types = bool(activities_cfg.get("group_other_types", True))
+    other_bucket = str(activities_cfg.get("other_bucket", "OtherSports"))
+    group_aliases = activities_cfg.get("group_aliases", {}) or {}
+    featured_set = set(featured_types)
 
+<<<<<<< HEAD
+=======
+    # In CI, activities/raw is ephemeral per run, so keep persisted normalized
+    # history and overlay any newly fetched raw activities.
+>>>>>>> 13dce35b0ad5e6078d660d724f50518d4f38191a
     existing = _load_existing()
 
     if os.path.exists(RAW_DIR):
@@ -87,7 +99,19 @@ def normalize() -> List[Dict]:
             normalized = _normalize_activity(activity, type_aliases)
             if not normalized:
                 continue
+<<<<<<< HEAD
             if allowed_types and normalized["type"] not in allowed_types:
+=======
+            normalized_type = normalize_activity_type(
+                normalized.get("type"),
+                featured_types=featured_types,
+                group_other_types=group_other_types,
+                other_bucket=other_bucket,
+                group_aliases=group_aliases,
+            )
+            normalized["type"] = normalized_type
+            if not include_all_types and normalized_type not in featured_set:
+>>>>>>> 13dce35b0ad5e6078d660d724f50518d4f38191a
                 continue
             existing[str(normalized["id"])] = normalized
 
@@ -96,8 +120,21 @@ def normalize() -> List[Dict]:
         for item in existing.values()
         if item.get("id") is not None and item.get("date")
     ]
+<<<<<<< HEAD
     if allowed_types:
         items = [item for item in items if item.get("type") in allowed_types]
+=======
+    for item in items:
+        item["type"] = normalize_activity_type(
+            item.get("type"),
+            featured_types=featured_types,
+            group_other_types=group_other_types,
+            other_bucket=other_bucket,
+            group_aliases=group_aliases,
+        )
+    if not include_all_types:
+        items = [item for item in items if item.get("type") in featured_set]
+>>>>>>> 13dce35b0ad5e6078d660d724f50518d4f38191a
     items.sort(key=lambda x: (x["date"], x["id"]))
     return items
 

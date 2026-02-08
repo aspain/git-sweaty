@@ -3,10 +3,19 @@ name: Sync Strava Heatmaps
 on:
   schedule:
     - cron: "0 6 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      update_readme_link:
+        description: "Update README dashboard URL in this fork"
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: write
+
+env:
+  DASHBOARD_DATA_BRANCH: dashboard-data
 
 jobs:
   sync:
@@ -14,6 +23,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -25,6 +37,23 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Validate required Strava secrets
+        env:
+          STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
+          STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
+          STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
+        run: |
+          missing=()
+          [[ -n "$STRAVA_CLIENT_ID" ]] || missing+=("STRAVA_CLIENT_ID")
+          [[ -n "$STRAVA_CLIENT_SECRET" ]] || missing+=("STRAVA_CLIENT_SECRET")
+          [[ -n "$STRAVA_REFRESH_TOKEN" ]] || missing+=("STRAVA_REFRESH_TOKEN")
+
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "❌ Missing required repository secrets: ${missing[*]}"
+            echo "Add them in Settings -> Secrets and variables -> Actions, then re-run this workflow."
+            exit 1
+          fi
+
       - name: Write config.local.yaml
         run: |
           cat <<'CONFIG' > config.local.yaml
@@ -34,11 +63,96 @@ jobs:
             refresh_token: "${{ secrets.STRAVA_REFRESH_TOKEN }}"
           CONFIG
 
-      - name: Run pipeline
+      - name: Keep source repo on featured activity types
+        if: ${{ github.repository == 'aspain/git-sweaty' }}
         run: |
+          cat <<'CONFIG' >> config.local.yaml
+          activities:
+            include_all_types: false
+          CONFIG
+
+      - name: Restore persisted state
+        run: |
+          set -euo pipefail
+          branch="${DASHBOARD_DATA_BRANCH}"
+          if git ls-remote --exit-code --heads origin "${branch}" >/dev/null; then
+            git fetch origin "${branch}"
+            rm -rf data heatmaps site/data.json
+            git checkout "origin/${branch}" -- data || true
+            git checkout "origin/${branch}" -- heatmaps || true
+            git checkout "origin/${branch}" -- site/data.json || true
+            echo "Restored persisted state from ${branch}."
+          else
+            echo "No ${branch} branch yet; starting with an empty state."
+          fi
+
+      - name: Run pipeline
+        env:
+          UPDATE_README_LINK: ${{ github.event_name == 'workflow_dispatch' && inputs.update_readme_link }}
+        run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          python scripts/run_pipeline.py --commit
 
-      - name: Push changes
-        run: git push
+          args=()
+          if [ "${UPDATE_README_LINK}" = "true" ]; then
+            args+=(--update-readme-link)
+          fi
+          python scripts/run_pipeline.py "${args[@]}"
+
+      - name: Commit README link update
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- README.md; then
+            echo "README unchanged."
+            exit 0
+          fi
+          git add README.md
+          git commit -m "docs: set dashboard URL for this fork"
+          if ! git push origin HEAD:${GITHUB_REF_NAME}; then
+            echo "Warning: unable to push README update; continuing without it."
+          fi
+
+      - name: Publish generated data branch
+        run: |
+          set -euo pipefail
+          branch="${DASHBOARD_DATA_BRANCH}"
+          data_worktree="${RUNNER_TEMP}/dashboard-data-worktree"
+
+          rm -rf "${data_worktree}"
+          if git ls-remote --exit-code --heads origin "${branch}" >/dev/null; then
+            git fetch origin "${branch}"
+            git worktree add "${data_worktree}" "origin/${branch}"
+          else
+            git worktree add --detach "${data_worktree}"
+            pushd "${data_worktree}" >/dev/null
+            git checkout --orphan "${branch}"
+            git rm -rf . >/dev/null 2>&1 || true
+            popd >/dev/null
+          fi
+
+          find "${data_worktree}" -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          mkdir -p "${data_worktree}/site"
+          cp -R data "${data_worktree}/data"
+          cp -R heatmaps "${data_worktree}/heatmaps"
+          cp site/data.json "${data_worktree}/site/data.json"
+
+          pushd "${data_worktree}" >/dev/null
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No dashboard data changes."
+            popd >/dev/null
+            git worktree remove "${data_worktree}" --force
+            exit 0
+          fi
+
+          summary_file="${GITHUB_WORKSPACE}/data/last_sync_summary.txt"
+          message="Sync Strava: update dashboard data"
+          if [ -s "${summary_file}" ]; then
+            message="$(head -n 1 "${summary_file}")"
+          fi
+          git commit -m "${message}"
+          git push origin HEAD:${branch}
+          popd >/dev/null
+          git worktree remove "${data_worktree}" --force

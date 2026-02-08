@@ -19,6 +19,9 @@ permissions:
   pages: write
   id-token: write
 
+env:
+  DASHBOARD_DATA_BRANCH: dashboard-data
+
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -32,6 +35,40 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
+<<<<<<< HEAD
+=======
+          fetch-depth: 0
+
+      - name: Restore site data
+        run: |
+          set -euo pipefail
+          branch="${DASHBOARD_DATA_BRANCH}"
+          if git ls-remote --exit-code --heads origin "${branch}" >/dev/null; then
+            git fetch origin "${branch}"
+            if git checkout "origin/${branch}" -- site/data.json; then
+              echo "Using site/data.json from ${branch}."
+              exit 0
+            fi
+            echo "Branch ${branch} exists but site/data.json is missing; writing empty fallback."
+          else
+            echo "No ${branch} branch yet; writing empty site/data.json."
+          fi
+          mkdir -p site
+          cat <<'JSON' > site/data.json
+          {
+            "activities": [],
+            "aggregates": {},
+            "generated_at": null,
+            "type_meta": {},
+            "types": [],
+            "units": {
+              "distance": "mi",
+              "elevation": "ft"
+            },
+            "years": []
+          }
+          JSON
+>>>>>>> 13dce35b0ad5e6078d660d724f50518d4f38191a
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

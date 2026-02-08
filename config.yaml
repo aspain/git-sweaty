@@ -5,8 +5,9 @@ strava:
   refresh_token: ""
 
 sync:
-  lookback_years: 5
-  start_date: "2019-01-01" # optional; overrides lookback_years when set
+  # Optional history limits:
+  # start_date: "2019-01-01" # YYYY-MM-DD lower bound
+  # lookback_years: 5        # ignored when start_date is set
   recent_days: 7
   resume_backfill: true
   per_page: 200
@@ -25,7 +26,14 @@ activities:
     - Run
     - Ride
     - WeightTraining
+<<<<<<< HEAD
     - Hike
+=======
+  include_all_types: true   # include all Strava activity types by default
+  group_other_types: true   # when true, map non-featured types into smart buckets
+  other_bucket: OtherSports # fallback bucket for unknown activity categories
+  group_aliases: {}         # optional explicit group overrides, e.g. {SkiErg: WinterSports}
+>>>>>>> 13dce35b0ad5e6078d660d724f50518d4f38191a
   type_aliases:
     TrailRun: Run
     VirtualRun: Run
