@@ -2099,6 +2099,12 @@ async function init() {
 
   function toggleYearMenu(value) {
     if (value === "all") {
+      const isMobileLayout = window.matchMedia("(max-width: 900px)").matches;
+      if (isMobileLayout && allYearsMode) {
+        allYearsMode = false;
+        selectedYears.clear();
+        return;
+      }
       allYearsMode = true;
       selectedYears.clear();
       return;
