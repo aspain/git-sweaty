@@ -2047,11 +2047,6 @@ async function init() {
 
   function toggleTypeMenu(value) {
     if (value === "all") {
-      if (allTypesMode) {
-        allTypesMode = false;
-        selectedTypes.clear();
-        return;
-      }
       allTypesMode = true;
       selectedTypes.clear();
       return;
@@ -2098,11 +2093,6 @@ async function init() {
 
   function toggleYearMenu(value) {
     if (value === "all") {
-      if (allYearsMode) {
-        allYearsMode = false;
-        selectedYears.clear();
-        return;
-      }
       allYearsMode = true;
       selectedYears.clear();
       return;
