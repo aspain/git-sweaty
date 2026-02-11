@@ -1955,9 +1955,19 @@ async function init() {
     return false;
   }
 
+  function clearMetricSelectionAcrossCards(metricKey) {
+    if (!metricKey) return;
+    yearMetricSelectionByCard.forEach((selectedMetricKey, cardKey) => {
+      if (selectedMetricKey === metricKey) {
+        yearMetricSelectionByCard.set(cardKey, null);
+      }
+    });
+  }
+
   function syncSummaryYearMetricSelectionFromCards() {
     if (!activeSummaryYearMetricKey) return;
     if (hasVisibleYearCardMetric(activeSummaryYearMetricKey)) return;
+    clearMetricSelectionAcrossCards(activeSummaryYearMetricKey);
     activeSummaryYearMetricKey = null;
     hoverClearedSummaryYearMetricKey = null;
   }
@@ -2407,11 +2417,7 @@ async function init() {
         hoverClearedSummaryYearMetricKey = wasActiveMetricCard ? metricKey : null;
         if (wasActiveMetricCard) {
           activeSummaryYearMetricKey = null;
-          visibleYearMetricCardKeys.forEach((cardKey) => {
-            if (yearMetricSelectionByCard.get(cardKey) === metricKey) {
-              yearMetricSelectionByCard.set(cardKey, null);
-            }
-          });
+          clearMetricSelectionAcrossCards(metricKey);
         } else {
           activeSummaryYearMetricKey = metricKey;
           hoverClearedSummaryYearMetricKey = null;
