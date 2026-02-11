@@ -2047,6 +2047,12 @@ async function init() {
 
   function toggleTypeMenu(value) {
     if (value === "all") {
+      const isMobileLayout = window.matchMedia("(max-width: 900px)").matches;
+      if (isMobileLayout && allTypesMode) {
+        allTypesMode = false;
+        selectedTypes.clear();
+        return;
+      }
       allTypesMode = true;
       selectedTypes.clear();
       return;
