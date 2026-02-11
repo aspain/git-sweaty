@@ -2309,9 +2309,11 @@ async function init() {
             }
             return MULTI_TYPE_COLOR;
           };
-          const initialMetricKey = yearMetricSelectionByCard.has(combinedKey)
-            ? yearMetricSelectionByCard.get(combinedKey)
-            : activeSummaryYearMetricKey;
+          const initialMetricKey = activeSummaryYearMetricKey || (
+            yearMetricSelectionByCard.has(combinedKey)
+              ? yearMetricSelectionByCard.get(combinedKey)
+              : null
+          );
           const card = total > 0
             ? buildCard(
               "all",
@@ -2363,9 +2365,11 @@ async function init() {
             const aggregates = payload.aggregates?.[String(year)]?.[type] || {};
             const total = yearTotals.get(year) || 0;
             const singleTypeKey = `type:${type}:${year}`;
-            const initialMetricKey = yearMetricSelectionByCard.has(singleTypeKey)
-              ? yearMetricSelectionByCard.get(singleTypeKey)
-              : activeSummaryYearMetricKey;
+            const initialMetricKey = activeSummaryYearMetricKey || (
+              yearMetricSelectionByCard.has(singleTypeKey)
+                ? yearMetricSelectionByCard.get(singleTypeKey)
+                : null
+            );
             const card = total > 0
               ? buildCard(type, year, aggregates, payload.units || { distance: "mi", elevation: "ft" }, {
                 metricHeatmapColor: getColors(type)[4],
