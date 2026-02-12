@@ -28,6 +28,11 @@ const updated = document.getElementById("updated");
 const repoLink = document.querySelector(".repo-link");
 const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
+function blurAfterTouchInteraction(element) {
+  if (!isTouch || !element || typeof element.blur !== "function") return;
+  element.blur();
+}
+
 function inferGitHubRepoFromLocation(loc) {
   const host = String(loc.hostname || "").toLowerCase();
   const pathParts = String(loc.pathname || "")
@@ -1195,10 +1200,10 @@ function buildCard(type, year, aggregates, units, options = {}) {
           activeMetricKey = clearing ? null : item.key;
           if (clearing) {
             statCard.classList.add("fact-glow-cleared");
-            statCard.blur();
           } else {
             statCard.classList.remove("fact-glow-cleared");
           }
+          blurAfterTouchInteraction(statCard);
           renderMetricButtonState();
           renderHeatmap();
           reportYearMetricState("card");
@@ -1687,10 +1692,10 @@ function buildStatsOverview(payload, types, years, color) {
         activeFactKey = clearing ? null : item.key;
         if (clearing) {
           factCard.classList.add("fact-glow-cleared");
-          factCard.blur();
         } else {
           factCard.classList.remove("fact-glow-cleared");
         }
+        blurAfterTouchInteraction(factCard);
         renderFactButtonState();
         renderFrequencyGraphs();
         requestAnimationFrame(alignStackedStatsToYAxisLabels);
