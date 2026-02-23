@@ -8,7 +8,7 @@ View the Interactive [Activity Dashboard](https://daanvdv73.github.io/git-sweaty
 Once setup is complete, this dashboard link will automatically update to your own GitHub Pages URL.
 
 
-![Dashboard Preview](site/readme-preview-20260217.png)
+![Dashboard Preview](site/readme-preview-20260222a.png)
 
 ## Quick Start
 
@@ -20,8 +20,12 @@ bash <(curl -fsSL https://raw.githubusercontent.com/aspain/git-sweaty/main/scrip
 
 You will be prompted for:
 - Setup mode:
-  - Local: setup script will create the fork, clone the repo, and complete the rest of the setup.
-  - Online (recommended): no local clone; setup script will configure a fork or an existing writable repo
+  - Recommended (Online-only, no local clone): setup script will either:
+    - use an existing fork
+    - create a new fork
+    - configure an existing writable repo
+  - Advanced (Local clone + git remotes): setup script will prefer an existing compatible local clone when available, or guide fork-and-clone setup, then complete the rest of the setup.
+  - Manual (No setup scripts): follow [Manual Setup (No Scripts)](#manual-setup-no-scripts)
 - GitHub Pages custom domain (if you have one, for example `yoursite.example.com`)
 - Source (`strava` or `garmin`)
 - Unit preference (`US` or `Metric`)
@@ -95,3 +99,83 @@ Display + rate-limit settings:
 - `units.elevation` (`ft` or `m`)
 - `heatmaps.week_start` (`sunday` or `monday`)
 - `rate_limits.*` (Strava API pacing caps used by sync; ignored for Garmin)
+
+## Manual Setup (No Scripts)
+
+Use this if you do not want to run `bootstrap.sh` or `setup_auth.py`.
+
+### 1) Shared steps (Strava + Garmin)
+
+1. Fork this repository on GitHub.
+2. In your fork, keep `main` current with upstream using **Sync fork**.
+3. In your fork, enable GitHub Actions workflows:
+   - `Settings` -> `Actions` -> `General`
+4. In your fork, set GitHub Pages to deploy from Actions:
+   - `Settings` -> `Pages` -> `Source` -> `GitHub Actions`
+5. In your fork, add these repository variables:
+   - `Settings` -> `Secrets and variables` -> `Actions` -> `Variables`
+   - `DASHBOARD_SOURCE`: `strava` or `garmin`
+   - `DASHBOARD_REPO`: your fork slug (example: `yourname/git-sweaty`)
+   - `DASHBOARD_DISTANCE_UNIT`: `mi` or `km`
+   - `DASHBOARD_ELEVATION_UNIT`: `ft` or `m`
+   - `DASHBOARD_WEEK_START`: `sunday` or `monday`
+6. Optional variables for dashboard links:
+   - Strava: `DASHBOARD_STRAVA_PROFILE_URL`, `DASHBOARD_STRAVA_ACTIVITY_LINKS` (`true`/`false`)
+   - Garmin: `DASHBOARD_GARMIN_PROFILE_URL`, `DASHBOARD_GARMIN_ACTIVITY_LINKS` (`true`/`false`)
+
+### 2) Provider auth secrets
+
+Set repository secrets here:
+- `Settings` -> `Secrets and variables` -> `Actions` -> `Secrets`
+
+#### Strava secrets
+
+1. Create a Strava API app at [strava.com/settings/api](https://www.strava.com/settings/api).
+2. Set `Authorization Callback Domain` to `localhost`.
+3. Save your Strava `Client ID` and `Client Secret`.
+4. Open this URL in a browser (replace `YOUR_CLIENT_ID`):
+
+```text
+https://www.strava.com/oauth/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%2Fexchange_token&approval_prompt=force&scope=read%2Cactivity%3Aread_all
+```
+
+5. Approve access. You will be redirected to a localhost URL. Copy the `code` value from that URL.
+6. Exchange the code for tokens:
+
+```bash
+curl -sS -X POST https://www.strava.com/oauth/token \
+  -d client_id=YOUR_CLIENT_ID \
+  -d client_secret=YOUR_CLIENT_SECRET \
+  -d code=YOUR_CODE \
+  -d grant_type=authorization_code
+```
+
+7. From the response JSON, copy `refresh_token`.
+8. Add these secrets to your fork:
+   - `STRAVA_CLIENT_ID`
+   - `STRAVA_CLIENT_SECRET`
+   - `STRAVA_REFRESH_TOKEN`
+9. Optional but recommended for automatic token rotation:
+   - Add `STRAVA_SECRET_UPDATE_TOKEN` (a GitHub token with repo write access to this fork).
+
+#### Garmin secrets
+
+Choose one auth path:
+
+1. Easiest: add both
+   - `GARMIN_EMAIL`
+   - `GARMIN_PASSWORD`
+2. Token-only path: add
+   - `GARMIN_TOKENS_B64`
+
+`GARMIN_TOKENS_B64` is optional unless you explicitly run token-only config.
+
+### 3) Run the first sync and deploy
+
+1. Go to `Actions` -> `Sync Heatmaps`.
+2. Click `Run workflow` on the `main` branch.
+3. Optional: set `source` explicitly (`strava` or `garmin`) when running manually.
+4. Wait for `Sync Heatmaps` to complete successfully.
+5. Confirm `Deploy Pages` runs (automatically after a successful sync).
+6. Open your dashboard at:
+   - `https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/`

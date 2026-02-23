@@ -147,7 +147,7 @@ class TooltipZoomPositioningTests(unittest.TestCase):
         self.assertEqual(style["top"], "102px")
         self.assertEqual(style["bottom"], "auto")
 
-    def test_desktop_positioning_stays_cursor_anchored_when_viewport_is_small(self) -> None:
+    def test_desktop_positioning_flips_above_when_near_bottom_edge(self) -> None:
         style = self._run_position_script(
             {
                 "use_touch_interactions": False,
@@ -164,9 +164,9 @@ class TooltipZoomPositioningTests(unittest.TestCase):
             }
         )
         self.assertEqual(style["left"], "312px")
-        self.assertEqual(style["top"], "162px")
+        self.assertEqual(style["top"], "58px")
 
-    def test_desktop_positioning_does_not_flip_left_when_near_right_edge(self) -> None:
+    def test_desktop_positioning_flips_left_when_near_right_edge(self) -> None:
         style = self._run_position_script(
             {
                 "use_touch_interactions": False,
@@ -182,7 +182,26 @@ class TooltipZoomPositioningTests(unittest.TestCase):
                 "point": {"x": 170, "y": 100},
             }
         )
-        self.assertEqual(style["left"], "182px")
+        self.assertEqual(style["left"], "68px")
+
+    def test_desktop_positioning_ignores_visual_viewport_dimensions(self) -> None:
+        style = self._run_position_script(
+            {
+                "use_touch_interactions": False,
+                "inner_width": 1200,
+                "inner_height": 800,
+                "visual_viewport": {
+                    "offsetLeft": 0,
+                    "offsetTop": 0,
+                    "width": 700,
+                    "height": 500,
+                },
+                "tooltip_rect": {"width": 200, "height": 80},
+                "point": {"x": 900, "y": 100},
+            }
+        )
+        self.assertEqual(style["left"], "912px")
+        self.assertEqual(style["top"], "112px")
 
     def test_touch_positioning_uses_visual_viewport_offsets(self) -> None:
         style = self._run_position_script(

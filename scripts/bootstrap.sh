@@ -61,15 +61,17 @@ is_compatible_clone() {
 prompt_yes_no() {
   local prompt="$1"
   local default="${2:-Y}"
-  local suffix="[y/n] (default: n)"
+  local suffix="[y/N]"
   local answer
 
   if [[ "$default" == "Y" ]]; then
-    suffix="[y/n] (default: y)"
+    suffix="[Y/n]"
   fi
 
   while true; do
-    read -r -p "$prompt $suffix " answer || return 1
+    if ! read -r -p "$prompt $suffix: " answer; then
+      [[ "$default" == "Y" ]] && return 0 || return 1
+    fi
     answer="$(printf '%s' "$answer" | tr '[:upper:]' '[:lower:]')"
     case "$answer" in
       "")
@@ -91,20 +93,20 @@ prompt_setup_mode() {
   local choice
   printf '\n' >&2
   printf '%s\n' "Choose setup mode:" >&2
-  printf '%s\n' "  1) Local mode (fork + clone + local setup)" >&2
-  printf '%s\n' "  2) Online mode (no local clone; configure GitHub directly)" >&2
+  printf '%s\n' "  1) Recommended (Online-only, no local clone) [default]" >&2
+  printf '%s\n' "  2) Advanced (Local clone + git remotes)" >&2
 
   while true; do
-    read -r -p "Select option [1/2] (default: 2): " choice || return 1
+    read -r -p "Selection (1-2, default 1): " choice || return 1
     choice="$(trim_whitespace "$choice")"
     choice="$(printf '%s' "$choice" | tr '[:upper:]' '[:lower:]')"
     case "$choice" in
-      1|local|local\ mode)
-        printf '%s\n' "local"
+      ""|1|recommended|recommended\ mode|online|online\ mode|online-only)
+        printf '%s\n' "online"
         return 0
         ;;
-      ""|2|online|online\ mode)
-        printf '%s\n' "online"
+      2|advanced|advanced\ mode|local|local\ mode)
+        printf '%s\n' "local"
         return 0
         ;;
       *)
@@ -143,6 +145,29 @@ is_valid_repo_slug() {
   [[ "$slug" =~ ^[^/[:space:]]+/[^/[:space:]]+$ ]]
 }
 
+normalize_repo_input() {
+  local value normalized
+  value="$(trim_whitespace "$1")"
+  if [[ -z "$value" ]]; then
+    return 1
+  fi
+
+  normalized="$value"
+  if [[ "$value" =~ ^https?://github\.com/([^/]+)/([^/]+)/*$ ]]; then
+    normalized="${BASH_REMATCH[1]}/${BASH_REMATCH[2]}"
+  elif [[ "$value" =~ ^git@github\.com:([^/]+)/([^/]+)\.git$ ]]; then
+    normalized="${BASH_REMATCH[1]}/${BASH_REMATCH[2]}"
+  fi
+
+  normalized="${normalized%.git}"
+  normalized="${normalized%/}"
+  normalized="$(trim_whitespace "$normalized")"
+  if ! is_valid_repo_slug "$normalized"; then
+    return 1
+  fi
+  printf '%s\n' "$normalized"
+}
+
 list_writable_repos_for_user() {
   local login="$1"
   gh repo list "$login" \
@@ -156,7 +181,7 @@ list_writable_repos_for_user() {
 prompt_repo_slug() {
   local default_repo="${1:-}"
   local login="${2:-}"
-  local prompt answer selected
+  local prompt answer selected normalized
   local -a suggestions=()
   local index raw_choice default_choice
 
@@ -174,14 +199,17 @@ prompt_repo_slug() {
     for index in "${!suggestions[@]}"; do
       printf '  %d) %s\n' "$((index + 1))" "${suggestions[$index]}" >&2
     done
-    printf '%s\n' "You can select by number or enter OWNER/REPO manually." >&2
+    printf '%s\n' "Enter a number, OWNER/REPO, or GitHub URL." >&2
   fi
 
-  prompt="Repository to configure (OWNER/REPO)"
+  prompt="Repository to configure (OWNER/REPO or URL)"
   default_choice=""
   if [[ -n "$default_repo" ]]; then
-    prompt="${prompt} (default: ${default_repo})"
-    default_choice="$default_repo"
+    normalized="$(normalize_repo_input "$default_repo" || true)"
+    if [[ -n "$normalized" ]]; then
+      default_choice="$normalized"
+      prompt="${prompt} (default: ${default_choice})"
+    fi
   elif (( ${#suggestions[@]} > 0 )); then
     default_choice="${suggestions[0]}"
     prompt="${prompt} (default: ${default_choice})"
@@ -205,15 +233,17 @@ prompt_repo_slug() {
       if [[ -n "$default_choice" ]]; then
         answer="$default_choice"
       else
-        printf '%s\n' "A repository slug is required." >&2
+        printf '%s\n' "A repository target is required." >&2
         continue
       fi
     fi
 
-    if ! is_valid_repo_slug "$answer"; then
-      printf '%s\n' "Invalid format. Please enter OWNER/REPO." >&2
+    normalized="$(normalize_repo_input "$answer" || true)"
+    if [[ -z "$normalized" ]]; then
+      printf '%s\n' "Invalid format. Use OWNER/REPO or https://github.com/OWNER/REPO." >&2
       continue
     fi
+    answer="$normalized"
 
     if ! gh repo view "$answer" >/dev/null 2>&1; then
       warn "Repository is not accessible with current gh auth: $answer"
@@ -224,7 +254,6 @@ prompt_repo_slug() {
     can_push="$(gh api "repos/${answer}" --jq '.permissions.push' 2>/dev/null || true)"
     if [[ "$can_push" != "true" ]]; then
       warn "Current gh account does not have write access to: $answer"
-      warn "Fork is required unless you choose a writable target repository."
       continue
     fi
 
@@ -329,6 +358,7 @@ resolve_fork_repo() {
 
 ensure_fork_exists() {
   local upstream_repo="$1"
+  local ask_reuse_existing="${2:-N}"
   local login existing_fork fork_repo fork_name default_fork_name
   local fork_cmd
 
@@ -340,10 +370,12 @@ ensure_fork_exists() {
 
   existing_fork="$(detect_existing_fork_repo "$upstream_repo" "$login" || true)"
   if [[ -n "$existing_fork" ]]; then
-    info "Using existing fork repository: $existing_fork"
-    gh repo view "$existing_fork" >/dev/null 2>&1 || fail "Fork is not accessible: $existing_fork"
-    BOOTSTRAP_SELECTED_FORK_REPO="$existing_fork"
-    return 0
+    info "Found existing fork: $existing_fork"
+    if [[ "$ask_reuse_existing" != "Y" ]] || prompt_yes_no "Use this fork?" "Y"; then
+      gh repo view "$existing_fork" >/dev/null 2>&1 || fail "Fork is not accessible: $existing_fork"
+      BOOTSTRAP_SELECTED_FORK_REPO="$existing_fork"
+      return 0
+    fi
   fi
 
   default_fork_name="$(repo_name_from_slug "$upstream_repo")"
@@ -600,12 +632,21 @@ run_online_setup() {
   login="$(gh api user --jq .login 2>/dev/null || true)"
   [[ -n "$login" ]] || fail "Unable to resolve GitHub username from current gh auth session."
 
-  if prompt_yes_no "Create/use a fork in your GitHub account first? (recommended unless you already have a writable target repo)" "Y"; then
-    ensure_fork_exists "$upstream_repo"
+  if prompt_yes_no "Create/use a fork in your GitHub account first? (recommended)" "Y"; then
+    ensure_fork_exists "$upstream_repo" "Y"
     target_repo="$BOOTSTRAP_SELECTED_FORK_REPO"
   else
     info "Using non-fork mode: target repository must be writable by the current gh account."
     target_repo="$(prompt_repo_slug "$(detect_existing_fork_repo "$upstream_repo" "$login" || true)" "$login")"
+  fi
+
+  info ""
+  info "Setup summary:"
+  info "- Mode: Recommended (Online-only)"
+  info "- Target repository: $target_repo"
+  if ! prompt_yes_no "Proceed?" "Y"; then
+    info "Skipped online setup."
+    return 0
   fi
 
   default_branch="$(gh api "repos/${upstream_repo}" --jq .default_branch 2>/dev/null || true)"
@@ -710,6 +751,13 @@ main() {
     if [[ -n "$BOOTSTRAP_DETECTED_FORK_REPO" ]]; then
       configure_fork_remotes "$repo_dir" "$upstream_repo" "$BOOTSTRAP_DETECTED_FORK_REPO"
     fi
+    info ""
+    info "Setup summary:"
+    info "- Mode: Advanced (Local clone + git remotes)"
+    info "- Local clone path: $repo_dir"
+    if [[ -n "$BOOTSTRAP_DETECTED_FORK_REPO" ]]; then
+      info "- Fork repository: $BOOTSTRAP_DETECTED_FORK_REPO"
+    fi
     if prompt_yes_no "Run setup now?" "Y"; then
       run_setup "$repo_dir" "$@"
     else
@@ -722,6 +770,10 @@ main() {
   if existing_clone_path="$(prompt_existing_clone_path "$repo_dir")"; then
     repo_dir="$existing_clone_path"
     info "Using existing clone at $repo_dir"
+    info ""
+    info "Setup summary:"
+    info "- Mode: Advanced (Local clone + git remotes)"
+    info "- Local clone path: $repo_dir"
     if prompt_yes_no "Run setup now?" "Y"; then
       run_setup "$repo_dir" "$@"
     else
@@ -733,7 +785,7 @@ main() {
 
   if ! prompt_yes_no "Proceed with fork-based local setup? (for non-fork targets, choose online mode)" "Y"; then
     info "Skipped local setup."
-    info "Use option 2 (online mode) if you want a non-fork target repository."
+    info "Use option 1 (Recommended online-only mode) if you want a non-fork target repository."
     return 0
   fi
   fork_and_clone "$upstream_repo" "$repo_dir"
@@ -742,6 +794,13 @@ main() {
     repo_dir="$BOOTSTRAP_SELECTED_REPO_DIR"
   fi
 
+  info ""
+  info "Setup summary:"
+  info "- Mode: Advanced (Local clone + git remotes)"
+  info "- Local clone path: $repo_dir"
+  if [[ -n "$BOOTSTRAP_SELECTED_FORK_REPO" ]]; then
+    info "- Fork repository: $BOOTSTRAP_SELECTED_FORK_REPO"
+  fi
   if prompt_yes_no "Run setup now?" "Y"; then
     run_setup "$repo_dir" "$@"
   else
