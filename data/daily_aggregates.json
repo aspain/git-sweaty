@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-19T15:15:53.251105+00:00",
+  "generated_at": "2026-02-23T15:20:02.465873+00:00",
   "years": {
     "2018": {
       "Ride": {
@@ -12079,6 +12079,15 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 2085.0
+        },
+        "2026-02-20": {
+          "activity_ids": [
+            "17461267450"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 2995.0
         }
       },
       "Run": {
@@ -12164,6 +12173,15 @@
           "distance": 5632.5,
           "elevation_gain": 124.0,
           "moving_time": 2190.0
+        },
+        "2026-02-22": {
+          "activity_ids": [
+            "17484904678"
+          ],
+          "count": 1,
+          "distance": 4908.3,
+          "elevation_gain": 137.0,
+          "moving_time": 2111.0
         }
       },
       "WeightTraining": {
@@ -12310,6 +12328,15 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 3385.0
+        },
+        "2026-02-21": {
+          "activity_ids": [
+            "17473923564"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 2110.0
         }
       },
       "Workout": {
@@ -12330,6 +12357,15 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 6709.0
+        },
+        "2026-02-23": {
+          "activity_ids": [
+            "17494172692"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 3041.0
         }
       }
     }

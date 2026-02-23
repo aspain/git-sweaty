@@ -17782,5 +17782,57 @@
     "start_date_local": "2026-02-18T08:47:18Z",
     "type": "WeightTraining",
     "year": 2026
+  },
+  {
+    "date": "2026-02-20",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "17461267450",
+    "moving_time": 2995.0,
+    "name": "Morning Ride",
+    "raw_activity_type": "Ride",
+    "raw_type": "Ride",
+    "start_date_local": "2026-02-20T08:05:56Z",
+    "type": "Ride",
+    "year": 2026
+  },
+  {
+    "date": "2026-02-21",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "17473923564",
+    "moving_time": 2110.0,
+    "name": "Morning Weight Training",
+    "raw_activity_type": "WeightTraining",
+    "raw_type": "WeightTraining",
+    "start_date_local": "2026-02-21T10:13:23Z",
+    "type": "WeightTraining",
+    "year": 2026
+  },
+  {
+    "date": "2026-02-22",
+    "distance": 4908.3,
+    "elevation_gain": 137.0,
+    "id": "17484904678",
+    "moving_time": 2111.0,
+    "name": "Morning Run",
+    "raw_activity_type": "Run",
+    "raw_type": "TrailRun",
+    "start_date_local": "2026-02-22T09:22:32Z",
+    "type": "TrailRun",
+    "year": 2026
+  },
+  {
+    "date": "2026-02-23",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "17494172692",
+    "moving_time": 3041.0,
+    "name": "Morning Workout",
+    "raw_activity_type": "Workout",
+    "raw_type": "Workout",
+    "start_date_local": "2026-02-23T07:51:39Z",
+    "type": "Workout",
+    "year": 2026
   }
 ]
