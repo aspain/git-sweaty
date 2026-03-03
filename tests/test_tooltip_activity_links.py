@@ -25,8 +25,10 @@ class TooltipActivityLinksTests(unittest.TestCase):
             "normalize_tooltip_href": r"function normalizeTooltipHref\(value\)\s*{[\s\S]*?\n}\n",
             "create_text_line": r"function createTooltipTextLine\(text\)\s*{[\s\S]*?\n}\n",
             "create_linked_line": r"function createTooltipLinkedTypeLine\(prefix, label, suffix, href\)\s*{[\s\S]*?\n}\n",
+            "format_tooltip_duration": r"function formatTooltipDuration\(seconds\)\s*{[\s\S]*?\n}\n",
+            "format_tooltip_metric_lines": r"function formatTooltipMetricLines\(entry, units, prefix = \"\"\)\s*{[\s\S]*?\n}\n",
             "activity_order": r"function activityTypeOrderForTooltip\(typeBreakdown, types\)\s*{[\s\S]*?\n}\n",
-            "format_lines_with_links": r"function formatTypeBreakdownLinesWithLinks\(typeBreakdown, types, activityLinksByType\)\s*{[\s\S]*?\n}\n",
+            "format_lines_with_links": r"function formatTypeBreakdownLinesWithLinks\(\s*typeBreakdown,\s*types,\s*activityLinksByType,\s*typeMetricsByType = null,\s*units = \{ distance: \"mi\", elevation: \"ft\" \},\s*\)\s*{[\s\S]*?\n}\n",
             "flatten_links": r"function flattenTooltipActivityLinks\(activityLinksByType\)\s*{[\s\S]*?\n}\n",
             "first_link": r"function firstTooltipActivityLink\(activityLinksByType, preferredType\)\s*{[\s\S]*?\n}\n",
         }
@@ -49,6 +51,8 @@ class TooltipActivityLinksTests(unittest.TestCase):
             f"{self.sources['normalize_tooltip_href']}\n"
             f"{self.sources['create_text_line']}\n"
             f"{self.sources['create_linked_line']}\n"
+            f"{self.sources['format_tooltip_duration']}\n"
+            f"{self.sources['format_tooltip_metric_lines']}\n"
             f"{self.sources['activity_order']}\n"
             f"{self.sources['format_lines_with_links']}\n"
             f"{self.sources['flatten_links']}\n"
@@ -105,6 +109,32 @@ class TooltipActivityLinksTests(unittest.TestCase):
         self.assertEqual(
             result[2],
             [{"text": "    - "}, {"text": "Trail Run 2", "href": "https://www.strava.com/activities/203"}],
+        )
+
+    def test_format_type_breakdown_lines_include_per_type_metrics(self) -> None:
+        result = self._run_js(
+            "formatTypeBreakdownLinesWithLinks(payload.breakdown, payload.types, payload.links, payload.typeMetrics, payload.units)",
+            {
+                "breakdown": {"typeCounts": {"TrailRun": 1, "Workout": 1}},
+                "types": ["TrailRun", "Workout"],
+                "links": {},
+                "typeMetrics": {
+                    "TrailRun": {"distance": 5230.368, "elevation_gain": 145.084, "moving_time": 2280},
+                    "Workout": {"distance": 0, "elevation_gain": 0, "moving_time": 4320},
+                },
+                "units": {"distance": "mi", "elevation": "ft"},
+            },
+        )
+        self.assertEqual(
+            result,
+            [
+                [{"text": "Trail Run: 1"}],
+                [{"text": "- Distance: 3.25 mi"}],
+                [{"text": "- Elevation: 476 ft"}],
+                [{"text": "- Duration: 38m"}],
+                [{"text": "Other Workout: 1"}],
+                [{"text": "- Duration: 1h 12m"}],
+            ],
         )
 
     def test_first_tooltip_activity_link_prefers_type_and_requires_unique_link(self) -> None:

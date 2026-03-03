@@ -64,6 +64,7 @@ const hasTouchInput = Number(window.navigator?.maxTouchPoints || 0) > 0;
 const useTouchInteractions = isTouch || hasTouchInput;
 const BREAKPOINTS = Object.freeze({
   NARROW_LAYOUT_MAX: 900,
+  DESKTOP_FINE_POINTER_NARROW_LAYOUT_MAX: 720,
 });
 const DESKTOP_MIN_YEAR_HEATMAP_WEEK_COLUMNS = 54;
 const DESKTOP_OUTLIER_WEEK_TOLERANCE_COLUMNS = 1;
@@ -129,7 +130,11 @@ function getUnitsForSystem(system) {
 }
 
 function isNarrowLayoutViewport() {
-  return window.matchMedia(`(max-width: ${BREAKPOINTS.NARROW_LAYOUT_MAX}px)`).matches;
+  const finePointerDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const narrowLayoutMax = finePointerDesktop
+    ? BREAKPOINTS.DESKTOP_FINE_POINTER_NARROW_LAYOUT_MAX
+    : BREAKPOINTS.NARROW_LAYOUT_MAX;
+  return window.matchMedia(`(max-width: ${narrowLayoutMax}px)`).matches;
 }
 
 function isDesktopLikeViewport() {
@@ -961,6 +966,25 @@ function readCssVar(name, fallback, scope) {
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
+function getRenderedToCssScale(element) {
+  const target = element || document.documentElement || document.body;
+  if (!target) return 1;
+  const rectWidth = Number(target.getBoundingClientRect?.().width || 0);
+  const cssWidth = Number(target.clientWidth || target.offsetWidth || 0);
+  if (!Number.isFinite(rectWidth) || rectWidth <= 0 || !Number.isFinite(cssWidth) || cssWidth <= 0) {
+    return 1;
+  }
+  const scale = rectWidth / cssWidth;
+  return Number.isFinite(scale) && scale > 0 ? scale : 1;
+}
+
+function renderedPixelsToCssPixels(value, referenceElement) {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return 0;
+  const scale = getRenderedToCssScale(referenceElement);
+  return scale > 0 ? (numeric / scale) : numeric;
+}
+
 function getLayout(scope) {
   return {
     cell: readCssVar("--cell", 12, scope),
@@ -975,15 +999,24 @@ function getLayout(scope) {
 function getElementBoxWidth(element) {
   if (!element) return 0;
   const width = element.getBoundingClientRect().width;
-  return Number.isFinite(width) ? width : 0;
+  return renderedPixelsToCssPixels(width, element);
+}
+
+function getElementBoxHeight(element) {
+  if (!element) return 0;
+  const height = element.getBoundingClientRect().height;
+  return renderedPixelsToCssPixels(height, element);
 }
 
 function getElementContentWidth(element) {
   if (!element) return 0;
+  const boxWidth = getElementBoxWidth(element);
   const styles = getComputedStyle(element);
   const paddingLeft = parseFloat(styles.paddingLeft) || 0;
   const paddingRight = parseFloat(styles.paddingRight) || 0;
-  return Math.max(0, element.clientWidth - paddingLeft - paddingRight);
+  const borderLeft = parseFloat(styles.borderLeftWidth) || 0;
+  const borderRight = parseFloat(styles.borderRightWidth) || 0;
+  return Math.max(0, boxWidth - paddingLeft - paddingRight - borderLeft - borderRight);
 }
 
 function getYearCardWeekColumnCount(card) {
@@ -1039,7 +1072,7 @@ function alignFrequencyMetricChipsToSecondGraphAxis(frequencyCard, title, metric
   const targetLeft = yearLabelRect.left - titleRect.left;
 
   if (!Number.isFinite(currentLeft) || !Number.isFinite(targetLeft)) return;
-  const extraOffset = targetLeft - currentLeft;
+  const extraOffset = renderedPixelsToCssPixels(targetLeft - currentLeft, title);
   if (extraOffset > 0.5) {
     metricChipRow.style.setProperty("margin-left", `${extraOffset}px`);
   }
@@ -1095,7 +1128,7 @@ function normalizeSideStatCardSize() {
   }
 
   const maxWidth = cards.reduce((acc, card) => Math.max(acc, Math.ceil(getElementBoxWidth(card))), 0);
-  const maxHeight = cards.reduce((acc, card) => Math.max(acc, Math.ceil(card.getBoundingClientRect().height || 0)), 0);
+  const maxHeight = cards.reduce((acc, card) => Math.max(acc, Math.ceil(getElementBoxHeight(card))), 0);
   const normalizedWidth = Math.max(maxWidth, Math.ceil(configuredMinWidth));
   persistentSideStatCardWidth = Math.max(persistentSideStatCardWidth, normalizedWidth);
   persistentSideStatCardMinHeight = Math.max(persistentSideStatCardMinHeight, maxHeight);
@@ -1480,12 +1513,40 @@ function getTouchTooltipScale() {
   return clamp(desiredScale, TOUCH_TOOLTIP_MIN_SCALE, 1);
 }
 
+function getDesktopTooltipCoordinateScale() {
+  if (useTouchInteractions) {
+    return 1;
+  }
+  const doc = typeof document !== "undefined" ? document : null;
+  const body = doc?.body;
+  if (body && typeof window.getComputedStyle === "function") {
+    const cssZoom = parseFloat(window.getComputedStyle(body).zoom || "");
+    if (Number.isFinite(cssZoom) && cssZoom > 0) {
+      return cssZoom;
+    }
+  }
+  const rectWidth = Number(tooltip?.getBoundingClientRect?.().width || 0);
+  const offsetWidth = Number(tooltip?.offsetWidth || 0);
+  if (Number.isFinite(rectWidth) && rectWidth > 0 && Number.isFinite(offsetWidth) && offsetWidth > 0) {
+    const inferredScale = rectWidth / offsetWidth;
+    if (Number.isFinite(inferredScale) && inferredScale > 0) {
+      return inferredScale;
+    }
+  }
+  return 1;
+}
+
 function updateDesktopTooltipBounds() {
   if (useTouchInteractions) return;
   const padding = 12;
   const viewport = getViewportMetrics();
-  const maxWidth = Math.max(200, Math.floor(viewport.width - (padding * 2)));
-  const maxHeight = Math.max(120, Math.floor(viewport.height - (padding * 2)));
+  const coordinateScale = typeof getDesktopTooltipCoordinateScale === "function"
+    ? getDesktopTooltipCoordinateScale()
+    : 1;
+  const viewportWidth = coordinateScale > 0 ? (viewport.width / coordinateScale) : viewport.width;
+  const viewportHeight = coordinateScale > 0 ? (viewport.height / coordinateScale) : viewport.height;
+  const maxWidth = Math.max(200, Math.floor(viewportWidth - (padding * 2)));
+  const maxHeight = Math.max(120, Math.floor(viewportHeight - (padding * 2)));
   tooltip.style.maxWidth = `${maxWidth}px`;
   tooltip.style.maxHeight = `${maxHeight}px`;
   tooltip.style.overflowY = "auto";
@@ -1494,21 +1555,38 @@ function updateDesktopTooltipBounds() {
 
 function positionTooltip(x, y) {
   const padding = 12;
+  const coordinateScale = typeof getDesktopTooltipCoordinateScale === "function"
+    ? getDesktopTooltipCoordinateScale()
+    : 1;
   const rect = tooltip.getBoundingClientRect();
   const rectWidth = Number.isFinite(rect.width) && rect.width > 0
-    ? rect.width
+    ? (useTouchInteractions ? rect.width : (
+      coordinateScale > 0 ? (rect.width / coordinateScale) : rect.width
+    ))
     : Math.max(0, Number(tooltip.offsetWidth || 0));
   const rectHeight = Number.isFinite(rect.height) && rect.height > 0
-    ? rect.height
+    ? (useTouchInteractions ? rect.height : (
+      coordinateScale > 0 ? (rect.height / coordinateScale) : rect.height
+    ))
     : Math.max(0, Number(tooltip.offsetHeight || 0));
   const viewport = getViewportMetrics();
+  const viewportWidth = useTouchInteractions || !(coordinateScale > 0)
+    ? viewport.width
+    : (viewport.width / coordinateScale);
+  const viewportHeight = useTouchInteractions || !(coordinateScale > 0)
+    ? viewport.height
+    : (viewport.height / coordinateScale);
   const anchorOffset = tooltipViewportAnchorOffset(viewport);
-  const anchorX = x + anchorOffset.x;
-  const anchorY = y + anchorOffset.y;
+  const anchorX = useTouchInteractions || !(coordinateScale > 0)
+    ? (x + anchorOffset.x)
+    : ((x + anchorOffset.x) / coordinateScale);
+  const anchorY = useTouchInteractions || !(coordinateScale > 0)
+    ? (y + anchorOffset.y)
+    : ((y + anchorOffset.y) / coordinateScale);
   const minX = anchorOffset.x + padding;
   const minY = anchorOffset.y + padding;
-  const maxX = Math.max(minX, anchorOffset.x + viewport.width - rectWidth - padding);
-  const maxY = Math.max(minY, anchorOffset.y + viewport.height - rectHeight - padding);
+  const maxX = Math.max(minX, anchorOffset.x + viewportWidth - rectWidth - padding);
+  const maxY = Math.max(minY, anchorOffset.y + viewportHeight - rectHeight - padding);
   const preferredLeft = anchorX + padding;
   const alternateLeft = anchorX - rectWidth - padding;
   const left = pickTooltipCoordinate(preferredLeft, alternateLeft, minX, maxX);
@@ -1523,45 +1601,73 @@ function positionTooltip(x, y) {
   tooltip.style.top = `${top}px`;
   tooltip.style.bottom = "auto";
   const finalRect = tooltip.getBoundingClientRect();
-  const finalMaxX = Math.max(minX, anchorOffset.x + viewport.width - finalRect.width - padding);
-  const finalMaxY = Math.max(minY, anchorOffset.y + viewport.height - finalRect.height - padding);
+  const finalRectWidth = useTouchInteractions || !(coordinateScale > 0)
+    ? finalRect.width
+    : (finalRect.width / coordinateScale);
+  const finalRectHeight = useTouchInteractions || !(coordinateScale > 0)
+    ? finalRect.height
+    : (finalRect.height / coordinateScale);
+  const finalRectLeft = useTouchInteractions || !(coordinateScale > 0)
+    ? finalRect.left
+    : (finalRect.left / coordinateScale);
+  const finalRectTop = useTouchInteractions || !(coordinateScale > 0)
+    ? finalRect.top
+    : (finalRect.top / coordinateScale);
+  const finalMaxX = Math.max(minX, anchorOffset.x + viewportWidth - finalRectWidth - padding);
+  const finalMaxY = Math.max(minY, anchorOffset.y + viewportHeight - finalRectHeight - padding);
   const finalPreferredLeft = anchorX + padding;
-  const finalAlternateLeft = anchorX - finalRect.width - padding;
+  const finalAlternateLeft = anchorX - finalRectWidth - padding;
   const adjustedLeft = pickTooltipCoordinate(finalPreferredLeft, finalAlternateLeft, minX, finalMaxX);
   const finalPreferredTop = useTouchInteractions
-    ? (anchorY - finalRect.height - padding)
+    ? (anchorY - finalRectHeight - padding)
     : (anchorY + padding);
   const finalAlternateTop = useTouchInteractions
     ? (anchorY + padding)
-    : (anchorY - finalRect.height - padding);
+    : (anchorY - finalRectHeight - padding);
   const adjustedTop = pickTooltipCoordinate(finalPreferredTop, finalAlternateTop, minY, finalMaxY);
-  if (Math.abs(adjustedLeft - finalRect.left) > 0.5) {
+  if (Math.abs(adjustedLeft - finalRectLeft) > 0.5) {
     tooltip.style.left = `${adjustedLeft}px`;
   }
-  if (Math.abs(adjustedTop - finalRect.top) > 0.5) {
+  if (Math.abs(adjustedTop - finalRectTop) > 0.5) {
     tooltip.style.top = `${adjustedTop}px`;
   }
   if (!useTouchInteractions && window.visualViewport) {
     const visualViewport = window.visualViewport;
-    const vvLeft = Number.isFinite(visualViewport.offsetLeft) ? visualViewport.offsetLeft : 0;
-    const vvTop = Number.isFinite(visualViewport.offsetTop) ? visualViewport.offsetTop : 0;
+    const vvLeftRaw = Number.isFinite(visualViewport.offsetLeft) ? visualViewport.offsetLeft : 0;
+    const vvTopRaw = Number.isFinite(visualViewport.offsetTop) ? visualViewport.offsetTop : 0;
+    const vvLeft = coordinateScale > 0 ? (vvLeftRaw / coordinateScale) : vvLeftRaw;
+    const vvTop = coordinateScale > 0 ? (vvTopRaw / coordinateScale) : vvTopRaw;
     const vvWidth = Number.isFinite(visualViewport.width) ? visualViewport.width : viewport.width;
     const vvHeight = Number.isFinite(visualViewport.height) ? visualViewport.height : viewport.height;
+    const vvWidthCss = coordinateScale > 0 ? (vvWidth / coordinateScale) : vvWidth;
+    const vvHeightCss = coordinateScale > 0 ? (vvHeight / coordinateScale) : vvHeight;
     const afterClampRect = tooltip.getBoundingClientRect();
+    const afterClampRectWidth = coordinateScale > 0
+      ? (afterClampRect.width / coordinateScale)
+      : afterClampRect.width;
+    const afterClampRectHeight = coordinateScale > 0
+      ? (afterClampRect.height / coordinateScale)
+      : afterClampRect.height;
+    const afterClampRectLeft = coordinateScale > 0
+      ? (afterClampRect.left / coordinateScale)
+      : afterClampRect.left;
+    const afterClampRectTop = coordinateScale > 0
+      ? (afterClampRect.top / coordinateScale)
+      : afterClampRect.top;
     const vvMinX = vvLeft + padding;
     const vvMinY = vvTop + padding;
-    const vvMaxX = Math.max(vvMinX, vvLeft + vvWidth - afterClampRect.width - padding);
-    const vvMaxY = Math.max(vvMinY, vvTop + vvHeight - afterClampRect.height - padding);
+    const vvMaxX = Math.max(vvMinX, vvLeft + vvWidthCss - afterClampRectWidth - padding);
+    const vvMaxY = Math.max(vvMinY, vvTop + vvHeightCss - afterClampRectHeight - padding);
     const vvPreferredLeft = anchorX + padding;
-    const vvAlternateLeft = anchorX - afterClampRect.width - padding;
+    const vvAlternateLeft = anchorX - afterClampRectWidth - padding;
     const vvAdjustedLeft = pickTooltipCoordinate(vvPreferredLeft, vvAlternateLeft, vvMinX, vvMaxX);
     const vvPreferredTop = anchorY + padding;
-    const vvAlternateTop = anchorY - afterClampRect.height - padding;
+    const vvAlternateTop = anchorY - afterClampRectHeight - padding;
     const vvAdjustedTop = pickTooltipCoordinate(vvPreferredTop, vvAlternateTop, vvMinY, vvMaxY);
-    if (Math.abs(vvAdjustedLeft - afterClampRect.left) > 0.5) {
+    if (Math.abs(vvAdjustedLeft - afterClampRectLeft) > 0.5) {
       tooltip.style.left = `${vvAdjustedLeft}px`;
     }
-    if (Math.abs(vvAdjustedTop - afterClampRect.top) > 0.5) {
+    if (Math.abs(vvAdjustedTop - afterClampRectTop) > 0.5) {
       tooltip.style.top = `${vvAdjustedTop}px`;
     }
   }
@@ -2438,6 +2544,41 @@ function createTooltipLinkedTypeLine(prefix, label, suffix, href) {
   return segments;
 }
 
+function formatTooltipDuration(seconds) {
+  const durationMinutes = Math.round(Number(seconds || 0) / 60);
+  if (durationMinutes >= 60) {
+    return `${Math.floor(durationMinutes / 60)}h ${durationMinutes % 60}m`;
+  }
+  return `${durationMinutes}m`;
+}
+
+function formatTooltipMetricLines(entry, units, prefix = "") {
+  const lines = [];
+  const distanceMeters = Number(entry?.distance || 0);
+  const elevationMeters = Number(entry?.elevation_gain || 0);
+  const durationSeconds = Number(entry?.moving_time || 0);
+  const distanceUnits = units?.distance === "km" ? "km" : "mi";
+  const elevationUnits = units?.elevation === "m" ? "m" : "ft";
+
+  if (distanceMeters > 0) {
+    const distance = distanceUnits === "km"
+      ? `${(distanceMeters / 1000).toFixed(2)} km`
+      : `${(distanceMeters / 1609.344).toFixed(2)} mi`;
+    lines.push(createTooltipTextLine(`${prefix}Distance: ${distance}`));
+  }
+  if (elevationMeters > 0) {
+    const elevation = elevationUnits === "m"
+      ? `${Math.round(elevationMeters)} m`
+      : `${Math.round(elevationMeters * 3.28084)} ft`;
+    lines.push(createTooltipTextLine(`${prefix}Elevation: ${elevation}`));
+  }
+  if (durationSeconds > 0) {
+    lines.push(createTooltipTextLine(`${prefix}Duration: ${formatTooltipDuration(durationSeconds)}`));
+  }
+
+  return lines;
+}
+
 function activityTypeOrderForTooltip(typeBreakdown, types) {
   const typeCounts = typeBreakdown?.typeCounts || {};
   const selectedTypes = Array.isArray(types) ? types : [];
@@ -2489,7 +2630,13 @@ function firstTooltipActivityLink(activityLinksByType, preferredType) {
   return allLinks.length === 1 ? String(allLinks[0].href || "") : "";
 }
 
-function formatTypeBreakdownLinesWithLinks(typeBreakdown, types, activityLinksByType) {
+function formatTypeBreakdownLinesWithLinks(
+  typeBreakdown,
+  types,
+  activityLinksByType,
+  typeMetricsByType = null,
+  units = { distance: "mi", elevation: "ft" },
+) {
   const lines = [];
   const orderedTypes = activityTypeOrderForTooltip(typeBreakdown, types);
   const typeCounts = typeBreakdown?.typeCounts || {};
@@ -2506,10 +2653,17 @@ function formatTypeBreakdownLinesWithLinks(typeBreakdown, types, activityLinksBy
 
     if (hasSingleLinkedType) {
       lines.push(createTooltipLinkedTypeLine("", typeLabel, `: ${count}`, links[0].href));
-      return;
+    } else {
+      lines.push(createTooltipTextLine(`${typeLabel}: ${count}`));
     }
 
-    lines.push(createTooltipTextLine(`${typeLabel}: ${count}`));
+    const typeMetrics = typeMetricsByType && typeof typeMetricsByType === "object"
+      ? typeMetricsByType[activityType]
+      : null;
+    if (typeMetrics && typeof typeMetrics === "object") {
+      lines.push(...formatTooltipMetricLines(typeMetrics, units, "- "));
+    }
+
     if (count > 1 && links.length > 1) {
       links.forEach((entry, index) => {
         const fallbackName = `${typeLabel} ${index + 1}`;
@@ -2564,6 +2718,7 @@ function buildCombinedTypeDetailsByDate(payload, types, years) {
   const detailsByDate = {};
   const typeBreakdownsByDate = {};
   const activityLinksByDateType = {};
+  const typeMetricsByDateType = {};
   const activities = getFilteredActivities(payload, types, years);
 
   activities.forEach((activity) => {
@@ -2648,7 +2803,31 @@ function buildCombinedTypeDetailsByDate(payload, types, years) {
     });
   });
 
-  return { typeLabelsByDate, typeBreakdownsByDate, activityLinksByDateType };
+  const selectedTypes = new Set(Array.isArray(types) ? types : []);
+  (Array.isArray(years) ? years : []).forEach((year) => {
+    const yearData = payload.aggregates?.[String(year)] || {};
+    Object.entries(yearData).forEach(([activityType, entries]) => {
+      if (!selectedTypes.has(activityType)) return;
+      Object.entries(entries || {}).forEach(([dateStr, dayEntry]) => {
+        if (Number(dayEntry?.count || 0) <= 0) return;
+        if (!typeMetricsByDateType[dateStr]) {
+          typeMetricsByDateType[dateStr] = {};
+        }
+        typeMetricsByDateType[dateStr][activityType] = {
+          distance: Number(dayEntry?.distance || 0),
+          moving_time: Number(dayEntry?.moving_time || 0),
+          elevation_gain: Number(dayEntry?.elevation_gain || 0),
+        };
+      });
+    });
+  });
+
+  return {
+    typeLabelsByDate,
+    typeBreakdownsByDate,
+    activityLinksByDateType,
+    typeMetricsByDateType,
+  };
 }
 
 function centerSummaryTypeCardTailRow(summaryEl) {
@@ -2665,7 +2844,14 @@ function centerSummaryTypeCardTailRow(summaryEl) {
 
   const styles = getComputedStyle(summaryEl);
   const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
-  const cardRects = allCards.map((card) => card.getBoundingClientRect());
+  const cardRects = allCards.map((card) => {
+    const rect = card.getBoundingClientRect();
+    return {
+      top: renderedPixelsToCssPixels(rect?.top, summaryEl),
+      left: renderedPixelsToCssPixels(rect?.left, summaryEl),
+      width: renderedPixelsToCssPixels(rect?.width, summaryEl),
+    };
+  });
   const firstRowTop = cardRects[0]?.top;
   if (!Number.isFinite(firstRowTop)) return;
 
@@ -3062,20 +3248,18 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
       cell.style.background = filled ? colors[4] : colors[0];
     }
 
-    const durationMinutes = Math.round((entry.moving_time || 0) / 60);
-    const duration = durationMinutes >= 60
-      ? `${Math.floor(durationMinutes / 60)}h ${durationMinutes % 60}m`
-      : `${durationMinutes}m`;
-
     const typeBreakdown = type === "all" ? options.typeBreakdownsByDate?.[dateStr] : null;
     const typeLabels = type === "all" ? options.typeLabelsByDate?.[dateStr] : null;
     const activityLinksByType = options.activityLinksByDateType?.[dateStr] || {};
+    const typeMetricsByType = options.typeMetricsByDateType?.[dateStr] || {};
     const singleTypeLabel = type === "all"
       ? getSingleActivityTooltipTypeLabel(typeBreakdown, entry, typeLabels)
       : (Number(entry.count || 0) === 1 ? displayType(type) : "");
     const singleActivityLink = Number(entry.count || 0) === 1
       ? firstTooltipActivityLink(activityLinksByType, type)
       : "";
+    const shouldShowPerTypeMetrics = type === "all" && Number(entry.count || 0) > 1;
+    let renderedTypeBreakdown = false;
     const lines = [createTooltipTextLine(dateStr)];
     if (singleTypeLabel) {
       lines.push(createTooltipLinkedTypeLine("", singleTypeLabel, "", singleActivityLink));
@@ -3083,16 +3267,17 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
       lines.push(createTooltipTextLine(formatActivityCountLabel(entry.count, type === "all" ? [] : [type])));
     }
 
-    const showDistanceElevation = (entry.distance || 0) > 0 || (entry.elevation_gain || 0) > 0;
-
     if (type === "all") {
       if (!singleTypeLabel) {
         const breakdownLines = formatTypeBreakdownLinesWithLinks(
           typeBreakdown,
           options.selectedTypes || [],
           activityLinksByType,
+          shouldShowPerTypeMetrics ? typeMetricsByType : null,
+          units,
         );
         if (breakdownLines.length) {
+          renderedTypeBreakdown = true;
           lines.push(...breakdownLines);
         } else if (Array.isArray(typeLabels) && typeLabels.length) {
           lines.push(createTooltipTextLine(`Types: ${typeLabels.join(", ")}`));
@@ -3102,19 +3287,9 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
       }
     }
 
-    if (showDistanceElevation) {
-      const distance = units.distance === "km"
-        ? `${(entry.distance / 1000).toFixed(2)} km`
-        : `${(entry.distance / 1609.344).toFixed(2)} mi`;
-      const elevation = units.elevation === "m"
-        ? `${Math.round(entry.elevation_gain)} m`
-        : `${Math.round(entry.elevation_gain * 3.28084)} ft`;
-      lines.push(createTooltipTextLine(`Distance: ${distance}`));
-      lines.push(createTooltipTextLine(`Elevation: ${elevation}`));
-    }
-
-    if (filled) {
-      lines.push(createTooltipTextLine(`Duration: ${duration}`));
+    const showAggregateTotals = !(shouldShowPerTypeMetrics && renderedTypeBreakdown);
+    if (showAggregateTotals) {
+      lines.push(...formatTooltipMetricLines(entry, units));
     }
     const tooltipContent = { lines };
     const canPinTooltip = Boolean(flattenTooltipActivityLinks(activityLinksByType).length);
@@ -4717,6 +4892,7 @@ async function init() {
         typeLabelsByDate,
         typeBreakdownsByDate,
         activityLinksByDateType,
+        typeMetricsByDateType,
       } = buildCombinedTypeDetailsByDate(payload, types, years);
       if (showCombinedTypes) {
         const section = document.createElement("div");
@@ -4780,6 +4956,7 @@ async function init() {
               typeBreakdownsByDate,
               typeLabelsByDate,
               activityLinksByDateType,
+              typeMetricsByDateType,
             },
           );
           setCardScrollKey(card, `${combinedSelectionKey}:year:${year}`);

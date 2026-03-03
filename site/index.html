@@ -1056,7 +1056,13 @@
         white-space: nowrap;
       }
 
-      @media (min-width: 901px) {
+      @media (hover: hover) and (pointer: fine) {
+        body {
+          zoom: 0.8;
+        }
+      }
+
+      @media (min-width: 901px), (hover: hover) and (pointer: fine) and (min-width: 721px) {
         .card.more-stats:not(.more-stats-stacked) {
           overflow-x: hidden;
         }
@@ -1066,7 +1072,7 @@
         }
       }
 
-      @media (min-width: 1200px) {
+      @media (min-width: 1200px), (hover: hover) and (pointer: fine) and (min-width: 960px) {
         .summary.summary-center-two-types .summary-type-card:nth-last-child(2) {
           grid-column: 2;
         }
@@ -1403,7 +1409,7 @@
         }
       }
 
-      @media (min-width: 901px) {
+      @media (min-width: 901px), (hover: hover) and (pointer: fine) and (min-width: 721px) {
         body {
           padding: 24px 20px 28px;
         }
@@ -1574,7 +1580,7 @@
         }
       }
 
-      @media (min-width: 901px) and (max-width: 1155px) {
+      @media (min-width: 901px) and (max-width: 1155px) and (hover: none), (min-width: 901px) and (max-width: 1155px) and (pointer: coarse), (hover: hover) and (pointer: fine) and (min-width: 721px) and (max-width: 924px) {
         header {
           --mobile-header-padding-inline: var(--space-7);
           --mobile-stack-gap: var(--space-3);
@@ -1758,7 +1764,7 @@
         }
       }
 
-      @media (max-width: 900px) {
+      @media (max-width: 900px) and (hover: none), (max-width: 900px) and (pointer: coarse), (max-width: 720px) and (hover: hover) and (pointer: fine) {
         :root {
           --labeled-card-padding-top: 10px;
           --labeled-card-title-gap: 4px;
@@ -1975,7 +1981,7 @@
 
       }
 
-      @media (max-width: 720px) {
+      @media (max-width: 720px) and (hover: none), (max-width: 720px) and (pointer: coarse), (max-width: 576px) and (hover: hover) and (pointer: fine) {
         :root {
           --cell: 10px;
           --gap: 2px;
@@ -2034,7 +2040,7 @@
         }
       }
 
-      @media (max-width: 375px) {
+      @media (max-width: 375px) and (hover: none), (max-width: 375px) and (pointer: coarse), (max-width: 300px) and (hover: hover) and (pointer: fine) {
         :root {
           --cell: 9px;
           --gap: 2px;

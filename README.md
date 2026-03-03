@@ -12,10 +12,18 @@ Once setup is complete, this dashboard link will automatically update to your ow
 
 ## Quick Start
 
-### Run:
+### macOS / Linux
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/aspain/git-sweaty/main/scripts/bootstrap.sh)
+```
+
+### Windows (requires WSL)
+
+Run this in PowerShell.
+
+```powershell
+wsl bash -lc "bash <(curl -fsSL https://raw.githubusercontent.com/aspain/git-sweaty/main/scripts/bootstrap.sh)"
 ```
 
 You will be prompted for:
