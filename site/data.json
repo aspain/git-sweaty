@@ -27647,6 +27647,24 @@
       "type": "Run",
       "url": "https://www.strava.com/activities/17877380190",
       "year": 2026
+    },
+    {
+      "date": "2026-03-27",
+      "hour": 7,
+      "name": "Morning Ride",
+      "subtype": "VirtualRide",
+      "type": "VirtualRide",
+      "url": "https://www.strava.com/activities/17879243095",
+      "year": 2026
+    },
+    {
+      "date": "2026-03-28",
+      "hour": 4,
+      "name": "Morning Run \u2600\ufe0f\ud83e\udd75",
+      "subtype": "Run",
+      "type": "Run",
+      "url": "https://www.strava.com/activities/17888550253",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -51039,6 +51057,15 @@
           "distance": 7253.5,
           "elevation_gain": 0.0,
           "moving_time": 2655.0
+        },
+        "2026-03-28": {
+          "activity_ids": [
+            "17888550253"
+          ],
+          "count": 1,
+          "distance": 17824.4,
+          "elevation_gain": 4.0,
+          "moving_time": 7094.0
         }
       },
       "VirtualRide": {
@@ -51059,6 +51086,15 @@
           "distance": 16109.5,
           "elevation_gain": 0.0,
           "moving_time": 1864.0
+        },
+        "2026-03-27": {
+          "activity_ids": [
+            "17879243095"
+          ],
+          "count": 1,
+          "distance": 10120.8,
+          "elevation_gain": 0.0,
+          "moving_time": 1199.0
         }
       },
       "Walk": {
@@ -51101,7 +51137,7 @@
       }
     }
   },
-  "generated_at": "2026-03-27T15:41:11.990869+00:00",
+  "generated_at": "2026-03-28T15:20:11.768679+00:00",
   "other_bucket": "OtherSports",
   "repo": "khoang03-beep/git-sweaty",
   "source": "strava",
