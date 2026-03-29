@@ -61361,5 +61361,27 @@
     "type": "Walk",
     "vo2_max": 57.0,
     "year": 2026
+  },
+  {
+    "aerobic_te": 3.1,
+    "avg_cadence": 189,
+    "avg_ground_contact": 249,
+    "avg_hr": 121,
+    "avg_speed_mps": 2.607,
+    "avg_stride_len": 82.53,
+    "avg_vertical_osc": 7.0,
+    "calories": 1081,
+    "date": "2026-03-29",
+    "distance": 16145.91015625,
+    "elevation_gain": 12.0,
+    "id": "22338863103",
+    "max_hr": 136,
+    "moving_time": 6188.654968261719,
+    "name": "Buena Park Running",
+    "raw_activity_type": "running",
+    "raw_type": "running",
+    "start_date_local": "2026-03-29T05:10:16",
+    "type": "Run",
+    "year": 2026
   }
 ]
