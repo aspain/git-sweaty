@@ -2,6 +2,12 @@
 config.local.yaml
 .strava_token.json
 .garmin_token_store
+.env
+.env.*
+*.pem
+*.key
+*.p12
+credentials.json
 
 # Python
 .venv/
