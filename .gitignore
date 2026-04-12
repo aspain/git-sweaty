@@ -4,10 +4,6 @@ config.local.yaml
 .garmin_token_store
 .env
 .env.*
-*.pem
-*.key
-*.p12
-credentials.json
 
 # Python
 .venv/
