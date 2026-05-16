@@ -12896,6 +12896,15 @@
       "type": "Workout",
       "url": "https://www.strava.com/activities/18516379454",
       "year": 2026
+    },
+    {
+      "date": "2026-05-16",
+      "hour": 9,
+      "name": "Morning Run",
+      "subtype": "TrailRun",
+      "type": "TrailRun",
+      "url": "https://www.strava.com/activities/18529926876",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -25341,6 +25350,15 @@
           "distance": 5000.1,
           "elevation_gain": 141.0,
           "moving_time": 2008.0
+        },
+        "2026-05-16": {
+          "activity_ids": [
+            "18529926876"
+          ],
+          "count": 1,
+          "distance": 5028.9,
+          "elevation_gain": 128.0,
+          "moving_time": 2134.0
         }
       },
       "WeightTraining": {
@@ -25817,7 +25835,7 @@
       }
     }
   },
-  "generated_at": "2026-05-15T15:44:40.444235+00:00",
+  "generated_at": "2026-05-16T15:24:37.490716+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://www.strava.com/athletes/31002690",
   "repo": "aspain/git-sweaty",
