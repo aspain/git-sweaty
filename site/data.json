@@ -13022,6 +13022,24 @@
       "type": "WeightTraining",
       "url": "https://www.strava.com/activities/18783015188",
       "year": 2026
+    },
+    {
+      "date": "2026-06-06",
+      "hour": 8,
+      "name": "Morning Run",
+      "subtype": "TrailRun",
+      "type": "TrailRun",
+      "url": "https://www.strava.com/activities/18814307560",
+      "year": 2026
+    },
+    {
+      "date": "2026-06-07",
+      "hour": 8,
+      "name": "Morning Weight Training",
+      "subtype": "WeightTraining",
+      "type": "WeightTraining",
+      "url": "https://www.strava.com/activities/18823928286",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -25530,6 +25548,15 @@
           "distance": 4809.0,
           "elevation_gain": 124.0,
           "moving_time": 2054.0
+        },
+        "2026-06-06": {
+          "activity_ids": [
+            "18814307560"
+          ],
+          "count": 1,
+          "distance": 5191.0,
+          "elevation_gain": 136.0,
+          "moving_time": 2253.0
         }
       },
       "WeightTraining": {
@@ -25955,6 +25982,15 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 3898.0
+        },
+        "2026-06-07": {
+          "activity_ids": [
+            "18823928286"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 2802.0
         }
       },
       "Workout": {
@@ -26069,7 +26105,7 @@
       }
     }
   },
-  "generated_at": "2026-06-06T15:29:58.868238+00:00",
+  "generated_at": "2026-06-07T15:32:51.576853+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://www.strava.com/athletes/31002690",
   "repo": "aspain/git-sweaty",
