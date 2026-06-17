@@ -18896,9 +18896,9 @@
     "moving_time": 1250.0,
     "name": "Morning Run",
     "raw_activity_type": "Run",
-    "raw_type": "TrailRun",
+    "raw_type": "Run",
     "start_date_local": "2026-06-13T08:27:01Z",
-    "type": "TrailRun",
+    "type": "Run",
     "year": 2026
   },
   {
@@ -18912,6 +18912,19 @@
     "raw_type": "Run",
     "start_date_local": "2026-06-15T07:46:01Z",
     "type": "Run",
+    "year": 2026
+  },
+  {
+    "date": "2026-06-17",
+    "distance": 5256.4,
+    "elevation_gain": 10.0,
+    "id": "18957532625",
+    "moving_time": 1966.0,
+    "name": "Morning Run",
+    "raw_activity_type": "Run",
+    "raw_type": "TrailRun",
+    "start_date_local": "2026-06-17T08:25:52Z",
+    "type": "TrailRun",
     "year": 2026
   }
 ]
