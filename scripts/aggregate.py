@@ -37,12 +37,19 @@ def aggregate():
                 "distance": 0.0,
                 "moving_time": 0.0,
                 "elevation_gain": 0.0,
+                "hr_weighted_sum": 0.0,
+                "hr_time": 0.0,
                 "activity_ids": [],
             }
         entry["count"] += 1
         entry["distance"] += float(item.get("distance", 0.0))
         entry["moving_time"] += float(item.get("moving_time", 0.0))
         entry["elevation_gain"] += float(item.get("elevation_gain", 0.0))
+        item_hr = float(item.get("heart_rate", 0.0) or 0.0)
+        item_time = float(item.get("moving_time", 0.0) or 0.0)
+        if item_hr > 0.0 and item_time > 0.0:
+            entry["hr_weighted_sum"] += item_hr * item_time
+            entry["hr_time"] += item_time
         entry["activity_ids"].append(item.get("id"))
         data[year][activity_type][date] = entry
 
@@ -50,6 +57,8 @@ def aggregate():
         for type_data in year_data.values():
             for entry in type_data.values():
                 entry["activity_ids"] = sorted(entry["activity_ids"])
+                if entry.get("hr_time", 0.0) > 0.0:
+                    entry["heart_rate"] = entry["hr_weighted_sum"] / entry["hr_time"]
 
     output = {
         "generated_at": utc_now().isoformat(),

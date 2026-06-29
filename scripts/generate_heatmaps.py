@@ -13,6 +13,7 @@ from utils import (
     format_distance,
     format_duration,
     format_elevation,
+    format_heart_rate,
     load_config,
     normalize_source,
     parse_iso_datetime,
@@ -113,14 +114,16 @@ def _build_title(date_str: str, entry: Dict, units: Dict[str, str]) -> str:
     distance = format_distance(entry.get("distance", 0.0), units["distance"])
     duration = format_duration(entry.get("moving_time", 0.0))
     elevation = format_elevation(entry.get("elevation_gain", 0.0), units["elevation"])
-
-    return (
-        f"{date_str}\n"
-        f"{count} workout{'s' if count != 1 else ''}\n"
-        f"Distance: {distance}\n"
-        f"Duration: {duration}\n"
-        f"Elevation: {elevation}"
-    )
+    lines = [
+        f"{date_str}",
+        f"{count} workout{'s' if count != 1 else ''}",
+        f"Distance: {distance}",
+        f"Duration: {duration}",
+        f"Elevation: {elevation}",
+    ]
+    if float(entry.get("hr_time", 0.0) or 0.0) > 0.0:
+        lines.append(f"Heart rate: {format_heart_rate(entry.get('heart_rate', 0.0))}")
+    return "\n".join(lines)
 
 
 def _color_scale(accent: str) -> List[str]:
@@ -374,6 +377,8 @@ def _svg_for_year(
                 "distance": 0.0,
                 "moving_time": 0.0,
                 "elevation_gain": 0.0,
+                "hr_weighted_sum": 0.0,
+                "hr_time": 0.0,
                 "activity_ids": [],
             })
             count = int(entry.get("count", 0))

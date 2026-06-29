@@ -7,6 +7,7 @@ from provider_fields import (
     coalesce as _shared_coalesce,
     get_nested as _shared_get_nested,
     pick_duration_seconds as _shared_pick_duration_seconds,
+    pick_heart_rate as _shared_pick_heart_rate,
 )
 from utils import ensure_dir, load_config, normalize_source, parse_iso_datetime, raw_activity_dir, read_json, write_json
 
@@ -26,6 +27,10 @@ def _safe_float(value: Any) -> float:
 
 def _pick_duration_seconds(*values: Any) -> float:
     return _shared_pick_duration_seconds(*values)
+
+
+def _pick_heart_rate(*values: Any) -> float:
+    return _shared_pick_heart_rate(*values)
 
 
 def _duration_candidates(activity: Dict[str, Any]) -> List[Any]:
@@ -82,6 +87,12 @@ def _normalize_activity(activity: Dict, type_aliases: Dict[str, str], source: st
         activity.get("elevationGain"),
         activity.get("totalElevationGain"),
     )
+    heart_rate = _pick_heart_rate(
+        activity.get("average_heartrate"),
+        activity.get("averageHR"),
+        _get_nested(activity, ["summaryDTO", "averageHR"]),
+        _get_nested(activity, ["activitySummary", "averageHR"]),
+    )
     activity_name = str(_coalesce(activity.get("name"), activity.get("activityName"), "") or "").strip()
 
     normalized = {
@@ -96,6 +107,8 @@ def _normalize_activity(activity: Dict, type_aliases: Dict[str, str], source: st
         "moving_time": _safe_float(moving_time),
         "elevation_gain": _safe_float(elevation_gain),
     }
+    if heart_rate > 0.0:
+        normalized["heart_rate"] = heart_rate
     if activity_name:
         normalized["name"] = activity_name
     return normalized

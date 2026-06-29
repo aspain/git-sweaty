@@ -17,6 +17,7 @@ from provider_fields import (
     coalesce as _shared_coalesce,
     get_nested as _shared_get_nested,
     pick_duration_seconds as _shared_pick_duration_seconds,
+    pick_heart_rate as _shared_pick_heart_rate,
 )
 from sync_scope import (
     activity_scope_from_config,
@@ -88,6 +89,10 @@ def _pick_duration_seconds(*values: Any) -> float:
     return _shared_pick_duration_seconds(*values)
 
 
+def _pick_heart_rate(*values: Any) -> float:
+    return _shared_pick_heart_rate(*values)
+
+
 def _get_nested(payload: Dict[str, Any], keys: List[str]) -> Any:
     return _shared_get_nested(payload, keys)
 
@@ -127,6 +132,15 @@ def _normalize_activity(activity: Dict[str, Any]) -> Dict[str, Any]:
         activity.get("total_elevation_gain"),
     )
     distance = _coalesce(activity.get("distance"), activity.get("totalDistance"), 0.0)
+    heart_rate = _pick_heart_rate(
+        activity.get("averageHR"),
+        activity.get("averageHeartRate"),
+        activity.get("average_heartrate"),
+        _get_nested(activity, ["summaryDTO", "averageHR"]),
+        _get_nested(activity, ["summaryDTO", "averageHeartRate"]),
+        _get_nested(activity, ["activitySummary", "averageHR"]),
+        _get_nested(activity, ["activitySummary", "averageHeartRate"]),
+    )
     activity_name = str(
         _coalesce(
             activity.get("activityName"),
@@ -155,6 +169,8 @@ def _normalize_activity(activity: Dict[str, Any]) -> Dict[str, Any]:
         "total_elevation_gain": _safe_float(elevation_gain, 0.0),
         "provider": "garmin",
     }
+    if heart_rate > 0.0:
+        normalized["average_heartrate"] = heart_rate
     if activity_name:
         normalized["name"] = activity_name
     return normalized
