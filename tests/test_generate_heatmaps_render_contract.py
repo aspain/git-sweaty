@@ -113,6 +113,49 @@ class GenerateHeatmapsRenderContractTests(unittest.TestCase):
             r'<rect x="0" y="84" width="12" height="12" rx="3" ry="3" fill="[^"]+" data-date="2025-01-05">',
         )
 
+    def test_svg_tooltip_includes_heart_rate_when_present(self) -> None:
+        entries = {
+            "2025-01-01": {
+                "count": 1,
+                "distance": 5000,
+                "moving_time": 1800,
+                "elevation_gain": 0,
+                "hr_weighted_sum": 261000.0,
+                "hr_time": 1800.0,
+                "heart_rate": 145.0,
+                "activity_ids": ["a"],
+            }
+        }
+        svg = generate_heatmaps._svg_for_year(
+            2025,
+            entries,
+            {"distance": "mi", "elevation": "ft"},
+            generate_heatmaps.DEFAULT_COLORS,
+        )
+
+        self.assertIn("Heart rate: 145 bpm", svg)
+
+    def test_svg_tooltip_omits_heart_rate_when_absent(self) -> None:
+        entries = {
+            "2025-01-01": {
+                "count": 1,
+                "distance": 5000,
+                "moving_time": 1800,
+                "elevation_gain": 0,
+                "hr_weighted_sum": 0.0,
+                "hr_time": 0.0,
+                "activity_ids": ["a"],
+            }
+        }
+        svg = generate_heatmaps._svg_for_year(
+            2025,
+            entries,
+            {"distance": "mi", "elevation": "ft"},
+            generate_heatmaps.DEFAULT_COLORS,
+        )
+
+        self.assertNotIn("Heart rate:", svg)
+
     def test_load_activities_filters_invalid_rows_and_parses_hour(self) -> None:
         rows = [
             {

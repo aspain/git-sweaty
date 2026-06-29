@@ -54,6 +54,11 @@ class UtilsTests(unittest.TestCase):
         self.assertEqual(utils.format_elevation(100, "ft"), "328 ft")
         self.assertEqual(utils.format_elevation(100, "m"), "100 m")
 
+    def test_format_heart_rate_rounds_to_whole_bpm(self) -> None:
+        self.assertEqual(utils.format_heart_rate(0.0), "0 bpm")
+        self.assertEqual(utils.format_heart_rate(148.6), "149 bpm")
+        self.assertEqual(utils.format_heart_rate(162.0), "162 bpm")
+
 
 if __name__ == "__main__":
     unittest.main()
