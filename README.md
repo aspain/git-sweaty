@@ -28,25 +28,31 @@ Run this in Terminal.
 bash <(curl -fsSL https://raw.githubusercontent.com/aspain/git-sweaty/main/scripts/bootstrap.sh)
 ```
 
-### Windows
+### Windows (requires WSL)
 
 Run this in PowerShell.
 
 ```powershell
-irm https://raw.githubusercontent.com/aspain/git-sweaty/main/scripts/bootstrap.ps1 | iex
+wsl bash -lc "bash <(curl -fsSL https://raw.githubusercontent.com/aspain/git-sweaty/main/scripts/bootstrap.sh)"
 ```
 
-The Windows bootstrap runs natively in PowerShell. It keeps setup in the same terminal session, opens your browser only when sign-in or OAuth approval is needed, and does not require WSL.
+This path is less polished, but it maps directly to the same `bootstrap.sh` flow used on macOS/Linux, which has been more reliable.
+
+If you would rather avoid WSL troubleshooting on Windows, use [Manual Setup (No Scripts)](#manual-setup-no-scripts).
 
 ---
 
 #### Once Setup Starts
 
-You will need a GitHub account. If GitHub CLI (`gh`) or Python 3 are not installed yet, the bootstrap script can offer to install them automatically with `winget` on a typical personal Windows laptop.
+You will need a GitHub account. If GitHub CLI (`gh`) is not installed yet, the bootstrap script will detect a supported package manager, offer to install it, and then walk you through GitHub sign-in. On Windows, this happens inside WSL.
 
 You will be prompted for:
 - Setup mode:
-  - Recommended (Online-only, no local clone): on Windows, the PowerShell bootstrap uses or creates your fork automatically and then continues setup without requiring a local clone.
+  - Recommended (Online-only, no local clone): setup script will either:
+    - use an existing fork
+    - create a new fork
+    - configure an existing writable repo
+  - Advanced (Local clone + git remotes): setup script will prefer an existing compatible local clone when available, or guide fork-and-clone setup, then complete the rest of the setup.
   - Manual (No setup scripts): follow [Manual Setup (No Scripts)](#manual-setup-no-scripts)
 - GitHub Pages custom domain (if you have one, for example `yoursite.example.com`)
 - Source (`strava` or `garmin`)
@@ -162,7 +168,11 @@ Choose one auth path:
 2. Token-only path: add
    - `GARMIN_TOKENS_B64`
 
-`GARMIN_TOKENS_B64` is optional unless you explicitly run token-only config.
+`GARMIN_TOKENS_B64` is optional unless you explicitly run token-only config, but it is recommended for reliable scheduled syncs. Garmin's current auth flow is much more reliable when the workflow can reuse saved tokens instead of doing a fresh password login every day.
+
+Optional but recommended for automatic Garmin token rotation:
+
+- Add `GARMIN_SECRET_UPDATE_TOKEN` (a GitHub token with repo write access to this fork). Setup attempts to configure this automatically from your current `gh` auth session.
 
 ### 3) Run the first sync and deploy
 

@@ -72,6 +72,39 @@ class FrequencyLayoutContractTests(unittest.TestCase):
         self.assertIn("Hourly frequency unavailable for Days Off", self.app_js)
         self.assertNotIn("Hourly frequency view unavailable for Days Off", self.app_js)
 
+    def test_frequency_widget_respects_configured_week_start(self) -> None:
+        self.assertIn(
+            "const weekStart = normalizeWeekStart(options.weekStart);",
+            self.app_js,
+        )
+        self.assertIn(
+            "const dayLabels = WEEKDAY_LABELS_BY_WEEK_START[weekStart] || DAYS;",
+            self.app_js,
+        )
+        self.assertIn(
+            'dayIndex: weekdayRowFromStart(date.getDay(), weekStart),',
+            self.app_js,
+        )
+        self.assertIn(
+            'weekIndex: weekOfYear(date, weekStart),',
+            self.app_js,
+        )
+        self.assertRegex(
+            self.app_js,
+            r"const dayDisplayLabels = dayLabels\.map\(\(label, index\) => \(\s*index === 0 \|\| index === 3 \|\| index === 6 \? label : \"\"\s*\)\s*\);",
+        )
+        self.assertIn(
+            "tooltipLabels: dayLabels,",
+            self.app_js,
+        )
+
+    def test_frequency_card_builder_receives_setup_week_start(self) -> None:
+        matches = re.findall(
+            r"buildStatsOverview\(payload,\s*(?:types|\[type\]),\s*cardYears,\s*frequencyCardColor,\s*{\s*units: currentUnits,\s*weekStart: setupWeekStart,",
+            self.app_js,
+        )
+        self.assertEqual(len(matches), 2)
+
 
 if __name__ == "__main__":
     unittest.main()

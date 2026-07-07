@@ -36,6 +36,7 @@ from typing import Iterator, Optional, Tuple
 from garmin_token_store import (
     decode_token_store_b64,
     encode_token_store_dir_as_zip_b64,
+    GARMIN_TOKENS_FILENAME,
     hydrate_token_store_from_legacy_file,
     token_store_ready,
     write_token_store_bytes,
@@ -523,6 +524,23 @@ def _try_set_strava_secret_update_token(repo: str) -> Tuple[bool, str]:
     return (
         True,
         "Configured STRAVA_SECRET_UPDATE_TOKEN from current gh auth session.",
+    )
+
+
+def _try_set_garmin_secret_update_token(repo: str) -> Tuple[bool, str]:
+    token = _gh_auth_token()
+    if not token:
+        return (
+            False,
+            "Could not read current gh auth token; GARMIN_SECRET_UPDATE_TOKEN was not configured.",
+        )
+    try:
+        _set_secret("GARMIN_SECRET_UPDATE_TOKEN", token, repo)
+    except RuntimeError as exc:
+        return False, f"Unable to set GARMIN_SECRET_UPDATE_TOKEN automatically: {exc}"
+    return (
+        True,
+        "Configured GARMIN_SECRET_UPDATE_TOKEN from current gh auth session.",
     )
 
 
@@ -1275,25 +1293,111 @@ def _fetch_garmin_profile(
     email: str,
     password: str,
 ) -> dict:
-    try:
-        import garth
-    except ImportError:
-        return {}
-
     token_value = str(token_store_b64 or "").strip()
     email_value = str(email or "").strip()
     password_value = str(password or "").strip()
 
     with tempfile.TemporaryDirectory(prefix="garmin-profile-") as tmpdir:
         token_store_dir = os.path.join(tmpdir, "token_store")
-        resumed = False
         if token_value:
             try:
                 token_bytes = decode_token_store_b64(token_value)
                 write_token_store_bytes(token_bytes, token_store_dir)
+            except Exception:
+                pass
+
+        profile_candidates: list[dict] = []
+
+        def _add_profile_candidate(candidate: object) -> bool:
+            payload = _coerce_garmin_profile_payload(candidate)
+            if not payload:
+                return False
+            profile_candidates.append(payload)
+            return bool(_garmin_profile_url_from_profile(payload))
+
+        try:
+            from garminconnect import Garmin
+        except Exception:
+            Garmin = None  # type: ignore[assignment]
+
+        if Garmin:
+            clients = []
+            for factory in (
+                (lambda: Garmin(email=email_value, password=password_value)),
+                (lambda: Garmin(email_value, password_value)),
+                (lambda: Garmin()),
+            ):
+                try:
+                    clients.append(factory())
+                except Exception:
+                    continue
+            for client in clients:
+                login_ok = False
+                login_attempts = []
                 if token_store_ready(token_store_dir):
-                    garth.resume(token_store_dir)
-                    resumed = True
+                    login_attempts.extend(
+                        [
+                            (lambda: client.login(tokenstore=token_store_dir)),
+                            (lambda: client.login(token_store=token_store_dir)),
+                            (lambda: client.login(token_store_dir)),
+                        ]
+                    )
+                if email_value and password_value:
+                    login_attempts.extend(
+                        [
+                            (lambda: client.login(token_store_dir)),
+                            (lambda: client.login()),
+                            (lambda: client.login(email_value, password_value)),
+                            (lambda: client.login(email=email_value, password=password_value)),
+                        ]
+                    )
+                for login_attempt in login_attempts:
+                    try:
+                        login_attempt()
+                        login_ok = True
+                        break
+                    except TypeError:
+                        continue
+                    except Exception:
+                        continue
+                if not login_ok:
+                    continue
+
+                display_name = getattr(client, "display_name", None)
+                full_name = getattr(client, "full_name", None)
+                if _add_profile_candidate({"displayName": display_name, "fullName": full_name}):
+                    return profile_candidates[-1]
+                inner_client = getattr(client, "client", None)
+                if inner_client is not None:
+                    for attr_name in ("profile", "user_profile"):
+                        try:
+                            if _add_profile_candidate(getattr(inner_client, attr_name, None)):
+                                return profile_candidates[-1]
+                        except Exception:
+                            pass
+                for path in (
+                    "/userprofile-service/socialProfile",
+                    "/userprofile-service/userprofile/profile",
+                ):
+                    connectapi = getattr(client, "connectapi", None)
+                    if not callable(connectapi):
+                        continue
+                    try:
+                        if _add_profile_candidate(connectapi(path)):
+                            return profile_candidates[-1]
+                    except Exception:
+                        continue
+
+        try:
+            import garth
+        except ImportError:
+            return {}
+
+        resumed = False
+        if token_store_ready(token_store_dir):
+            try:
+                garth.resume(token_store_dir)
+                resumed = True
             except Exception:
                 resumed = False
 
@@ -1304,15 +1408,6 @@ def _fetch_garmin_profile(
                 garth.login(email_value, password_value)
             except Exception:
                 return {}
-
-        profile_candidates: list[dict] = []
-
-        def _add_profile_candidate(candidate: object) -> bool:
-            payload = _coerce_garmin_profile_payload(candidate)
-            if not payload:
-                return False
-            profile_candidates.append(payload)
-            return bool(_garmin_profile_url_from_profile(payload))
 
         garth_client = getattr(garth, "client", None)
         if garth_client is not None:
@@ -1339,67 +1434,6 @@ def _fetch_garmin_profile(
                     return profile_candidates[-1]
             except Exception:
                 continue
-
-        # Fallback to Garmin wrapper session helpers used by sync path.
-        try:
-            from garminconnect import Garmin
-        except Exception:
-            Garmin = None  # type: ignore[assignment]
-
-        if Garmin:
-            clients = []
-            for factory in (
-                (lambda: Garmin(email=email_value, password=password_value)),
-                (lambda: Garmin(email_value, password_value)),
-                (lambda: Garmin()),
-            ):
-                try:
-                    clients.append(factory())
-                except Exception:
-                    continue
-            for client in clients:
-                login_ok = False
-                for login_attempt in (
-                    (lambda: client.login(tokenstore=token_store_dir)),
-                    (lambda: client.login(token_store=token_store_dir)),
-                    (lambda: client.login(token_store_dir)),
-                    (lambda: client.login(email_value, password_value)),
-                    (lambda: client.login(email=email_value, password=password_value)),
-                    (lambda: client.login()),
-                ):
-                    try:
-                        login_attempt()
-                        login_ok = True
-                        break
-                    except TypeError:
-                        continue
-                    except Exception:
-                        continue
-                if not login_ok:
-                    continue
-
-                display_name = getattr(client, "display_name", None)
-                if _add_profile_candidate({"displayName": display_name}):
-                    return profile_candidates[-1]
-                garth_client_obj = getattr(client, "garth", None)
-                if garth_client_obj is not None:
-                    try:
-                        if _add_profile_candidate(getattr(garth_client_obj, "profile", None)):
-                            return profile_candidates[-1]
-                    except Exception:
-                        pass
-                for path in (
-                    "/userprofile-service/socialProfile",
-                    "/userprofile-service/userprofile/profile",
-                ):
-                    connectapi = getattr(client, "connectapi", None)
-                    if not callable(connectapi):
-                        continue
-                    try:
-                        if _add_profile_candidate(connectapi(path)):
-                            return profile_candidates[-1]
-                    except Exception:
-                        continue
 
     return {}
 
@@ -1782,45 +1816,30 @@ def _is_retryable_garmin_auth_error(exc: Exception) -> bool:
 
 def _generate_garmin_token_store_b64(email: str, password: str) -> str:
     try:
-        import garth
+        from garminconnect import Garmin
     except ImportError:
         raise RuntimeError(
-            "Missing Garmin auth dependency 'garth'. Re-run setup without --no-bootstrap-env."
+            "Missing Garmin auth dependency 'garminconnect'. Re-run setup without --no-bootstrap-env."
         ) from None
 
     last_error: Optional[Exception] = None
     for attempt in range(1, GARMIN_AUTH_MAX_ATTEMPTS + 1):
         with tempfile.TemporaryDirectory(prefix="garmin-token-store-") as tmpdir:
             try:
-                garth.login(email, password)
+                client = _new_garmin_client(Garmin, email, password)
+                _login_garmin_client_for_token_store(client, tmpdir)
                 save_errors: list[str] = []
-                try:
-                    garth.save(tmpdir)
-                except Exception as exc:
-                    save_errors.append(str(exc))
 
                 if not token_store_ready(tmpdir):
-                    legacy_path = os.path.join(tmpdir, "garth-session.json")
-                    try:
-                        garth.save(legacy_path)
-                    except Exception as exc:
-                        save_errors.append(str(exc))
-                    hydrate_token_store_from_legacy_file(legacy_path, tmpdir)
+                    save_errors.extend(_dump_garmin_client_token_store(client, tmpdir))
 
                 if not token_store_ready(tmpdir):
                     details = "; ".join(save_errors) if save_errors else "unknown save failure"
                     raise RuntimeError(
-                        "garth token store is incomplete (expected oauth1_token.json and oauth2_token.json). "
+                        "Garmin token store is incomplete "
+                        f"(expected {GARMIN_TOKENS_FILENAME} or legacy oauth token files). "
                         f"Save details: {details}"
                     )
-
-                if hasattr(garth, "resume"):
-                    try:
-                        garth.resume(tmpdir)
-                    except Exception as exc:
-                        raise RuntimeError(
-                            f"garth token store failed resume validation: {exc}"
-                        ) from exc
 
                 return encode_token_store_dir_as_zip_b64(tmpdir)
             except Exception as exc:
@@ -1838,6 +1857,77 @@ def _generate_garmin_token_store_b64(email: str, password: str) -> str:
     raise RuntimeError(
         f"Unable to generate GARMIN_TOKENS_B64 from provided Garmin credentials: {detail}"
     ) from None
+
+
+def _new_garmin_client(garmin_cls: object, email: str, password: str) -> object:
+    constructors = (
+        lambda: garmin_cls(email=email, password=password),
+        lambda: garmin_cls(email, password),
+    )
+    last_error: Optional[Exception] = None
+    for constructor in constructors:
+        try:
+            return constructor()
+        except Exception as exc:
+            last_error = exc
+    raise RuntimeError(f"Unable to initialize Garmin API client: {last_error}") from last_error
+
+
+def _login_garmin_client_for_token_store(client: object, token_store_dir: str) -> None:
+    login = getattr(client, "login", None)
+    if not callable(login):
+        raise RuntimeError("Garmin API client does not expose login().")
+
+    attempts = (
+        lambda: login(tokenstore=token_store_dir),
+        lambda: login(token_store=token_store_dir),
+        lambda: login(token_store_dir),
+        lambda: login(),
+    )
+    type_errors: list[str] = []
+    last_error: Optional[Exception] = None
+    for attempt in attempts:
+        try:
+            attempt()
+            return
+        except TypeError as exc:
+            type_errors.append(str(exc))
+            continue
+        except Exception as exc:
+            last_error = exc
+            break
+
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError(
+        "Unable to call Garmin login with a token store path: " + "; ".join(type_errors)
+    )
+
+
+def _dump_garmin_client_token_store(client: object, token_store_dir: str) -> list[str]:
+    errors: list[str] = []
+    candidates = [
+        client,
+        getattr(client, "client", None),
+        getattr(client, "garth", None),
+    ]
+    for candidate in candidates:
+        if candidate is None:
+            continue
+        for method_name in ("dump", "save"):
+            method = getattr(candidate, method_name, None)
+            if not callable(method):
+                continue
+            try:
+                method(token_store_dir)
+                if token_store_ready(token_store_dir):
+                    return errors
+            except Exception as exc:
+                errors.append(f"{method_name}: {exc}")
+
+    legacy_path = os.path.join(token_store_dir, "garth-session.json")
+    hydrate_token_store_from_legacy_file(legacy_path, token_store_dir)
+    return errors
 
 
 def _prompt_units() -> Tuple[str, str]:
@@ -2790,6 +2880,10 @@ def main() -> int:
     strava_activity_links_enabled = False
     garmin_profile_url = ""
     garmin_activity_links_enabled = False
+    strava_rotation_secret_ok = False
+    strava_rotation_secret_detail = ""
+    garmin_rotation_secret_ok = False
+    garmin_rotation_secret_detail = ""
     strava_profile_link_enabled_override: Optional[bool] = None
     strava_profile_url_prefilled = ""
     garmin_profile_link_enabled_override: Optional[bool] = None
@@ -2832,8 +2926,6 @@ def main() -> int:
     print("\nUpdating repository secrets via gh...")
     configured_secret_names: list[str] = []
     athlete_name = ""
-    strava_rotation_secret_ok: Optional[bool] = None
-    strava_rotation_secret_detail = ""
     if source == "strava":
         if update_credentials:
             if interactive and not args.client_id:
@@ -2906,6 +2998,14 @@ def main() -> int:
                 _set_secret("GARMIN_EMAIL", garmin_email, repo)
                 _set_secret("GARMIN_PASSWORD", garmin_password, repo)
                 configured_secret_names.extend(["GARMIN_EMAIL", "GARMIN_PASSWORD"])
+            garmin_rotation_secret_ok, garmin_rotation_secret_detail = _try_set_garmin_secret_update_token(
+                repo
+            )
+            if garmin_rotation_secret_ok:
+                configured_secret_names.append("GARMIN_SECRET_UPDATE_TOKEN")
+        else:
+            garmin_rotation_secret_ok = False
+            garmin_rotation_secret_detail = "Reusing existing Garmin credentials from GitHub secrets."
         garmin_profile_url = _resolve_garmin_profile_url(
             args,
             interactive and update_credentials,
@@ -2941,6 +3041,21 @@ def main() -> int:
                 else (
                     f"Optional: set STRAVA_SECRET_UPDATE_TOKEN in {secrets_settings_url} "
                     "to allow workflow auto-rotation of STRAVA_REFRESH_TOKEN."
+                )
+            ),
+        )
+    elif source == "garmin":
+        _add_step(
+            steps,
+            name="Auto-rotate Garmin token store",
+            status=STATUS_OK if garmin_rotation_secret_ok else STATUS_SKIPPED,
+            detail=garmin_rotation_secret_detail,
+            manual_help=(
+                None
+                if garmin_rotation_secret_ok
+                else (
+                    f"Optional: set GARMIN_SECRET_UPDATE_TOKEN in {secrets_settings_url} "
+                    "to allow workflow auto-rotation of GARMIN_TOKENS_B64."
                 )
             ),
         )

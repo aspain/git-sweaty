@@ -7,12 +7,13 @@ import zipfile
 from typing import Any
 
 
+GARMIN_TOKENS_FILENAME = "garmin_tokens.json"
 OAUTH1_TOKEN_FILENAME = "oauth1_token.json"
 OAUTH2_TOKEN_FILENAME = "oauth2_token.json"
 
 
 def token_store_ready(directory: str) -> bool:
-    return (
+    return os.path.isfile(os.path.join(directory, GARMIN_TOKENS_FILENAME)) or (
         os.path.isfile(os.path.join(directory, OAUTH1_TOKEN_FILENAME))
         and os.path.isfile(os.path.join(directory, OAUTH2_TOKEN_FILENAME))
     )
@@ -44,7 +45,11 @@ def encode_token_store_dir_as_zip_b64(directory: str) -> str:
             for filename in sorted(files):
                 full_path = os.path.join(root, filename)
                 rel_path = os.path.relpath(full_path, directory)
-                archive.write(full_path, arcname=rel_path)
+                info = zipfile.ZipInfo(rel_path)
+                info.date_time = (1980, 1, 1, 0, 0, 0)
+                info.compress_type = zipfile.ZIP_DEFLATED
+                with open(full_path, "rb") as f:
+                    archive.writestr(info, f.read())
     data = buffer.getvalue()
     if not data:
         raise RuntimeError("Generated Garmin token store archive was empty.")
@@ -78,6 +83,8 @@ def write_token_store_bytes(token_bytes: bytes, token_store_path: str) -> str:
     except Exception:
         payload = None
     if isinstance(payload, dict):
+        if _is_native_token_payload(payload):
+            _write_json(os.path.join(token_store_path, GARMIN_TOKENS_FILENAME), payload)
         oauth1 = payload.get("oauth1_token")
         oauth2 = payload.get("oauth2_token")
         if isinstance(oauth1, dict):
@@ -128,3 +135,10 @@ def _safe_extract_zip(archive: zipfile.ZipFile, target_dir: str) -> None:
 def _write_json(path: str, payload: Any) -> None:
     with open(path, "w", encoding="utf-8") as f:
         json.dump(payload, f)
+
+
+def _is_native_token_payload(payload: dict[str, Any]) -> bool:
+    return any(
+        isinstance(payload.get(key), str) and payload.get(key)
+        for key in ("di_token", "di_refresh_token", "di_client_id")
+    )

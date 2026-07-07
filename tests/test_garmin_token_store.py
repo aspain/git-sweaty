@@ -15,6 +15,7 @@ if SCRIPTS_DIR not in sys.path:
 from garmin_token_store import (  # noqa: E402
     decode_token_store_b64,
     encode_token_store_dir_as_zip_b64,
+    GARMIN_TOKENS_FILENAME,
     hydrate_token_store_from_legacy_file,
     token_store_ready,
     write_token_store_bytes,
@@ -38,6 +39,37 @@ class GarminTokenStoreTests(unittest.TestCase):
                 token_store = os.path.join(dst_dir, ".garmin_token_store")
                 write_token_store_bytes(token_bytes, token_store)
                 self.assertTrue(token_store_ready(token_store))
+
+    def test_zip_b64_is_deterministic_for_same_files(self) -> None:
+        with tempfile.TemporaryDirectory() as src_dir:
+            self._write_required_tokens(src_dir)
+
+            first = encode_token_store_dir_as_zip_b64(src_dir)
+            second = encode_token_store_dir_as_zip_b64(src_dir)
+
+        self.assertEqual(first, second)
+
+    def test_native_garmin_tokens_file_marks_store_ready(self) -> None:
+        with tempfile.TemporaryDirectory() as token_store:
+            with open(
+                os.path.join(token_store, GARMIN_TOKENS_FILENAME),
+                "w",
+                encoding="utf-8",
+            ) as f:
+                json.dump({"di_token": "a", "di_refresh_token": "b"}, f)
+
+            self.assertTrue(token_store_ready(token_store))
+
+    def test_write_native_json_payload(self) -> None:
+        payload = {"di_token": "a", "di_refresh_token": "b", "di_client_id": "c"}
+        token_bytes = json.dumps(payload).encode("utf-8")
+
+        with tempfile.TemporaryDirectory() as dst_dir:
+            token_store = os.path.join(dst_dir, ".garmin_token_store")
+            write_token_store_bytes(token_bytes, token_store)
+
+            self.assertTrue(token_store_ready(token_store))
+            self.assertTrue(os.path.isfile(os.path.join(token_store, GARMIN_TOKENS_FILENAME)))
 
     def test_decode_invalid_base64_raises(self) -> None:
         with self.assertRaises(ValueError):

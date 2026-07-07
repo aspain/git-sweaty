@@ -554,6 +554,56 @@ class SetupAuthDispatchTests(unittest.TestCase):
         self.assertEqual(value["displayName"], "abc-999")
         fake_garth.login.assert_called_once_with("runner@example.com", "secret")
 
+    def test_fetch_garmin_profile_prefers_garminconnect_client(self) -> None:
+        class FakeGarmin:
+            def __init__(self, email=None, password=None):
+                self.email = email
+                self.password = password
+                self.display_name = "abc-new"
+                self.full_name = "Runner Example"
+
+            def login(self, tokenstore=None):
+                return None, None
+
+        fake_garminconnect = SimpleNamespace(Garmin=FakeGarmin)
+
+        with mock.patch.dict(sys.modules, {"garminconnect": fake_garminconnect}):
+            value = setup_auth._fetch_garmin_profile(
+                token_store_b64="",
+                email="runner@example.com",
+                password="secret",
+            )
+
+        self.assertEqual(value["displayName"], "abc-new")
+
+    def test_generate_garmin_token_store_uses_native_garminconnect_tokens(self) -> None:
+        class FakeGarmin:
+            def __init__(self, email=None, password=None):
+                self.email = email
+                self.password = password
+
+            def login(self, tokenstore=None):
+                with open(
+                    os.path.join(tokenstore, "garmin_tokens.json"),
+                    "w",
+                    encoding="utf-8",
+                ) as f:
+                    f.write('{"di_token":"a","di_refresh_token":"b"}')
+                return None, None
+
+        fake_garminconnect = SimpleNamespace(Garmin=FakeGarmin)
+
+        with mock.patch.dict(sys.modules, {"garminconnect": fake_garminconnect}):
+            encoded = setup_auth._generate_garmin_token_store_b64(
+                "runner@example.com",
+                "secret",
+            )
+
+        token_bytes = setup_auth.decode_token_store_b64(encoded)
+        with setup_auth.tempfile.TemporaryDirectory() as tmpdir:
+            setup_auth.write_token_store_bytes(token_bytes, tmpdir)
+            self.assertTrue(os.path.isfile(os.path.join(tmpdir, "garmin_tokens.json")))
+
     def test_dashboard_url_from_pages_api_prefers_cname(self) -> None:
         with mock.patch(
             "setup_auth._run",
@@ -1072,6 +1122,7 @@ class SetupAuthMainFlowTests(unittest.TestCase):
                     return_value=("garmin-token-b64", "user@example.com", "password"),
                 )
             )
+            stack.enter_context(mock.patch("setup_auth._try_set_garmin_secret_update_token", return_value=(True, "ok")))
             stack.enter_context(
                 mock.patch(
                     "setup_auth._resolve_garmin_profile_link_preference",
@@ -1384,6 +1435,7 @@ class SetupAuthMainFlowTests(unittest.TestCase):
                     return_value=("garmin-token-b64", "user@example.com", "password"),
                 )
             )
+            stack.enter_context(mock.patch("setup_auth._try_set_garmin_secret_update_token", return_value=(True, "ok")))
             stack.enter_context(
                 mock.patch(
                     "setup_auth._resolve_garmin_profile_link_preference",
@@ -1575,6 +1627,7 @@ class SetupAuthMainFlowTests(unittest.TestCase):
                     side_effect=_record_garmin_auth,
                 )
             )
+            stack.enter_context(mock.patch("setup_auth._try_set_garmin_secret_update_token", return_value=(True, "ok")))
             stack.enter_context(mock.patch("setup_auth._set_secret"))
             stack.enter_context(mock.patch("setup_auth._resolve_garmin_profile_url", return_value=""))
             stack.enter_context(mock.patch("setup_auth._set_variable"))

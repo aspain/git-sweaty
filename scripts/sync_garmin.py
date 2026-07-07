@@ -8,7 +8,11 @@ import sys
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple
 
-from garmin_token_store import decode_token_store_b64, write_token_store_bytes
+from garmin_token_store import (
+    decode_token_store_b64,
+    token_store_ready,
+    write_token_store_bytes,
+)
 from provider_fields import (
     coalesce as _shared_coalesce,
     get_nested as _shared_get_nested,
@@ -326,6 +330,10 @@ def _write_token_store(token_bytes: bytes) -> str:
     return write_token_store_bytes(token_bytes, TOKEN_STORE_PATH)
 
 
+def _local_token_store_path() -> Optional[str]:
+    return TOKEN_STORE_PATH if token_store_ready(TOKEN_STORE_PATH) else None
+
+
 def _candidate_clients(
     garmin_cls: Any, email: str, password: str, allow_credentials: bool
 ) -> List[Any]:
@@ -367,11 +375,12 @@ def _login_variants(
     if allow_credentials and email and password:
         attempts.extend(
             [
+                lambda: client.login(),
                 lambda: client.login(email, password),
                 lambda: client.login(email=email, password=password),
             ]
         )
-    if allow_default_login:
+    if allow_default_login and not (allow_credentials and email and password):
         attempts.append(lambda: client.login())
 
     for attempt in attempts:
@@ -393,11 +402,6 @@ def _load_garmin_client(config: Dict[str, Any]) -> Any:
             "Missing dependency 'garminconnect'. Install requirements before using source=garmin."
         ) from exc
 
-    try:
-        import garth
-    except ImportError:
-        garth = None  # type: ignore[assignment]
-
     garmin_cfg = config.get("garmin", {}) or {}
     email = str(garmin_cfg.get("email") or "").strip()
     password = str(garmin_cfg.get("password") or "").strip()
@@ -407,15 +411,12 @@ def _load_garmin_client(config: Dict[str, Any]) -> Any:
     token_bytes = _load_token_store_bytes(config)
     if token_bytes:
         token_store = _write_token_store(token_bytes)
-        if garth and hasattr(garth, "resume"):
-            try:
-                garth.resume(token_store)
-            except Exception:
-                pass
     elif strict_token_mode:
         raise RuntimeError(
             "Garmin strict token-only mode is enabled, but no garmin.token_store_b64 is configured."
         )
+    elif email and password:
+        token_store = _local_token_store_path() or TOKEN_STORE_PATH
 
     clients = _candidate_clients(
         Garmin,
@@ -435,21 +436,7 @@ def _load_garmin_client(config: Dict[str, Any]) -> Any:
             allow_credentials=not strict_token_mode,
             allow_default_login=not strict_token_mode,
         ):
-            if garth and token_store and hasattr(garth, "save"):
-                try:
-                    garth.save(token_store)
-                except Exception:
-                    pass
             return client
-
-    if token_store and garth and hasattr(garth, "resume"):
-        for client in clients:
-            try:
-                # Some library versions rely on resumed garth session and do not require login().
-                client.get_activities(0, 1)
-                return client
-            except Exception:
-                continue
 
     if strict_token_mode:
         raise RuntimeError(
