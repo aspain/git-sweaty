@@ -5,9 +5,9 @@
   },
   "after": 0,
   "completed": true,
-  "last_run_utc": "2026-06-30T15:53:25.552080+00:00",
-  "newest_seen_ts": 1774524100,
-  "next_before": null,
-  "oldest_seen_ts": 1526380200,
+  "last_run_utc": "2026-07-07T17:46:58.444564+00:00",
+  "newest_seen_ts": 1783424559,
+  "next_offset": null,
+  "oldest_seen_ts": 1560812485,
   "rate_limited": false
 }
