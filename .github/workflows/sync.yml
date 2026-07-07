@@ -12,6 +12,7 @@ on:
         options:
           - strava
           - garmin
+          - dropbox
         default: strava
       update_readme_link:
         description: "Update README dashboard URL in this fork"
@@ -62,8 +63,8 @@ jobs:
         run: |
           source="${WORKFLOW_SOURCE:-${DASHBOARD_SOURCE:-strava}}"
           source="$(echo "${source}" | tr '[:upper:]' '[:lower:]' | xargs)"
-          if [[ "${source}" != "strava" && "${source}" != "garmin" ]]; then
-            echo "Unsupported source '${source}'. Expected strava or garmin."
+          if [[ "${source}" != "strava" && "${source}" != "garmin" && "${source}" != "dropbox" ]]; then
+            echo "Unsupported source '${source}'. Expected strava, garmin, or dropbox."
             exit 1
           fi
           echo "SYNC_SOURCE=${source}" >> "$GITHUB_ENV"
@@ -78,6 +79,9 @@ jobs:
           GARMIN_TOKENS_B64: ${{ secrets.GARMIN_TOKENS_B64 }}
           GARMIN_EMAIL: ${{ secrets.GARMIN_EMAIL }}
           GARMIN_PASSWORD: ${{ secrets.GARMIN_PASSWORD }}
+          DROPBOX_APP_KEY: ${{ secrets.DROPBOX_APP_KEY }}
+          DROPBOX_APP_SECRET: ${{ secrets.DROPBOX_APP_SECRET }}
+          DROPBOX_REFRESH_TOKEN: ${{ secrets.DROPBOX_REFRESH_TOKEN }}
         run: |
           missing=()
 
@@ -89,8 +93,12 @@ jobs:
             if [[ -z "$GARMIN_TOKENS_B64" && ( -z "$GARMIN_EMAIL" || -z "$GARMIN_PASSWORD" ) ]]; then
               missing+=("GARMIN_TOKENS_B64 or GARMIN_EMAIL+GARMIN_PASSWORD")
             fi
+          elif [[ "${SYNC_SOURCE}" == "dropbox" ]]; then
+            [[ -n "$DROPBOX_APP_KEY" ]] || missing+=("DROPBOX_APP_KEY")
+            [[ -n "$DROPBOX_APP_SECRET" ]] || missing+=("DROPBOX_APP_SECRET")
+            [[ -n "$DROPBOX_REFRESH_TOKEN" ]] || missing+=("DROPBOX_REFRESH_TOKEN")
           else
-            missing+=("SYNC_SOURCE must be strava or garmin")
+            missing+=("SYNC_SOURCE must be strava, garmin, or dropbox")
           fi
 
           if [ ${#missing[@]} -gt 0 ]; then
@@ -112,6 +120,11 @@ jobs:
           GARMIN_TOKENS_B64: ${{ secrets.GARMIN_TOKENS_B64 }}
           GARMIN_EMAIL: ${{ secrets.GARMIN_EMAIL }}
           GARMIN_PASSWORD: ${{ secrets.GARMIN_PASSWORD }}
+          DROPBOX_APP_KEY: ${{ secrets.DROPBOX_APP_KEY }}
+          DROPBOX_APP_SECRET: ${{ secrets.DROPBOX_APP_SECRET }}
+          DROPBOX_REFRESH_TOKEN: ${{ secrets.DROPBOX_REFRESH_TOKEN }}
+          DASHBOARD_DROPBOX_FOLDER_PATH: ${{ vars.DASHBOARD_DROPBOX_FOLDER_PATH }}
+          DASHBOARD_DROPBOX_LOOKBACK_DAYS: ${{ vars.DASHBOARD_DROPBOX_LOOKBACK_DAYS }}
           DASHBOARD_DISTANCE_UNIT: ${{ vars.DASHBOARD_DISTANCE_UNIT }}
           DASHBOARD_ELEVATION_UNIT: ${{ vars.DASHBOARD_ELEVATION_UNIT }}
           DASHBOARD_WEEK_START: ${{ vars.DASHBOARD_WEEK_START }}
@@ -134,7 +147,7 @@ jobs:
             if [[ "${normalized_links_value}" == "1" || "${normalized_links_value}" == "true" || "${normalized_links_value}" == "yes" || "${normalized_links_value}" == "y" || "${normalized_links_value}" == "on" ]]; then
               echo "  include_activity_urls: true" >> config.local.yaml
             fi
-          else
+          elif [[ "${SYNC_SOURCE}" == "garmin" ]]; then
             cat <<CONFIG >> config.local.yaml
           garmin:
             token_store_b64: "${GARMIN_TOKENS_B64}"
@@ -147,6 +160,19 @@ jobs:
             normalized_links_value="$(echo "${DASHBOARD_GARMIN_ACTIVITY_LINKS}" | tr '[:upper:]' '[:lower:]' | xargs)"
             if [[ "${normalized_links_value}" == "1" || "${normalized_links_value}" == "true" || "${normalized_links_value}" == "yes" || "${normalized_links_value}" == "y" || "${normalized_links_value}" == "on" ]]; then
               echo "  include_activity_urls: true" >> config.local.yaml
+            fi
+          else
+            cat <<CONFIG >> config.local.yaml
+          dropbox:
+            app_key: "${DROPBOX_APP_KEY}"
+            app_secret: "${DROPBOX_APP_SECRET}"
+            refresh_token: "${DROPBOX_REFRESH_TOKEN}"
+          CONFIG
+            if [[ -n "${DASHBOARD_DROPBOX_FOLDER_PATH}" ]]; then
+              echo "  folder_path: \"${DASHBOARD_DROPBOX_FOLDER_PATH}\"" >> config.local.yaml
+            fi
+            if [[ -n "${DASHBOARD_DROPBOX_LOOKBACK_DAYS}" ]]; then
+              echo "  lookback_days: ${DASHBOARD_DROPBOX_LOOKBACK_DAYS}" >> config.local.yaml
             fi
           fi
 

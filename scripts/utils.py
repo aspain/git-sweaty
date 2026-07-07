@@ -8,7 +8,7 @@ import yaml
 CONFIG_PATH = "config.yaml"
 CONFIG_LOCAL_PATH = "config.local.yaml"
 DEFAULT_SOURCE = "strava"
-SUPPORTED_SOURCES = {"strava", "garmin"}
+SUPPORTED_SOURCES = {"strava", "garmin", "dropbox"}
 
 
 def _deep_merge(base: Dict[str, Any], override: Dict[str, Any]) -> Dict[str, Any]:

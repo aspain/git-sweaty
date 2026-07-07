@@ -14,6 +14,7 @@ from repo_helpers import (
     normalize_repo_slug,
     pages_url_from_slug,
 )
+from sync_dropbox import sync_dropbox
 from sync_garmin import sync_garmin
 from sync_strava import sync_strava
 from utils import ensure_dir, load_config, normalize_source, write_json
@@ -33,6 +34,7 @@ RESETTABLE_STATE_FILES = [
     os.path.join("data", "backfill_state.json"),
     os.path.join("data", "backfill_state_strava.json"),
     os.path.join("data", "backfill_state_garmin.json"),
+    os.path.join("data", "backfill_state_dropbox.json"),
     os.path.join("data", "athletes.json"),
     os.path.join("data", "athletes_strava.json"),
     os.path.join("data", "athletes_garmin.json"),
@@ -41,9 +43,11 @@ RESETTABLE_RAW_DIRS = [
     os.path.join("activities", "raw"),
     os.path.join("activities", "raw", "strava"),
     os.path.join("activities", "raw", "garmin"),
+    os.path.join("activities", "raw", "dropbox"),
 ]
 SOURCE_HINT_STRAVA = "strava"
 SOURCE_HINT_GARMIN = "garmin"
+SOURCE_HINT_DROPBOX = "dropbox"
 SOURCE_HINT_MIXED = "mixed"
 README_LIVE_SITE_RE = re.compile(
     r"(?im)^([ \t]*(?:-\s*)?(?:Live site:\s*\[Interactive Heatmaps\]|View the Interactive \[Activity Dashboard\])\()https?://[^)]+(\)[ \t]*\.?[ \t]*)$",
@@ -196,17 +200,27 @@ def _reset_for_source_switch() -> None:
 def _detect_persisted_source_hint() -> Optional[str]:
     has_strava_state = os.path.exists(os.path.join("data", "backfill_state_strava.json"))
     has_garmin_state = os.path.exists(os.path.join("data", "backfill_state_garmin.json"))
+    has_dropbox_state = os.path.exists(os.path.join("data", "backfill_state_dropbox.json"))
     has_strava_raw = os.path.isdir(os.path.join("activities", "raw", "strava"))
     has_garmin_raw = os.path.isdir(os.path.join("activities", "raw", "garmin"))
+    has_dropbox_raw = os.path.isdir(os.path.join("activities", "raw", "dropbox"))
 
     has_strava = has_strava_state or has_strava_raw
     has_garmin = has_garmin_state or has_garmin_raw
-    if has_strava and has_garmin:
+    has_dropbox = has_dropbox_state or has_dropbox_raw
+    present = [
+        hint
+        for hint, flag in (
+            (SOURCE_HINT_STRAVA, has_strava),
+            (SOURCE_HINT_GARMIN, has_garmin),
+            (SOURCE_HINT_DROPBOX, has_dropbox),
+        )
+        if flag
+    ]
+    if len(present) > 1:
         return SOURCE_HINT_MIXED
-    if has_strava:
-        return SOURCE_HINT_STRAVA
-    if has_garmin:
-        return SOURCE_HINT_GARMIN
+    if present:
+        return present[0]
     return None
 
 
@@ -215,6 +229,8 @@ def _sync_for_source(source: str, dry_run: bool, prune_deleted: bool):
         return sync_strava(dry_run=dry_run, prune_deleted=prune_deleted)
     if source == "garmin":
         return sync_garmin(dry_run=dry_run, prune_deleted=prune_deleted)
+    if source == "dropbox":
+        return sync_dropbox(dry_run=dry_run, prune_deleted=prune_deleted)
     raise ValueError(f"Unsupported source '{source}'")
 
 

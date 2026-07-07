@@ -16,6 +16,14 @@ garmin:
   include_activity_urls: false # when true, tooltip details can show links to individual Garmin activities
   strict_token_only: false # when true, only token_store_b64 is used (no email/password fallback)
 
+dropbox:
+  app_key: ""
+  app_secret: ""
+  refresh_token: ""
+  folder_path: "/Apps/HealthFitExporter" # Dropbox folder containing exported .fit files
+  lookback_days: 14 # rolling window: only files with a filename date within the last N days are considered
+  profile_url: "" # optional dashboard header profile link
+
 sync:
   # Optional history limits:
   # start_date: "2019-01-01" # YYYY-MM-DD lower bound
