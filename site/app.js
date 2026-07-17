@@ -1384,9 +1384,16 @@ function weekIndexFromSundayStart(date, start) {
   return Math.floor((localDayNumber(date) - localDayNumber(start)) / 7);
 }
 
-function weekOfYear(date) {
+function weekStartOnOrBeforeLocal(date, weekStart) {
+  const offset = weekdayRowFromStart(date.getDay(), weekStart);
+  const result = new Date(date.getTime());
+  result.setDate(result.getDate() - offset);
+  return result;
+}
+
+function weekOfYear(date, weekStart = WEEK_START_SUNDAY) {
   const yearStart = new Date(date.getFullYear(), 0, 1);
-  const start = sundayOnOrBefore(yearStart);
+  const start = weekStartOnOrBeforeLocal(yearStart, weekStart);
   return weekIndexFromSundayStart(date, start) + 1;
 }
 
@@ -2545,6 +2552,30 @@ function createTooltipLinkedTypeLine(prefix, label, suffix, href) {
   return segments;
 }
 
+function createTooltipActivityLine(prefix, typeLabel, activityName, href) {
+  const segments = [];
+  const label = String(typeLabel || "").trim();
+  const name = String(activityName || "").trim();
+  if (prefix) segments.push({ text: prefix });
+  if (!name) {
+    if (href) {
+      segments.push({ text: label, href });
+    } else {
+      segments.push({ text: label });
+    }
+    return segments;
+  }
+  if (label) {
+    segments.push({ text: `${label}: ` });
+  }
+  if (href) {
+    segments.push({ text: name, href });
+  } else {
+    segments.push({ text: name });
+  }
+  return segments;
+}
+
 function formatTooltipDuration(seconds) {
   const durationMinutes = Math.round(Number(seconds || 0) / 60);
   if (durationMinutes >= 60) {
@@ -2615,6 +2646,15 @@ function flattenTooltipActivityLinks(activityLinksByType) {
   return links;
 }
 
+function createSingleTooltipActivityLine(typeLabel, activityLinksByType) {
+  const allLinks = flattenTooltipActivityLinks(activityLinksByType);
+  if (allLinks.length !== 1) {
+    return createTooltipTextLine(typeLabel);
+  }
+  const activity = allLinks[0] || {};
+  return createTooltipActivityLine("", typeLabel, activity.name || "", activity.href || "");
+}
+
 function firstTooltipActivityLink(activityLinksByType, preferredType) {
   if (!activityLinksByType || typeof activityLinksByType !== "object") {
     return "";
@@ -2650,12 +2690,34 @@ function formatTypeBreakdownLinesWithLinks(
     const links = Array.isArray(activityLinksByType?.[activityType])
       ? activityLinksByType[activityType]
       : [];
-    const hasSingleLinkedType = count === 1 && links.length === 1 && normalizeTooltipHref(links[0]?.href);
+    const linkedActivities = links
+      .map((entry, index) => {
+        const href = normalizeTooltipHref(entry?.href);
+        if (!href) return null;
+        const rawName = String(entry?.name || "").trim();
+        return {
+          href,
+          name: rawName || `${typeLabel} ${index + 1}`,
+        };
+      })
+      .filter(Boolean);
+    const hasSingleLinkedType = count === 1 && linkedActivities.length === 1;
+    const hasCompleteLinkedActivityList = count > 1 && linkedActivities.length === count;
 
     if (hasSingleLinkedType) {
-      lines.push(createTooltipLinkedTypeLine("", typeLabel, `: ${count}`, links[0].href));
+      const activity = linkedActivities[0];
+      lines.push(createTooltipActivityLine("", typeLabel, activity.name, activity.href));
+    } else if (hasCompleteLinkedActivityList) {
+      linkedActivities.forEach((activity) => {
+        lines.push(createTooltipActivityLine("", typeLabel, activity.name, activity.href));
+      });
     } else {
       lines.push(createTooltipTextLine(`${typeLabel}: ${count}`));
+      if (count > 1 && linkedActivities.length) {
+        linkedActivities.forEach((activity) => {
+          lines.push(createTooltipActivityLine("", typeLabel, activity.name, activity.href));
+        });
+      }
     }
 
     const typeMetrics = typeMetricsByType && typeof typeMetricsByType === "object"
@@ -2663,14 +2725,6 @@ function formatTypeBreakdownLinesWithLinks(
       : null;
     if (typeMetrics && typeof typeMetrics === "object") {
       lines.push(...formatTooltipMetricLines(typeMetrics, units, "- "));
-    }
-
-    if (count > 1 && links.length > 1) {
-      links.forEach((entry, index) => {
-        const fallbackName = `${typeLabel} ${index + 1}`;
-        const name = String(entry?.name || "").trim() || fallbackName;
-        lines.push(createTooltipLinkedTypeLine("    - ", name, "", entry?.href || ""));
-      });
     }
   });
 
@@ -3256,14 +3310,11 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
     const singleTypeLabel = type === "all"
       ? getSingleActivityTooltipTypeLabel(typeBreakdown, entry, typeLabels)
       : (Number(entry.count || 0) === 1 ? displayType(type) : "");
-    const singleActivityLink = Number(entry.count || 0) === 1
-      ? firstTooltipActivityLink(activityLinksByType, type)
-      : "";
     const shouldShowPerTypeMetrics = type === "all" && Number(entry.count || 0) > 1;
     let renderedTypeBreakdown = false;
     const lines = [createTooltipTextLine(dateStr)];
     if (singleTypeLabel) {
-      lines.push(createTooltipLinkedTypeLine("", singleTypeLabel, "", singleActivityLink));
+      lines.push(createSingleTooltipActivityLine(singleTypeLabel, activityLinksByType));
     } else {
       lines.push(createTooltipTextLine(formatActivityCountLabel(entry.count, type === "all" ? [] : [type])));
     }
@@ -3290,7 +3341,7 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
 
     const showAggregateTotals = !(shouldShowPerTypeMetrics && renderedTypeBreakdown);
     if (showAggregateTotals) {
-      lines.push(...formatTooltipMetricLines(entry, units));
+      lines.push(...formatTooltipMetricLines(entry, units, "- "));
     }
     const tooltipContent = { lines };
     const canPinTooltip = Boolean(flattenTooltipActivityLinks(activityLinksByType).length);
@@ -3788,6 +3839,8 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
   const emptyColor = DEFAULT_COLORS[0];
   const selectedYearSet = new Set(yearsDesc.map(Number));
   const units = normalizeUnits(options.units || payload.units || DEFAULT_UNITS);
+  const weekStart = normalizeWeekStart(options.weekStart);
+  const dayLabels = WEEKDAY_LABELS_BY_WEEK_START[weekStart] || DAYS;
   const onFactStateChange = typeof options.onFactStateChange === "function"
     ? options.onFactStateChange
     : null;
@@ -3831,9 +3884,9 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
         type: activity.type,
         subtype: getActivitySubtypeLabel(activity),
         year,
-        dayIndex: date.getDay(),
+        dayIndex: weekdayRowFromStart(date.getDay(), weekStart),
         monthIndex: date.getMonth(),
-        weekIndex: weekOfYear(date),
+        weekIndex: weekOfYear(date, weekStart),
         hour: hasHour ? hourValue : null,
         active_days: 1,
         distance: perActivityMetricValue("distance"),
@@ -3868,9 +3921,9 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
         type: "",
         subtype: "",
         year,
-        dayIndex: date.getDay(),
+        dayIndex: weekdayRowFromStart(date.getDay(), weekStart),
         monthIndex: date.getMonth(),
-        weekIndex: weekOfYear(date),
+        weekIndex: weekOfYear(date, weekStart),
         hour: null,
         active_days: 0,
         [DAYS_OFF_METRIC_KEY]: 1,
@@ -3880,7 +3933,9 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
 
   const formatBreakdown = (total, breakdown) => formatTooltipBreakdown(total, breakdown, types);
 
-  const dayDisplayLabels = ["Sun", "", "", "Wed", "", "", "Sat"];
+  const dayDisplayLabels = dayLabels.map((label, index) => (
+    index === 0 || index === 3 || index === 6 ? label : ""
+  ));
   const monthDisplayLabels = ["Jan", "", "Mar", "", "May", "", "Jul", "", "Sep", "", "Nov", ""];
 
   const buildZeroedMatrix = (columns) => visibleYearsDesc.map(() => new Array(columns).fill(0));
@@ -4138,7 +4193,7 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
         matrixData.dayMatrix,
         color,
         {
-          tooltipLabels: DAYS,
+          tooltipLabels: dayLabels,
           emptyColor,
           tooltipFormatter: (year, label, value, row, col) => {
             const breakdown = matrixData.dayBreakdowns[row][col] || {};
@@ -4906,6 +4961,7 @@ async function init() {
         if (showMoreStats) {
           const frequencyCard = buildStatsOverview(payload, types, cardYears, frequencyCardColor, {
             units: currentUnits,
+            weekStart: setupWeekStart,
             initialFactKey: selectedFrequencyFactKey,
             initialMetricKey: initialFrequencyMetricKey,
             onFactStateChange: onFrequencyFactStateChange,
@@ -4979,6 +5035,7 @@ async function init() {
           if (showMoreStats) {
             const frequencyCard = buildStatsOverview(payload, [type], cardYears, frequencyCardColor, {
               units: currentUnits,
+              weekStart: setupWeekStart,
               initialFactKey: selectedFrequencyFactKey,
               initialMetricKey: initialFrequencyMetricKey,
               onFactStateChange: onFrequencyFactStateChange,

@@ -140,6 +140,26 @@ prompt_fork_name() {
   done
 }
 
+prompt_repo_name() {
+  local prompt_label="$1"
+  local default_name="$2"
+  local answer
+
+  while true; do
+    read -r -p "${prompt_label} (repo only, default: ${default_name}): " answer || return 1
+    answer="$(trim_whitespace "$answer")"
+    if [[ -z "$answer" ]]; then
+      answer="$default_name"
+    fi
+
+    if [[ "$answer" =~ ^[A-Za-z0-9._-]+$ ]]; then
+      printf '%s\n' "$answer"
+      return 0
+    fi
+    warn "Invalid repository name. Use only letters, numbers, '.', '_' or '-'."
+  done
+}
+
 is_valid_repo_slug() {
   local slug="$1"
   [[ "$slug" =~ ^[^/[:space:]]+/[^/[:space:]]+$ ]]
@@ -266,19 +286,159 @@ require_cmd() {
   have_cmd "$1" || fail "Missing required command: $1"
 }
 
+run_with_optional_sudo() {
+  if [[ "$(id -u)" -eq 0 ]]; then
+    "$@"
+    return $?
+  fi
+  if have_cmd sudo; then
+    sudo "$@"
+    return $?
+  fi
+  return 1
+}
+
+install_gh_with_package_manager() {
+  local method="${1:-}"
+
+  case "$method" in
+    brew)
+      info "Installing GitHub CLI with Homebrew..."
+      brew install gh
+      ;;
+    apt-get)
+      info "Installing GitHub CLI with apt-get..."
+      run_with_optional_sudo apt-get update || return 1
+      run_with_optional_sudo apt-get install -y gh
+      ;;
+    dnf)
+      info "Installing GitHub CLI with dnf..."
+      run_with_optional_sudo dnf install -y gh
+      ;;
+    yum)
+      info "Installing GitHub CLI with yum..."
+      run_with_optional_sudo yum install -y gh
+      ;;
+    pacman)
+      info "Installing GitHub CLI with pacman..."
+      run_with_optional_sudo pacman -Sy --noconfirm github-cli
+      ;;
+    zypper)
+      info "Installing GitHub CLI with zypper..."
+      run_with_optional_sudo zypper --non-interactive install gh
+      ;;
+    apk)
+      info "Installing GitHub CLI with apk..."
+      run_with_optional_sudo apk add gh
+      ;;
+    snap)
+      info "Installing GitHub CLI with snap..."
+      run_with_optional_sudo snap install gh --classic
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+detect_gh_install_method() {
+  local candidate
+  for candidate in brew apt-get dnf yum pacman zypper apk snap; do
+    if have_cmd "$candidate"; then
+      printf '%s\n' "$candidate"
+      return 0
+    fi
+  done
+  return 1
+}
+
+gh_install_method_label() {
+  case "${1:-}" in
+    brew) printf '%s\n' "Homebrew" ;;
+    apt-get) printf '%s\n' "apt-get" ;;
+    dnf) printf '%s\n' "dnf" ;;
+    yum) printf '%s\n' "yum" ;;
+    pacman) printf '%s\n' "pacman" ;;
+    zypper) printf '%s\n' "zypper" ;;
+    apk) printf '%s\n' "apk" ;;
+    snap) printf '%s\n' "snap" ;;
+    *) printf '%s\n' "$1" ;;
+  esac
+}
+
+wait_for_github_account_ready() {
+  info "Open https://github.com/signup in your browser and create your GitHub account."
+  info "Leave this terminal open and come back here when you are done."
+
+  while true; do
+    if prompt_yes_no "Did you set up your GitHub account and are you ready to continue?" "Y"; then
+      return 0
+    fi
+
+    if prompt_yes_no "Keep waiting here while you finish GitHub signup?" "Y"; then
+      info "No problem. Complete signup in your browser, then answer yes here."
+      continue
+    fi
+
+    fail "GitHub account is required to continue. Re-run bootstrap after signup: https://github.com/signup"
+  done
+}
+
+ensure_gh_installed() {
+  local install_method install_label
+
+  if have_cmd gh; then
+    return 0
+  fi
+
+  info ""
+  info "GitHub CLI ('gh') is required so setup can create or select a repository, store secrets, and configure GitHub Pages."
+  info "You will need a GitHub account before continuing."
+  if is_wsl; then
+    info "Windows note: this setup runs inside WSL, so any automatic GitHub CLI install happens inside your WSL Linux environment."
+  fi
+  if ! prompt_yes_no "Do you already have a GitHub account?" "Y"; then
+    wait_for_github_account_ready
+  fi
+
+  install_method="$(detect_gh_install_method || true)"
+  if [[ -n "$install_method" ]]; then
+    install_label="$(gh_install_method_label "$install_method")"
+    info "Detected package manager for automatic GitHub CLI install: ${install_label}."
+  else
+    warn "No supported package manager was detected for automatic GitHub CLI install."
+    warn "Supported automatic install paths: Homebrew, apt-get, dnf, yum, pacman, zypper, apk, snap."
+  fi
+
+  if prompt_yes_no "Try to install GitHub CLI ('gh') automatically now?" "Y"; then
+    if [[ -n "$install_method" ]] && install_gh_with_package_manager "$install_method" && have_cmd gh; then
+      info "GitHub CLI installed."
+      return 0
+    fi
+    if [[ -n "$install_method" ]]; then
+      warn "Automatic GitHub CLI installation with ${install_label} did not succeed."
+    else
+      warn "Automatic GitHub CLI installation is not available in this environment."
+    fi
+  fi
+
+  fail "GitHub CLI ('gh') is required. Install it from https://cli.github.com/ and re-run bootstrap."
+}
+
 gh_is_authenticated() {
   gh auth status >/dev/null 2>&1
 }
 
 ensure_gh_auth() {
-  require_cmd gh
+  ensure_gh_installed
   if gh_is_authenticated; then
     return 0
   fi
 
   info "GitHub CLI is not authenticated."
-  if prompt_yes_no "Run gh auth login now?" "Y"; then
-    gh auth login
+  info "If you do not have a GitHub account yet, create one first: https://github.com/signup"
+  if prompt_yes_no "Run GitHub sign-in now? This will request the repo and workflow permissions needed for setup." "Y"; then
+    gh auth login --web --git-protocol https --scopes repo,workflow
   fi
 
   gh_is_authenticated || fail "GitHub CLI auth is required. Run 'gh auth login' and re-run bootstrap."
@@ -287,6 +447,11 @@ ensure_gh_auth() {
 repo_name_from_slug() {
   local slug="$1"
   printf '%s\n' "${slug##*/}"
+}
+
+repo_owner_from_slug() {
+  local slug="$1"
+  printf '%s\n' "${slug%%/*}"
 }
 
 discover_existing_fork_repo() {
@@ -376,6 +541,8 @@ ensure_fork_exists() {
       BOOTSTRAP_SELECTED_FORK_REPO="$existing_fork"
       return 0
     fi
+
+    fail "GitHub only allows one fork of ${upstream_repo} per account. Reuse ${existing_fork}, or use Recommended online-only mode to create a separate non-fork repository."
   fi
 
   default_fork_name="$(repo_name_from_slug "$upstream_repo")"
@@ -383,7 +550,8 @@ ensure_fork_exists() {
   fork_repo="${login}/${fork_name}"
   info "Creating fork repository: $fork_repo"
 
-  fork_cmd=(gh repo fork "$upstream_repo" --clone=false --remote=false)
+  # Omit explicit false boolean flags for broad gh CLI compatibility.
+  fork_cmd=(gh repo fork "$upstream_repo")
   if [[ "$fork_name" != "$default_fork_name" ]]; then
     fork_cmd+=(--fork-name "$fork_name")
   fi
@@ -619,10 +787,36 @@ fork_and_clone() {
   BOOTSTRAP_SELECTED_REPO_DIR="$repo_dir"
 }
 
+create_or_use_repo_for_login() {
+  local login="$1"
+  local default_repo_name="$2"
+  local repo_name repo_slug can_push
+
+  if prompt_yes_no "Use a custom name for your new repository?" "N"; then
+    repo_name="$(prompt_repo_name "Repository name" "$default_repo_name")"
+  else
+    repo_name="$default_repo_name"
+  fi
+
+  repo_slug="${login}/${repo_name}"
+  if gh repo view "$repo_slug" >/dev/null 2>&1; then
+    can_push="$(gh api "repos/${repo_slug}" --jq '.permissions.push' 2>/dev/null || true)"
+    [[ "$can_push" == "true" ]] || fail "Current gh account does not have write access to: $repo_slug"
+    printf 'Using existing repository: %s\n' "$repo_slug" >&2
+    printf '%s\n' "$repo_slug"
+    return 0
+  fi
+
+  printf 'Creating new public repository: %s\n' "$repo_slug" >&2
+  gh repo create "$repo_slug" --public >/dev/null 2>&1 || fail "Unable to create repository: $repo_slug"
+  gh repo view "$repo_slug" >/dev/null 2>&1 || fail "Repository is not accessible after creation: $repo_slug"
+  printf '%s\n' "$repo_slug"
+}
+
 run_online_setup() {
   local upstream_repo="$1"
   shift || true
-  local login target_repo default_branch archive_url tmp_dir archive_path extract_dir extracted_root setup_script status
+  local login target_repo default_branch archive_url tmp_dir archive_path extract_dir extracted_root setup_script status upstream_owner default_repo_name existing_fork
 
   require_cmd curl
   require_cmd python3
@@ -631,13 +825,40 @@ run_online_setup() {
 
   login="$(gh api user --jq .login 2>/dev/null || true)"
   [[ -n "$login" ]] || fail "Unable to resolve GitHub username from current gh auth session."
+  upstream_owner="$(repo_owner_from_slug "$upstream_repo")"
+  default_repo_name="$(repo_name_from_slug "$upstream_repo")-dashboard"
 
-  if prompt_yes_no "Create/use a fork in your GitHub account first? (recommended)" "Y"; then
-    ensure_fork_exists "$upstream_repo" "Y"
-    target_repo="$BOOTSTRAP_SELECTED_FORK_REPO"
+  if [[ "$login" == "$upstream_owner" ]]; then
+    info "You are signed into the upstream owner account (${login}). GitHub cannot fork a repository into the same account."
+    if prompt_yes_no "Create or reuse a separate repository in ${login} instead? (recommended)" "Y"; then
+      target_repo="$(create_or_use_repo_for_login "$login" "$default_repo_name")"
+    else
+      target_repo="$(prompt_repo_slug "" "$login")"
+    fi
   else
-    info "Using non-fork mode: target repository must be writable by the current gh account."
-    target_repo="$(prompt_repo_slug "$(detect_existing_fork_repo "$upstream_repo" "$login" || true)" "$login")"
+    if prompt_yes_no "Create/use a fork in your GitHub account first? (recommended)" "Y"; then
+      existing_fork="$(detect_existing_fork_repo "$upstream_repo" "$login" || true)"
+      if [[ -n "$existing_fork" ]]; then
+        info "Found existing fork: $existing_fork"
+        if prompt_yes_no "Use this fork?" "Y"; then
+          target_repo="$existing_fork"
+        else
+          info "GitHub only allows one fork of ${upstream_repo} per account."
+          if prompt_yes_no "Create or reuse a separate non-fork repository in ${login} instead?" "Y"; then
+            target_repo="$(create_or_use_repo_for_login "$login" "$default_repo_name")"
+          else
+            info "Using non-fork mode: target repository must be writable by the current gh account."
+            target_repo="$(prompt_repo_slug "" "$login")"
+          fi
+        fi
+      else
+        ensure_fork_exists "$upstream_repo" "Y"
+        target_repo="$BOOTSTRAP_SELECTED_FORK_REPO"
+      fi
+    else
+      info "Using non-fork mode: target repository must be writable by the current gh account."
+      target_repo="$(prompt_repo_slug "$(detect_existing_fork_repo "$upstream_repo" "$login" || true)" "$login")"
+    fi
   fi
 
   info ""

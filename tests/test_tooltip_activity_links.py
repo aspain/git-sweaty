@@ -25,11 +25,13 @@ class TooltipActivityLinksTests(unittest.TestCase):
             "normalize_tooltip_href": r"function normalizeTooltipHref\(value\)\s*{[\s\S]*?\n}\n",
             "create_text_line": r"function createTooltipTextLine\(text\)\s*{[\s\S]*?\n}\n",
             "create_linked_line": r"function createTooltipLinkedTypeLine\(prefix, label, suffix, href\)\s*{[\s\S]*?\n}\n",
+            "create_activity_line": r"function createTooltipActivityLine\(prefix, typeLabel, activityName, href\)\s*{[\s\S]*?\n}\n",
             "format_tooltip_duration": r"function formatTooltipDuration\(seconds\)\s*{[\s\S]*?\n}\n",
             "format_tooltip_metric_lines": r"function formatTooltipMetricLines\(entry, units, prefix = \"\"\)\s*{[\s\S]*?\n}\n",
             "activity_order": r"function activityTypeOrderForTooltip\(typeBreakdown, types\)\s*{[\s\S]*?\n}\n",
             "format_lines_with_links": r"function formatTypeBreakdownLinesWithLinks\(\s*typeBreakdown,\s*types,\s*activityLinksByType,\s*typeMetricsByType = null,\s*units = \{ distance: \"mi\", elevation: \"ft\" \},\s*\)\s*{[\s\S]*?\n}\n",
             "flatten_links": r"function flattenTooltipActivityLinks\(activityLinksByType\)\s*{[\s\S]*?\n}\n",
+            "single_activity_line": r"function createSingleTooltipActivityLine\(typeLabel, activityLinksByType\)\s*{[\s\S]*?\n}\n",
             "first_link": r"function firstTooltipActivityLink\(activityLinksByType, preferredType\)\s*{[\s\S]*?\n}\n",
         }
         extracted: dict[str, str] = {}
@@ -51,11 +53,13 @@ class TooltipActivityLinksTests(unittest.TestCase):
             f"{self.sources['normalize_tooltip_href']}\n"
             f"{self.sources['create_text_line']}\n"
             f"{self.sources['create_linked_line']}\n"
+            f"{self.sources['create_activity_line']}\n"
             f"{self.sources['format_tooltip_duration']}\n"
             f"{self.sources['format_tooltip_metric_lines']}\n"
             f"{self.sources['activity_order']}\n"
             f"{self.sources['format_lines_with_links']}\n"
             f"{self.sources['flatten_links']}\n"
+            f"{self.sources['single_activity_line']}\n"
             f"{self.sources['first_link']}\n"
             "const payload = JSON.parse(process.argv[1]);\n"
             f"const result = {expression};\n"
@@ -84,10 +88,10 @@ class TooltipActivityLinksTests(unittest.TestCase):
         )
         self.assertEqual(
             result,
-            [[{"text": "Weight Training", "href": "https://www.strava.com/activities/101"}, {"text": ": 1"}]],
+            [[{"text": "Weight Training: "}, {"text": "Session", "href": "https://www.strava.com/activities/101"}]],
         )
 
-    def test_format_type_breakdown_links_lists_indented_entries_for_multiple_same_type(self) -> None:
+    def test_format_type_breakdown_links_lists_activity_rows_for_multiple_same_type(self) -> None:
         result = self._run_js(
             "formatTypeBreakdownLinesWithLinks(payload.breakdown, payload.types, payload.links)",
             {
@@ -101,14 +105,13 @@ class TooltipActivityLinksTests(unittest.TestCase):
                 },
             },
         )
-        self.assertEqual(result[0], [{"text": "Trail Run: 2"}])
         self.assertEqual(
-            result[1],
-            [{"text": "    - "}, {"text": "Trail Run 1", "href": "https://www.strava.com/activities/202"}],
+            result[0],
+            [{"text": "Trail Run: "}, {"text": "Trail Run 1", "href": "https://www.strava.com/activities/202"}],
         )
         self.assertEqual(
-            result[2],
-            [{"text": "    - "}, {"text": "Trail Run 2", "href": "https://www.strava.com/activities/203"}],
+            result[1],
+            [{"text": "Trail Run: "}, {"text": "Trail Run 2", "href": "https://www.strava.com/activities/203"}],
         )
 
     def test_format_type_breakdown_lines_include_per_type_metrics(self) -> None:
@@ -135,6 +138,63 @@ class TooltipActivityLinksTests(unittest.TestCase):
                 [{"text": "Other Workout: 1"}],
                 [{"text": "- Duration: 1h 12m"}],
             ],
+        )
+
+    def test_single_activity_metric_lines_use_hyphen_prefix(self) -> None:
+        result = self._run_js(
+            "formatTooltipMetricLines(payload.entry, payload.units, '- ')",
+            {
+                "entry": {"distance": 1609.344, "elevation_gain": 30.48, "moving_time": 3600},
+                "units": {"distance": "mi", "elevation": "ft"},
+            },
+        )
+        self.assertEqual(
+            result,
+            [
+                [{"text": "- Distance: 1.00 mi"}],
+                [{"text": "- Elevation: 100 ft"}],
+                [{"text": "- Duration: 1h 0m"}],
+            ],
+        )
+
+    def test_format_type_breakdown_preserves_count_when_only_some_links_are_available(self) -> None:
+        result = self._run_js(
+            "formatTypeBreakdownLinesWithLinks(payload.breakdown, payload.types, payload.links)",
+            {
+                "breakdown": {"typeCounts": {"TrailRun": 3}},
+                "types": ["TrailRun"],
+                "links": {
+                    "TrailRun": [
+                        {"href": "https://www.strava.com/activities/202", "name": "Trail Run 1"},
+                        {"href": "https://www.strava.com/activities/203", "name": "Trail Run 2"},
+                    ]
+                },
+            },
+        )
+        self.assertEqual(
+            result,
+            [
+                [{"text": "Trail Run: 3"}],
+                [{"text": "Trail Run: "}, {"text": "Trail Run 1", "href": "https://www.strava.com/activities/202"}],
+                [{"text": "Trail Run: "}, {"text": "Trail Run 2", "href": "https://www.strava.com/activities/203"}],
+            ],
+        )
+
+    def test_single_activity_line_uses_activity_name_when_unique_link_exists(self) -> None:
+        result = self._run_js(
+            "createSingleTooltipActivityLine(payload.typeLabel, payload.links)",
+            {
+                "typeLabel": "Ride",
+                "links": {
+                    "Ride": [
+                        {"href": "https://www.strava.com/activities/303", "name": "Outdoor Ride"},
+                    ]
+                },
+            },
+        )
+        self.assertEqual(
+            result,
+            [{"text": "Ride: "}, {"text": "Outdoor Ride", "href": "https://www.strava.com/activities/303"}],
         )
 
     def test_first_tooltip_activity_link_prefers_type_and_requires_unique_link(self) -> None:

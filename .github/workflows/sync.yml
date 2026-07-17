@@ -319,6 +319,71 @@ jobs:
             echo "::warning::Failed to update STRAVA_REFRESH_TOKEN automatically. Update it manually."
           fi
 
+      - name: Rotate Garmin token secret (optional)
+        env:
+          SYNC_SOURCE: ${{ env.SYNC_SOURCE }}
+          GARMIN_TOKENS_B64: ${{ secrets.GARMIN_TOKENS_B64 }}
+          GARMIN_SECRET_UPDATE_TOKEN: ${{ secrets.GARMIN_SECRET_UPDATE_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [[ "${SYNC_SOURCE}" != "garmin" ]]; then
+            echo "Skipping Garmin token rotation: source=${SYNC_SOURCE}."
+            exit 0
+          fi
+          if [[ ! -d ".garmin_token_store" ]]; then
+            echo "No local Garmin token store found; skipping token rotation."
+            exit 0
+          fi
+
+          new_token_store="$(python - <<'PY'
+          import base64
+          import io
+          import os
+          import zipfile
+
+          token_dir = ".garmin_token_store"
+          if not os.path.isdir(token_dir):
+              raise SystemExit(0)
+
+          buffer = io.BytesIO()
+          with zipfile.ZipFile(buffer, mode="w", compression=zipfile.ZIP_DEFLATED) as archive:
+              for root, _dirs, files in os.walk(token_dir):
+                  for filename in sorted(files):
+                      full_path = os.path.join(root, filename)
+                      rel_path = os.path.relpath(full_path, token_dir)
+                      info = zipfile.ZipInfo(rel_path)
+                      info.date_time = (1980, 1, 1, 0, 0, 0)
+                      info.compress_type = zipfile.ZIP_DEFLATED
+                      with open(full_path, "rb") as handle:
+                          archive.writestr(info, handle.read())
+          data = buffer.getvalue()
+          print(base64.b64encode(data).decode("ascii") if data else "")
+          PY
+          )"
+          if [[ -z "${new_token_store}" ]]; then
+            echo "No refreshed Garmin token store captured; skipping."
+            exit 0
+          fi
+          if [[ "${new_token_store}" == "${GARMIN_TOKENS_B64}" ]]; then
+            echo "Garmin token store unchanged."
+            exit 0
+          fi
+
+          if [[ -z "${GARMIN_SECRET_UPDATE_TOKEN}" ]]; then
+            echo "::warning::Garmin token store changed, but GARMIN_SECRET_UPDATE_TOKEN is not configured. Update GARMIN_TOKENS_B64 manually."
+            exit 0
+          fi
+          if ! command -v gh >/dev/null 2>&1; then
+            echo "::warning::gh CLI is unavailable on runner; cannot auto-rotate GARMIN_TOKENS_B64."
+            exit 0
+          fi
+
+          if printf '%s' "${new_token_store}" | GH_TOKEN="${GARMIN_SECRET_UPDATE_TOKEN}" gh secret set GARMIN_TOKENS_B64 --repo "${GITHUB_REPOSITORY}" --body -; then
+            echo "Updated GARMIN_TOKENS_B64 from refreshed Garmin token store."
+          else
+            echo "::warning::Failed to update GARMIN_TOKENS_B64 automatically. Update it manually."
+          fi
+
       - name: Commit README link update
         run: |
           set -euo pipefail
