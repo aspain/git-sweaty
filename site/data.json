@@ -12230,6 +12230,231 @@
       "type": "WeightTraining",
       "url": "https://connect.garmin.com/modern/activity/23570075015",
       "year": 2026
+    },
+    {
+      "date": "2026-07-13",
+      "hour": 7,
+      "name": "Baltimore County Trail Running",
+      "subtype": "trail_running",
+      "type": "TrailRun",
+      "url": "https://connect.garmin.com/modern/activity/23581254432",
+      "year": 2026
+    },
+    {
+      "date": "2026-07-15",
+      "hour": 7,
+      "name": "Strength",
+      "subtype": "strength_training",
+      "type": "WeightTraining",
+      "url": "https://connect.garmin.com/modern/activity/23606416146",
+      "year": 2026
+    },
+    {
+      "date": "2026-07-16",
+      "hour": 7,
+      "name": "Baltimore County Walking",
+      "subtype": "walking",
+      "type": "Walk",
+      "url": "https://connect.garmin.com/modern/activity/23618223764",
+      "year": 2026
+    },
+    {
+      "date": "2026-07-17",
+      "hour": 7,
+      "name": "Strength",
+      "subtype": "strength_training",
+      "type": "WeightTraining",
+      "url": "https://connect.garmin.com/modern/activity/23630173537",
+      "year": 2026
+    },
+    {
+      "date": "2026-07-20",
+      "hour": 8,
+      "name": "Ocean City Running",
+      "subtype": "running",
+      "type": "Run",
+      "url": "https://connect.garmin.com/modern/activity/23664491357",
+      "year": 2026
+    },
+    {
+      "date": "2026-07-25",
+      "hour": 8,
+      "name": "Strength",
+      "subtype": "strength_training",
+      "type": "WeightTraining",
+      "url": "https://connect.garmin.com/modern/activity/23728232623",
+      "year": 2026
+    },
+    {
+      "date": "2026-07-26",
+      "hour": 8,
+      "name": "Baltimore County Trail Running",
+      "subtype": "trail_running",
+      "type": "TrailRun",
+      "url": "https://connect.garmin.com/modern/activity/23738986461",
+      "year": 2026
+    },
+    {
+      "date": "2026-07-26",
+      "hour": 11,
+      "name": "Cardio",
+      "subtype": "indoor_cardio",
+      "type": "Workout",
+      "url": "https://connect.garmin.com/modern/activity/23741396738",
+      "year": 2026
+    },
+    {
+      "date": "2026-07-28",
+      "hour": 6,
+      "name": "Strength",
+      "subtype": "strength_training",
+      "type": "WeightTraining",
+      "url": "https://connect.garmin.com/modern/activity/23761911772",
+      "year": 2026
+    },
+    {
+      "date": "2026-07-29",
+      "hour": 7,
+      "name": "Baltimore County Trail Running",
+      "subtype": "trail_running",
+      "type": "TrailRun",
+      "url": "https://connect.garmin.com/modern/activity/23775499564",
+      "year": 2026
+    },
+    {
+      "date": "2026-07-31",
+      "hour": 7,
+      "name": "Strength",
+      "subtype": "strength_training",
+      "type": "WeightTraining",
+      "url": "https://connect.garmin.com/modern/activity/23800145878",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-02",
+      "hour": 8,
+      "name": "Baltimore County Trail Running",
+      "subtype": "trail_running",
+      "type": "TrailRun",
+      "url": "https://connect.garmin.com/modern/activity/23824937291",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-03",
+      "hour": 7,
+      "name": "Strength",
+      "subtype": "strength_training",
+      "type": "WeightTraining",
+      "url": "https://connect.garmin.com/modern/activity/23835190247",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-05",
+      "hour": 7,
+      "name": "Indoor Cycling",
+      "subtype": "indoor_cycling",
+      "type": "VirtualRide",
+      "url": "https://connect.garmin.com/modern/activity/23861260302",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-06",
+      "hour": 7,
+      "name": "Strength",
+      "subtype": "strength_training",
+      "type": "WeightTraining",
+      "url": "https://connect.garmin.com/modern/activity/23874088545",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-08",
+      "hour": 8,
+      "name": "Baltimore County Trail Running",
+      "subtype": "trail_running",
+      "type": "TrailRun",
+      "url": "https://connect.garmin.com/modern/activity/23898931957",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-08",
+      "hour": 16,
+      "name": "Cardio",
+      "subtype": "indoor_cardio",
+      "type": "Workout",
+      "url": "https://connect.garmin.com/modern/activity/23904141310",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-09",
+      "hour": 8,
+      "name": "Strength",
+      "subtype": "strength_training",
+      "type": "WeightTraining",
+      "url": "https://connect.garmin.com/modern/activity/23912226636",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-09",
+      "hour": 11,
+      "name": "Cardio",
+      "subtype": "indoor_cardio",
+      "type": "Workout",
+      "url": "https://connect.garmin.com/modern/activity/23913884279",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-11",
+      "hour": 7,
+      "name": "Baltimore County Trail Running",
+      "subtype": "trail_running",
+      "type": "TrailRun",
+      "url": "https://connect.garmin.com/modern/activity/23935260341",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-12",
+      "hour": 7,
+      "name": "Strength",
+      "subtype": "strength_training",
+      "type": "WeightTraining",
+      "url": "https://connect.garmin.com/modern/activity/23948832459",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-14",
+      "hour": 8,
+      "name": "Baltimore County Trail Running",
+      "subtype": "trail_running",
+      "type": "TrailRun",
+      "url": "https://connect.garmin.com/modern/activity/23974182122",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-15",
+      "hour": 9,
+      "name": "Strength",
+      "subtype": "strength_training",
+      "type": "WeightTraining",
+      "url": "https://connect.garmin.com/modern/activity/23987491663",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-15",
+      "hour": 17,
+      "name": "Cardio",
+      "subtype": "indoor_cardio",
+      "type": "Workout",
+      "url": "https://connect.garmin.com/modern/activity/23991567885",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-18",
+      "hour": 7,
+      "name": "Baltimore County Trail Running",
+      "subtype": "trail_running",
+      "type": "TrailRun",
+      "url": "https://connect.garmin.com/modern/activity/24021878312",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -23678,6 +23903,15 @@
           "distance": 4766.169921875,
           "elevation_gain": 115.0,
           "moving_time": 2187.208984375
+        },
+        "2026-07-20": {
+          "activity_ids": [
+            "23664491357"
+          ],
+          "count": 1,
+          "distance": 6579.1298828125,
+          "elevation_gain": 19.0,
+          "moving_time": 2300.4240112304688
         }
       },
       "TrailRun": {
@@ -23698,6 +23932,78 @@
           "distance": 5218.64990234375,
           "elevation_gain": 132.0,
           "moving_time": 2300.427001953125
+        },
+        "2026-07-13": {
+          "activity_ids": [
+            "23581254432"
+          ],
+          "count": 1,
+          "distance": 5112.490234375,
+          "elevation_gain": 131.0,
+          "moving_time": 2323.0
+        },
+        "2026-07-26": {
+          "activity_ids": [
+            "23738986461"
+          ],
+          "count": 1,
+          "distance": 5312.4501953125,
+          "elevation_gain": 135.0,
+          "moving_time": 2296.9120483398438
+        },
+        "2026-07-29": {
+          "activity_ids": [
+            "23775499564"
+          ],
+          "count": 1,
+          "distance": 4840.58984375,
+          "elevation_gain": 131.0,
+          "moving_time": 2129.1580200195312
+        },
+        "2026-08-02": {
+          "activity_ids": [
+            "23824937291"
+          ],
+          "count": 1,
+          "distance": 5223.1298828125,
+          "elevation_gain": 141.0,
+          "moving_time": 2405.7310180664062
+        },
+        "2026-08-08": {
+          "activity_ids": [
+            "23898931957"
+          ],
+          "count": 1,
+          "distance": 5344.7099609375,
+          "elevation_gain": 143.0,
+          "moving_time": 2251.0
+        },
+        "2026-08-11": {
+          "activity_ids": [
+            "23935260341"
+          ],
+          "count": 1,
+          "distance": 5185.27978515625,
+          "elevation_gain": 149.0,
+          "moving_time": 2194.0
+        },
+        "2026-08-14": {
+          "activity_ids": [
+            "23974182122"
+          ],
+          "count": 1,
+          "distance": 5147.4501953125,
+          "elevation_gain": 134.0,
+          "moving_time": 2196.18896484375
+        },
+        "2026-08-18": {
+          "activity_ids": [
+            "24021878312"
+          ],
+          "count": 1,
+          "distance": 5190.06005859375,
+          "elevation_gain": 126.0,
+          "moving_time": 2261.7520141601562
         }
       },
       "VirtualRide": {
@@ -23754,6 +24060,26 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 2031.385986328125
+        },
+        "2026-08-05": {
+          "activity_ids": [
+            "23861260302"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 2260.802001953125
+        }
+      },
+      "Walk": {
+        "2026-07-16": {
+          "activity_ids": [
+            "23618223764"
+          ],
+          "count": 1,
+          "distance": 2195.27001953125,
+          "elevation_gain": 33.0,
+          "moving_time": 1619.0
         }
       },
       "WeightTraining": {
@@ -24278,6 +24604,96 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 3789.23291015625
+        },
+        "2026-07-15": {
+          "activity_ids": [
+            "23606416146"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 2852.7470703125
+        },
+        "2026-07-17": {
+          "activity_ids": [
+            "23630173537"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 3307.906982421875
+        },
+        "2026-07-25": {
+          "activity_ids": [
+            "23728232623"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 3706.6201171875
+        },
+        "2026-07-28": {
+          "activity_ids": [
+            "23761911772"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 3913.1279296875
+        },
+        "2026-07-31": {
+          "activity_ids": [
+            "23800145878"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 3542.126953125
+        },
+        "2026-08-03": {
+          "activity_ids": [
+            "23835190247"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 2420.029052734375
+        },
+        "2026-08-06": {
+          "activity_ids": [
+            "23874088545"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 2297.35009765625
+        },
+        "2026-08-09": {
+          "activity_ids": [
+            "23912226636"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 2877.488037109375
+        },
+        "2026-08-12": {
+          "activity_ids": [
+            "23948832459"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 2836.657958984375
+        },
+        "2026-08-15": {
+          "activity_ids": [
+            "23987491663"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 3069.18408203125
         }
       },
       "Workout": {
@@ -24451,12 +24867,48 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 2536.076904296875
+        },
+        "2026-07-26": {
+          "activity_ids": [
+            "23741396738"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 3272.305908203125
+        },
+        "2026-08-08": {
+          "activity_ids": [
+            "23904141310"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 1857.5999755859375
+        },
+        "2026-08-09": {
+          "activity_ids": [
+            "23913884279"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 2982.6708984375
+        },
+        "2026-08-15": {
+          "activity_ids": [
+            "23991567885"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 1732.5550537109375
         }
       }
     }
   },
   "garmin_profile_url": "https://connect.garmin.com/modern/profile/769515be-3a2a-41db-8416-34d02a94f100",
-  "generated_at": "2026-07-12T15:57:20.160346+00:00",
+  "generated_at": "2026-08-18T15:52:39.371587+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://connect.garmin.com/modern/profile/769515be-3a2a-41db-8416-34d02a94f100",
   "repo": "aspain/git-sweaty",
@@ -24482,6 +24934,10 @@
       "accent": "#fee440",
       "label": "Virtual Ride"
     },
+    "Walk": {
+      "accent": "#d6ff6b",
+      "label": "Walk"
+    },
     "WeightTraining": {
       "accent": "#ff71ce",
       "label": "Weight Training"
@@ -24497,6 +24953,7 @@
     "Run",
     "TrailRun",
     "VirtualRide",
+    "Walk",
     "WeightTraining",
     "Workout"
   ],
