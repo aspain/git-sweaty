@@ -2389,6 +2389,10 @@ function formatElevation(meters, units) {
   return `${formatNumber(Math.round(meters * 3.28084), 0)} ft`;
 }
 
+function formatHeartRate(bpm) {
+  return `${formatNumber(Math.round(bpm), 0)} bpm`;
+}
+
 function buildYearMetricStatItems(totals, units) {
   return [
     {
@@ -2413,6 +2417,14 @@ function buildYearMetricStatItems(totals, units) {
         : STAT_PLACEHOLDER,
       filterable: totals.elevation > 0,
     },
+    {
+      key: "heart_rate",
+      label: "Avg Heart Rate",
+      value: totals.heart_rate > 0
+        ? formatHeartRate(totals.heart_rate)
+        : STAT_PLACEHOLDER,
+      filterable: totals.heart_rate > 0,
+    },
   ];
 }
 
@@ -2420,6 +2432,7 @@ const FREQUENCY_METRIC_ITEMS = [
   { key: "distance", label: "Distance" },
   { key: "moving_time", label: "Time" },
   { key: "elevation_gain", label: "Elevation" },
+  { key: "heart_rate", label: "Heart Rate" },
 ];
 const METRIC_LABEL_BY_KEY = Object.freeze({
   [ACTIVE_DAYS_METRIC_KEY]: "Active Days",
@@ -2427,12 +2440,14 @@ const METRIC_LABEL_BY_KEY = Object.freeze({
   distance: "Distance",
   moving_time: "Time",
   elevation_gain: "Elevation",
+  heart_rate: "Heart Rate",
 });
 
 const FREQUENCY_METRIC_UNAVAILABLE_REASON_BY_KEY = {
   distance: "No distance data in current selection.",
   moving_time: "No time data in current selection.",
   elevation_gain: "No elevation data in current selection.",
+  heart_rate: "No heart rate data in current selection.",
 };
 
 function getFrequencyMetricUnavailableReason(metricKey, metricLabel) {
@@ -2452,6 +2467,9 @@ function formatMetricTotal(metricKey, value, units) {
   }
   if (metricKey === "elevation_gain") {
     return formatElevation(value, units || { elevation: "ft" });
+  }
+  if (metricKey === "heart_rate") {
+    return formatHeartRate(value);
   }
   return formatNumber(value, 0);
 }
@@ -2589,6 +2607,7 @@ function formatTooltipMetricLines(entry, units, prefix = "") {
   const distanceMeters = Number(entry?.distance || 0);
   const elevationMeters = Number(entry?.elevation_gain || 0);
   const durationSeconds = Number(entry?.moving_time || 0);
+  const heartRate = Number(entry?.heart_rate || 0);
   const distanceUnits = units?.distance === "km" ? "km" : "mi";
   const elevationUnits = units?.elevation === "m" ? "m" : "ft";
 
@@ -2606,6 +2625,9 @@ function formatTooltipMetricLines(entry, units, prefix = "") {
   }
   if (durationSeconds > 0) {
     lines.push(createTooltipTextLine(`${prefix}Duration: ${formatTooltipDuration(durationSeconds)}`));
+  }
+  if (heartRate > 0) {
+    lines.push(createTooltipTextLine(`${prefix}Heart rate: ${Math.round(heartRate)} bpm`));
   }
 
   return lines;
@@ -2872,6 +2894,7 @@ function buildCombinedTypeDetailsByDate(payload, types, years) {
           distance: Number(dayEntry?.distance || 0),
           moving_time: Number(dayEntry?.moving_time || 0),
           elevation_gain: Number(dayEntry?.elevation_gain || 0),
+          heart_rate: Number(dayEntry?.heart_rate || 0),
         };
       });
     });
@@ -3010,6 +3033,9 @@ function buildSummary(
     distance: 0,
     moving_time: 0,
     elevation: 0,
+    hr_weighted_sum: 0,
+    hr_time: 0,
+    heart_rate: 0,
   };
   const typeTotals = {};
   const selectedTypeSet = new Set(types);
@@ -3041,6 +3067,8 @@ function buildSummary(
           totals.distance += entry.distance || 0;
           totals.moving_time += entry.moving_time || 0;
           totals.elevation += entry.elevation_gain || 0;
+          totals.hr_weighted_sum += Number(entry.hr_weighted_sum || 0);
+          totals.hr_time += Number(entry.hr_time || 0);
         }
         if (includeTypeCardCount) {
           typeTotals[type].count += entry.count || 0;
@@ -3050,6 +3078,7 @@ function buildSummary(
   });
 
   visibleTypeCardsList.sort((a, b) => (typeTotals[b]?.count || 0) - (typeTotals[a]?.count || 0));
+  totals.heart_rate = totals.hr_time > 0 ? totals.hr_weighted_sum / totals.hr_time : 0;
   const elapsedDays = years.reduce(
     (sum, year) => sum + getElapsedDayCountForYear(Number(year)),
     0,
@@ -3101,6 +3130,14 @@ function buildSummary(
         : STAT_PLACEHOLDER,
       metricKey: "elevation_gain",
       filterable: totals.elevation > 0,
+    },
+    {
+      title: "Avg HR",
+      value: totals.heart_rate > 0
+        ? formatHeartRate(totals.heart_rate)
+        : STAT_PLACEHOLDER,
+      metricKey: "heart_rate",
+      filterable: totals.heart_rate > 0,
     },
   );
 
@@ -3260,6 +3297,9 @@ function buildHeatmapArea(aggregates, year, units, colors, type, layout, options
       distance: 0,
       moving_time: 0,
       elevation_gain: 0,
+      hr_weighted_sum: 0,
+      hr_time: 0,
+      heart_rate: 0,
       activity_ids: [],
     };
 
@@ -3556,6 +3596,7 @@ function buildCard(type, year, aggregates, units, options = {}) {
     distance: 0,
     moving_time: 0,
     elevation_gain: 0,
+    heart_rate: 0,
   };
   const layout = getLayout();
   const heatmapOptions = {
@@ -3578,6 +3619,9 @@ function buildCard(type, year, aggregates, units, options = {}) {
     distance: 0,
     moving_time: 0,
     elevation: 0,
+    hr_weighted_sum: 0,
+    hr_time: 0,
+    heart_rate: 0,
   };
   const todayDateKey = getLocalTodayDateKey();
   let elapsedActiveDays = 0;
@@ -3586,13 +3630,17 @@ function buildCard(type, year, aggregates, units, options = {}) {
     totals.distance += entry.distance || 0;
     totals.moving_time += entry.moving_time || 0;
     totals.elevation += entry.elevation_gain || 0;
+    totals.hr_weighted_sum += Number(entry.hr_weighted_sum || 0);
+    totals.hr_time += Number(entry.hr_time || 0);
     metricMaxByKey.distance = Math.max(metricMaxByKey.distance, Number(entry.distance || 0));
     metricMaxByKey.moving_time = Math.max(metricMaxByKey.moving_time, Number(entry.moving_time || 0));
     metricMaxByKey.elevation_gain = Math.max(metricMaxByKey.elevation_gain, Number(entry.elevation_gain || 0));
+    metricMaxByKey.heart_rate = Math.max(metricMaxByKey.heart_rate, Number(entry.heart_rate || 0));
     if ((entry?.count || 0) > 0 && isDateKeyElapsed(dateStr, todayDateKey)) {
       elapsedActiveDays += 1;
     }
   });
+  totals.heart_rate = totals.hr_time > 0 ? totals.hr_weighted_sum / totals.hr_time : 0;
   const elapsedDaysInYear = getElapsedDayCountForYear(year);
   const daysOffInYear = Math.max(0, elapsedDaysInYear - elapsedActiveDays);
   metricMaxByKey[ACTIVE_DAYS_METRIC_KEY] = totals.count > 0 ? 1 : 0;
@@ -3721,6 +3769,8 @@ function combineYearAggregates(yearData, types) {
           distance: 0,
           moving_time: 0,
           elevation_gain: 0,
+          hr_weighted_sum: 0,
+          hr_time: 0,
           types: new Set(),
         };
       }
@@ -3728,6 +3778,8 @@ function combineYearAggregates(yearData, types) {
       combined[dateStr].distance += entry.distance || 0;
       combined[dateStr].moving_time += entry.moving_time || 0;
       combined[dateStr].elevation_gain += entry.elevation_gain || 0;
+      combined[dateStr].hr_weighted_sum += Number(entry.hr_weighted_sum || 0);
+      combined[dateStr].hr_time += Number(entry.hr_time || 0);
       if ((entry.count || 0) > 0) {
         combined[dateStr].types.add(type);
       }
@@ -3741,6 +3793,9 @@ function combineYearAggregates(yearData, types) {
       distance: entry.distance,
       moving_time: entry.moving_time,
       elevation_gain: entry.elevation_gain,
+      hr_weighted_sum: entry.hr_weighted_sum,
+      hr_time: entry.hr_time,
+      heart_rate: entry.hr_time > 0 ? entry.hr_weighted_sum / entry.hr_time : 0,
       types: Array.from(entry.types),
     };
   });
@@ -3878,6 +3933,7 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
           ? dayValue / dayEntryCount
           : 0;
       };
+      const dayHeartRate = Number(dayEntry?.heart_rate || 0);
       return {
         dateKey: dateStr,
         date,
@@ -3892,6 +3948,7 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
         distance: perActivityMetricValue("distance"),
         moving_time: perActivityMetricValue("moving_time"),
         elevation_gain: perActivityMetricValue("elevation_gain"),
+        heart_rate: Number.isFinite(dayHeartRate) && dayHeartRate > 0 ? dayHeartRate : 0,
       };
     })
     .filter(Boolean);
@@ -4031,6 +4088,7 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
     distance: activities.reduce((sum, activity) => sum + Number(activity.distance || 0), 0),
     moving_time: activities.reduce((sum, activity) => sum + Number(activity.moving_time || 0), 0),
     elevation_gain: activities.reduce((sum, activity) => sum + Number(activity.elevation_gain || 0), 0),
+    heart_rate: activities.reduce((sum, activity) => sum + Number(activity.heart_rate || 0), 0),
   };
   const metricItems = FREQUENCY_METRIC_ITEMS.map((item) => ({
     key: item.key,
@@ -4166,14 +4224,20 @@ function buildStatsOverview(payload, types, years, color, options = {}) {
     const activeFact = factItems.find((item) => item.key === activeFactKey) || null;
     const matrixData = buildFrequencyData(activeFact?.filter, activeMetricKey);
     const metricLabel = activeMetricKey ? (METRIC_LABEL_BY_KEY[activeMetricKey] || "Metric") : "";
-    const formatTooltipValue = (value) => {
+    const formatTooltipValue = (value, breakdown) => {
       if (!activeMetricKey) return "";
-      return `${metricLabel}: ${formatMetricTotal(activeMetricKey, value, units)}`;
+      let displayValue = value;
+      if (activeMetricKey === "heart_rate") {
+        const cellActivityCount = Object.values(breakdown?.typeCounts || {})
+          .reduce((sum, count) => sum + count, 0);
+        displayValue = cellActivityCount > 0 ? value / cellActivityCount : 0;
+      }
+      return `${metricLabel}: ${formatMetricTotal(activeMetricKey, displayValue, units)}`;
     };
     const formatMatrixTooltip = (year, label, value, breakdown) => {
       const lines = [`${year} · ${label}`];
       if (activeMetricKey) {
-        lines.push(formatTooltipValue(value));
+        lines.push(formatTooltipValue(value, breakdown));
         if (activeMetricKey !== DAYS_OFF_METRIC_KEY) {
           const activityTotal = Object.values(breakdown?.typeCounts || {})
             .reduce((sum, count) => sum + count, 0);

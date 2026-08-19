@@ -113,3 +113,7 @@ def format_elevation(meters: float, unit: str) -> str:
         return f"{meters:.0f} m"
     feet = meters * 3.28084
     return f"{feet:.0f} ft"
+
+
+def format_heart_rate(bpm: float) -> str:
+    return f"{int(round(bpm))} bpm"

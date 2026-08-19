@@ -26,6 +26,15 @@ class ProviderFieldsTests(unittest.TestCase):
         self.assertEqual(provider_fields.pick_duration_seconds("bad", -5, 0), -5)
         self.assertEqual(provider_fields.pick_duration_seconds(None, "", []), 0.0)
 
+    def test_pick_heart_rate_accepts_plausible_and_rejects_out_of_range(self) -> None:
+        self.assertEqual(provider_fields.pick_heart_rate(0.0, 148.6), 148.6)
+        self.assertEqual(provider_fields.pick_heart_rate(None, "", []), 0.0)
+        self.assertEqual(provider_fields.pick_heart_rate(1.0), 1.0)
+        self.assertEqual(provider_fields.pick_heart_rate(255.0), 255.0)
+        self.assertEqual(provider_fields.pick_heart_rate(256.0), 0.0)
+        self.assertEqual(provider_fields.pick_heart_rate(-5.0), 0.0)
+        self.assertEqual(provider_fields.pick_heart_rate("bad", 152.0), 152.0)
+
 
 if __name__ == "__main__":
     unittest.main()
