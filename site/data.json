@@ -12491,6 +12491,24 @@
       "type": "VirtualRide",
       "url": "https://connect.garmin.com/modern/activity/24084604903",
       "year": 2026
+    },
+    {
+      "date": "2026-08-24",
+      "hour": 17,
+      "name": "Cardio",
+      "subtype": "indoor_cardio",
+      "type": "Workout",
+      "url": "https://connect.garmin.com/modern/activity/24103114695",
+      "year": 2026
+    },
+    {
+      "date": "2026-08-25",
+      "hour": 7,
+      "name": "Strength",
+      "subtype": "strength_training",
+      "type": "WeightTraining",
+      "url": "https://connect.garmin.com/modern/activity/24109082458",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -24766,6 +24784,15 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 4111.4150390625
+        },
+        "2026-08-25": {
+          "activity_ids": [
+            "24109082458"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 2795.551025390625
         }
       },
       "Workout": {
@@ -24975,12 +25002,21 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 1732.5550537109375
+        },
+        "2026-08-24": {
+          "activity_ids": [
+            "24103114695"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 2403.985107421875
         }
       }
     }
   },
   "garmin_profile_url": "https://connect.garmin.com/modern/profile/769515be-3a2a-41db-8416-34d02a94f100",
-  "generated_at": "2026-08-24T15:36:02.140740+00:00",
+  "generated_at": "2026-08-25T15:38:59.417751+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://connect.garmin.com/modern/profile/769515be-3a2a-41db-8416-34d02a94f100",
   "repo": "aspain/git-sweaty",

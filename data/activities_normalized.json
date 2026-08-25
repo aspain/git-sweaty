@@ -18042,5 +18042,31 @@
     "start_date_local": "2026-08-23T07:47:37",
     "type": "VirtualRide",
     "year": 2026
+  },
+  {
+    "date": "2026-08-24",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24103114695",
+    "moving_time": 2403.985107421875,
+    "name": "Cardio",
+    "raw_activity_type": "indoor_cardio",
+    "raw_type": "indoor_cardio",
+    "start_date_local": "2026-08-24T17:30:48",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-08-25",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24109082458",
+    "moving_time": 2795.551025390625,
+    "name": "Strength",
+    "raw_activity_type": "strength_training",
+    "raw_type": "strength_training",
+    "start_date_local": "2026-08-25T07:15:07",
+    "type": "WeightTraining",
+    "year": 2026
   }
 ]
