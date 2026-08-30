@@ -18120,5 +18120,18 @@
     "start_date_local": "2026-08-29T08:26:19",
     "type": "TrailRun",
     "year": 2026
+  },
+  {
+    "date": "2026-08-30",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24175126918",
+    "moving_time": 3498.583984375,
+    "name": "Cardio",
+    "raw_activity_type": "indoor_cardio",
+    "raw_type": "indoor_cardio",
+    "start_date_local": "2026-08-30T11:34:46",
+    "type": "Workout",
+    "year": 2026
   }
 ]
