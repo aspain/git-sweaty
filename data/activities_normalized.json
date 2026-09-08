@@ -18185,5 +18185,31 @@
     "start_date_local": "2026-09-04T08:53:18",
     "type": "Run",
     "year": 2026
+  },
+  {
+    "date": "2026-09-07",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24276714235",
+    "moving_time": 1733.04296875,
+    "name": "Cardio",
+    "raw_activity_type": "indoor_cardio",
+    "raw_type": "indoor_cardio",
+    "start_date_local": "2026-09-07T14:24:49",
+    "type": "Workout",
+    "year": 2026
+  },
+  {
+    "date": "2026-09-08",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24283189940",
+    "moving_time": 3390.0791015625,
+    "name": "Strength",
+    "raw_activity_type": "strength_training",
+    "raw_type": "strength_training",
+    "start_date_local": "2026-09-08T07:26:23",
+    "type": "WeightTraining",
+    "year": 2026
   }
 ]
