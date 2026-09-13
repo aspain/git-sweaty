@@ -18263,5 +18263,18 @@
     "start_date_local": "2026-09-12T08:33:48",
     "type": "Workout",
     "year": 2026
+  },
+  {
+    "date": "2026-09-13",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24346791459",
+    "moving_time": 2612.654052734375,
+    "name": "Strength",
+    "raw_activity_type": "strength_training",
+    "raw_type": "strength_training",
+    "start_date_local": "2026-09-13T09:08:22",
+    "type": "WeightTraining",
+    "year": 2026
   }
 ]
