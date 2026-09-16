@@ -18289,5 +18289,18 @@
     "start_date_local": "2026-09-15T07:39:38",
     "type": "TrailRun",
     "year": 2026
+  },
+  {
+    "date": "2026-09-16",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24382656636",
+    "moving_time": 2795.804931640625,
+    "name": "Strength",
+    "raw_activity_type": "strength_training",
+    "raw_type": "strength_training",
+    "start_date_local": "2026-09-16T07:10:48",
+    "type": "WeightTraining",
+    "year": 2026
   }
 ]
