@@ -18302,5 +18302,18 @@
     "start_date_local": "2026-09-16T07:10:48",
     "type": "WeightTraining",
     "year": 2026
+  },
+  {
+    "date": "2026-09-16",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24389242635",
+    "moving_time": 1967.6500244140625,
+    "name": "Cardio",
+    "raw_activity_type": "indoor_cardio",
+    "raw_type": "indoor_cardio",
+    "start_date_local": "2026-09-16T17:17:12",
+    "type": "Workout",
+    "year": 2026
   }
 ]
