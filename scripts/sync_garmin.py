@@ -631,6 +631,7 @@ def sync_garmin(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
     next_offset = _safe_int(state.get("next_offset")) if state else None
     if next_offset is None:
         next_offset = 0
+    used_resume_cursor = next_offset != 0
 
     if not rate_limited and not skip_backfill:
         offset = next_offset
@@ -675,6 +676,7 @@ def sync_garmin(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
         prune_deleted
         and not dry_run
         and not skip_backfill
+        and not used_resume_cursor
         and exhausted
         and not rate_limited
     )
@@ -689,7 +691,8 @@ def sync_garmin(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
                 deleted += 1
     elif prune_deleted and not dry_run:
         print(
-            "Skipping prune_deleted for Garmin: pruning requires a full backfill scan in this run."
+            "Skipping prune_deleted for Garmin: pruning requires a full backfill scan in this run "
+            "(no resume cursor, no rate-limit)."
         )
 
     completed = True if skip_backfill else (exhausted and not rate_limited)
