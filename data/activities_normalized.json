@@ -18432,5 +18432,18 @@
     "start_date_local": "2026-09-28T17:04:21",
     "type": "WeightTraining",
     "year": 2026
+  },
+  {
+    "date": "2026-09-30",
+    "distance": 5032.919921875,
+    "elevation_gain": 135.0,
+    "id": "24553536208",
+    "moving_time": 2324.6420288085938,
+    "name": "Baltimore County Trail Running",
+    "raw_activity_type": "trail_running",
+    "raw_type": "trail_running",
+    "start_date_local": "2026-09-30T07:03:15",
+    "type": "TrailRun",
+    "year": 2026
   }
 ]
