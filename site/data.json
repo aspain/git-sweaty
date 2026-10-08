@@ -12806,6 +12806,15 @@
       "type": "WeightTraining",
       "url": "https://connect.garmin.com/modern/activity/24638870661",
       "year": 2026
+    },
+    {
+      "date": "2026-10-08",
+      "hour": 6,
+      "name": "Indoor Cycling",
+      "subtype": "indoor_cycling",
+      "type": "VirtualRide",
+      "url": "https://connect.garmin.com/modern/activity/24653411167",
+      "year": 2026
     }
   ],
   "aggregates": {
@@ -24537,6 +24546,15 @@
           "distance": 0.0,
           "elevation_gain": 0.0,
           "moving_time": 2203.3779296875
+        },
+        "2026-10-08": {
+          "activity_ids": [
+            "24653411167"
+          ],
+          "count": 1,
+          "distance": 0.0,
+          "elevation_gain": 0.0,
+          "moving_time": 1723.3089599609375
         }
       },
       "Walk": {
@@ -25602,7 +25620,7 @@
     }
   },
   "garmin_profile_url": "https://connect.garmin.com/modern/profile/769515be-3a2a-41db-8416-34d02a94f100",
-  "generated_at": "2026-10-07T20:24:05.137538+00:00",
+  "generated_at": "2026-10-08T20:29:09.792715+00:00",
   "other_bucket": "OtherSports",
   "profile_url": "https://connect.garmin.com/modern/profile/769515be-3a2a-41db-8416-34d02a94f100",
   "repo": "aspain/git-sweaty",

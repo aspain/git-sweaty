@@ -18497,5 +18497,18 @@
     "start_date_local": "2026-10-07T07:22:43",
     "type": "WeightTraining",
     "year": 2026
+  },
+  {
+    "date": "2026-10-08",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24653411167",
+    "moving_time": 1723.3089599609375,
+    "name": "Indoor Cycling",
+    "raw_activity_type": "indoor_cycling",
+    "raw_type": "indoor_cycling",
+    "start_date_local": "2026-10-08T06:59:02",
+    "type": "VirtualRide",
+    "year": 2026
   }
 ]
