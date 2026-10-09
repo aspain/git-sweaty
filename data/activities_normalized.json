@@ -18510,5 +18510,18 @@
     "start_date_local": "2026-10-08T06:59:02",
     "type": "VirtualRide",
     "year": 2026
+  },
+  {
+    "date": "2026-10-09",
+    "distance": 5206.39990234375,
+    "elevation_gain": 153.0,
+    "id": "24662210343",
+    "moving_time": 2340.0,
+    "name": "Baltimore County Trail Running",
+    "raw_activity_type": "trail_running",
+    "raw_type": "trail_running",
+    "start_date_local": "2026-10-09T07:21:07",
+    "type": "TrailRun",
+    "year": 2026
   }
 ]
