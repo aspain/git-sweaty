@@ -18523,5 +18523,31 @@
     "start_date_local": "2026-10-09T07:21:07",
     "type": "TrailRun",
     "year": 2026
+  },
+  {
+    "date": "2026-10-10",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24673620257",
+    "moving_time": 3326.152099609375,
+    "name": "Strength",
+    "raw_activity_type": "strength_training",
+    "raw_type": "strength_training",
+    "start_date_local": "2026-10-10T07:20:06",
+    "type": "WeightTraining",
+    "year": 2026
+  },
+  {
+    "date": "2026-10-10",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24677828436",
+    "moving_time": 1818.3929443359375,
+    "name": "Cardio",
+    "raw_activity_type": "indoor_cardio",
+    "raw_type": "indoor_cardio",
+    "start_date_local": "2026-10-10T14:06:19",
+    "type": "Workout",
+    "year": 2026
   }
 ]
