@@ -3238,6 +3238,7 @@ def main() -> int:
             ) = _resolve_intervals_profile_link_preference(args, interactive, repo)
 
     update_credentials = True
+    secret_names: Optional[set[str]] = None
     if (
         interactive
         and reuse_existing_settings
@@ -3346,7 +3347,9 @@ def main() -> int:
     elif source == "intervals":
         if update_credentials:
             existing_intervals_athlete_id = _existing_intervals_athlete_id(repo)
-            legacy_athlete_secret_present = INTERVALS_ATHLETE_ID_NAME in _list_secret_names(repo)
+            if secret_names is None:
+                secret_names = _list_secret_names(repo)
+            legacy_athlete_secret_present = INTERVALS_ATHLETE_ID_NAME in secret_names
             intervals_api_key, intervals_athlete_id, intervals_athlete = _resolve_intervals_auth_values(
                 args,
                 interactive,

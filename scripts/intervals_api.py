@@ -153,10 +153,14 @@ def get_json(
     raise IntervalsApiError(f"intervals.icu API request failed for {path}.")  # pragma: no cover
 
 
+def athlete_path(athlete_id: str = "0") -> str:
+    """URL path of an athlete resource, with the id quoted as a single path segment."""
+    return f"/athlete/{urllib.parse.quote(str(athlete_id or '0').strip() or '0', safe='')}"
+
+
 def fetch_athlete(api_key: str, athlete_id: str = "0", **kw: Any) -> Dict[str, Any]:
     """Return the athlete profile; athlete id "0" resolves to the API key's own athlete."""
-    quoted = urllib.parse.quote(str(athlete_id or "0").strip() or "0", safe="")
-    payload = get_json(api_key, f"/athlete/{quoted}", **kw)
+    payload = get_json(api_key, athlete_path(athlete_id), **kw)
     if not isinstance(payload, dict) or not payload.get("id"):
         raise IntervalsApiError("intervals.icu athlete profile response is missing an athlete id.")
     return payload

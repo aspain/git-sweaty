@@ -107,6 +107,11 @@ class IntervalsApiTests(unittest.TestCase):
         with self.assertRaisesRegex(intervals_api.IntervalsApiError, "non-JSON response"):
             self._get(pages, max_attempts=2)
 
+    def test_athlete_path_quotes_id(self) -> None:
+        self.assertEqual(intervals_api.athlete_path("i1/../x"), "/athlete/i1%2F..%2Fx")
+        self.assertEqual(intervals_api.athlete_path(" "), "/athlete/0")
+        self.assertEqual(intervals_api.athlete_path(), "/athlete/0")
+
     def test_fetch_athlete_quotes_id_and_validates(self) -> None:
         with mock.patch.object(intervals_api.urllib.request, "urlopen", return_value=_ok({"id": "i1", "name": "Pat"})) as urlopen:
             athlete = intervals_api.fetch_athlete("secret", "i1/../x")

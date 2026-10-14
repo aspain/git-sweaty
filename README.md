@@ -97,7 +97,7 @@ You can switch between `strava`, `garmin`, and `intervals` at any time.
 - To click activity urls while viewing on desktop, click the graph dot to freeze the tooltip in place.
 - If a day contains multiple activity types, that day’s colored square is split into equal segments — one per unique activity type on that day.
 - Raw activities are stored locally for processing but are not committed (`activities/raw/` is ignored). This prevents publishing detailed per-activity payloads and GPS location traces.
-- If neither `sync.start_date` nor `sync.lookback_years` is set, the sync workflow backfills all available history from the selected source (i.e. Strava/Garmin/intervals.icu). For intervals.icu, the backfill stops after about two years with no activities; set `sync.start_date` if your history has a longer gap.
+- If neither `sync.start_date` nor `sync.lookback_years` is set, the sync workflow backfills all available history from the selected source (i.e. Strava/Garmin/intervals.icu).
 - Strava backfill state is stored in `data/backfill_state_strava.json`; Garmin backfill state is stored in `data/backfill_state_garmin.json`; intervals.icu backfill state is stored in `data/backfill_state_intervals.json`. If a backfill hits API limits (unlikely), this state allows the daily refresh automation to pick back up where it left off.
 - The Sync action workflow includes a toggle labeled `Reset backfill cursor and re-fetch full history for the selected source` which forces a one-time full backfill. This is useful if you add/delete/modify activities which have already been loaded.
 

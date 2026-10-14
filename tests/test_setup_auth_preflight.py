@@ -2337,5 +2337,66 @@ class SetupAuthIntervalsMainFlowTests(unittest.TestCase):
         self.assertIn(mock.call("DASHBOARD_INTERVALS_ACTIVITY_LINKS", "true", "owner/repo"), calls)
 
 
+    def test_main_reuse_intervals_settings_lists_secrets_once(self) -> None:
+        args = SetupAuthMainFlowTests._default_args()
+        existing_settings = setup_auth.ExistingDashboardSettings(
+            source="intervals", distance_unit="km", elevation_unit="m", week_start="monday"
+        )
+        with ExitStack() as stack:
+            stack.enter_context(mock.patch("setup_auth.parse_args", return_value=args))
+            stack.enter_context(mock.patch("setup_auth._bootstrap_env_and_reexec"))
+            stack.enter_context(mock.patch("setup_auth._isatty", return_value=True))
+            stack.enter_context(mock.patch("setup_auth._assert_gh_ready"))
+            stack.enter_context(mock.patch("setup_auth._resolve_repo_slug", return_value="owner/repo"))
+            stack.enter_context(mock.patch("setup_auth._assert_repo_access"))
+            stack.enter_context(mock.patch("setup_auth._assert_actions_secret_access"))
+            stack.enter_context(mock.patch("setup_auth._load_existing_dashboard_settings", return_value=existing_settings))
+            stack.enter_context(mock.patch("setup_auth._prompt_reuse_existing_settings", return_value=True))
+            stack.enter_context(mock.patch("setup_auth._prompt_full_backfill_choice", return_value=False))
+            list_secrets_mock = stack.enter_context(
+                mock.patch("setup_auth._list_secret_names", return_value={"INTERVALS_API_KEY"})
+            )
+            prompt_update_mock = stack.enter_context(
+                mock.patch("setup_auth._prompt_update_credentials", return_value=True)
+            )
+            stack.enter_context(mock.patch("setup_auth._existing_dashboard_intervals_activity_links", return_value=True))
+            stack.enter_context(
+                mock.patch(
+                    "setup_auth._existing_dashboard_intervals_profile_url",
+                    return_value="https://intervals.icu/athlete/i42",
+                )
+            )
+            stack.enter_context(mock.patch("setup_auth._get_variable", return_value=None))
+            stack.enter_context(mock.patch("setup_auth._existing_intervals_athlete_id", return_value=None))
+            auth_mock = stack.enter_context(
+                mock.patch(
+                    "setup_auth._resolve_intervals_auth_values",
+                    return_value=("api-key", "0", {"id": "i42", "name": "Ada Lovelace"}),
+                )
+            )
+            stack.enter_context(mock.patch("setup_auth._clear_secret"))
+            set_secret_mock = stack.enter_context(mock.patch("setup_auth._set_secret"))
+            set_variable_mock = stack.enter_context(mock.patch("setup_auth._set_variable"))
+            stack.enter_context(mock.patch("setup_auth._clear_variable"))
+            stack.enter_context(mock.patch("setup_auth._try_enable_actions_permissions", return_value=(True, "ok")))
+            stack.enter_context(mock.patch("setup_auth._try_enable_repo_issues", return_value=(True, "ok")))
+            stack.enter_context(mock.patch("setup_auth._try_enable_workflows", return_value=(True, "ok")))
+            stack.enter_context(mock.patch("setup_auth._try_configure_pages", return_value=(True, "ok")))
+            stack.enter_context(mock.patch("setup_auth._try_dispatch_sync", return_value=(True, "ok")))
+            stack.enter_context(
+                mock.patch("setup_auth._find_latest_workflow_run", return_value=(123, "https://example.test/run/123"))
+            )
+            stack.enter_context(
+                mock.patch("setup_auth._dashboard_url_from_pages_api", return_value="https://owner.github.io/repo/")
+            )
+            stack.enter_context(mock.patch("sys.stdout", new_callable=io.StringIO))
+            result = setup_auth.main()
+
+        self.assertEqual(result, 0)
+        prompt_update_mock.assert_called_once_with()
+        list_secrets_mock.assert_called_once_with("owner/repo")
+        auth_mock.assert_called_once()
+        set_secret_mock.assert_any_call("INTERVALS_API_KEY", "api-key", "owner/repo")
+
 if __name__ == "__main__":
     unittest.main()
