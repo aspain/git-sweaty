@@ -20,6 +20,7 @@ from provider_fields import (
 from sync_scope import (
     activity_scope_from_config,
     activity_start_ts as _shared_activity_start_ts,
+    boundary_still_covered,
     start_after_ts as _shared_start_after_ts,
 )
 from utils import (
@@ -600,8 +601,7 @@ def sync_garmin(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
 
     state = _load_state() if resume_backfill and not dry_run else {}
     if state:
-        state_after = _safe_int(state.get("after"))
-        if state_after != after:
+        if not boundary_still_covered(state.get("after"), after):
             print("Backfill boundary changed; restarting Garmin cursor.")
             state = {}
         elif state.get("activity_scope") != activity_scope:

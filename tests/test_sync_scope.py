@@ -36,6 +36,15 @@ class SyncScopeTests(unittest.TestCase):
     def test_start_after_ts_defaults_to_zero_with_no_limits(self) -> None:
         self.assertEqual(sync_scope.start_after_ts({"sync": {}}), 0)
 
+    def test_boundary_still_covered(self) -> None:
+        covered = sync_scope.boundary_still_covered
+        self.assertTrue(covered(1000, 1000))
+        self.assertTrue(covered(1000, 2000))  # later bound: saved history still covers it
+        self.assertTrue(covered("1000", 2000))
+        self.assertFalse(covered(1000, 500))  # earlier bound: more history wanted
+        self.assertFalse(covered(None, 1000))
+        self.assertFalse(covered("bogus", 1000))
+
     def test_activity_scope_from_config(self) -> None:
         scope = sync_scope.activity_scope_from_config(
             {

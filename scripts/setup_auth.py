@@ -10,7 +10,6 @@ This script performs:
 """
 
 import argparse
-import base64
 import random
 import getpass
 import html
@@ -42,6 +41,7 @@ from garmin_token_store import (
     token_store_ready,
     write_token_store_bytes,
 )
+import intervals_api
 from source_links import normalize_profile_url
 from repo_helpers import (
     normalize_dashboard_url as _shared_normalize_dashboard_url,
@@ -60,7 +60,6 @@ if sys.version_info < (3, 9):
 TOKEN_ENDPOINT = "https://www.strava.com/oauth/token"
 AUTHORIZE_ENDPOINT = "https://www.strava.com/oauth/authorize"
 STRAVA_ATHLETE_ENDPOINT = "https://www.strava.com/api/v3/athlete"
-INTERVALS_API_BASE = "https://intervals.icu/api/v1"
 INTERVALS_DEFAULT_ATHLETE_ID = "0"
 # Stored as a (non-secret) repository variable so setup can show and preserve it on re-runs.
 # A secret with the same name is still honored by the workflow as a legacy fallback.
@@ -1190,41 +1189,28 @@ def _normalize_intervals_athlete_id(value: Optional[str]) -> str:
 
 
 def _fetch_intervals_athlete(api_key: str, athlete_id: str) -> dict:
-    athlete_path = urllib.parse.quote(athlete_id or INTERVALS_DEFAULT_ATHLETE_ID, safe="")
-    credentials = base64.b64encode(f"API_KEY:{api_key}".encode("utf-8")).decode("ascii")
-    request = urllib.request.Request(
-        f"{INTERVALS_API_BASE}/athlete/{athlete_path}",
-        method="GET",
-        headers={"Authorization": f"Basic {credentials}", "Accept": "application/json"},
-    )
+    athlete_id = athlete_id or INTERVALS_DEFAULT_ATHLETE_ID
     try:
-        with urllib.request.urlopen(request, timeout=30) as response:
-            body = response.read().decode("utf-8")
-    except urllib.error.HTTPError as exc:
-        if exc.code in {401, 403}:
-            raise RuntimeError(
-                f"intervals.icu rejected the API key (HTTP {exc.code}). "
-                "Check the key in intervals.icu -> Settings -> Developer Settings"
-                + (
-                    f" and that it can access athlete {athlete_id}."
-                    if athlete_id != INTERVALS_DEFAULT_ATHLETE_ID
-                    else "."
-                )
-            ) from None
-        if exc.code == 404:
-            raise RuntimeError(f"intervals.icu athlete {athlete_id!r} was not found (HTTP 404).") from None
-        raise RuntimeError(f"intervals.icu athlete lookup failed with HTTP status {exc.code}.") from None
-    except urllib.error.URLError as exc:
-        reason = getattr(exc, "reason", "unknown network error")
-        raise RuntimeError(f"intervals.icu athlete lookup request failed: {reason}.") from None
-
-    try:
-        payload = json.loads(body)
-    except json.JSONDecodeError:
-        raise RuntimeError("Unexpected athlete response format from intervals.icu.") from None
-    if not isinstance(payload, dict):
-        raise RuntimeError("Unexpected athlete response format from intervals.icu.")
-    return payload
+        return intervals_api.fetch_athlete(api_key, athlete_id)
+    except intervals_api.IntervalsAuthError as exc:
+        raise RuntimeError(
+            f"intervals.icu rejected the API key (HTTP {exc.status}). "
+            "Check the key in intervals.icu -> Settings -> Developer Settings"
+            + (
+                f" and that it can access athlete {athlete_id}."
+                if athlete_id != INTERVALS_DEFAULT_ATHLETE_ID
+                else "."
+            )
+        ) from None
+    except intervals_api.IntervalsNotFoundError:
+        raise RuntimeError(f"intervals.icu athlete {athlete_id!r} was not found (HTTP 404).") from None
+    except intervals_api.IntervalsRateLimitError:
+        raise RuntimeError(
+            "intervals.icu rate limit reached (HTTP 429) while validating the API key. "
+            "Wait a few minutes and re-run setup."
+        ) from None
+    except intervals_api.IntervalsApiError as exc:
+        raise RuntimeError(f"intervals.icu athlete lookup failed: {exc}") from None
 
 
 def _strava_profile_url_from_athlete(athlete: object) -> str:
@@ -1614,11 +1600,7 @@ def _resolve_strava_profile_url(
 
     detected = _normalize_strava_profile_url(_detect_strava_profile_url(tokens or {}))
 
-    existing_raw = _get_variable("DASHBOARD_STRAVA_PROFILE_URL", repo)
-    try:
-        existing_value = _normalize_strava_profile_url(existing_raw)
-    except ValueError:
-        existing_value = ""
+    existing_value = _existing_dashboard_strava_profile_url(repo)
 
     try:
         prefilled_value = _normalize_strava_profile_url(prefilled_url)
@@ -1673,11 +1655,7 @@ def _resolve_garmin_profile_url(
             )
         )
 
-    existing_raw = _get_variable("DASHBOARD_GARMIN_PROFILE_URL", repo)
-    try:
-        existing_value = _normalize_garmin_profile_url(existing_raw)
-    except ValueError:
-        existing_value = ""
+    existing_value = _existing_dashboard_garmin_profile_url(repo)
 
     try:
         prefilled_value = _normalize_garmin_profile_url(prefilled_url)
@@ -1715,11 +1693,7 @@ def _resolve_strava_profile_link_preference(
             return False, ""
         return True, _normalize_strava_profile_url(explicit_text)
 
-    existing_raw = _get_variable("DASHBOARD_STRAVA_PROFILE_URL", repo)
-    try:
-        existing_value = _normalize_strava_profile_url(existing_raw)
-    except ValueError:
-        existing_value = ""
+    existing_value = _existing_dashboard_strava_profile_url(repo)
 
     if not interactive:
         return None, existing_value
@@ -1744,11 +1718,7 @@ def _resolve_garmin_profile_link_preference(
             return False, ""
         return True, _normalize_garmin_profile_url(explicit_text)
 
-    existing_raw = _get_variable("DASHBOARD_GARMIN_PROFILE_URL", repo)
-    try:
-        existing_value = _normalize_garmin_profile_url(existing_raw)
-    except ValueError:
-        existing_value = ""
+    existing_value = _existing_dashboard_garmin_profile_url(repo)
 
     if not interactive:
         return None, existing_value
@@ -1803,11 +1773,7 @@ def _resolve_intervals_profile_link_preference(
             return False, ""
         return True, _normalize_intervals_profile_url(explicit_text)
 
-    existing_raw = _get_variable("DASHBOARD_INTERVALS_PROFILE_URL", repo)
-    try:
-        existing_value = _normalize_intervals_profile_url(existing_raw)
-    except ValueError:
-        existing_value = ""
+    existing_value = _existing_dashboard_intervals_profile_url(repo)
 
     if not interactive:
         return None, existing_value
@@ -1821,11 +1787,16 @@ def _resolve_intervals_profile_link_preference(
 
 def _resolve_intervals_profile_url(
     args: argparse.Namespace,
-    repo: str,
     *,
     enabled_override: Optional[bool] = None,
     prefilled_url: str = "",
 ) -> str:
+    """Resolve the final intervals.icu profile URL.
+
+    ``prefilled_url`` is the value already resolved from the existing
+    DASHBOARD_INTERVALS_PROFILE_URL variable (or the user's prompt answer), so the
+    variable is not fetched again here.
+    """
     explicit = getattr(args, "intervals_profile_url", None)
     if explicit is not None:
         explicit_text = str(explicit).strip()
@@ -1842,14 +1813,6 @@ def _resolve_intervals_profile_url(
         prefilled_value = ""
     if prefilled_value:
         return prefilled_value
-
-    existing_raw = _get_variable("DASHBOARD_INTERVALS_PROFILE_URL", repo)
-    try:
-        existing_value = _normalize_intervals_profile_url(existing_raw)
-    except ValueError:
-        existing_value = ""
-    if existing_value:
-        return existing_value
     if enabled_override:
         return INTERVALS_DEFAULT_PROFILE_URL
     return ""
@@ -2181,18 +2144,39 @@ def _existing_intervals_athlete_id(repo: str) -> Optional[str]:
         return None
 
 
+def _prompt_intervals_athlete_id_replacing_legacy_secret() -> str:
+    """Ask for the athlete id when only the unreadable legacy INTERVALS_ATHLETE_ID secret exists."""
+    print(
+        "\nAn INTERVALS_ATHLETE_ID secret from an earlier setup exists, but secret values cannot be read back,"
+        "\nso setup cannot validate it. Re-enter the athlete id to sync; it will be stored as a repository"
+        "\nvariable and the old secret removed."
+    )
+    while True:
+        answer = input("intervals.icu athlete id (for example i12345; 0 = API key owner): ").strip()
+        if answer:
+            return _normalize_intervals_athlete_id(answer)
+        choice = _prompt_choice(
+            "No athlete id entered. Sync the athlete that owns the API key (0) instead? [y/n]: ",
+            {"y": "yes", "yes": "yes", "n": "no", "no": "no"},
+            invalid_message="Please enter 'y' or 'n'.",
+        )
+        if choice == "yes":
+            return INTERVALS_DEFAULT_ATHLETE_ID
+
+
 def _resolve_intervals_auth_values(
     args: argparse.Namespace,
     interactive: bool,
     existing_athlete_id: Optional[str] = None,
     legacy_athlete_secret_present: bool = False,
-) -> Tuple[str, Optional[str], dict]:
-    """Resolve the intervals.icu API key and athlete id.
+) -> Tuple[str, str, dict]:
+    """Resolve and validate the intervals.icu API key and athlete id.
 
-    The returned athlete id is None when an existing athlete id that cannot be read back
-    (the legacy INTERVALS_ATHLETE_ID secret) should be kept unchanged. A stored athlete id
-    is only replaced or cleared when the user explicitly provides a new value (``0`` for
-    the API key owner); leaving the prompt empty or omitting --intervals-athlete-id keeps it.
+    A stored athlete id variable is only replaced or cleared when the user explicitly provides
+    a new value (``0`` for the API key owner); leaving the prompt empty or omitting
+    --intervals-athlete-id keeps it. When only the legacy INTERVALS_ATHLETE_ID secret exists,
+    its value cannot be read back (and therefore not validated), so the athlete id must be
+    re-entered (interactive) or passed with --intervals-athlete-id (non-interactive).
     """
     api_key = str(getattr(args, "intervals_api_key", None) or "").strip()
     athlete_id_arg = getattr(args, "intervals_athlete_id", None)
@@ -2207,9 +2191,16 @@ def _resolve_intervals_auth_values(
         if not api_key:
             raise ValueError("INTERVALS_API_KEY is required.")
 
-    keep_legacy_secret = False
     if athlete_id_arg is not None:
         athlete_id = _normalize_intervals_athlete_id(str(athlete_id_arg))
+    elif not existing_athlete_id and legacy_athlete_secret_present:
+        if not interactive:
+            raise RuntimeError(
+                "An INTERVALS_ATHLETE_ID secret from an earlier setup exists, but its value cannot be read "
+                "back to validate it. Re-run with --intervals-athlete-id <id> (for example i12345, or 0 for "
+                "the API key owner); setup will store it as a repository variable and remove the old secret."
+            )
+        athlete_id = _prompt_intervals_athlete_id_replacing_legacy_secret()
     else:
         athlete_id_text = ""
         if interactive:
@@ -2218,33 +2209,16 @@ def _resolve_intervals_auth_values(
                     "intervals.icu athlete id (for example i12345; 0 = API key owner; "
                     f"default: {existing_athlete_id} (current)): "
                 )
-            elif legacy_athlete_secret_present:
-                prompt_text = (
-                    "intervals.icu athlete id (for example i12345; 0 = API key owner; "
-                    "default: keep the existing INTERVALS_ATHLETE_ID secret): "
-                )
             else:
                 prompt_text = "intervals.icu athlete id (for example i12345; default: 0 = API key owner): "
             athlete_id_text = input(prompt_text).strip()
         if athlete_id_text:
             athlete_id = _normalize_intervals_athlete_id(athlete_id_text)
-        elif existing_athlete_id:
-            athlete_id = existing_athlete_id
-        elif legacy_athlete_secret_present:
-            keep_legacy_secret = True
-            athlete_id = INTERVALS_DEFAULT_ATHLETE_ID
         else:
-            athlete_id = INTERVALS_DEFAULT_ATHLETE_ID
+            athlete_id = existing_athlete_id or INTERVALS_DEFAULT_ATHLETE_ID
 
     print("Validating intervals.icu API key...")
     athlete = _fetch_intervals_athlete(api_key, athlete_id)
-    if keep_legacy_secret:
-        # The stored athlete id is a secret and cannot be read back; the key itself is valid.
-        print(
-            "intervals.icu API key OK. Keeping the athlete id from the existing "
-            "INTERVALS_ATHLETE_ID secret."
-        )
-        return api_key, None, {}
     athlete_label = str(athlete.get("name") or "").strip()
     athlete_ref = str(athlete.get("id") or "").strip()
     if athlete_label and athlete_ref:
@@ -3326,10 +3300,7 @@ def main() -> int:
             )
             _set_secret("INTERVALS_API_KEY", intervals_api_key, repo)
             configured_secret_names.append("INTERVALS_API_KEY")
-            if intervals_athlete_id is None:
-                # Keep the legacy INTERVALS_ATHLETE_ID secret untouched (its value cannot be read back).
-                pass
-            elif intervals_athlete_id != INTERVALS_DEFAULT_ATHLETE_ID:
+            if intervals_athlete_id != INTERVALS_DEFAULT_ATHLETE_ID:
                 _set_variable(INTERVALS_ATHLETE_ID_NAME, intervals_athlete_id, repo)
                 print(f"Variable set: {INTERVALS_ATHLETE_ID_NAME}={intervals_athlete_id}")
                 if legacy_athlete_secret_present:
@@ -3344,7 +3315,6 @@ def main() -> int:
             athlete_name = str(intervals_athlete.get("name") or "").strip()
         intervals_profile_url = _resolve_intervals_profile_url(
             args,
-            repo,
             enabled_override=intervals_profile_link_enabled_override,
             prefilled_url=intervals_profile_url_prefilled,
         )

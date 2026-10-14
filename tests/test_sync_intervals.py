@@ -1,5 +1,11 @@
+import base64
+import contextlib
+import io
+import json
 import os
 import sys
+import urllib.error
+import urllib.parse
 import tempfile
 import types
 import unittest
@@ -13,35 +19,14 @@ if SCRIPTS_DIR not in sys.path:
     sys.path.insert(0, SCRIPTS_DIR)
 
 
-requests_stub = types.ModuleType("requests")
-
-
-class _RequestException(Exception):
-    pass
-
-
-class _HTTPError(_RequestException):
-    def __init__(self, message: str, response=None):
-        super().__init__(message)
-        self.response = response
-
-
-def _default_request(*_args, **_kwargs):
-    raise NotImplementedError("requests.request stub was not patched")
-
-
-requests_stub.RequestException = _RequestException
-requests_stub.HTTPError = _HTTPError
-requests_stub.request = _default_request
-sys.modules.setdefault("requests", requests_stub)
-
 yaml_stub = types.ModuleType("yaml")
 yaml_stub.safe_load = lambda *_args, **_kwargs: {}
 sys.modules.setdefault("yaml", yaml_stub)
 
+import intervals_api  # noqa: E402
 import normalize  # noqa: E402
 import sync_intervals  # noqa: E402
-from utils import read_json  # noqa: E402
+from utils import read_json, write_json  # noqa: E402
 
 
 PROFILE = {"id": "i123", "name": "Pat Rider"}
@@ -55,6 +40,39 @@ class _MockResponse:
 
     def json(self):
         return self._payload
+
+
+class _UrlopenResponse(io.BytesIO):
+    def __init__(self, status: int, body: bytes, headers=None):
+        super().__init__(body)
+        self.status = status
+        self.headers = headers or {}
+
+    def getcode(self):
+        return self.status
+
+
+@contextlib.contextmanager
+def _patch_http(side_effect=None, return_value=None):
+    """Patch urllib for intervals_api; yields a mock called as (method, url, params=, auth=)."""
+    request_mock = mock.Mock(side_effect=side_effect, return_value=return_value)
+
+    def fake_urlopen(request, timeout=None):
+        parsed = urllib.parse.urlsplit(request.full_url)
+        url = f"{parsed.scheme}://{parsed.netloc}{parsed.path}"
+        params = dict(urllib.parse.parse_qsl(parsed.query)) or None
+        token = request.get_header("Authorization").split(" ", 1)[1]
+        auth = tuple(base64.b64decode(token).decode("utf-8").split(":", 1))
+        resp = request_mock(request.get_method(), url, params=params, auth=auth)
+        body = json.dumps(resp._payload).encode("utf-8")
+        if resp.status_code >= 400:
+            raise urllib.error.HTTPError(request.full_url, resp.status_code, "error", resp.headers, io.BytesIO(body))
+        return _UrlopenResponse(resp.status_code, body, resp.headers)
+
+    with mock.patch.object(intervals_api.urllib.request, "urlopen", side_effect=fake_urlopen), mock.patch.object(
+        intervals_api.time, "sleep"
+    ), mock.patch.object(intervals_api, "print", create=True):
+        yield request_mock
 
 
 def _ride(activity_id: str, day: date) -> dict:
@@ -123,17 +141,15 @@ class SyncIntervalsTests(unittest.TestCase):
                 return handler(method, url, **kwargs)
             return _MockResponse(200, profile)
 
-        with mock.patch.object(sync_intervals, "load_config", return_value=config), mock.patch.object(
-            sync_intervals.requests, "request", side_effect=route, create=True
-        ) as request_mock, mock.patch.object(sync_intervals.time, "sleep"):
+        with mock.patch.object(sync_intervals, "load_config", return_value=config), _patch_http(
+            side_effect=route
+        ) as request_mock:
             summary = sync_intervals.sync_intervals(dry_run, prune_deleted)
         self.activity_calls = activity_calls
         return summary, request_mock
 
     def test_fetch_window_uses_basic_auth_and_date_params(self) -> None:
-        with mock.patch.object(
-            sync_intervals.requests, "request", return_value=_MockResponse(200, []), create=True
-        ) as request_mock:
+        with _patch_http(return_value=_MockResponse(200, [])) as request_mock:
             sync_intervals._fetch_window("secret-key", "i123", date(2024, 1, 1), date(2024, 6, 1))
 
         args, kwargs = request_mock.call_args
@@ -152,8 +168,8 @@ class SyncIntervalsTests(unittest.TestCase):
 
     def test_unauthorized_raises_clear_error(self) -> None:
         config = _config()
-        with mock.patch.object(sync_intervals, "load_config", return_value=config), mock.patch.object(
-            sync_intervals.requests, "request", return_value=_MockResponse(401, {}), create=True
+        with mock.patch.object(sync_intervals, "load_config", return_value=config), _patch_http(
+            return_value=_MockResponse(401, {})
         ) as request_mock:
             with self.assertRaisesRegex(RuntimeError, "HTTP 401.*api_key"):
                 sync_intervals.sync_intervals(False, False)
@@ -255,22 +271,6 @@ class SyncIntervalsTests(unittest.TestCase):
         self.assertGreater(summary["fetched"], 0)
         self.assertEqual(summary["new_or_updated"], 0)
         self.assertEqual(os.listdir("."), [])
-
-    def test_rate_limit_honors_retry_after_then_succeeds(self) -> None:
-        responses = [
-            _MockResponse(429, {}, {"Retry-After": "7"}),
-            _MockResponse(429, {}, {"Retry-After": "9999"}),
-            _MockResponse(200, [{"id": "i1"}]),
-        ]
-        with mock.patch.object(
-            sync_intervals.requests, "request", side_effect=responses, create=True
-        ), mock.patch.object(sync_intervals.time, "sleep") as sleep_mock, mock.patch("builtins.print"):
-            payload = sync_intervals._request_json("k", "/athlete/0/activities")
-        self.assertEqual(payload, [{"id": "i1"}])
-        self.assertEqual(
-            [call.args[0] for call in sleep_mock.call_args_list],
-            [7, sync_intervals.MAX_RETRY_WAIT_SECONDS],
-        )
 
     def test_athlete_profile_fetched_once_and_cached_without_api_key(self) -> None:
         config = _config()
@@ -433,9 +433,9 @@ class SyncIntervalsTests(unittest.TestCase):
         os.remove(sync_intervals.ATHLETE_PATH)
         state_before = read_json(sync_intervals.STATE_PATH)
 
-        with mock.patch.object(sync_intervals, "load_config", return_value=_config()), mock.patch.object(
-            sync_intervals.requests, "request", return_value=_MockResponse(429, {}), create=True
-        ) as request_mock, mock.patch.object(sync_intervals.time, "sleep"), mock.patch("builtins.print"):
+        with mock.patch.object(sync_intervals, "load_config", return_value=_config()), _patch_http(
+            return_value=_MockResponse(429, {})
+        ) as request_mock, mock.patch("builtins.print"):
             summary = sync_intervals.sync_intervals(False, False)
 
         self.assertTrue(summary["rate_limited"])
@@ -465,6 +465,138 @@ class SyncIntervalsTests(unittest.TestCase):
         self.assertTrue(sync_intervals._is_strava_stub(stub))
         self.assertTrue(sync_intervals._is_strava_stub({"id": "i3", "type": "Run", "_note": "x"}))
         self.assertFalse(sync_intervals._is_strava_stub(_ride("i1", date.today())))
+
+    def test_rate_limited_first_run_then_success_keeps_derived_outputs(self) -> None:
+        # First-ever run: the profile lookup is rate limited, but main()/run_pipeline still
+        # write the summary and derived outputs without any fingerprint.
+        with mock.patch.object(sys, "argv", ["sync_intervals.py"]), mock.patch.object(
+            sync_intervals, "load_config", return_value=_config()
+        ), _patch_http(return_value=_MockResponse(429, {})), mock.patch("builtins.print"):
+            self.assertEqual(sync_intervals.main(), 0)
+        self.assertTrue(read_json(sync_intervals.SUMMARY_JSON)["rate_limited"])
+        self.assertFalse(os.path.exists(sync_intervals.ATHLETE_PATH))
+        os.makedirs("site", exist_ok=True)
+        write_json(os.path.join("data", "activities_normalized.json"), [])
+        write_json(os.path.join("site", "data.json"), {})
+
+        today = date.today()
+        with mock.patch("builtins.print") as print_mock:
+            summary, _ = self._run(_config(), lambda *_a, **_k: _MockResponse(200, [_ride("i1", today)]))
+        self.assertNotIn("resetting persisted data", str(print_mock.call_args_list))
+        self.assertFalse(summary["rate_limited"])
+        self.assertTrue(os.path.exists(sync_intervals.SUMMARY_JSON))
+        self.assertTrue(os.path.exists(os.path.join("data", "activities_normalized.json")))
+        self.assertTrue(os.path.exists(os.path.join("site", "data.json")))
+        self.assertTrue(os.path.exists(os.path.join(sync_intervals.RAW_DIR, "i1.json")))
+        self.assertEqual(read_json(sync_intervals.ATHLETE_PATH)["athlete_id"], "i123")
+
+    def test_missing_fingerprint_with_intervals_raw_data_still_resets(self) -> None:
+        today = date.today()
+        self._run(_config(), lambda *_a, **_k: _MockResponse(200, [_ride("i1", today)]))
+        os.remove(sync_intervals.ATHLETE_PATH)
+        with mock.patch("builtins.print") as print_mock:
+            self._run(_config(), lambda *_a, **_k: _MockResponse(200, []))
+        self.assertIn("No intervals.icu account fingerprint", str(print_mock.call_args_list))
+        self.assertFalse(os.path.exists(os.path.join(sync_intervals.RAW_DIR, "i1.json")))
+        self.assertTrue(os.path.exists(sync_intervals.ATHLETE_PATH))
+
+    def test_unbounded_backfill_stops_after_consecutive_empty_windows(self) -> None:
+        today = date.today()
+        config = _config(start_date=None)
+        summary, _ = self._run(config, lambda *_a, **_k: _MockResponse(200, []))
+        # Recent window plus MAX_EMPTY_WINDOWS backfill windows, not a walk back to 1990.
+        self.assertEqual(len(self.activity_calls), 1 + sync_intervals.MAX_EMPTY_WINDOWS)
+        self.assertTrue(summary["backfill_completed"])
+        self.assertIsNone(summary["backfill_next_newest"])
+        self.assertTrue(read_json(sync_intervals.STATE_PATH)["completed"])
+
+        # An activity resets the empty streak, so older history keeps being walked.
+        old_day = today - timedelta(days=500)
+        os.remove(sync_intervals.STATE_PATH)
+
+        def handler(_method, _url, **kwargs):
+            params = kwargs["params"]
+            hit = params["oldest"] <= old_day.isoformat() <= params["newest"]
+            return _MockResponse(200, [_ride("old", old_day)] if hit else [])
+
+        summary, _ = self._run(config, handler)
+        self.assertTrue(os.path.exists(os.path.join(sync_intervals.RAW_DIR, "old.json")))
+        oldest_requested = date.fromisoformat(min(p["oldest"] for p in self.activity_calls))
+        self.assertLess(oldest_requested, old_day - timedelta(days=sync_intervals.WINDOW_DAYS * 3))
+        self.assertTrue(summary["backfill_completed"])
+
+    def test_bounded_backfill_walks_to_configured_start(self) -> None:
+        start = date.today() - timedelta(days=1500)
+        self._run(_config(start_date=start.isoformat()), lambda *_a, **_k: _MockResponse(200, []))
+        oldest_requested = min(p["oldest"] for p in self.activity_calls)
+        self.assertEqual(oldest_requested, (start - timedelta(days=1)).isoformat())
+
+    def test_unbounded_prune_scan_reaches_oldest_local_activity(self) -> None:
+        today = date.today()
+        old_day = today - timedelta(days=1800)
+        os.makedirs(sync_intervals.RAW_DIR, exist_ok=True)
+        sync_intervals._write_athlete_cache(PROFILE)
+        write_json(os.path.join(sync_intervals.RAW_DIR, "old.json"), sync_intervals._normalize_activity(_ride("old", old_day)))
+        write_json(os.path.join(sync_intervals.RAW_DIR, "gone.json"), sync_intervals._normalize_activity(_ride("gone", today)))
+
+        def handler(_method, _url, **kwargs):
+            params = kwargs["params"]
+            hit = params["oldest"] <= old_day.isoformat() <= params["newest"]
+            return _MockResponse(200, [_ride("old", old_day)] if hit else [])
+
+        with mock.patch("builtins.print"):
+            summary, _ = self._run(_config(start_date=None), handler, prune_deleted=True)
+        self.assertEqual(summary["deleted"], 1)
+        self.assertEqual(os.listdir(sync_intervals.RAW_DIR), ["old.json"])
+
+    def test_recent_window_catches_up_after_missed_runs(self) -> None:
+        today = date.today()
+        config = _config(recent_days=3)
+        self._run(config, lambda *_a, **_k: _MockResponse(200, []))
+        state = read_json(sync_intervals.STATE_PATH)
+        self.assertEqual(state["last_success_date"], sync_intervals.utc_now().date().isoformat())
+
+        # The workflow was broken for 20 days: the recent window reaches back to the last success.
+        last_success = sync_intervals.utc_now().date() - timedelta(days=20)
+        state["last_success_date"] = last_success.isoformat()
+        write_json(sync_intervals.STATE_PATH, state)
+        summary, _ = self._run(config, lambda *_a, **_k: _MockResponse(200, []))
+        self.assertEqual(len(self.activity_calls), 1)
+        self.assertEqual(self.activity_calls[0]["oldest"], (last_success - timedelta(days=1)).isoformat())
+        self.assertTrue(summary["backfill_completed"])
+        self.assertEqual(
+            read_json(sync_intervals.STATE_PATH)["last_success_date"], sync_intervals.utc_now().date().isoformat()
+        )
+
+        # Bounded by the configured start date.
+        state = read_json(sync_intervals.STATE_PATH)
+        state["last_success_date"] = (today - timedelta(days=1000)).isoformat()
+        write_json(sync_intervals.STATE_PATH, state)
+        start = today - timedelta(days=400)
+        self._run(_config(recent_days=3, start_date=start.isoformat()), lambda *_a, **_k: _MockResponse(200, []))
+        self.assertEqual(min(p["oldest"] for p in self.activity_calls), (start - timedelta(days=1)).isoformat())
+
+    def test_rate_limited_recent_window_keeps_last_success_date(self) -> None:
+        config = _config(recent_days=3)
+        self._run(config, lambda *_a, **_k: _MockResponse(200, []))
+        state = read_json(sync_intervals.STATE_PATH)
+        state["last_success_date"] = "2020-01-01"
+        write_json(sync_intervals.STATE_PATH, state)
+        with mock.patch("builtins.print"):
+            summary, _ = self._run(config, lambda *_a, **_k: _MockResponse(429, {}))
+        self.assertTrue(summary["rate_limited"])
+        self.assertEqual(read_json(sync_intervals.STATE_PATH)["last_success_date"], "2020-01-01")
+
+    def test_summary_shape_identical_for_normal_and_rate_limited_paths(self) -> None:
+        normal, _ = self._run(_config(), lambda *_a, **_k: _MockResponse(200, []))
+        with mock.patch.object(sync_intervals, "load_config", return_value=_config()), _patch_http(
+            return_value=_MockResponse(429, {})
+        ), mock.patch("builtins.print"):
+            limited = sync_intervals.sync_intervals(False, False)
+        self.assertTrue(limited["rate_limited"])
+        self.assertEqual(set(normal), set(limited))
+        self.assertEqual(set(normal["recent_sync"]), set(limited["recent_sync"]))
+        self.assertEqual(normal["rate_limit_message"], "")
 
     def test_main_writes_summary_files(self) -> None:
         summary = {

@@ -3,16 +3,15 @@ import hashlib
 import json
 import os
 import sys
-import time
+import urllib.parse
 from datetime import date, datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple
 
-import requests
-
-from sync_scope import activity_scope_from_config, activity_start_ts, start_after_ts
+import intervals_api
+from intervals_api import IntervalsAuthError, IntervalsRateLimitError
+from sync_scope import activity_scope_from_config, activity_start_ts, boundary_still_covered, start_after_ts
 from utils import (
     ensure_dir,
-    has_existing_persisted_data,
     load_config,
     raw_activity_dir,
     read_json,
@@ -21,18 +20,20 @@ from utils import (
     write_json,
 )
 
-API_BASE = "https://intervals.icu/api/v1"
+API_BASE = intervals_api.API_BASE
 RAW_DIR = raw_activity_dir("intervals")
 SUMMARY_JSON = os.path.join("data", "last_sync_summary.json")
 SUMMARY_TXT = os.path.join("data", "last_sync_summary.txt")
 STATE_PATH = os.path.join("data", "backfill_state_intervals.json")
 ATHLETE_PATH = os.path.join("data", "athletes_intervals.json")
 WINDOW_DAYS = 180
-# Lower bound for the backfill walk when no start_date/lookback_years is configured.
+# Hard lower bound for the backfill walk when no start_date/lookback_years is configured.
 FLOOR_DATE = date(1990, 1, 1)
-TRANSIENT_HTTP_STATUS_CODES = {408, 425, 429, 500, 502, 503, 504}
-MAX_REQUEST_ATTEMPTS = 4
-MAX_RETRY_WAIT_SECONDS = 120
+# Without a configured lower bound, the backfill walk stops after this many consecutive
+# empty windows (~2 years with no activities) instead of walking all the way to FLOOR_DATE.
+MAX_EMPTY_WINDOWS = 4
+MAX_REQUEST_ATTEMPTS = intervals_api.DEFAULT_MAX_ATTEMPTS
+MAX_RETRY_WAIT_SECONDS = intervals_api.DEFAULT_MAX_RETRY_WAIT
 # Native intervals.icu fields kept in raw files: the ones normalize.py consumes plus
 # scalar metrics the dashboard can use later. Large stream/zone arrays are dropped.
 NATIVE_FIELDS = (
@@ -91,52 +92,33 @@ def _credentials(config: Dict[str, Any]) -> Tuple[str, str]:
     return api_key, athlete_id
 
 
-def _retry_wait_seconds(resp: Any, attempt: int) -> int:
-    retry_after = str((getattr(resp, "headers", None) or {}).get("Retry-After") or "").strip()
-    wait = int(retry_after) if retry_after.isdigit() else 2 ** attempt
-    return max(1, min(MAX_RETRY_WAIT_SECONDS, wait))
-
-
-def _request_json(api_key: str, path: str, params: Optional[Dict[str, Any]] = None) -> Any:
-    url = f"{API_BASE}{path}"
-    for attempt in range(1, MAX_REQUEST_ATTEMPTS + 1):
-        try:
-            resp = requests.request("GET", url, auth=("API_KEY", api_key), params=params, timeout=30)
-        except requests.RequestException as exc:
-            if attempt >= MAX_REQUEST_ATTEMPTS:
-                raise RuntimeError(f"intervals.icu API request failed for {path}: {exc}") from exc
-            wait = _retry_wait_seconds(None, attempt)
-            print(f"Network error on {url}: {exc}; retrying in {wait}s (attempt {attempt}/{MAX_REQUEST_ATTEMPTS}).")
-            time.sleep(wait)
-            continue
-        if resp.status_code not in TRANSIENT_HTTP_STATUS_CODES or attempt >= MAX_REQUEST_ATTEMPTS:
-            break
-        wait = _retry_wait_seconds(resp, attempt)
-        print(
-            f"intervals.icu API returned HTTP {resp.status_code} on {url}; "
-            f"retrying in {wait}s (attempt {attempt}/{MAX_REQUEST_ATTEMPTS})."
+def _request_json(api_key: str, path: str, params: Optional[Dict[str, str]] = None) -> Any:
+    try:
+        return intervals_api.get_json(
+            api_key,
+            path,
+            params,
+            max_attempts=MAX_REQUEST_ATTEMPTS,
+            max_retry_wait=MAX_RETRY_WAIT_SECONDS,
         )
-        time.sleep(wait)
-
-    if resp.status_code == 429:
-        raise RateLimitExceeded(
-            f"intervals.icu API rate limit reached (HTTP 429) after {MAX_REQUEST_ATTEMPTS} attempts."
-        )
-    if resp.status_code in (401, 403):
+    except IntervalsRateLimitError as exc:
+        raise RateLimitExceeded(str(exc)) from exc
+    except IntervalsAuthError as exc:
         raise RuntimeError(
-            f"intervals.icu rejected the request (HTTP {resp.status_code}). Check that "
+            f"intervals.icu rejected the request (HTTP {exc.status}). Check that "
             "intervals.api_key is valid and that intervals.athlete_id belongs to that key "
             "(use \"0\" for the key's own athlete)."
-        )
-    if resp.status_code >= 400:
-        raise RuntimeError(f"intervals.icu API request failed (HTTP {resp.status_code}) for {path}.")
-    return resp.json()
+        ) from exc
+
+
+def _athlete_path(athlete_id: str) -> str:
+    return f"/athlete/{urllib.parse.quote(athlete_id, safe='')}"
 
 
 def _fetch_window(api_key: str, athlete_id: str, oldest: date, newest: date) -> List[Dict[str, Any]]:
     payload = _request_json(
         api_key,
-        f"/athlete/{athlete_id}/activities",
+        f"{_athlete_path(athlete_id)}/activities",
         {"oldest": oldest.isoformat(), "newest": newest.isoformat()},
     )
     if not isinstance(payload, list):
@@ -200,8 +182,14 @@ def _sync_range(
     newest: date,
     after: int,
     dry_run: bool,
+    stop_after_empty: int = 0,
+    walk_at_least_to: Optional[date] = None,
 ) -> Dict[str, Any]:
-    """Walk [oldest, newest] backwards in WINDOW_DAYS chunks, writing activities."""
+    """Walk [oldest, newest] backwards in WINDOW_DAYS chunks, writing activities.
+
+    With `stop_after_empty`, the walk ends (as exhausted) after that many consecutive
+    windows returned nothing, once it has gone at least as far back as `walk_at_least_to`.
+    """
     new_or_updated = 0
     strava_stub_ids = set()
     oldest_ts = None
@@ -209,6 +197,7 @@ def _sync_range(
     activity_ids = set()
     rate_limited = False
     rate_limit_message = ""
+    empty_streak = 0
 
     cursor: Optional[date] = newest
     while cursor is not None and cursor >= oldest:
@@ -219,6 +208,7 @@ def _sync_range(
             rate_limited = True
             rate_limit_message = str(exc)
             break
+        empty_streak = 0 if activities else empty_streak + 1
         for raw_activity in activities:
             if _is_strava_stub(raw_activity):
                 strava_stub_ids.add(str(raw_activity.get("id") or raw_activity.get("start_date_local")))
@@ -236,6 +226,12 @@ def _sync_range(
             if not dry_run and _write_activity(activity):
                 new_or_updated += 1
         cursor = window_oldest - timedelta(days=1)
+        if (
+            stop_after_empty
+            and empty_streak >= stop_after_empty
+            and (walk_at_least_to is None or window_oldest <= walk_at_least_to)
+        ):
+            break
 
     exhausted = not rate_limited
     return {
@@ -269,10 +265,35 @@ def _save_state(state: Dict[str, Any]) -> None:
 
 
 def _fetch_athlete(api_key: str, athlete_id: str) -> Dict[str, Any]:
-    payload = _request_json(api_key, f"/athlete/{athlete_id}")
+    payload = _request_json(api_key, _athlete_path(athlete_id))
     if not isinstance(payload, dict) or not payload.get("id"):
         raise RuntimeError("intervals.icu athlete profile response is missing an athlete id.")
     return payload
+
+
+def _raw_activity_files() -> List[str]:
+    if not os.path.isdir(RAW_DIR):
+        return []
+    return [name for name in os.listdir(RAW_DIR) if name.endswith(".json")]
+
+
+def _has_intervals_history() -> bool:
+    """True when intervals.icu-specific data (raw activities or backfill state) exists."""
+    return os.path.exists(STATE_PATH) or bool(_raw_activity_files())
+
+
+def _oldest_local_activity_date() -> Optional[date]:
+    oldest: Optional[int] = None
+    for filename in _raw_activity_files():
+        try:
+            ts = activity_start_ts(read_json(os.path.join(RAW_DIR, filename)))
+        except Exception:
+            continue
+        if ts is not None:
+            oldest = ts if oldest is None else min(oldest, ts)
+    if oldest is None:
+        return None
+    return datetime.fromtimestamp(oldest, tz=timezone.utc).date()
 
 
 def _account_fingerprint(athlete_id: str) -> str:
@@ -312,7 +333,10 @@ def _maybe_reset_for_new_account(athlete: Dict[str, Any]) -> None:
     stored = _load_account_fingerprint()
     if stored and stored != _account_fingerprint(str(athlete["id"])):
         print("Detected different intervals.icu account; resetting persisted data.")
-    elif not stored and has_existing_persisted_data():
+    elif not stored and _has_intervals_history():
+        # Only intervals.icu raw data/state can belong to an unknown account. Derived outputs
+        # alone (e.g. written after a rate-limited first run, or left by another source, which
+        # run_pipeline already resets on a source switch) are adopted by this account.
         print("No intervals.icu account fingerprint found with existing data; resetting persisted data.")
     else:
         _write_athlete_cache(athlete)
@@ -328,16 +352,6 @@ def _parse_cursor(value: Any) -> Optional[date]:
         return None
 
 
-def _boundary_still_covered(state_after: Any, after: int) -> bool:
-    # sync.lookback_years recomputes `after` from now() on every run, so the bound creeps
-    # later over time. History already walked still covers it; only an earlier bound
-    # (more history wanted) needs a fresh walk.
-    try:
-        return int(state_after) <= after
-    except (TypeError, ValueError):
-        return False
-
-
 def _saved_progress_ahead(state: Dict[str, Any], next_newest: Any) -> bool:
     """True when the saved backfill progress is further along than this run's walk."""
     if state.get("completed"):
@@ -347,25 +361,50 @@ def _saved_progress_ahead(state: Dict[str, Any], next_newest: Any) -> bool:
     return saved is not None and (current is None or saved <= current)
 
 
-def _rate_limited_summary(after: int, message: str) -> Dict[str, Any]:
-    state = _load_state()
-    recent_summary = _empty_range()
-    for key in ("exhausted", "next_newest", "strava_stub_ids"):
-        recent_summary.pop(key)
+# Internal _sync_range bookkeeping that is not part of the published recent_sync summary.
+_INTERNAL_RANGE_KEYS = ("exhausted", "next_newest", "strava_stub_ids")
+
+
+def _build_summary(
+    *,
+    after: int,
+    recent: Dict[str, Any],
+    fetched: int = 0,
+    new_or_updated: int = 0,
+    deleted: int = 0,
+    rate_limited: bool = False,
+    rate_limit_message: str = "",
+    backfill_completed: bool = False,
+    backfill_next_newest: Optional[str] = None,
+    skipped_strava_stubs: int = 0,
+) -> Dict[str, Any]:
+    """Single source of truth for the sync summary shape (normal and early-exit paths)."""
     return {
         "source": "intervals",
-        "fetched": 0,
-        "new_or_updated": 0,
-        "deleted": 0,
+        "fetched": fetched,
+        "new_or_updated": new_or_updated,
+        "deleted": deleted,
         "lookback_start_ts": after,
         "timestamp_utc": utc_now().isoformat(),
-        "rate_limited": True,
-        "backfill_completed": bool(state.get("completed")),
-        "backfill_next_newest": state.get("next_newest"),
-        "skipped_strava_stubs": 0,
-        "recent_sync": recent_summary,
-        "rate_limit_message": message,
+        "rate_limited": rate_limited,
+        "rate_limit_message": rate_limit_message if rate_limited else "",
+        "backfill_completed": backfill_completed,
+        "backfill_next_newest": backfill_next_newest,
+        "skipped_strava_stubs": skipped_strava_stubs,
+        "recent_sync": {k: v for k, v in recent.items() if k not in _INTERNAL_RANGE_KEYS},
     }
+
+
+def _rate_limited_summary(after: int, message: str) -> Dict[str, Any]:
+    state = _load_state()
+    return _build_summary(
+        after=after,
+        recent=_empty_range(),
+        rate_limited=True,
+        rate_limit_message=message,
+        backfill_completed=bool(state.get("completed")),
+        backfill_next_newest=state.get("next_newest"),
+    )
 
 
 def sync_intervals(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
@@ -398,17 +437,24 @@ def sync_intervals(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
     if after:
         lower = datetime.fromtimestamp(after, tz=timezone.utc).date() - timedelta(days=1)
 
+    saved_state = _load_state()
+    last_success = _parse_cursor(saved_state.get("last_success_date"))
+
     recent_summary = _empty_range()
     backfill_start = newest
     if recent_days > 0:
-        recent_oldest = max(lower, utc_now().date() - timedelta(days=recent_days))
+        recent_oldest = utc_now().date() - timedelta(days=recent_days)
+        if last_success is not None:
+            # Catch up on gaps longer than recent_days (e.g. the workflow was broken for weeks).
+            recent_oldest = min(recent_oldest, last_success - timedelta(days=1))
+        recent_oldest = max(lower, recent_oldest)
         recent_summary = _sync_range(api_key, athlete_id, recent_oldest, newest, after, dry_run)
         # Backfill only runs when the recent window completed, so it can start below it.
         backfill_start = recent_oldest - timedelta(days=1)
 
-    state = _load_state() if resume_backfill and not dry_run else {}
+    state = dict(saved_state) if resume_backfill and not dry_run else {}
     if state:
-        if not _boundary_still_covered(state.get("after"), after):
+        if not boundary_still_covered(state.get("after"), after):
             print("Backfill boundary changed; restarting intervals.icu cursor.")
             state = {}
         elif state.get("activity_scope") != activity_scope:
@@ -425,7 +471,24 @@ def sync_intervals(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
     backfill = _empty_range(resume_cursor)
     if not rate_limited and not skip_backfill:
         backfill_newest = min(resume_cursor, backfill_start) if resume_cursor else backfill_start
-        backfill = _sync_range(api_key, athlete_id, lower, backfill_newest, after, dry_run)
+        stop_after_empty = 0
+        walk_at_least_to = None
+        if not after:
+            # No configured lower bound: stop once a long stretch has no activities. A prune
+            # scan must still reach the oldest local activity so it is not pruned by mistake.
+            stop_after_empty = MAX_EMPTY_WINDOWS
+            if full_scan:
+                walk_at_least_to = _oldest_local_activity_date()
+        backfill = _sync_range(
+            api_key,
+            athlete_id,
+            lower,
+            backfill_newest,
+            after,
+            dry_run,
+            stop_after_empty=stop_after_empty,
+            walk_at_least_to=walk_at_least_to,
+        )
         if backfill["rate_limited"]:
             rate_limited = True
             rate_limit_message = backfill["rate_limit_message"]
@@ -434,8 +497,8 @@ def sync_intervals(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
     fetched_ids = set(recent_summary["activity_ids"]) | set(backfill["activity_ids"])
     deleted = 0
     if full_scan and walk_completed:
-        for filename in os.listdir(RAW_DIR):
-            if filename.endswith(".json") and filename[:-5] not in fetched_ids:
+        for filename in _raw_activity_files():
+            if filename[:-5] not in fetched_ids:
                 os.remove(os.path.join(RAW_DIR, filename))
                 deleted += 1
     elif prune_deleted and not dry_run:
@@ -470,31 +533,31 @@ def sync_intervals(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
                 "last_run_utc": utc_now().isoformat(),
             }
         state_update["activity_scope"] = activity_scope
+        if recent_days > 0 and not recent_summary["rate_limited"]:
+            state_update["last_success_date"] = utc_now().date().isoformat()
+        elif last_success is not None:
+            state_update["last_success_date"] = last_success.isoformat()
+        else:
+            state_update.pop("last_success_date", None)
         _save_state(state_update)
 
     # The recent window and a resumed cursor can overlap; count each activity once.
     skipped_strava_stubs = len(set(recent_summary["strava_stub_ids"]) | set(backfill["strava_stub_ids"]))
     if skipped_strava_stubs:
         print(STRAVA_STUB_HINT.format(count=skipped_strava_stubs))
-    for key in ("exhausted", "next_newest", "strava_stub_ids"):
-        recent_summary.pop(key)
 
-    summary: Dict[str, Any] = {
-        "source": "intervals",
-        "fetched": len(fetched_ids),
-        "new_or_updated": backfill["new_or_updated"] + recent_summary["new_or_updated"],
-        "deleted": deleted,
-        "lookback_start_ts": after,
-        "timestamp_utc": utc_now().isoformat(),
-        "rate_limited": rate_limited,
-        "backfill_completed": completed,
-        "backfill_next_newest": next_newest,
-        "skipped_strava_stubs": skipped_strava_stubs,
-        "recent_sync": recent_summary,
-    }
-    if rate_limited:
-        summary["rate_limit_message"] = rate_limit_message
-    return summary
+    return _build_summary(
+        after=after,
+        recent=recent_summary,
+        fetched=len(fetched_ids),
+        new_or_updated=backfill["new_or_updated"] + recent_summary["new_or_updated"],
+        deleted=deleted,
+        rate_limited=rate_limited,
+        rate_limit_message=rate_limit_message,
+        backfill_completed=completed,
+        backfill_next_newest=next_newest,
+        skipped_strava_stubs=skipped_strava_stubs,
+    )
 
 
 def main() -> int:

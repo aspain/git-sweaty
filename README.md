@@ -97,7 +97,7 @@ You can switch between `strava`, `garmin`, and `intervals` at any time.
 - To click activity urls while viewing on desktop, click the graph dot to freeze the tooltip in place.
 - If a day contains multiple activity types, that day’s colored square is split into equal segments — one per unique activity type on that day.
 - Raw activities are stored locally for processing but are not committed (`activities/raw/` is ignored). This prevents publishing detailed per-activity payloads and GPS location traces.
-- If neither `sync.start_date` nor `sync.lookback_years` is set, the sync workflow backfills all available history from the selected source (i.e. Strava/Garmin/intervals.icu).
+- If neither `sync.start_date` nor `sync.lookback_years` is set, the sync workflow backfills all available history from the selected source (i.e. Strava/Garmin/intervals.icu). For intervals.icu, the backfill stops after about two years with no activities; set `sync.start_date` if your history has a longer gap.
 - Strava backfill state is stored in `data/backfill_state_strava.json`; Garmin backfill state is stored in `data/backfill_state_garmin.json`; intervals.icu backfill state is stored in `data/backfill_state_intervals.json`. If a backfill hits API limits (unlikely), this state allows the daily refresh automation to pick back up where it left off.
 - The Sync action workflow includes a toggle labeled `Reset backfill cursor and re-fetch full history for the selected source` which forces a one-time full backfill. This is useful if you add/delete/modify activities which have already been loaded.
 
@@ -184,7 +184,7 @@ Optional but recommended for automatic Garmin token rotation:
 1. In intervals.icu, open `Settings` -> `Developer Settings` and copy your API key.
 2. Add this secret to your fork:
    - `INTERVALS_API_KEY`
-3. Optional: to sync a different athlete than the key owner (for example as a coach), add a repository **variable** (not a secret) `INTERVALS_ATHLETE_ID`, e.g. `i12345`. It defaults to `0`, meaning the athlete that owns the API key. A secret with the same name is still honored as a fallback. Setup stores this variable for you and keeps it on re-runs unless you explicitly enter `0`.
+3. Optional: to sync a different athlete than the key owner (for example as a coach), add a repository **variable** (not a secret) `INTERVALS_ATHLETE_ID`, e.g. `i12345`. It defaults to `0`, meaning the athlete that owns the API key. A secret with the same name is still honored as a fallback. Setup stores this variable for you and keeps it on re-runs unless you explicitly enter `0`. If only the older `INTERVALS_ATHLETE_ID` secret exists, setup can't read its value back to validate it, so it asks you to re-enter the athlete id (non-interactive runs need `--intervals-athlete-id`). It then migrates the value to the variable and removes the secret.
 4. Optional: check the key works (the username is the literal `API_KEY`):
 
 ```bash
