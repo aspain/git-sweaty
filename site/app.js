@@ -449,6 +449,7 @@ function parseStravaProfileUrl(value) {
   return {
     href: `${parsed.protocol}//${parsed.host}${normalizedPath}${parsed.search}`,
     label: isGarminHost ? "Garmin" : (isIntervalsHost ? "intervals.icu" : "Strava"),
+    ...(isIntervalsHost ? { provider: "intervals" } : {}),
   };
 }
 
@@ -502,11 +503,9 @@ function syncStravaProfileLink(profileUrl, source) {
   }
   stravaProfileLink.href = parsed.href;
   const providerLabel = parsed.label || providerDisplayName(source) || "Profile";
-  const provider = providerLabel === "Garmin"
+  const provider = parsed.provider || (providerLabel === "Garmin"
     ? PROFILE_PROVIDER_GARMIN
-    : providerLabel === "intervals.icu"
-      ? PROFILE_PROVIDER_INTERVALS
-      : PROFILE_PROVIDER_STRAVA;
+    : PROFILE_PROVIDER_STRAVA);
   setProfileProviderIcon(provider);
   if (stravaProfileLabel) {
     stravaProfileLabel.textContent = providerLabel;

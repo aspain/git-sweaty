@@ -1940,6 +1940,94 @@ class SetupAuthIntervalsTests(unittest.TestCase):
         with mock.patch("setup_auth._get_variable", return_value="bad/id"):
             self.assertIsNone(setup_auth._existing_intervals_athlete_id("owner/repo"))
 
+    def test_existing_intervals_athlete_id_state_flags_invalid_variable(self) -> None:
+        with mock.patch("setup_auth._get_variable", return_value=None):
+            self.assertEqual(setup_auth._existing_intervals_athlete_id_state("owner/repo"), (None, None))
+        with mock.patch("setup_auth._get_variable", return_value=" i999 "):
+            self.assertEqual(setup_auth._existing_intervals_athlete_id_state("owner/repo"), ("i999", None))
+        for raw in ("i 123", "i12345/x"):
+            with mock.patch("setup_auth._get_variable", return_value=raw):
+                self.assertEqual(setup_auth._existing_intervals_athlete_id_state("owner/repo"), (None, raw))
+
+    def test_resolve_intervals_auth_values_interactive_reprompts_invalid_athlete_id(self) -> None:
+        args = Namespace(intervals_api_key="key", intervals_athlete_id=None)
+        with (
+            mock.patch("builtins.input", side_effect=["i 123", "i12345/x", "i42"]) as input_mock,
+            mock.patch("setup_auth._fetch_intervals_athlete", return_value={"id": "i42"}) as fetch_mock,
+            mock.patch("sys.stdout", new_callable=io.StringIO) as stdout,
+        ):
+            _, athlete_id, _ = setup_auth._resolve_intervals_auth_values(args, interactive=True)
+        self.assertEqual(athlete_id, "i42")
+        self.assertEqual(input_mock.call_count, 3)
+        fetch_mock.assert_called_once_with("key", "i42")
+        self.assertEqual(stdout.getvalue().count("Unsupported intervals.icu athlete id"), 2)
+
+    def test_resolve_intervals_auth_values_interactive_reprompt_then_enter_keeps_stored(self) -> None:
+        args = Namespace(intervals_api_key="key", intervals_athlete_id=None)
+        with (
+            mock.patch("builtins.input", side_effect=["bad id", ""]),
+            mock.patch("setup_auth._fetch_intervals_athlete", return_value={"id": "i999"}),
+            mock.patch("sys.stdout", new_callable=io.StringIO),
+        ):
+            _, athlete_id, _ = setup_auth._resolve_intervals_auth_values(
+                args, interactive=True, existing_athlete_id="i999"
+            )
+        self.assertEqual(athlete_id, "i999")
+
+    def test_resolve_intervals_auth_values_legacy_prompt_reprompts_invalid_athlete_id(self) -> None:
+        args = Namespace(intervals_api_key="key", intervals_athlete_id=None)
+        with (
+            mock.patch("builtins.input", side_effect=["i 5", "i5"]) as input_mock,
+            mock.patch("setup_auth._prompt_choice") as choice_mock,
+            mock.patch("setup_auth._fetch_intervals_athlete", return_value={"id": "i5"}) as fetch_mock,
+            mock.patch("sys.stdout", new_callable=io.StringIO) as stdout,
+        ):
+            _, athlete_id, _ = setup_auth._resolve_intervals_auth_values(
+                args, interactive=True, legacy_athlete_secret_present=True
+            )
+        self.assertEqual(athlete_id, "i5")
+        self.assertEqual(input_mock.call_count, 2)
+        choice_mock.assert_not_called()
+        fetch_mock.assert_called_once_with("key", "i5")
+        self.assertIn("Unsupported intervals.icu athlete id", stdout.getvalue())
+
+    def test_resolve_intervals_auth_values_non_interactive_invalid_arg_fails_fast(self) -> None:
+        args = Namespace(intervals_api_key="key", intervals_athlete_id="i 123")
+        with (
+            mock.patch("builtins.input") as input_mock,
+            mock.patch("setup_auth._fetch_intervals_athlete") as fetch_mock,
+        ):
+            with self.assertRaises(ValueError) as ctx:
+                setup_auth._resolve_intervals_auth_values(args, interactive=False)
+        self.assertIn("Unsupported intervals.icu athlete id", str(ctx.exception))
+        input_mock.assert_not_called()
+        fetch_mock.assert_not_called()
+
+    def test_resolve_intervals_auth_values_warns_about_invalid_stored_athlete_id(self) -> None:
+        args = Namespace(intervals_api_key="key", intervals_athlete_id=None)
+        with (
+            mock.patch("builtins.input", return_value="") as input_mock,
+            mock.patch("setup_auth._fetch_intervals_athlete", return_value={"id": "i1"}) as fetch_mock,
+            mock.patch("sys.stdout", new_callable=io.StringIO) as stdout,
+        ):
+            _, athlete_id, _ = setup_auth._resolve_intervals_auth_values(
+                args, interactive=True, invalid_stored_athlete_id="i 123"
+            )
+        self.assertEqual(athlete_id, "0")
+        fetch_mock.assert_called_once_with("key", "0")
+        prompt_text = input_mock.call_args.args[0]
+        self.assertIn("'i 123' is invalid and will be replaced", prompt_text)
+        self.assertIn("Warning", stdout.getvalue())
+        with (
+            mock.patch("setup_auth._fetch_intervals_athlete", return_value={"id": "i1"}),
+            mock.patch("sys.stdout", new_callable=io.StringIO) as stdout,
+        ):
+            _, athlete_id, _ = setup_auth._resolve_intervals_auth_values(
+                args, interactive=False, invalid_stored_athlete_id="i12345/x"
+            )
+        self.assertEqual(athlete_id, "0")
+        self.assertIn("'i12345/x'", stdout.getvalue())
+
     def test_resolve_intervals_auth_values_enter_keeps_stored_athlete_id(self) -> None:
         args = Namespace(intervals_api_key="key", intervals_athlete_id=None)
         with (
@@ -2120,6 +2208,7 @@ class SetupAuthIntervalsMainFlowTests(unittest.TestCase):
         previous_source: str,
         athlete_id="0",
         existing_athlete_id=None,
+        invalid_athlete_id=None,
         secret_names=frozenset(),
         activity_links: bool = True,
         profile_pref: tuple = (True, "https://intervals.icu"),
@@ -2151,9 +2240,14 @@ class SetupAuthIntervalsMainFlowTests(unittest.TestCase):
             )
             stack.enter_context(mock.patch("setup_auth._get_variable", return_value=None))
             stack.enter_context(
-                mock.patch("setup_auth._existing_intervals_athlete_id", return_value=existing_athlete_id)
+                mock.patch(
+                    "setup_auth._existing_intervals_athlete_id_state",
+                    return_value=(existing_athlete_id, invalid_athlete_id),
+                )
             )
-            stack.enter_context(mock.patch("setup_auth._list_secret_names", return_value=set(secret_names)))
+            list_secrets_mock = stack.enter_context(
+                mock.patch("setup_auth._list_secret_names", return_value=set(secret_names))
+            )
             auth_mock = stack.enter_context(
                 mock.patch(
                     "setup_auth._resolve_intervals_auth_values",
@@ -2188,6 +2282,7 @@ class SetupAuthIntervalsMainFlowTests(unittest.TestCase):
             "clear_variable": clear_variable_mock,
             "dispatch": dispatch_mock,
             "prompt_backfill": prompt_backfill_mock,
+            "list_secrets": list_secrets_mock,
             "stdout": stdout.getvalue(),
         }
 
@@ -2220,13 +2315,17 @@ class SetupAuthIntervalsMainFlowTests(unittest.TestCase):
         out["set_secret"].assert_called_once_with("INTERVALS_API_KEY", "api-key", "owner/repo")
         out["clear_secret"].assert_not_called()
         out["auth"].assert_called_once_with(
-            mock.ANY, True, existing_athlete_id=None, legacy_athlete_secret_present=False
+            mock.ANY, True, existing_athlete_id=None,
+            legacy_athlete_secret_present=False,
+            invalid_stored_athlete_id=None,
         )
 
     def test_main_passes_stored_athlete_id_and_keeps_it(self) -> None:
         out = self._run_main(previous_source="intervals", athlete_id="i999", existing_athlete_id="i999")
         out["auth"].assert_called_once_with(
-            mock.ANY, True, existing_athlete_id="i999", legacy_athlete_secret_present=False
+            mock.ANY, True, existing_athlete_id="i999",
+            legacy_athlete_secret_present=False,
+            invalid_stored_athlete_id=None,
         )
         self.assertIn(
             mock.call("INTERVALS_ATHLETE_ID", "i999", "owner/repo"), out["set_variable"].mock_calls
@@ -2252,10 +2351,32 @@ class SetupAuthIntervalsMainFlowTests(unittest.TestCase):
             secret_names={"INTERVALS_API_KEY", "INTERVALS_ATHLETE_ID"},
         )
         out["auth"].assert_called_once_with(
-            mock.ANY, True, existing_athlete_id=None, legacy_athlete_secret_present=True
+            mock.ANY, True, existing_athlete_id=None,
+            legacy_athlete_secret_present=True,
+            invalid_stored_athlete_id=None,
         )
         out["clear_secret"].assert_called_once_with("INTERVALS_ATHLETE_ID", "owner/repo")
         self.assertNotIn("INTERVALS_ATHLETE_ID", [c.args[0] for c in out["set_variable"].mock_calls])
+
+    def test_main_zero_clears_invalid_stored_athlete_id(self) -> None:
+        out = self._run_main(previous_source="intervals", athlete_id="0", invalid_athlete_id="i 123")
+        out["auth"].assert_called_once_with(
+            mock.ANY,
+            True,
+            existing_athlete_id=None,
+            legacy_athlete_secret_present=False,
+            invalid_stored_athlete_id="i 123",
+        )
+        self.assertIn(mock.call("INTERVALS_ATHLETE_ID", "owner/repo"), out["clear_variable"].mock_calls)
+        self.assertNotIn("INTERVALS_ATHLETE_ID", [c.args[0] for c in out["set_variable"].mock_calls])
+        out["clear_secret"].assert_not_called()
+        out["list_secrets"].assert_called_once_with("owner/repo")
+
+    def test_main_non_zero_overwrites_invalid_stored_athlete_id(self) -> None:
+        out = self._run_main(previous_source="intervals", athlete_id="i42", invalid_athlete_id="i12345/x")
+        self.assertIn(mock.call("INTERVALS_ATHLETE_ID", "i42", "owner/repo"), out["set_variable"].mock_calls)
+        self.assertNotIn(mock.call("INTERVALS_ATHLETE_ID", "owner/repo"), out["clear_variable"].mock_calls)
+        out["list_secrets"].assert_called_once_with("owner/repo")
 
     def test_main_explicit_zero_clears_stored_athlete_id(self) -> None:
         out = self._run_main(
@@ -2367,7 +2488,9 @@ class SetupAuthIntervalsMainFlowTests(unittest.TestCase):
                 )
             )
             stack.enter_context(mock.patch("setup_auth._get_variable", return_value=None))
-            stack.enter_context(mock.patch("setup_auth._existing_intervals_athlete_id", return_value=None))
+            stack.enter_context(
+                mock.patch("setup_auth._existing_intervals_athlete_id_state", return_value=(None, None))
+            )
             auth_mock = stack.enter_context(
                 mock.patch(
                     "setup_auth._resolve_intervals_auth_values",

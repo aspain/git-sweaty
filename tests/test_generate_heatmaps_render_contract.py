@@ -542,7 +542,7 @@ class GenerateHeatmapsRenderContractTests(unittest.TestCase):
         ):
             generate_heatmaps.generate(write_svgs=False)
 
-        self.assertEqual(load_args, {"source": "intervals", "kwargs": {"include_intervals_activity_urls": True}})
+        self.assertEqual(load_args, {"source": "intervals", "kwargs": {"include_activity_urls": True}})
 
     def test_intervals_activity_url_and_profile_host(self) -> None:
         self.assertEqual(

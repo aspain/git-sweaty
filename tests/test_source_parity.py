@@ -159,6 +159,26 @@ class SourceParityAppJsTests(unittest.TestCase):
             ],
         )
 
+    def test_intervals_icon_does_not_depend_on_display_label(self) -> None:
+        expression = (
+            "(() => {"
+            "  const classes = new Set();"
+            "  globalThis.stravaProfileLink = {"
+            "    hidden: true, href: '', textContent: '',"
+            "    classList: {"
+            "      add: (...names) => names.forEach((n) => classes.add(n)),"
+            "      remove: (...names) => names.forEach((n) => classes.delete(n)),"
+            "    },"
+            "  };"
+            "  globalThis.stravaProfileLabel = { textContent: '' };"
+            "  const original = parseStravaProfileUrl;"
+            "  parseStravaProfileUrl = (url) => ({ ...original(url), label: 'Intervals.icu (renamed)' });"
+            "  syncStravaProfileLink(payload, 'intervals');"
+            "  return [...classes];"
+            "})()"
+        )
+        self.assertEqual(self._run(expression, "https://intervals.icu/athlete/i1"), ["profile-provider-intervals"])
+
     def test_activity_urls_accepted_for_every_source(self) -> None:
         urls = [
             "https://www.strava.com/activities/1",

@@ -134,7 +134,6 @@ def _load_activities(
     include_activity_urls: bool = False,
     include_strava_activity_urls: bool = False,
     include_garmin_activity_urls: bool = False,
-    include_intervals_activity_urls: bool = False,
 ) -> List[Dict]:
     if not os.path.exists(ACTIVITIES_PATH):
         return []
@@ -165,8 +164,6 @@ def _load_activities(
         if source == "strava" and include_strava_activity_urls:
             include_provider_activity_urls = True
         if source == "garmin" and include_garmin_activity_urls:
-            include_provider_activity_urls = True
-        if source == "intervals" and include_intervals_activity_urls:
             include_provider_activity_urls = True
 
         if include_provider_activity_urls:
@@ -469,7 +466,7 @@ def generate(write_svgs: bool = True):
     elif source == "garmin":
         load_activities_kwargs["include_garmin_activity_urls"] = include_activity_urls
     elif source == "intervals":
-        load_activities_kwargs["include_intervals_activity_urls"] = include_activity_urls
+        load_activities_kwargs["include_activity_urls"] = include_activity_urls
     site_payload = {
         "source": source,
         "generated_at": utc_now().isoformat(),

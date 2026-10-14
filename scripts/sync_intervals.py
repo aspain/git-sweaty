@@ -5,7 +5,7 @@ import os
 import shutil
 import sys
 from datetime import date, datetime, timedelta, timezone
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import intervals_api
 from intervals_api import IntervalsAuthError, IntervalsRateLimitError
@@ -83,10 +83,6 @@ STRAVA_STUB_HINT = (
 )
 
 
-class RateLimitExceeded(RuntimeError):
-    pass
-
-
 def _credentials(config: Dict[str, Any]) -> Tuple[str, str]:
     intervals_cfg = config.get("intervals", {}) or {}
     api_key = str(intervals_cfg.get("api_key") or "").strip()
@@ -99,22 +95,19 @@ def _credentials(config: Dict[str, Any]) -> Tuple[str, str]:
     return api_key, athlete_id
 
 
-def _call_api(func: Callable[..., Any], *args: Any) -> Any:
-    """Call an intervals_api function with sync's retry settings and error mapping."""
-    try:
-        return func(*args, max_attempts=MAX_REQUEST_ATTEMPTS, max_retry_wait=MAX_RETRY_WAIT_SECONDS)
-    except IntervalsRateLimitError as exc:
-        raise RateLimitExceeded(str(exc)) from exc
-    except IntervalsAuthError as exc:
-        raise RuntimeError(
-            f"intervals.icu rejected the request (HTTP {exc.status}). Check that "
-            "intervals.api_key is valid and that intervals.athlete_id belongs to that key "
-            "(use \"0\" for the key's own athlete)."
-        ) from exc
+def _auth_hint_error(exc: IntervalsAuthError) -> RuntimeError:
+    """User-facing error for a rejected API key/athlete id, naming the config keys."""
+    return RuntimeError(
+        f"intervals.icu rejected the request (HTTP {exc.status}). Check that "
+        "intervals.api_key is valid and that intervals.athlete_id belongs to that key "
+        "(use \"0\" for the key's own athlete)."
+    )
 
 
 def _request_json(api_key: str, path: str, params: Optional[Dict[str, str]] = None) -> Any:
-    return _call_api(intervals_api.get_json, api_key, path, params)
+    return intervals_api.get_json(
+        api_key, path, params, max_attempts=MAX_REQUEST_ATTEMPTS, max_retry_wait=MAX_RETRY_WAIT_SECONDS
+    )
 
 
 def _fetch_window(
@@ -123,10 +116,32 @@ def _fetch_window(
     params = {"oldest": oldest.isoformat(), "newest": newest.isoformat()}
     if limit is not None:
         params["limit"] = str(limit)
-    payload = _request_json(api_key, f"{intervals_api.athlete_path(athlete_id)}/activities", params)
+    path = f"{intervals_api.athlete_path(athlete_id)}/activities"
+    payload = _request_json(api_key, path, params)
     if not isinstance(payload, list):
-        return []
+        # An error object (even with HTTP 200) must never pass for an empty window.
+        raise intervals_api.IntervalsApiError(
+            f"intervals.icu returned an unexpected response for {path} (expected a list of activities)."
+        )
     return [item for item in payload if isinstance(item, dict)]
+
+
+def _latest_activity_day(api_key: str, athlete_id: str, oldest: date, newest: date) -> Optional[date]:
+    """Latest day D in [oldest, newest] such that [D, newest] holds an activity, else None.
+
+    Uses `limit=1` requests purely as existence checks (binary search, ~14 requests for 36
+    years), so the result does not depend on the order the API returns activities in.
+    """
+    if not _fetch_window(api_key, athlete_id, oldest, newest, limit=1):
+        return None
+    low, high = oldest, newest
+    while low < high:
+        mid = low + timedelta(days=((high - low).days + 1) // 2)
+        if _fetch_window(api_key, athlete_id, mid, newest, limit=1):
+            low = mid
+        else:
+            high = mid - timedelta(days=1)
+    return low
 
 
 def _is_strava_stub(activity: Dict[str, Any]) -> bool:
@@ -195,8 +210,9 @@ def _sync_range(
     treats a date-only `newest` as start of day; activities are deduped by id.
 
     With `stop_after_empty`, after that many consecutive empty windows (once the walk has
-    gone at least as far back as `walk_at_least_to`) one `limit=1` probe asks for the newest
-    activity left in [oldest, cursor]: the walk jumps to it, or ends (as exhausted) if none.
+    gone at least as far back as `walk_at_least_to`) `limit=1` existence checks find the
+    latest day left in [oldest, cursor] with an activity: the walk jumps to it, or ends (as
+    exhausted) if none.
 
     A rate limit or other API error stops the walk with the failing window as `next_newest`;
     a non-rate-limit error is returned in `error` for the caller to re-raise after saving.
@@ -216,7 +232,7 @@ def _sync_range(
         window_oldest = max(oldest, cursor - timedelta(days=WINDOW_DAYS - 1))
         try:
             activities = _fetch_window(api_key, athlete_id, window_oldest, cursor)
-        except RateLimitExceeded as exc:
+        except IntervalsRateLimitError as exc:
             rate_limited = True
             rate_limit_message = str(exc)
             break
@@ -250,21 +266,19 @@ def _sync_range(
             and (walk_at_least_to is None or window_oldest <= walk_at_least_to)
         ):
             try:
-                probe = _fetch_window(api_key, athlete_id, oldest, cursor, limit=1)
-            except RateLimitExceeded as exc:
+                found = _latest_activity_day(api_key, athlete_id, oldest, cursor)
+            except IntervalsRateLimitError as exc:
                 rate_limited = True
                 rate_limit_message = str(exc)
                 break
             except intervals_api.IntervalsApiError as exc:
                 error = exc
                 break
-            if not probe:
+            if found is None:
                 break
-            # Older history exists past the gap (newest-first, so this is the latest of it,
-            # possibly a Strava stub): resume the walk just above it.
-            found = _parse_cursor(str(probe[0].get("start_date_local") or "")[:10])
-            if found is not None:
-                cursor = min(cursor, found + timedelta(days=1))
+            # Older history exists past the gap (possibly a Strava stub): resume the walk so
+            # the next window includes `found` (one day above it, like the window overlap).
+            cursor = min(cursor, found + timedelta(days=1))
             empty_streak = 0
 
     exhausted = not rate_limited and error is None
@@ -300,7 +314,9 @@ def _save_state(state: Dict[str, Any]) -> None:
 
 
 def _fetch_athlete(api_key: str, athlete_id: str) -> Dict[str, Any]:
-    return _call_api(intervals_api.fetch_athlete, api_key, athlete_id)
+    return intervals_api.fetch_athlete(
+        api_key, athlete_id, max_attempts=MAX_REQUEST_ATTEMPTS, max_retry_wait=MAX_RETRY_WAIT_SECONDS
+    )
 
 
 def _raw_activity_files() -> List[str]:
@@ -369,19 +385,24 @@ def _reset_persisted_data() -> None:
         shutil.rmtree(RAW_DIR)
 
 
-def _maybe_reset_for_new_account(athlete: Dict[str, Any]) -> None:
+def _account_reset_reason(athlete: Dict[str, Any]) -> Optional[str]:
+    """Why persisted data must be reset for this account, or None to keep it."""
     stored = _load_account_fingerprint()
     if stored and stored != _account_fingerprint(str(athlete["id"])):
-        print("Detected different intervals.icu account; resetting persisted data.")
-    elif not stored and _has_intervals_history():
+        return "Detected different intervals.icu account; resetting persisted data."
+    if not stored and _has_intervals_history():
         # Only intervals.icu raw data/state can belong to an unknown account. Derived outputs
         # alone (e.g. written after a rate-limited first run, or left by another source, which
         # run_pipeline already resets on a source switch) are adopted by this account.
-        print("No intervals.icu account fingerprint found with existing data; resetting persisted data.")
-    else:
-        _write_athlete_cache(athlete)
-        return
-    _reset_persisted_data()
+        return "No intervals.icu account fingerprint found with existing data; resetting persisted data."
+    return None
+
+
+def _maybe_reset_for_new_account(athlete: Dict[str, Any]) -> None:
+    reason = _account_reset_reason(athlete)
+    if reason:
+        print(reason)
+        _reset_persisted_data()
     _write_athlete_cache(athlete)
 
 
@@ -470,7 +491,9 @@ def sync_intervals(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
     # identifies the account for the reset check and athlete cache.
     try:
         athlete = _fetch_athlete(api_key, athlete_id)
-    except RateLimitExceeded as exc:
+    except IntervalsAuthError as exc:
+        raise _auth_hint_error(exc) from exc
+    except IntervalsRateLimitError as exc:
         # Syncing without the account check would write data with no fingerprint, which the
         # next run treats as foreign and wipes. Stop before touching anything.
         print(f"Warning: unable to fetch intervals.icu athlete profile; skipping sync ({exc})")
@@ -487,7 +510,9 @@ def sync_intervals(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
     if after:
         lower = datetime.fromtimestamp(after, tz=timezone.utc).date() - timedelta(days=1)
 
-    saved_state = _load_state()
+    # A dry run reads the saved state (as the real run would after any account reset) but
+    # never writes it.
+    saved_state = {} if dry_run and _account_reset_reason(athlete) else _load_state()
     last_success = _parse_cursor(saved_state.get("last_success_date"))
 
     recent_summary = _empty_range()
@@ -503,7 +528,7 @@ def sync_intervals(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
         # oldest day (one day of overlap, like consecutive windows; ids are deduped).
         backfill_start = recent_oldest
 
-    state = dict(saved_state) if resume_backfill and not dry_run else {}
+    state = dict(saved_state) if resume_backfill else {}
     if state:
         if not _boundary_still_covered(state.get("after"), after):
             print("Backfill boundary changed; restarting intervals.icu cursor.")
@@ -595,6 +620,8 @@ def sync_intervals(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
 
     # Progress is saved; still fail the run visibly on a non-rate-limit API error.
     error = recent_summary["error"] or backfill["error"]
+    if isinstance(error, IntervalsAuthError):
+        raise _auth_hint_error(error) from error
     if error is not None:
         raise error
 

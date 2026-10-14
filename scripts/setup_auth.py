@@ -2191,15 +2191,37 @@ def _resolve_garmin_auth_values(args: argparse.Namespace, interactive: bool) -> 
     return token_store_b64, email, password
 
 
-def _existing_intervals_athlete_id(repo: str) -> Optional[str]:
-    """Return the athlete id stored in the INTERVALS_ATHLETE_ID repository variable, if any."""
+def _existing_intervals_athlete_id_state(repo: str) -> Tuple[Optional[str], Optional[str]]:
+    """Read the INTERVALS_ATHLETE_ID repository variable.
+
+    Returns ``(valid_id, invalid_raw)``: ``valid_id`` is the normalized athlete id when the
+    variable holds a usable value; ``invalid_raw`` is the raw stored value when the variable is
+    present but invalid (so callers can replace or clear it). Both are None when it is absent.
+    """
     raw = _get_variable(INTERVALS_ATHLETE_ID_NAME, repo)
     if not raw:
-        return None
+        return None, None
     try:
-        return _normalize_intervals_athlete_id(raw)
+        return _normalize_intervals_athlete_id(raw), None
     except ValueError:
-        return None
+        return None, str(raw)
+
+
+def _existing_intervals_athlete_id(repo: str) -> Optional[str]:
+    """Return the athlete id stored in the INTERVALS_ATHLETE_ID repository variable, if valid."""
+    return _existing_intervals_athlete_id_state(repo)[0]
+
+
+def _prompt_intervals_athlete_id(prompt_text: str, default: str) -> str:
+    """Ask for an athlete id until a valid one (or an empty answer, meaning ``default``) is given."""
+    while True:
+        answer = input(prompt_text).strip()
+        if not answer:
+            return default
+        try:
+            return _normalize_intervals_athlete_id(answer)
+        except ValueError as exc:
+            print(str(exc))
 
 
 def _prompt_intervals_athlete_id_replacing_legacy_secret() -> str:
@@ -2212,7 +2234,11 @@ def _prompt_intervals_athlete_id_replacing_legacy_secret() -> str:
     while True:
         answer = input("intervals.icu athlete id (for example i12345; 0 = API key owner): ").strip()
         if answer:
-            return _normalize_intervals_athlete_id(answer)
+            try:
+                return _normalize_intervals_athlete_id(answer)
+            except ValueError as exc:
+                print(str(exc))
+                continue
         choice = _prompt_choice(
             "No athlete id entered. Sync the athlete that owns the API key (0) instead? [y/n]: ",
             {"y": "yes", "yes": "yes", "n": "no", "no": "no"},
@@ -2227,6 +2253,7 @@ def _resolve_intervals_auth_values(
     interactive: bool,
     existing_athlete_id: Optional[str] = None,
     legacy_athlete_secret_present: bool = False,
+    invalid_stored_athlete_id: Optional[str] = None,
 ) -> Tuple[str, str, dict]:
     """Resolve and validate the intervals.icu API key and athlete id.
 
@@ -2235,6 +2262,8 @@ def _resolve_intervals_auth_values(
     --intervals-athlete-id keeps it. When only the legacy INTERVALS_ATHLETE_ID secret exists,
     its value cannot be read back (and therefore not validated), so the athlete id must be
     re-entered (interactive) or passed with --intervals-athlete-id (non-interactive).
+    When the stored variable holds an invalid value (``invalid_stored_athlete_id``), it is
+    ignored and the user is warned that it will be replaced (or cleared for 0).
     """
     api_key = str(getattr(args, "intervals_api_key", None) or "").strip()
     athlete_id_arg = getattr(args, "intervals_athlete_id", None)
@@ -2249,6 +2278,13 @@ def _resolve_intervals_auth_values(
         if not api_key:
             raise ValueError("INTERVALS_API_KEY is required.")
 
+    if invalid_stored_athlete_id is not None:
+        print(
+            f"\nWarning: the stored {INTERVALS_ATHLETE_ID_NAME} repository variable "
+            f"{invalid_stored_athlete_id!r} is not a valid intervals.icu athlete id; "
+            "it will be replaced by the athlete id chosen now (or cleared for 0)."
+        )
+
     if athlete_id_arg is not None:
         athlete_id = _normalize_intervals_athlete_id(str(athlete_id_arg))
     elif not existing_athlete_id and legacy_athlete_secret_present:
@@ -2260,20 +2296,23 @@ def _resolve_intervals_auth_values(
             )
         athlete_id = _prompt_intervals_athlete_id_replacing_legacy_secret()
     else:
-        athlete_id_text = ""
+        default_athlete_id = existing_athlete_id or INTERVALS_DEFAULT_ATHLETE_ID
         if interactive:
             if existing_athlete_id:
                 prompt_text = (
                     "intervals.icu athlete id (for example i12345; 0 = API key owner; "
                     f"default: {existing_athlete_id} (current)): "
                 )
+            elif invalid_stored_athlete_id is not None:
+                prompt_text = (
+                    "intervals.icu athlete id (for example i12345; default: 0 = API key owner; "
+                    f"stored value {invalid_stored_athlete_id!r} is invalid and will be replaced): "
+                )
             else:
                 prompt_text = "intervals.icu athlete id (for example i12345; default: 0 = API key owner): "
-            athlete_id_text = input(prompt_text).strip()
-        if athlete_id_text:
-            athlete_id = _normalize_intervals_athlete_id(athlete_id_text)
+            athlete_id = _prompt_intervals_athlete_id(prompt_text, default_athlete_id)
         else:
-            athlete_id = existing_athlete_id or INTERVALS_DEFAULT_ATHLETE_ID
+            athlete_id = default_athlete_id
 
     print("Validating intervals.icu API key...")
     athlete = _fetch_intervals_athlete(api_key, athlete_id)
@@ -3346,7 +3385,10 @@ def main() -> int:
         )
     elif source == "intervals":
         if update_credentials:
-            existing_intervals_athlete_id = _existing_intervals_athlete_id(repo)
+            (
+                existing_intervals_athlete_id,
+                invalid_intervals_athlete_id,
+            ) = _existing_intervals_athlete_id_state(repo)
             if secret_names is None:
                 secret_names = _list_secret_names(repo)
             legacy_athlete_secret_present = INTERVALS_ATHLETE_ID_NAME in secret_names
@@ -3355,6 +3397,7 @@ def main() -> int:
                 interactive,
                 existing_athlete_id=existing_intervals_athlete_id,
                 legacy_athlete_secret_present=legacy_athlete_secret_present,
+                invalid_stored_athlete_id=invalid_intervals_athlete_id,
             )
             _set_secret("INTERVALS_API_KEY", intervals_api_key, repo)
             configured_secret_names.append("INTERVALS_API_KEY")
@@ -3366,7 +3409,8 @@ def main() -> int:
                     _clear_secret(INTERVALS_ATHLETE_ID_NAME, repo)
             else:
                 # Explicit 0 (or nothing stored): sync the API key owner.
-                if existing_intervals_athlete_id:
+                # An invalid stored variable is cleared too, so the workflow stops sending it.
+                if existing_intervals_athlete_id or invalid_intervals_athlete_id is not None:
                     _clear_variable(INTERVALS_ATHLETE_ID_NAME, repo)
                 if legacy_athlete_secret_present:
                     _clear_secret(INTERVALS_ATHLETE_ID_NAME, repo)

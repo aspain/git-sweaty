@@ -1,3 +1,4 @@
+import io
 import os
 import sys
 import tempfile
@@ -121,12 +122,32 @@ class RunPipelineSourceSwitchTests(unittest.TestCase):
         )
         self.assertEqual(
             self._detect_hint_with(state_sources=["garmin"], raw_sources=["intervals"]),
-            run_pipeline.SOURCE_HINT_MIXED,
+            run_pipeline.SOURCE_HINT_MIXED_INTERVALS,
         )
         self.assertEqual(
             self._detect_hint_with(state_sources=["strava", "intervals"]),
-            run_pipeline.SOURCE_HINT_MIXED,
+            run_pipeline.SOURCE_HINT_MIXED_INTERVALS,
         )
+
+    def test_run_pipeline_reports_intervals_mixed_state_without_blaming_garmin(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            data_dir = os.path.join(tmpdir, "data")
+            os.makedirs(data_dir, exist_ok=True)
+            for name in ("activities_normalized.json", "backfill_state_strava.json", "backfill_state_intervals.json"):
+                with open(os.path.join(data_dir, name), "w", encoding="utf-8") as f:
+                    f.write("{}\n")
+
+            previous_cwd = os.getcwd()
+            os.chdir(tmpdir)
+            try:
+                with mock.patch("sys.stdout", new_callable=io.StringIO) as stdout:
+                    reset_mock = self._run_pipeline_with_mocks(source="intervals", previous_source=None)
+            finally:
+                os.chdir(previous_cwd)
+
+        reset_mock.assert_called_once()
+        self.assertIn("intervals.icu persisted state was detected", stdout.getvalue())
+        self.assertNotIn("both Strava and Garmin", stdout.getvalue())
 
     def test_sync_for_source_dispatches_intervals(self) -> None:
         with mock.patch("run_pipeline.sync_intervals", return_value={"source": "intervals"}) as sync_mock:

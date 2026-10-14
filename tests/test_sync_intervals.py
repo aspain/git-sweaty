@@ -529,13 +529,13 @@ class SyncIntervalsTests(unittest.TestCase):
         self.assertTrue(summary["backfill_completed"])
 
     @staticmethod
-    def _history_handler(activities):
+    def _history_handler(activities, newest_first=True):
         """Serve `activities` like intervals.icu: by date range, newest-first, honoring limit."""
 
         def handler(_method, _url, **kwargs):
             params = kwargs["params"]
             hits = [a for a in activities if params["oldest"] <= a["start_date_local"][:10] <= params["newest"]]
-            hits.sort(key=lambda a: a["start_date_local"], reverse=True)
+            hits.sort(key=lambda a: a["start_date_local"], reverse=newest_first)
             if "limit" in params:
                 hits = hits[: int(params["limit"])]
             return _MockResponse(200, hits)
@@ -555,13 +555,27 @@ class SyncIntervalsTests(unittest.TestCase):
         self.assertEqual(written, ["now", "y2015", "y2016", "y2017", "y2018", "y2022"])
         self.assertTrue(summary["backfill_completed"])
         self.assertTrue(read_json(sync_intervals.STATE_PATH)["completed"])
-        probes = [p for p in self.activity_calls if "limit" in p]
-        # Gap before 2022, gap 2019-2021 (jumps to the 2018 Strava stub), then an empty final probe.
-        self.assertEqual(len(probes), 3)
-        self.assertEqual(self.activity_calls[-1], probes[-1])
+        # The walk ends with an empty existence check over everything left.
+        self.assertEqual(self.activity_calls[-1]["limit"], "1")
+        self.assertEqual(self.activity_calls[-1]["oldest"], sync_intervals.FLOOR_DATE.isoformat())
         # The walk does not crawl window by window down to FLOOR_DATE.
         oldest_window = min(p["oldest"] for p in self.activity_calls if "limit" not in p)
         self.assertGreater(oldest_window, "2012-01-01")
+
+    def test_gap_probe_independent_of_api_sort_order(self) -> None:
+        for newest_first in (True, False):
+            with self.subTest(newest_first=newest_first), mock.patch.object(
+                sync_intervals, "RAW_DIR", os.path.join(str(newest_first), "raw")
+            ), mock.patch.object(sync_intervals, "STATE_PATH", os.path.join(str(newest_first), "state.json")):
+                handler = self._history_handler(self._GAP_HISTORY, newest_first=newest_first)
+                with mock.patch("builtins.print"):
+                    summary, _ = self._run(_config(start_date=None, resume_backfill=False), handler)
+                written = sorted(name[:-5] for name in os.listdir(sync_intervals.RAW_DIR))
+                self.assertEqual(written, ["now", "y2015", "y2016", "y2017", "y2018", "y2022"])
+                self.assertTrue(summary["backfill_completed"])
+                probes = [p for p in self.activity_calls if "limit" in p]
+                # Existence checks binary-search each gap: a bounded number of requests.
+                self.assertLess(len(probes), 3 * 20)
 
     def test_unbounded_prune_scan_probes_past_gap(self) -> None:
         os.makedirs(sync_intervals.RAW_DIR, exist_ok=True)
@@ -605,6 +619,63 @@ class SyncIntervalsTests(unittest.TestCase):
         # The resumed backfill starts at the window that failed.
         self.assertEqual(self.activity_calls[1]["newest"], calls[2]["newest"])
 
+    def test_non_list_payload_is_an_error_not_an_empty_window(self) -> None:
+        os.makedirs(sync_intervals.RAW_DIR, exist_ok=True)
+        sync_intervals._write_athlete_cache(PROFILE)
+        write_json(os.path.join(sync_intervals.RAW_DIR, "i1.json"), sync_intervals._normalize_activity(_ride("i1", date.today())))
+        calls = []
+
+        def error_object(_method, _url, **kwargs):
+            # The recent window works; backfill windows get an HTTP 200 error object.
+            calls.append(kwargs["params"])
+            return _MockResponse(200, [] if len(calls) == 1 else {"error": "Something went wrong"})
+
+        with mock.patch("builtins.print"), self.assertRaises(intervals_api.IntervalsApiError):
+            self._run(_config(), error_object, prune_deleted=True)
+        self.assertEqual(os.listdir(sync_intervals.RAW_DIR), ["i1.json"])
+        state = read_json(sync_intervals.STATE_PATH)
+        self.assertFalse(state["completed"])
+        self.assertEqual(state["next_newest"], calls[1]["newest"])
+
+    def test_auth_error_mid_backfill_saves_progress_then_raises_hint(self) -> None:
+        calls = []
+
+        def revoked(_method, _url, **kwargs):
+            calls.append(kwargs["params"])
+            return _MockResponse(200, []) if len(calls) <= 2 else _MockResponse(403, {})
+
+        with mock.patch("builtins.print"), self.assertRaisesRegex(RuntimeError, "HTTP 403.*intervals.api_key") as ctx:
+            self._run(_config(start_date=(date.today() - timedelta(days=1500)).isoformat()), revoked)
+        self.assertIsInstance(ctx.exception.__cause__, intervals_api.IntervalsAuthError)
+        state = read_json(sync_intervals.STATE_PATH)
+        self.assertEqual(state["next_newest"], calls[2]["newest"])
+        self.assertFalse(state["completed"])
+
+    def test_dry_run_uses_saved_state_read_only(self) -> None:
+        config = _config(recent_days=3)
+        self._run(config, lambda *_a, **_k: _MockResponse(200, []))
+        self.assertTrue(read_json(sync_intervals.STATE_PATH)["completed"])
+
+        def snapshot():
+            files = {}
+            for root, _dirs, names in os.walk("."):
+                for name in names:
+                    path = os.path.join(root, name)
+                    with open(path, "rb") as f:
+                        files[path] = (f.read(), os.stat(path).st_mtime_ns)
+            return files
+
+        before = snapshot()
+        summary, _ = self._run(
+            config, lambda *_a, **_k: _MockResponse(200, [_ride("i1", date.today())]), dry_run=True
+        )
+        # Backfill already completed: only the recent window is requested.
+        self.assertEqual(len(self.activity_calls), 1)
+        self.assertEqual(self.activity_calls[0]["oldest"], (date.today() - timedelta(days=3)).isoformat())
+        self.assertTrue(summary["backfill_completed"])
+        self.assertEqual(summary["fetched"], 1)
+        self.assertEqual(snapshot(), before)
+
     def test_activity_on_window_boundary_fetched_and_counted_once(self) -> None:
         recent_oldest = sync_intervals.utc_now().date() - timedelta(days=7)
         window_oldest = recent_oldest - timedelta(days=sync_intervals.WINDOW_DAYS - 1)
@@ -639,7 +710,7 @@ class SyncIntervalsTests(unittest.TestCase):
         self.assertEqual(summary["skipped_strava_stubs"], 1)
         self.assertIn("Note: 1 intervals.icu activities", str(print_mock.call_args_list))
 
-    def test_fetch_athlete_uses_shared_client_with_error_mapping(self) -> None:
+    def test_fetch_athlete_uses_shared_client_with_retry_settings(self) -> None:
         with mock.patch.object(intervals_api, "fetch_athlete", return_value=PROFILE) as fetch:
             self.assertEqual(sync_intervals._fetch_athlete("k", "i123"), PROFILE)
         fetch.assert_called_once_with(
@@ -649,10 +720,7 @@ class SyncIntervalsTests(unittest.TestCase):
             max_retry_wait=sync_intervals.MAX_RETRY_WAIT_SECONDS,
         )
         with mock.patch.object(intervals_api, "fetch_athlete", side_effect=intervals_api.IntervalsRateLimitError("slow")):
-            with self.assertRaises(sync_intervals.RateLimitExceeded):
-                sync_intervals._fetch_athlete("k", "i123")
-        with mock.patch.object(intervals_api, "fetch_athlete", side_effect=intervals_api.IntervalsAuthError("no", 403)):
-            with self.assertRaisesRegex(RuntimeError, "HTTP 403.*intervals.api_key"):
+            with self.assertRaises(intervals_api.IntervalsRateLimitError):
                 sync_intervals._fetch_athlete("k", "i123")
 
     def test_activities_path_quotes_athlete_id(self) -> None:

@@ -49,6 +49,7 @@ RESETTABLE_RAW_DIRS = [
 SOURCE_HINT_STRAVA = "strava"
 SOURCE_HINT_GARMIN = "garmin"
 SOURCE_HINT_INTERVALS = "intervals"
+SOURCE_HINT_MIXED_INTERVALS = "mixed_intervals"
 SOURCE_HINT_MIXED = "mixed"
 README_LIVE_SITE_RE = re.compile(
     r"(?im)^([ \t]*(?:-\s*)?(?:Live site:\s*\[Interactive Heatmaps\]|View the Interactive \[Activity Dashboard\])\()https?://[^)]+(\)[ \t]*\.?[ \t]*)$",
@@ -212,7 +213,7 @@ def _detect_persisted_source_hint() -> Optional[str]:
     if has_strava and has_garmin:
         return SOURCE_HINT_MIXED
     if has_intervals and (has_strava or has_garmin):
-        return SOURCE_HINT_MIXED
+        return SOURCE_HINT_MIXED_INTERVALS
     if has_strava:
         return SOURCE_HINT_STRAVA
     if has_garmin:
@@ -257,6 +258,13 @@ def run_pipeline(
             print(
                 "No saved source marker found and both Strava and Garmin persisted state were detected; "
                 "resetting persisted outputs, backfill state, and raw caches to avoid mixed-source history."
+            )
+            should_reset = True
+        elif source_hint == SOURCE_HINT_MIXED_INTERVALS:
+            print(
+                "No saved source marker found and intervals.icu persisted state was detected alongside "
+                "Strava or Garmin state; resetting persisted outputs, backfill state, and raw caches "
+                "to avoid mixed-source history."
             )
             should_reset = True
         elif source_hint and source_hint != source:

@@ -87,7 +87,7 @@ Once the script succeeds, it will provide the URL for your dashboard.
 You can switch between `strava`, `garmin`, and `intervals` at any time.
 
 - Re-run `./scripts/bootstrap.sh` (or the quickstart curl command) and choose a different source.
-- If you re-run setup and choose the same source, setup asks whether to force a one-time full backfill. You can also update your response for unit preference, day of week start, placing a strava/garmin/intervals.icu profile link on your dashboard, and whether you'd like activity links in the tooltips.
+- If you re-run setup and choose the same source, setup asks whether to force a one-time full backfill. You can also update your response for unit preference, day of week start, placing strava/garmin/intervals.icu profle link on your dashboard, and whether you'd like activity links in the tooltips.
 
 ---
 
