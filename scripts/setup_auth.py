@@ -4,7 +4,7 @@ Bootstrap activity-provider auth and GitHub setup for this repository.
 
 This script performs:
 0) Optional local virtualenv bootstrap (.venv + requirements install).
-1) Provider-specific auth/bootstrap (Strava OAuth, Garmin credentials, or intervals.icu API key).
+1) Provider-specific auth/bootstrap (Strava OAuth or Garmin credentials).
 2) GitHub secret + variable updates via gh CLI.
 3) Best-effort GitHub setup automation (workflows, pages, first run).
 """
@@ -42,7 +42,6 @@ from garmin_token_store import (
     write_token_store_bytes,
 )
 import intervals_api
-from source_links import normalize_profile_url
 from repo_helpers import (
     normalize_dashboard_url as _shared_normalize_dashboard_url,
     normalize_repo_slug as _shared_normalize_repo_slug,
@@ -69,8 +68,6 @@ CALLBACK_PATH = "/exchange_token"
 DEFAULT_PORT = 8765
 DEFAULT_TIMEOUT = 180
 DEFAULT_SOURCE = "strava"
-SUPPORTED_SOURCES = ("strava", "garmin", "intervals")
-SOURCE_DISPLAY_NAMES = {"strava": "Strava", "garmin": "Garmin", "intervals": "intervals.icu"}
 DEFAULT_TEMPLATE_REPO = "aspain/git-sweaty"
 VENV_DIRNAME = ".venv"
 GARMIN_AUTH_MAX_ATTEMPTS = 3
@@ -85,6 +82,9 @@ UNIT_PRESETS = {
 }
 DEFAULT_WEEK_START = "sunday"
 WEEK_START_CHOICES = {"sunday", "monday"}
+STRAVA_HOST_RE = re.compile(r"(^|\.)strava\.com$", re.IGNORECASE)
+GARMIN_CONNECT_HOST_RE = re.compile(r"(^|\.)connect\.garmin\.com$", re.IGNORECASE)
+INTERVALS_HOST_RE = re.compile(r"(^|\.)intervals\.icu$", re.IGNORECASE)
 TRUTHY_BOOL_TEXT = {"1", "true", "yes", "y", "on"}
 FALSEY_BOOL_TEXT = {"0", "false", "no", "n", "off", ""}
 STRAVA_REQUIRED_SECRET_NAMES = {
@@ -610,7 +610,7 @@ def _existing_dashboard_source(repo: str) -> Optional[str]:
     if not value:
         return None
     normalized = value.strip().lower()
-    if normalized in SUPPORTED_SOURCES:
+    if normalized in {"strava", "garmin", "intervals"}:
         return normalized
     return None
 
@@ -1155,13 +1155,55 @@ def _resolve_source(
         return args.source
     if interactive:
         return _prompt_source()
-    if previous_source in SUPPORTED_SOURCES:
+    if previous_source in {"strava", "garmin", "intervals"}:
         return previous_source
     return DEFAULT_SOURCE
 
 
 def _normalize_provider_profile_url(value: Optional[str], source: str) -> str:
-    return normalize_profile_url(value, source)
+    raw = str(value or "").strip()
+    if not raw:
+        return ""
+    if not re.match(r"^https?://", raw, flags=re.IGNORECASE):
+        raw = f"https://{raw.lstrip('/')}"
+    parsed = urllib.parse.urlparse(raw)
+    host = str(parsed.hostname or "").lower()
+    normalized_source = str(source or "").strip().lower()
+
+    if normalized_source == "strava":
+        if not host or not STRAVA_HOST_RE.search(host):
+            raise ValueError("Strava profile URL must use a strava.com hostname.")
+        path_error = "Strava profile URL must include a profile path (for example /athletes/<id>)."
+        normalized_path = str(parsed.path or "").strip().rstrip("/") or "/"
+        if not normalized_path or normalized_path == "/":
+            raise ValueError(path_error)
+    elif normalized_source == "garmin":
+        if not host or not GARMIN_CONNECT_HOST_RE.search(host):
+            raise ValueError("Garmin profile URL must use a connect.garmin.com hostname.")
+        path_error = "Garmin profile URL must include a profile path (for example /modern/profile/<id>)."
+        path = str(parsed.path or "").strip()
+        match = re.match(r"^/(?:modern/)?profile/([^/]+)(?:/.*)?$", path, flags=re.IGNORECASE)
+        if not match:
+            raise ValueError(path_error)
+        normalized_path = f"/modern/profile/{match.group(1)}"
+    elif normalized_source == "intervals":
+        if not host or not INTERVALS_HOST_RE.search(host):
+            raise ValueError("intervals.icu profile URL must use an intervals.icu hostname.")
+        normalized_path = str(parsed.path or "").strip().rstrip("/")
+    else:
+        raise ValueError(f"Unsupported source for profile URL normalization: {source!r}")
+
+    normalized = urllib.parse.urlunparse(
+        (
+            parsed.scheme or "https",
+            parsed.netloc,
+            normalized_path,
+            "",
+            parsed.query,
+            "",
+        )
+    )
+    return normalized
 
 
 def _normalize_strava_profile_url(value: Optional[str]) -> str:
@@ -2929,7 +2971,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--source",
-        choices=list(SUPPORTED_SOURCES),
+        choices=["strava", "garmin", "intervals"],
         default=None,
         help="Activity source to configure.",
     )
@@ -3205,10 +3247,7 @@ def main() -> int:
         if _has_required_source_secrets(source, secret_names):
             update_credentials = _prompt_update_credentials()
         else:
-            print(
-                f"\nMissing required {SOURCE_DISPLAY_NAMES.get(source, source)} credential secrets; "
-                "credential re-entry is required."
-            )
+            print(f"\nMissing required {source.capitalize()} credential secrets; credential re-entry is required.")
 
     print("\nUpdating repository secrets via gh...")
     configured_secret_names: list[str] = []

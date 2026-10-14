@@ -544,20 +544,14 @@ class GenerateHeatmapsRenderContractTests(unittest.TestCase):
 
         self.assertEqual(load_args, {"source": "intervals", "kwargs": {"include_intervals_activity_urls": True}})
 
-    def test_source_link_registry_covers_every_supported_source(self) -> None:
-        import utils
-
-        self.assertEqual(set(generate_heatmaps.SOURCE_LINK_SPECS), set(utils.SUPPORTED_SOURCES))
-        expected_urls = {
-            "strava": "https://www.strava.com/activities/42",
-            "garmin": "https://connect.garmin.com/modern/activity/42",
-            "intervals": "https://intervals.icu/activities/42",
-        }
-        for source, expected in expected_urls.items():
-            self.assertEqual(generate_heatmaps._activity_url_from_id(source, "42"), expected)
-            self.assertIsNotNone(generate_heatmaps._host_regex_for_source(source))
-        self.assertEqual(generate_heatmaps.SOURCE_LINK_SPECS["intervals"]["display_name"], "intervals.icu")
-
+    def test_intervals_activity_url_and_profile_host(self) -> None:
+        self.assertEqual(
+            generate_heatmaps._activity_url_from_id("intervals", "i42"),
+            "https://intervals.icu/activities/i42",
+        )
+        self.assertIsNone(generate_heatmaps._activity_url_from_id("intervals", "a/b"))
+        self.assertTrue(generate_heatmaps._host_regex_for_source("intervals").search("intervals.icu"))
+        self.assertIsNone(generate_heatmaps._host_regex_for_source("intervals").search("strava.com"))
 
 if __name__ == "__main__":
     unittest.main()

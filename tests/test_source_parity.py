@@ -77,7 +77,8 @@ class SourceParityAppJsTests(unittest.TestCase):
             r"const PROFILE_PROVIDER_STRAVA = [^\n]+\n",
             r"const PROFILE_PROVIDER_GARMIN = [^\n]+\n",
             r"const PROFILE_PROVIDER_INTERVALS = [^\n]+\n",
-            r"const PROVIDER_DISPLAY_NAMES = \{[\s\S]*?\n\};\n",
+            r"function setProfileProviderIcon\(provider\)\s*{[\s\S]*?\n}\n",
+            r"function syncStravaProfileLink\(profileUrl, source\)\s*{[\s\S]*?\n}\n",
             r"function providerDisplayName\(source\)\s*{[\s\S]*?\n}\n",
             r"function parseStravaProfileUrl\(value\)\s*{[\s\S]*?\n}\n",
             r"function parseStravaActivityUrl\(value\)\s*{[\s\S]*?\n}\n",
@@ -93,6 +94,10 @@ class SourceParityAppJsTests(unittest.TestCase):
 
     def _run(self, expression: str, payload=None):
         script = (
+            "var stravaProfileLink = null;\n"
+            "var stravaProfileLabel = null;\n"
+            "function syncProfileLinkNavigationTarget() {}\n"
+            "function syncHeaderLinkPlacement() {}\n"
             f"{self.source}\n"
             "const payload = JSON.parse(process.argv[1]);\n"
             f"process.stdout.write(JSON.stringify({expression}));\n"
@@ -105,26 +110,54 @@ class SourceParityAppJsTests(unittest.TestCase):
         )
         return json.loads(completed.stdout)
 
-    def test_registry_covers_every_supported_source(self) -> None:
-        names = self._run("PROVIDER_DISPLAY_NAMES")
-        self.assertEqual(names, {"strava": "Strava", "garmin": "Garmin", "intervals": "intervals.icu"})
-
     def test_provider_display_names(self) -> None:
         result = self._run("payload.map((id) => providerDisplayName(id))", ["strava", "garmin", "intervals", " Intervals "])
         self.assertEqual(result, ["Strava", "Garmin", "intervals.icu", "intervals.icu"])
         self.assertEqual(self._run("providerDisplayName('fitbit')"), "")
 
-    def test_profile_url_resolves_registered_provider(self) -> None:
+    def test_profile_url_resolves_provider_label(self) -> None:
         result = self._run(
-            "payload.map((url) => parseStravaProfileUrl(url).provider)",
+            "payload.map((url) => parseStravaProfileUrl(url).label)",
             [
                 "https://www.strava.com/athletes/1",
                 "https://connect.garmin.com/modern/profile/abc",
                 "https://intervals.icu/athlete/i1",
             ],
         )
-        self.assertEqual(result, ["strava", "garmin", "intervals"])
-        self.assertTrue(all(self._run(f"Object.prototype.hasOwnProperty.call(PROVIDER_DISPLAY_NAMES, {json.dumps(p)})") for p in result))
+        self.assertEqual(result, ["Strava", "Garmin", "intervals.icu"])
+
+    def test_sync_profile_link_sets_provider_icon_and_label(self) -> None:
+        expression = (
+            "payload.map(([url, source]) => {"
+            "  const classes = new Set();"
+            "  globalThis.stravaProfileLink = {"
+            "    hidden: true, href: '', textContent: '',"
+            "    classList: {"
+            "      add: (...names) => names.forEach((n) => classes.add(n)),"
+            "      remove: (...names) => names.forEach((n) => classes.delete(n)),"
+            "    },"
+            "  };"
+            "  globalThis.stravaProfileLabel = { textContent: '' };"
+            "  syncStravaProfileLink(url, source);"
+            "  return [stravaProfileLink.hidden, stravaProfileLink.href, stravaProfileLabel.textContent, [...classes]];"
+            "})"
+        )
+        result = self._run(
+            expression,
+            [
+                ["https://www.strava.com/athletes/1", "strava"],
+                ["https://connect.garmin.com/modern/profile/abc", "garmin"],
+                ["https://intervals.icu", "intervals"],
+            ],
+        )
+        self.assertEqual(
+            result,
+            [
+                [False, "https://www.strava.com/athletes/1", "Strava", ["profile-provider-strava"]],
+                [False, "https://connect.garmin.com/modern/profile/abc", "Garmin", ["profile-provider-garmin"]],
+                [False, "https://intervals.icu", "intervals.icu", ["profile-provider-intervals"]],
+            ],
+        )
 
     def test_activity_urls_accepted_for_every_source(self) -> None:
         urls = [

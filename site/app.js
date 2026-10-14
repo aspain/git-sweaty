@@ -93,13 +93,6 @@ let tooltipResizeObserver = null;
 const PROFILE_PROVIDER_STRAVA = "strava";
 const PROFILE_PROVIDER_GARMIN = "garmin";
 const PROFILE_PROVIDER_INTERVALS = "intervals";
-// Source registry: source id -> display label; the id also selects the provider
-// icon class `profile-provider-<id>`.
-const PROVIDER_DISPLAY_NAMES = {
-  [PROFILE_PROVIDER_STRAVA]: "Strava",
-  [PROFILE_PROVIDER_GARMIN]: "Garmin",
-  [PROFILE_PROVIDER_INTERVALS]: "intervals.icu",
-};
 const TOUCH_TOOLTIP_TAP_MAX_MOVE_PX = 10;
 const TOUCH_TOOLTIP_TAP_MAX_SCROLL_PX = 2;
 const TOUCH_TOOLTIP_MAX_EFFECTIVE_ZOOM = 1.2;
@@ -403,13 +396,17 @@ function syncProfileLinkNavigationTarget() {
 
 function setProfileProviderIcon(provider) {
   if (!stravaProfileLink) return;
-  Object.keys(PROVIDER_DISPLAY_NAMES).forEach((id) => {
-    stravaProfileLink.classList.remove(`profile-provider-${id}`);
-  });
-  const resolved = Object.prototype.hasOwnProperty.call(PROVIDER_DISPLAY_NAMES, provider)
-    ? provider
-    : PROFILE_PROVIDER_STRAVA;
-  stravaProfileLink.classList.add(`profile-provider-${resolved}`);
+  stravaProfileLink.classList.remove("profile-provider-strava", "profile-provider-garmin");
+  stravaProfileLink.classList.remove("profile-provider-intervals");
+  if (provider === PROFILE_PROVIDER_INTERVALS) {
+    stravaProfileLink.classList.add("profile-provider-intervals");
+    return;
+  }
+  if (provider === PROFILE_PROVIDER_GARMIN) {
+    stravaProfileLink.classList.add("profile-provider-garmin");
+    return;
+  }
+  stravaProfileLink.classList.add("profile-provider-strava");
 }
 
 function parseStravaProfileUrl(value) {
@@ -436,7 +433,7 @@ function parseStravaProfileUrl(value) {
 
   const path = String(parsed.pathname || "").trim().replace(/\/+$/, "");
   // intervals.icu has no public athlete pages, so its site root is an allowed profile link.
-  if (!path && !isIntervalsHost) {
+  if ((!path || path === "/") && !isIntervalsHost) {
     return null;
   }
 
@@ -451,8 +448,7 @@ function parseStravaProfileUrl(value) {
 
   return {
     href: `${parsed.protocol}//${parsed.host}${normalizedPath}${parsed.search}`,
-    // Source ids match PROVIDER_DISPLAY_NAMES keys.
-    provider: isGarminHost ? "garmin" : (isIntervalsHost ? "intervals" : "strava"),
+    label: isGarminHost ? "Garmin" : (isIntervalsHost ? "intervals.icu" : "Strava"),
   };
 }
 
@@ -494,7 +490,7 @@ function parseStravaActivityUrl(value) {
   };
 }
 
-function syncStravaProfileLink(profileUrl) {
+function syncStravaProfileLink(profileUrl, source) {
   if (!stravaProfileLink) return;
   const parsed = parseStravaProfileUrl(profileUrl);
   if (!parsed) {
@@ -505,8 +501,12 @@ function syncStravaProfileLink(profileUrl) {
     return;
   }
   stravaProfileLink.href = parsed.href;
-  const provider = parsed.provider;
-  const providerLabel = providerDisplayName(provider);
+  const providerLabel = parsed.label || providerDisplayName(source) || "Profile";
+  const provider = providerLabel === "Garmin"
+    ? PROFILE_PROVIDER_GARMIN
+    : providerLabel === "intervals.icu"
+      ? PROFILE_PROVIDER_INTERVALS
+      : PROFILE_PROVIDER_STRAVA;
   setProfileProviderIcon(provider);
   if (stravaProfileLabel) {
     stravaProfileLabel.textContent = providerLabel;
@@ -520,9 +520,10 @@ function syncStravaProfileLink(profileUrl) {
 
 function providerDisplayName(source) {
   const normalized = String(source || "").trim().toLowerCase();
-  return Object.prototype.hasOwnProperty.call(PROVIDER_DISPLAY_NAMES, normalized)
-    ? PROVIDER_DISPLAY_NAMES[normalized]
-    : "";
+  if (normalized === "garmin") return "Garmin";
+  if (normalized === "strava") return "Strava";
+  if (normalized === "intervals") return "intervals.icu";
+  return "";
 }
 
 function payloadRepoCandidate(payload) {
@@ -4541,7 +4542,10 @@ async function init() {
   const sourceValue = payloadSource(payload);
   syncRepoLink(repoCandidate);
   syncFooterHostedLink(repoCandidate);
-  syncStravaProfileLink(profileUrl);
+  syncStravaProfileLink(
+    profileUrl,
+    sourceValue,
+  );
   setDashboardTitle(sourceValue);
   TYPE_META = payload.type_meta || {};
   OTHER_BUCKET = String(payload.other_bucket || "OtherSports");

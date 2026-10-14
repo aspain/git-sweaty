@@ -6,19 +6,19 @@
     <meta name="format-detection" content="telephone=no,email=no,address=no,date=no" />
     <meta
       name="description"
-      content="Turn Strava, Garmin, and intervals.icu activities into an interactive GitHub-style heatmap dashboard with automated daily updates."
+      content="Turn Strava and Garmin activities into an interactive GitHub-style heatmap dashboard with automated daily updates."
     />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta name="theme-color" content="#1e293b" />
-    <title>git-sweaty | Strava, Garmin &amp; intervals.icu Activity Heatmaps</title>
+    <title>git-sweaty | Strava &amp; Garmin Activity Heatmaps</title>
     <!-- Relative canonical keeps template forks self-referencing on their own deployed URL. -->
     <link rel="canonical" href="./" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="git-sweaty" />
-    <meta property="og:title" content="git-sweaty | Strava, Garmin &amp; intervals.icu Activity Heatmaps" />
+    <meta property="og:title" content="git-sweaty | Strava &amp; Garmin Activity Heatmaps" />
     <meta
       property="og:description"
-      content="Turn Strava, Garmin, and intervals.icu activities into an interactive GitHub-style heatmap dashboard with automated daily updates."
+      content="Turn Strava and Garmin activities into an interactive GitHub-style heatmap dashboard with automated daily updates."
     />
     <meta property="og:image" content="social-preview.png" />
     <meta
@@ -26,10 +26,10 @@
       content="git-sweaty social preview with the heatmap logo and workout dashboard tagline."
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="git-sweaty | Strava, Garmin &amp; intervals.icu Activity Heatmaps" />
+    <meta name="twitter:title" content="git-sweaty | Strava &amp; Garmin Activity Heatmaps" />
     <meta
       name="twitter:description"
-      content="Turn Strava, Garmin, and intervals.icu activities into an interactive GitHub-style heatmap dashboard with automated daily updates."
+      content="Turn Strava and Garmin activities into an interactive GitHub-style heatmap dashboard with automated daily updates."
     />
     <meta name="twitter:image" content="social-preview.png" />
     <script type="application/ld+json">
@@ -41,7 +41,7 @@
         "operatingSystem": "Any",
         "inLanguage": "en",
         "isAccessibleForFree": true,
-        "description": "Turn Strava, Garmin, and intervals.icu activities into an interactive GitHub-style heatmap dashboard with automated daily updates."
+        "description": "Turn Strava and Garmin activities into an interactive GitHub-style heatmap dashboard with automated daily updates."
       }
     </script>
     <link
@@ -191,8 +191,7 @@
       }
 
       .strava-profile-link .strava-logo,
-      .strava-profile-link .garmin-logo,
-      .strava-profile-link .intervals-logo {
+      .strava-profile-link .garmin-logo {
         display: none;
       }
 
@@ -202,6 +201,10 @@
 
       .strava-profile-link.profile-provider-garmin .garmin-logo {
         display: inline-block;
+      }
+
+      .strava-profile-link .intervals-logo {
+        display: none;
       }
 
       .strava-profile-link.profile-provider-intervals .intervals-logo {
@@ -218,7 +221,12 @@
         flex: 0 0 auto;
       }
 
-      .garmin-logo,
+      .garmin-logo {
+        width: 1em;
+        height: 1em;
+        flex: 0 0 auto;
+      }
+
       .intervals-logo {
         width: 1em;
         height: 1em;
