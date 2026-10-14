@@ -4,12 +4,13 @@ Bootstrap activity-provider auth and GitHub setup for this repository.
 
 This script performs:
 0) Optional local virtualenv bootstrap (.venv + requirements install).
-1) Provider-specific auth/bootstrap (Strava OAuth or Garmin credentials).
+1) Provider-specific auth/bootstrap (Strava OAuth, Garmin credentials, or intervals.icu API key).
 2) GitHub secret + variable updates via gh CLI.
 3) Best-effort GitHub setup automation (workflows, pages, first run).
 """
 
 import argparse
+import base64
 import random
 import getpass
 import html
@@ -58,10 +59,15 @@ if sys.version_info < (3, 9):
 TOKEN_ENDPOINT = "https://www.strava.com/oauth/token"
 AUTHORIZE_ENDPOINT = "https://www.strava.com/oauth/authorize"
 STRAVA_ATHLETE_ENDPOINT = "https://www.strava.com/api/v3/athlete"
+INTERVALS_API_BASE = "https://intervals.icu/api/v1"
+INTERVALS_DEFAULT_ATHLETE_ID = "0"
+INTERVALS_DEFAULT_PROFILE_URL = "https://intervals.icu"
 CALLBACK_PATH = "/exchange_token"
 DEFAULT_PORT = 8765
 DEFAULT_TIMEOUT = 180
 DEFAULT_SOURCE = "strava"
+SUPPORTED_SOURCES = ("strava", "garmin", "intervals")
+SOURCE_DISPLAY_NAMES = {"strava": "Strava", "garmin": "Garmin", "intervals": "intervals.icu"}
 DEFAULT_TEMPLATE_REPO = "aspain/git-sweaty"
 VENV_DIRNAME = ".venv"
 GARMIN_AUTH_MAX_ATTEMPTS = 3
@@ -78,6 +84,7 @@ DEFAULT_WEEK_START = "sunday"
 WEEK_START_CHOICES = {"sunday", "monday"}
 STRAVA_HOST_RE = re.compile(r"(^|\.)strava\.com$", re.IGNORECASE)
 GARMIN_CONNECT_HOST_RE = re.compile(r"(^|\.)connect\.garmin\.com$", re.IGNORECASE)
+INTERVALS_HOST_RE = re.compile(r"(^|\.)intervals\.icu$", re.IGNORECASE)
 TRUTHY_BOOL_TEXT = {"1", "true", "yes", "y", "on"}
 FALSEY_BOOL_TEXT = {"0", "false", "no", "n", "off", ""}
 STRAVA_REQUIRED_SECRET_NAMES = {
@@ -87,6 +94,7 @@ STRAVA_REQUIRED_SECRET_NAMES = {
 }
 GARMIN_PRIMARY_SECRET_NAMES = {"GARMIN_TOKENS_B64"}
 GARMIN_FALLBACK_SECRET_NAMES = {"GARMIN_EMAIL", "GARMIN_PASSWORD"}
+INTERVALS_REQUIRED_SECRET_NAMES = {"INTERVALS_API_KEY"}
 
 
 @dataclass
@@ -575,6 +583,17 @@ def _clear_variable(name: str, repo: str) -> None:
     raise RuntimeError(f"Failed to clear GitHub variable {name}: {detail}")
 
 
+def _clear_secret(name: str, repo: str) -> None:
+    result = _run(["gh", "secret", "delete", name, "--repo", repo], check=False)
+    if result.returncode == 0:
+        return
+    error_text = (result.stderr or "").lower()
+    if "not found" in error_text or "http 404" in error_text:
+        return
+    detail = _first_stderr_line(result.stderr)
+    raise RuntimeError(f"Failed to clear GitHub secret {name}: {detail}")
+
+
 def _get_variable(name: str, repo: str) -> Optional[str]:
     try:
         result = _run(["gh", "variable", "get", name, "--repo", repo], check=False)
@@ -591,7 +610,7 @@ def _existing_dashboard_source(repo: str) -> Optional[str]:
     if not value:
         return None
     normalized = value.strip().lower()
-    if normalized in {"strava", "garmin"}:
+    if normalized in SUPPORTED_SOURCES:
         return normalized
     return None
 
@@ -633,6 +652,9 @@ def _existing_dashboard_profile_url(repo: str, source: str) -> str:
     elif source_name == "garmin":
         variable_name = "DASHBOARD_GARMIN_PROFILE_URL"
         normalizer = _normalize_garmin_profile_url
+    elif source_name == "intervals":
+        variable_name = "DASHBOARD_INTERVALS_PROFILE_URL"
+        normalizer = _normalize_intervals_profile_url
     else:
         return ""
     raw = _get_variable(variable_name, repo)
@@ -650,6 +672,10 @@ def _existing_dashboard_strava_profile_url(repo: str) -> str:
 
 def _existing_dashboard_garmin_profile_url(repo: str) -> str:
     return _existing_dashboard_profile_url(repo, "garmin")
+
+
+def _existing_dashboard_intervals_profile_url(repo: str) -> str:
+    return _existing_dashboard_profile_url(repo, "intervals")
 
 
 def _load_existing_dashboard_settings(repo: str) -> Optional[ExistingDashboardSettings]:
@@ -704,7 +730,7 @@ def _parse_bool_text(value: Optional[str], *, field_name: str) -> bool:
 
 def _existing_dashboard_activity_links(repo: str, source: str) -> Optional[bool]:
     source_name = str(source or "").strip().upper()
-    if source_name not in {"STRAVA", "GARMIN"}:
+    if source_name not in {"STRAVA", "GARMIN", "INTERVALS"}:
         return None
     variable_name = f"DASHBOARD_{source_name}_ACTIVITY_LINKS"
     value = _get_variable(variable_name, repo)
@@ -722,6 +748,10 @@ def _existing_dashboard_strava_activity_links(repo: str) -> Optional[bool]:
 
 def _existing_dashboard_garmin_activity_links(repo: str) -> Optional[bool]:
     return _existing_dashboard_activity_links(repo, "garmin")
+
+
+def _existing_dashboard_intervals_activity_links(repo: str) -> Optional[bool]:
+    return _existing_dashboard_activity_links(repo, "intervals")
 
 
 def _list_secret_names(repo: str) -> set[str]:
@@ -755,6 +785,8 @@ def _has_required_source_secrets(source: str, secret_names: set[str]) -> bool:
         has_primary = GARMIN_PRIMARY_SECRET_NAMES.issubset(secret_names)
         has_fallback = GARMIN_FALLBACK_SECRET_NAMES.issubset(secret_names)
         return has_primary or has_fallback
+    if normalized_source == "intervals":
+        return INTERVALS_REQUIRED_SECRET_NAMES.issubset(secret_names)
     return False
 
 
@@ -789,6 +821,8 @@ def _has_explicit_setup_overrides(args: argparse.Namespace) -> bool:
             "strava_activity_links",
             "garmin_profile_url",
             "garmin_activity_links",
+            "intervals_profile_url",
+            "intervals_activity_links",
         )
     )
 
@@ -802,6 +836,11 @@ def _has_explicit_credentials_for_source(args: argparse.Namespace, source: str) 
             getattr(args, "garmin_token_store_b64", None)
             or getattr(args, "garmin_email", None)
             or getattr(args, "garmin_password", None)
+        )
+    if normalized_source == "intervals":
+        return bool(
+            getattr(args, "intervals_api_key", None)
+            or getattr(args, "intervals_athlete_id", None)
         )
     return False
 
@@ -1097,11 +1136,12 @@ def _prompt_source() -> str:
     print("\nChoose activity source:")
     print("  1) Strava")
     print("  2) Garmin")
+    print("  3) intervals.icu")
     selected = _prompt_choice(
-        "Selection (enter 1 or 2): ",
-        {"1": "strava", "2": "garmin"},
+        "Selection (enter 1, 2, or 3): ",
+        {"1": "strava", "2": "garmin", "3": "intervals"},
         default=None,
-        invalid_message="Please enter '1' or '2'.",
+        invalid_message="Please enter '1', '2', or '3'.",
     )
     return selected
 
@@ -1115,7 +1155,7 @@ def _resolve_source(
         return args.source
     if interactive:
         return _prompt_source()
-    if previous_source in {"strava", "garmin"}:
+    if previous_source in SUPPORTED_SOURCES:
         return previous_source
     return DEFAULT_SOURCE
 
@@ -1146,6 +1186,10 @@ def _normalize_provider_profile_url(value: Optional[str], source: str) -> str:
         if not match:
             raise ValueError(path_error)
         normalized_path = f"/modern/profile/{match.group(1)}"
+    elif normalized_source == "intervals":
+        if not host or not INTERVALS_HOST_RE.search(host):
+            raise ValueError("intervals.icu profile URL must use an intervals.icu hostname.")
+        normalized_path = str(parsed.path or "").strip().rstrip("/")
     else:
         raise ValueError(f"Unsupported source for profile URL normalization: {source!r}")
 
@@ -1168,6 +1212,60 @@ def _normalize_strava_profile_url(value: Optional[str]) -> str:
 
 def _normalize_garmin_profile_url(value: Optional[str]) -> str:
     return _normalize_provider_profile_url(value, "garmin")
+
+
+def _normalize_intervals_profile_url(value: Optional[str]) -> str:
+    return _normalize_provider_profile_url(value, "intervals")
+
+
+def _normalize_intervals_athlete_id(value: Optional[str]) -> str:
+    normalized = str(value or "").strip()
+    if not normalized:
+        return INTERVALS_DEFAULT_ATHLETE_ID
+    if not re.match(r"^[A-Za-z0-9_-]+$", normalized):
+        raise ValueError(
+            f"Unsupported intervals.icu athlete id {value!r}. "
+            "Use the id shown in intervals.icu (for example i12345), or 0 for the API key owner."
+        )
+    return normalized
+
+
+def _fetch_intervals_athlete(api_key: str, athlete_id: str) -> dict:
+    athlete_path = urllib.parse.quote(athlete_id or INTERVALS_DEFAULT_ATHLETE_ID, safe="")
+    credentials = base64.b64encode(f"API_KEY:{api_key}".encode("utf-8")).decode("ascii")
+    request = urllib.request.Request(
+        f"{INTERVALS_API_BASE}/athlete/{athlete_path}",
+        method="GET",
+        headers={"Authorization": f"Basic {credentials}", "Accept": "application/json"},
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            body = response.read().decode("utf-8")
+    except urllib.error.HTTPError as exc:
+        if exc.code in {401, 403}:
+            raise RuntimeError(
+                f"intervals.icu rejected the API key (HTTP {exc.code}). "
+                "Check the key in intervals.icu -> Settings -> Developer Settings"
+                + (
+                    f" and that it can access athlete {athlete_id}."
+                    if athlete_id != INTERVALS_DEFAULT_ATHLETE_ID
+                    else "."
+                )
+            ) from None
+        if exc.code == 404:
+            raise RuntimeError(f"intervals.icu athlete {athlete_id!r} was not found (HTTP 404).") from None
+        raise RuntimeError(f"intervals.icu athlete lookup failed with HTTP status {exc.code}.") from None
+    except urllib.error.URLError as exc:
+        reason = getattr(exc, "reason", "unknown network error")
+        raise RuntimeError(f"intervals.icu athlete lookup request failed: {reason}.") from None
+
+    try:
+        payload = json.loads(body)
+    except json.JSONDecodeError:
+        raise RuntimeError("Unexpected athlete response format from intervals.icu.") from None
+    if not isinstance(payload, dict):
+        raise RuntimeError("Unexpected athlete response format from intervals.icu.")
+    return payload
 
 
 def _strava_profile_url_from_athlete(athlete: object) -> str:
@@ -1502,6 +1600,42 @@ def _prompt_use_garmin_activity_links(default_enabled: bool) -> bool:
     return choice == "yes"
 
 
+def _prompt_use_intervals_profile_link(default_enabled: bool) -> bool:
+    print("\nOptional: show your intervals.icu profile link in the dashboard header.")
+    default_choice = "y" if default_enabled else "n"
+    choice = _prompt_choice(
+        "Show intervals.icu profile link in dashboard? [y/n]: ",
+        {"y": "yes", "yes": "yes", "n": "no", "no": "no"},
+        default=default_choice,
+        invalid_message="Please enter 'y' or 'n'.",
+    )
+    return choice == "yes"
+
+
+def _prompt_intervals_profile_url(default_url: str) -> str:
+    while True:
+        answer = input(f"intervals.icu profile URL (default: {default_url}): ").strip()
+        if not answer:
+            return _normalize_intervals_profile_url(default_url)
+        try:
+            return _normalize_intervals_profile_url(answer)
+        except ValueError as exc:
+            print(str(exc))
+
+
+def _prompt_use_intervals_activity_links(default_enabled: bool) -> bool:
+    print("\nOptional: include links to intervals.icu activities in yearly heatmap tooltips.")
+    print("Desktop tip: click a heatmap dot to pin the tooltip so links are clickable.")
+    default_choice = "y" if default_enabled else "n"
+    choice = _prompt_choice(
+        "Show intervals.icu activity links in tooltip details? [y/n]: ",
+        {"y": "yes", "yes": "yes", "n": "no", "no": "no"},
+        default=default_choice,
+        invalid_message="Please enter 'y' or 'n'.",
+    )
+    return choice == "yes"
+
+
 def _resolve_strava_profile_url(
     args: argparse.Namespace,
     interactive: bool,
@@ -1695,6 +1829,85 @@ def _resolve_garmin_activity_links(
     existing = _existing_dashboard_garmin_activity_links(repo)
     if interactive:
         return _prompt_use_garmin_activity_links(default_enabled=bool(existing))
+    return bool(existing)
+
+
+def _resolve_intervals_profile_link_preference(
+    args: argparse.Namespace,
+    interactive: bool,
+    repo: str,
+) -> Tuple[Optional[bool], str]:
+    explicit = getattr(args, "intervals_profile_url", None)
+    if explicit is not None:
+        explicit_text = str(explicit).strip()
+        if not explicit_text:
+            return False, ""
+        return True, _normalize_intervals_profile_url(explicit_text)
+
+    existing_raw = _get_variable("DASHBOARD_INTERVALS_PROFILE_URL", repo)
+    try:
+        existing_value = _normalize_intervals_profile_url(existing_raw)
+    except ValueError:
+        existing_value = ""
+
+    if not interactive:
+        return None, existing_value
+
+    enabled = _prompt_use_intervals_profile_link(default_enabled=bool(existing_value))
+    if not enabled:
+        return False, ""
+    # intervals.icu exposes no public athlete profile URL we can derive, so ask for one.
+    return True, _prompt_intervals_profile_url(existing_value or INTERVALS_DEFAULT_PROFILE_URL)
+
+
+def _resolve_intervals_profile_url(
+    args: argparse.Namespace,
+    repo: str,
+    *,
+    enabled_override: Optional[bool] = None,
+    prefilled_url: str = "",
+) -> str:
+    explicit = getattr(args, "intervals_profile_url", None)
+    if explicit is not None:
+        explicit_text = str(explicit).strip()
+        if not explicit_text:
+            return ""
+        return _normalize_intervals_profile_url(explicit_text)
+
+    if enabled_override is False:
+        return ""
+
+    try:
+        prefilled_value = _normalize_intervals_profile_url(prefilled_url)
+    except ValueError:
+        prefilled_value = ""
+    if prefilled_value:
+        return prefilled_value
+
+    existing_raw = _get_variable("DASHBOARD_INTERVALS_PROFILE_URL", repo)
+    try:
+        existing_value = _normalize_intervals_profile_url(existing_raw)
+    except ValueError:
+        existing_value = ""
+    if existing_value:
+        return existing_value
+    if enabled_override:
+        return INTERVALS_DEFAULT_PROFILE_URL
+    return ""
+
+
+def _resolve_intervals_activity_links(
+    args: argparse.Namespace,
+    interactive: bool,
+    repo: str,
+) -> bool:
+    explicit = getattr(args, "intervals_activity_links", None)
+    if explicit is not None:
+        return _parse_bool_text(explicit, field_name="--intervals-activity-links")
+
+    existing = _existing_dashboard_intervals_activity_links(repo)
+    if interactive:
+        return _prompt_use_intervals_activity_links(default_enabled=bool(existing))
     return bool(existing)
 
 
@@ -1996,6 +2209,38 @@ def _resolve_garmin_auth_values(args: argparse.Namespace, interactive: bool) -> 
         token_store_b64 = _generate_garmin_token_store_b64(email, password)
 
     return token_store_b64, email, password
+
+
+def _resolve_intervals_auth_values(args: argparse.Namespace, interactive: bool) -> Tuple[str, str, dict]:
+    api_key = str(getattr(args, "intervals_api_key", None) or "").strip()
+    athlete_id_arg = getattr(args, "intervals_athlete_id", None)
+
+    if not api_key:
+        if not interactive:
+            raise RuntimeError(
+                "Missing INTERVALS_API_KEY in non-interactive mode. Re-run with --intervals-api-key."
+            )
+        print("\nEnter your intervals.icu API key (intervals.icu -> Settings -> Developer Settings).")
+        api_key = _prompt(None, "INTERVALS_API_KEY", secret=True)
+        if not api_key:
+            raise ValueError("INTERVALS_API_KEY is required.")
+
+    if athlete_id_arg is None and interactive:
+        athlete_id_text = input(
+            "intervals.icu athlete id (for example i12345; default: 0 = API key owner): "
+        ).strip()
+    else:
+        athlete_id_text = str(athlete_id_arg or "").strip()
+    athlete_id = _normalize_intervals_athlete_id(athlete_id_text)
+
+    print("Validating intervals.icu API key...")
+    athlete = _fetch_intervals_athlete(api_key, athlete_id)
+    athlete_label = str(athlete.get("name") or "").strip()
+    athlete_ref = str(athlete.get("id") or "").strip()
+    if athlete_label and athlete_ref:
+        athlete_label = f"{athlete_label} ({athlete_ref})"
+    print(f"intervals.icu API key OK for athlete: {athlete_label or athlete_ref or athlete_id}")
+    return api_key, athlete_id, athlete
 
 
 def _resolve_units(args: argparse.Namespace, interactive: bool) -> Tuple[str, str]:
@@ -2684,7 +2929,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--source",
-        choices=["strava", "garmin"],
+        choices=list(SUPPORTED_SOURCES),
         default=None,
         help="Activity source to configure.",
     )
@@ -2723,6 +2968,16 @@ def parse_args() -> argparse.Namespace:
         "--store-garmin-password-secrets",
         action="store_true",
         help="Deprecated: GARMIN_EMAIL and GARMIN_PASSWORD are now stored automatically when provided.",
+    )
+    parser.add_argument(
+        "--intervals-api-key",
+        default=None,
+        help="intervals.icu API key (intervals.icu -> Settings -> Developer Settings).",
+    )
+    parser.add_argument(
+        "--intervals-athlete-id",
+        default=None,
+        help="intervals.icu athlete id, for example i12345 (default: 0 = the athlete owning the API key).",
     )
     parser.add_argument(
         "--repo",
@@ -2782,6 +3037,17 @@ def parse_args() -> argparse.Namespace:
         choices=["yes", "no", "true", "false", "1", "0"],
         default=None,
         help="Whether to show Garmin activity links in yearly heatmap tooltip details.",
+    )
+    parser.add_argument(
+        "--intervals-profile-url",
+        default=None,
+        help="Optional intervals.icu profile URL shown in the dashboard header (pass an empty value to disable).",
+    )
+    parser.add_argument(
+        "--intervals-activity-links",
+        choices=["yes", "no", "true", "false", "1", "0"],
+        default=None,
+        help="Whether to show intervals.icu activity links in yearly heatmap tooltip details.",
     )
     parser.add_argument(
         "--custom-domain",
@@ -2888,6 +3154,10 @@ def main() -> int:
     strava_profile_url_prefilled = ""
     garmin_profile_link_enabled_override: Optional[bool] = None
     garmin_profile_url_prefilled = ""
+    intervals_profile_url = ""
+    intervals_activity_links_enabled = False
+    intervals_profile_link_enabled_override: Optional[bool] = None
+    intervals_profile_url_prefilled = ""
     if source == "strava":
         if reuse_existing_settings:
             strava_activity_links_enabled = bool(_existing_dashboard_strava_activity_links(repo))
@@ -2910,6 +3180,17 @@ def main() -> int:
                 garmin_profile_link_enabled_override,
                 garmin_profile_url_prefilled,
             ) = _resolve_garmin_profile_link_preference(args, interactive, repo)
+    elif source == "intervals":
+        if reuse_existing_settings:
+            intervals_activity_links_enabled = bool(_existing_dashboard_intervals_activity_links(repo))
+            intervals_profile_url_prefilled = _existing_dashboard_intervals_profile_url(repo)
+            intervals_profile_link_enabled_override = bool(intervals_profile_url_prefilled)
+        else:
+            intervals_activity_links_enabled = _resolve_intervals_activity_links(args, interactive, repo)
+            (
+                intervals_profile_link_enabled_override,
+                intervals_profile_url_prefilled,
+            ) = _resolve_intervals_profile_link_preference(args, interactive, repo)
 
     update_credentials = True
     if (
@@ -2921,7 +3202,10 @@ def main() -> int:
         if _has_required_source_secrets(source, secret_names):
             update_credentials = _prompt_update_credentials()
         else:
-            print(f"\nMissing required {source.capitalize()} credential secrets; credential re-entry is required.")
+            print(
+                f"\nMissing required {SOURCE_DISPLAY_NAMES.get(source, source)} credential secrets; "
+                "credential re-entry is required."
+            )
 
     print("\nUpdating repository secrets via gh...")
     configured_secret_names: list[str] = []
@@ -3017,6 +3301,26 @@ def main() -> int:
             prefilled_url=garmin_profile_url_prefilled,
             prompt_if_missing=False if garmin_profile_link_enabled_override is not None else True,
         )
+    elif source == "intervals":
+        if update_credentials:
+            intervals_api_key, intervals_athlete_id, intervals_athlete = _resolve_intervals_auth_values(
+                args, interactive
+            )
+            _set_secret("INTERVALS_API_KEY", intervals_api_key, repo)
+            configured_secret_names.append("INTERVALS_API_KEY")
+            if intervals_athlete_id != INTERVALS_DEFAULT_ATHLETE_ID:
+                _set_secret("INTERVALS_ATHLETE_ID", intervals_athlete_id, repo)
+                configured_secret_names.append("INTERVALS_ATHLETE_ID")
+            else:
+                # Drop a stale explicit athlete id so the workflow falls back to the key owner.
+                _clear_secret("INTERVALS_ATHLETE_ID", repo)
+            athlete_name = str(intervals_athlete.get("name") or "").strip()
+        intervals_profile_url = _resolve_intervals_profile_url(
+            args,
+            repo,
+            enabled_override=intervals_profile_link_enabled_override,
+            prefilled_url=intervals_profile_url_prefilled,
+        )
     else:
         raise RuntimeError(f"Unsupported source: {source}")
 
@@ -3079,6 +3383,11 @@ def main() -> int:
         variable_pairs.append(
             ("DASHBOARD_GARMIN_ACTIVITY_LINKS", "true" if garmin_activity_links_enabled else "")
         )
+    elif source == "intervals":
+        variable_pairs.append(("DASHBOARD_INTERVALS_PROFILE_URL", intervals_profile_url))
+        variable_pairs.append(
+            ("DASHBOARD_INTERVALS_ACTIVITY_LINKS", "true" if intervals_activity_links_enabled else "")
+        )
     for name, value in variable_pairs:
         try:
             if name in {
@@ -3086,6 +3395,8 @@ def main() -> int:
                 "DASHBOARD_STRAVA_ACTIVITY_LINKS",
                 "DASHBOARD_GARMIN_PROFILE_URL",
                 "DASHBOARD_GARMIN_ACTIVITY_LINKS",
+                "DASHBOARD_INTERVALS_PROFILE_URL",
+                "DASHBOARD_INTERVALS_ACTIVITY_LINKS",
             } and not value:
                 _clear_variable(name, repo)
             else:
@@ -3106,6 +3417,10 @@ def main() -> int:
         variable_summary = f"{variable_summary}, DASHBOARD_GARMIN_PROFILE_URL={garmin_profile_url}"
     if source == "garmin" and garmin_activity_links_enabled:
         variable_summary = f"{variable_summary}, DASHBOARD_GARMIN_ACTIVITY_LINKS=true"
+    if source == "intervals" and intervals_profile_url:
+        variable_summary = f"{variable_summary}, DASHBOARD_INTERVALS_PROFILE_URL={intervals_profile_url}"
+    if source == "intervals" and intervals_activity_links_enabled:
+        variable_summary = f"{variable_summary}, DASHBOARD_INTERVALS_ACTIVITY_LINKS=true"
 
     if variable_errors:
         _add_step(

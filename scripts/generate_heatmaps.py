@@ -4,7 +4,7 @@ import re
 import subprocess
 import urllib.parse
 from datetime import date, timedelta
-from typing import Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 from activity_types import build_type_meta, featured_types_from_config, ordered_types
 from repo_helpers import choose_repo_slug_from_env, normalize_repo_slug
@@ -50,6 +50,35 @@ DAY_LABELS_BY_WEEK_START = {
 }
 STRAVA_HOST_RE = re.compile(r"(^|\.)strava\.com$", re.IGNORECASE)
 GARMIN_CONNECT_HOST_RE = re.compile(r"(^|\.)connect\.garmin\.com$", re.IGNORECASE)
+INTERVALS_HOST_RE = re.compile(r"(^|\.)intervals\.icu$", re.IGNORECASE)
+# Per-source link registry: profile host, optional profile path canonicalizer
+# (regex capturing the profile id + normalized path template), and the
+# individual activity URL template. intervals.icu has no public athlete pages,
+# so its profile link may point at the site root.
+SOURCE_LINK_SPECS: Dict[str, Dict[str, Any]] = {
+    "strava": {
+        "display_name": "Strava",
+        "host_re": STRAVA_HOST_RE,
+        "profile_path_re": None,
+        "profile_path_template": None,
+        "activity_url_template": "https://www.strava.com/activities/{id}",
+    },
+    "garmin": {
+        "display_name": "Garmin",
+        "host_re": GARMIN_CONNECT_HOST_RE,
+        "profile_path_re": re.compile(r"^/(?:modern/)?profile/([^/]+)(?:/.*)?$", re.IGNORECASE),
+        "profile_path_template": "/modern/profile/{id}",
+        "activity_url_template": "https://connect.garmin.com/modern/activity/{id}",
+    },
+    "intervals": {
+        "display_name": "intervals.icu",
+        "host_re": INTERVALS_HOST_RE,
+        "profile_path_re": None,
+        "profile_path_template": None,
+        "allow_root_profile": True,
+        "activity_url_template": "https://intervals.icu/activities/{id}",
+    },
+}
 
 
 def _year_range_from_config(config: Dict, aggregate_years: Dict) -> List[int]:
@@ -133,6 +162,7 @@ def _load_activities(
     include_activity_urls: bool = False,
     include_strava_activity_urls: bool = False,
     include_garmin_activity_urls: bool = False,
+    include_intervals_activity_urls: bool = False,
 ) -> List[Dict]:
     if not os.path.exists(ACTIVITIES_PATH):
         return []
@@ -159,11 +189,11 @@ def _load_activities(
             "subtype": str(subtype),
             "hour": hour,
         }
-        include_provider_activity_urls = include_activity_urls
-        if source == "strava" and include_strava_activity_urls:
-            include_provider_activity_urls = True
-        if source == "garmin" and include_garmin_activity_urls:
-            include_provider_activity_urls = True
+        include_provider_activity_urls = include_activity_urls or {
+            "strava": include_strava_activity_urls,
+            "garmin": include_garmin_activity_urls,
+            "intervals": include_intervals_activity_urls,
+        }.get(source, False)
 
         if include_provider_activity_urls:
             url = _activity_url_from_id(source, item.get("id"))
@@ -211,11 +241,8 @@ def _repo_slug_from_git() -> Optional[str]:
 
 
 def _host_regex_for_source(source: str) -> Optional[re.Pattern]:
-    if source == "strava":
-        return STRAVA_HOST_RE
-    if source == "garmin":
-        return GARMIN_CONNECT_HOST_RE
-    return None
+    spec = SOURCE_LINK_SPECS.get(source)
+    return spec["host_re"] if spec else None
 
 
 def _profile_url_from_config(config: Dict, source: str) -> Optional[str]:
@@ -229,15 +256,16 @@ def _profile_url_from_config(config: Dict, source: str) -> Optional[str]:
     host_regex = _host_regex_for_source(source)
     if not host or host_regex is None or not host_regex.search(host):
         return None
-    if source == "garmin":
+    profile_path_re = SOURCE_LINK_SPECS[source]["profile_path_re"]
+    if profile_path_re is not None:
         path = str(parsed.path or "").strip()
-        match = re.match(r"^/(?:modern/)?profile/([^/]+)(?:/.*)?$", path, flags=re.IGNORECASE)
+        match = profile_path_re.match(path)
         if not match:
             return None
-        normalized_path = f"/modern/profile/{match.group(1)}"
+        normalized_path = SOURCE_LINK_SPECS[source]["profile_path_template"].format(id=match.group(1))
     else:
         normalized_path = str(parsed.path or "").strip().rstrip("/")
-        if not normalized_path:
+        if not normalized_path and not SOURCE_LINK_SPECS[source].get("allow_root_profile"):
             return None
     return urllib.parse.urlunparse(
         (
@@ -268,11 +296,10 @@ def _activity_url_from_id(source: str, activity_id: object) -> Optional[str]:
     encoded = urllib.parse.quote(raw, safe="")
     if not encoded:
         return None
-    if source == "strava":
-        return f"https://www.strava.com/activities/{encoded}"
-    if source == "garmin":
-        return f"https://connect.garmin.com/modern/activity/{encoded}"
-    return None
+    spec = SOURCE_LINK_SPECS.get(source)
+    if not spec:
+        return None
+    return spec["activity_url_template"].format(id=encoded)
 
 
 def _strava_profile_url_from_config(config: Dict) -> Optional[str]:
@@ -455,10 +482,7 @@ def generate(write_svgs: bool = True):
     source = normalize_source(config.get("source", "strava"))
     include_activity_urls = _activity_links_enabled_from_config(config, source)
     load_activities_kwargs = {"source": source}
-    if source == "strava":
-        load_activities_kwargs["include_strava_activity_urls"] = include_activity_urls
-    elif source == "garmin":
-        load_activities_kwargs["include_garmin_activity_urls"] = include_activity_urls
+    load_activities_kwargs[f"include_{source}_activity_urls"] = include_activity_urls
     site_payload = {
         "source": source,
         "generated_at": utc_now().isoformat(),
@@ -474,10 +498,7 @@ def generate(write_svgs: bool = True):
     profile_url = _profile_url_from_config(config, source)
     if profile_url:
         site_payload["profile_url"] = profile_url
-        if source == "strava":
-            site_payload["strava_profile_url"] = profile_url
-        elif source == "garmin":
-            site_payload["garmin_profile_url"] = profile_url
+        site_payload[f"{source}_profile_url"] = profile_url
     repo_slug = _repo_slug_from_git()
     if repo_slug:
         site_payload["repo"] = repo_slug

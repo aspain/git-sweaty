@@ -1770,5 +1770,401 @@ class SetupAuthMainFlowTests(unittest.TestCase):
         clear_domain_mock.assert_called_once_with("owner/repo")
 
 
+
+class _FakeHTTPResponse:
+    def __init__(self, body: str) -> None:
+        self._body = body.encode("utf-8")
+
+    def read(self) -> bytes:
+        return self._body
+
+    def __enter__(self) -> "_FakeHTTPResponse":
+        return self
+
+    def __exit__(self, *exc: object) -> None:
+        return None
+
+
+class SetupAuthIntervalsTests(unittest.TestCase):
+    def test_parse_args_accepts_intervals_flags(self) -> None:
+        argv = [
+            "setup_auth.py",
+            "--source",
+            "intervals",
+            "--intervals-api-key",
+            "key-123",
+            "--intervals-athlete-id",
+            "i42",
+            "--intervals-profile-url",
+            "https://intervals.icu",
+            "--intervals-activity-links",
+            "yes",
+        ]
+        with mock.patch.object(sys, "argv", argv):
+            args = setup_auth.parse_args()
+        self.assertEqual(args.source, "intervals")
+        self.assertEqual(args.intervals_api_key, "key-123")
+        self.assertEqual(args.intervals_athlete_id, "i42")
+        self.assertEqual(args.intervals_profile_url, "https://intervals.icu")
+        self.assertEqual(args.intervals_activity_links, "yes")
+
+    def test_prompt_source_offers_intervals_option(self) -> None:
+        with (
+            mock.patch("builtins.input", return_value="3") as input_mock,
+            mock.patch("sys.stdout", new_callable=io.StringIO) as stdout,
+        ):
+            value = setup_auth._prompt_source()
+        self.assertEqual(value, "intervals")
+        self.assertIn("3) intervals.icu", stdout.getvalue())
+        input_mock.assert_called_once_with("Selection (enter 1, 2, or 3): ")
+
+    def test_existing_dashboard_source_accepts_intervals(self) -> None:
+        with mock.patch("setup_auth._get_variable", return_value="Intervals"):
+            self.assertEqual(setup_auth._existing_dashboard_source("owner/repo"), "intervals")
+
+    def test_resolve_source_non_interactive_prefers_existing_intervals_source(self) -> None:
+        args = Namespace(source=None)
+        self.assertEqual(
+            setup_auth._resolve_source(args, interactive=False, previous_source="intervals"),
+            "intervals",
+        )
+
+    def test_has_required_source_secrets_for_intervals(self) -> None:
+        self.assertTrue(setup_auth._has_required_source_secrets("intervals", {"INTERVALS_API_KEY"}))
+        self.assertFalse(setup_auth._has_required_source_secrets("intervals", {"INTERVALS_ATHLETE_ID"}))
+
+    def test_has_explicit_credentials_for_intervals(self) -> None:
+        self.assertTrue(
+            setup_auth._has_explicit_credentials_for_source(
+                Namespace(intervals_api_key="k", intervals_athlete_id=None), "intervals"
+            )
+        )
+        self.assertFalse(setup_auth._has_explicit_credentials_for_source(Namespace(), "intervals"))
+
+    def test_has_explicit_setup_overrides_includes_intervals_flags(self) -> None:
+        self.assertTrue(setup_auth._has_explicit_setup_overrides(Namespace(intervals_activity_links="yes")))
+        self.assertTrue(setup_auth._has_explicit_setup_overrides(Namespace(intervals_profile_url="")))
+
+    def test_normalize_intervals_profile_url(self) -> None:
+        self.assertEqual(setup_auth._normalize_intervals_profile_url("intervals.icu/"), "https://intervals.icu")
+        self.assertEqual(
+            setup_auth._normalize_intervals_profile_url("https://intervals.icu/athlete/i42/"),
+            "https://intervals.icu/athlete/i42",
+        )
+        with self.assertRaises(ValueError):
+            setup_auth._normalize_intervals_profile_url("https://example.com/i42")
+
+    def test_normalize_intervals_athlete_id(self) -> None:
+        self.assertEqual(setup_auth._normalize_intervals_athlete_id(""), "0")
+        self.assertEqual(setup_auth._normalize_intervals_athlete_id(None), "0")
+        self.assertEqual(setup_auth._normalize_intervals_athlete_id(" i42 "), "i42")
+        with self.assertRaises(ValueError):
+            setup_auth._normalize_intervals_athlete_id("i42/../x")
+
+    def test_existing_dashboard_intervals_settings(self) -> None:
+        with mock.patch("setup_auth._get_variable", return_value="true"):
+            self.assertTrue(setup_auth._existing_dashboard_intervals_activity_links("owner/repo"))
+        with mock.patch("setup_auth._get_variable", return_value="https://intervals.icu/"):
+            self.assertEqual(
+                setup_auth._existing_dashboard_intervals_profile_url("owner/repo"),
+                "https://intervals.icu",
+            )
+
+    def test_fetch_intervals_athlete_uses_basic_auth(self) -> None:
+        with mock.patch(
+            "urllib.request.urlopen",
+            return_value=_FakeHTTPResponse('{"id": "i42", "name": "Ada"}'),
+        ) as urlopen_mock:
+            payload = setup_auth._fetch_intervals_athlete("secret-key", "0")
+        self.assertEqual(payload, {"id": "i42", "name": "Ada"})
+        request = urlopen_mock.call_args.args[0]
+        self.assertEqual(request.full_url, "https://intervals.icu/api/v1/athlete/0")
+        # base64("API_KEY:secret-key")
+        self.assertEqual(request.get_header("Authorization"), "Basic QVBJX0tFWTpzZWNyZXQta2V5")
+
+    def test_fetch_intervals_athlete_reports_rejected_key(self) -> None:
+        error = urllib.error.HTTPError(
+            url="https://intervals.icu/api/v1/athlete/0", code=401, msg="Unauthorized", hdrs=None, fp=None
+        )
+        with mock.patch("urllib.request.urlopen", side_effect=error):
+            with self.assertRaises(RuntimeError) as ctx:
+                setup_auth._fetch_intervals_athlete("bad", "0")
+        self.assertIn("Developer Settings", str(ctx.exception))
+
+    def test_fetch_intervals_athlete_reports_missing_athlete(self) -> None:
+        error = urllib.error.HTTPError(
+            url="https://intervals.icu/api/v1/athlete/i9", code=404, msg="Not Found", hdrs=None, fp=None
+        )
+        with mock.patch("urllib.request.urlopen", side_effect=error):
+            with self.assertRaises(RuntimeError) as ctx:
+                setup_auth._fetch_intervals_athlete("key", "i9")
+        self.assertIn("'i9' was not found", str(ctx.exception))
+
+    def test_resolve_intervals_auth_values_non_interactive_requires_key(self) -> None:
+        args = Namespace(intervals_api_key=None, intervals_athlete_id=None)
+        with self.assertRaises(RuntimeError) as ctx:
+            setup_auth._resolve_intervals_auth_values(args, interactive=False)
+        self.assertIn("--intervals-api-key", str(ctx.exception))
+
+    def test_resolve_intervals_auth_values_non_interactive_defaults_athlete_id(self) -> None:
+        args = Namespace(intervals_api_key="key", intervals_athlete_id=None)
+        with (
+            mock.patch(
+                "setup_auth._fetch_intervals_athlete", return_value={"id": "i42", "name": "Ada"}
+            ) as fetch_mock,
+            mock.patch("sys.stdout", new_callable=io.StringIO) as stdout,
+        ):
+            values = setup_auth._resolve_intervals_auth_values(args, interactive=False)
+        fetch_mock.assert_called_once_with("key", "0")
+        self.assertEqual(values, ("key", "0", {"id": "i42", "name": "Ada"}))
+        self.assertIn("API key OK for athlete: Ada (i42)", stdout.getvalue())
+
+    def test_resolve_intervals_auth_values_interactive_prompts_for_key_and_athlete(self) -> None:
+        args = Namespace(intervals_api_key=None, intervals_athlete_id=None)
+        with (
+            mock.patch("setup_auth._prompt_secret_masked", return_value="typed-key") as secret_mock,
+            mock.patch("builtins.input", return_value="i77") as input_mock,
+            mock.patch("setup_auth._fetch_intervals_athlete", return_value={"id": "i77"}) as fetch_mock,
+            mock.patch("sys.stdout", new_callable=io.StringIO) as stdout,
+        ):
+            api_key, athlete_id, _ = setup_auth._resolve_intervals_auth_values(args, interactive=True)
+        self.assertEqual((api_key, athlete_id), ("typed-key", "i77"))
+        secret_mock.assert_called_once_with("INTERVALS_API_KEY (input hidden): ")
+        input_mock.assert_called_once_with(
+            "intervals.icu athlete id (for example i12345; default: 0 = API key owner): "
+        )
+        fetch_mock.assert_called_once_with("typed-key", "i77")
+        self.assertIn("Settings -> Developer Settings", stdout.getvalue())
+
+    def test_resolve_intervals_activity_links(self) -> None:
+        with mock.patch("setup_auth._existing_dashboard_intervals_activity_links", return_value=True):
+            self.assertTrue(
+                setup_auth._resolve_intervals_activity_links(
+                    Namespace(intervals_activity_links=None), interactive=False, repo="owner/repo"
+                )
+            )
+            self.assertFalse(
+                setup_auth._resolve_intervals_activity_links(
+                    Namespace(intervals_activity_links="no"), interactive=False, repo="owner/repo"
+                )
+            )
+            with mock.patch(
+                "setup_auth._prompt_use_intervals_activity_links", return_value=False
+            ) as prompt_mock:
+                value = setup_auth._resolve_intervals_activity_links(
+                    Namespace(intervals_activity_links=None), interactive=True, repo="owner/repo"
+                )
+        self.assertFalse(value)
+        prompt_mock.assert_called_once_with(default_enabled=True)
+
+    def test_resolve_intervals_profile_link_preference_interactive_prompts_for_url(self) -> None:
+        args = Namespace(intervals_profile_url=None)
+        with (
+            mock.patch("setup_auth._get_variable", return_value=None),
+            mock.patch("setup_auth._prompt_use_intervals_profile_link", return_value=True) as opt_in_mock,
+            mock.patch("builtins.input", return_value="") as input_mock,
+        ):
+            enabled, url = setup_auth._resolve_intervals_profile_link_preference(
+                args, interactive=True, repo="owner/repo"
+            )
+        self.assertEqual((enabled, url), (True, "https://intervals.icu"))
+        opt_in_mock.assert_called_once_with(default_enabled=False)
+        input_mock.assert_called_once_with("intervals.icu profile URL (default: https://intervals.icu): ")
+
+    def test_resolve_intervals_profile_link_preference_explicit_empty_disables(self) -> None:
+        args = Namespace(intervals_profile_url="")
+        self.assertEqual(
+            setup_auth._resolve_intervals_profile_link_preference(args, interactive=True, repo="owner/repo"),
+            (False, ""),
+        )
+
+    def test_resolve_intervals_profile_url_variants(self) -> None:
+        args = Namespace(intervals_profile_url=None)
+        with mock.patch("setup_auth._get_variable", return_value=None):
+            self.assertEqual(
+                setup_auth._resolve_intervals_profile_url(args, "owner/repo", enabled_override=False), ""
+            )
+            self.assertEqual(
+                setup_auth._resolve_intervals_profile_url(args, "owner/repo", enabled_override=True),
+                "https://intervals.icu",
+            )
+            self.assertEqual(
+                setup_auth._resolve_intervals_profile_url(
+                    args, "owner/repo", enabled_override=True, prefilled_url="intervals.icu/athlete/i1"
+                ),
+                "https://intervals.icu/athlete/i1",
+            )
+            self.assertEqual(setup_auth._resolve_intervals_profile_url(args, "owner/repo"), "")
+        with mock.patch("setup_auth._get_variable", return_value="https://intervals.icu/x"):
+            self.assertEqual(
+                setup_auth._resolve_intervals_profile_url(args, "owner/repo"), "https://intervals.icu/x"
+            )
+
+
+class SetupAuthIntervalsMainFlowTests(unittest.TestCase):
+    def _run_main(
+        self,
+        *,
+        previous_source: str,
+        athlete_id: str = "0",
+        activity_links: bool = True,
+        profile_pref: tuple = (True, "https://intervals.icu"),
+        full_backfill_prompt_result: bool = False,
+    ) -> dict:
+        args = SetupAuthMainFlowTests._default_args()
+        with ExitStack() as stack:
+            stack.enter_context(mock.patch("setup_auth.parse_args", return_value=args))
+            stack.enter_context(mock.patch("setup_auth._bootstrap_env_and_reexec"))
+            stack.enter_context(mock.patch("setup_auth._isatty", return_value=True))
+            stack.enter_context(mock.patch("setup_auth._assert_gh_ready"))
+            stack.enter_context(mock.patch("setup_auth._resolve_repo_slug", return_value="owner/repo"))
+            stack.enter_context(mock.patch("setup_auth._assert_repo_access"))
+            stack.enter_context(mock.patch("setup_auth._assert_actions_secret_access"))
+            stack.enter_context(mock.patch("setup_auth._resolve_custom_pages_domain", return_value=(False, None)))
+            stack.enter_context(mock.patch("setup_auth._load_existing_dashboard_settings", return_value=None))
+            stack.enter_context(mock.patch("setup_auth._existing_dashboard_source", return_value=previous_source))
+            stack.enter_context(mock.patch("setup_auth._resolve_source", return_value="intervals"))
+            prompt_backfill_mock = stack.enter_context(
+                mock.patch("setup_auth._prompt_full_backfill_choice", return_value=full_backfill_prompt_result)
+            )
+            stack.enter_context(mock.patch("setup_auth._resolve_units", return_value=("km", "m")))
+            stack.enter_context(mock.patch("setup_auth._resolve_week_start", return_value="monday"))
+            stack.enter_context(
+                mock.patch("setup_auth._resolve_intervals_activity_links", return_value=activity_links)
+            )
+            stack.enter_context(
+                mock.patch("setup_auth._resolve_intervals_profile_link_preference", return_value=profile_pref)
+            )
+            stack.enter_context(mock.patch("setup_auth._get_variable", return_value=None))
+            auth_mock = stack.enter_context(
+                mock.patch(
+                    "setup_auth._resolve_intervals_auth_values",
+                    return_value=("api-key", athlete_id, {"id": "i42", "name": "Ada Lovelace"}),
+                )
+            )
+            garmin_auth_mock = stack.enter_context(mock.patch("setup_auth._resolve_garmin_auth_values"))
+            set_secret_mock = stack.enter_context(mock.patch("setup_auth._set_secret"))
+            clear_secret_mock = stack.enter_context(mock.patch("setup_auth._clear_secret"))
+            set_variable_mock = stack.enter_context(mock.patch("setup_auth._set_variable"))
+            clear_variable_mock = stack.enter_context(mock.patch("setup_auth._clear_variable"))
+            stack.enter_context(mock.patch("setup_auth._try_enable_actions_permissions", return_value=(True, "ok")))
+            stack.enter_context(mock.patch("setup_auth._try_enable_repo_issues", return_value=(True, "ok")))
+            stack.enter_context(mock.patch("setup_auth._try_enable_workflows", return_value=(True, "ok")))
+            stack.enter_context(mock.patch("setup_auth._try_configure_pages", return_value=(True, "ok")))
+            dispatch_mock = stack.enter_context(mock.patch("setup_auth._try_dispatch_sync", return_value=(True, "ok")))
+            stack.enter_context(
+                mock.patch("setup_auth._find_latest_workflow_run", return_value=(123, "https://example.test/run/123"))
+            )
+            stack.enter_context(
+                mock.patch("setup_auth._dashboard_url_from_pages_api", return_value="https://owner.github.io/repo/")
+            )
+            stdout = stack.enter_context(mock.patch("sys.stdout", new_callable=io.StringIO))
+            result = setup_auth.main()
+        return {
+            "result": result,
+            "auth": auth_mock,
+            "garmin_auth": garmin_auth_mock,
+            "set_secret": set_secret_mock,
+            "clear_secret": clear_secret_mock,
+            "set_variable": set_variable_mock,
+            "clear_variable": clear_variable_mock,
+            "dispatch": dispatch_mock,
+            "prompt_backfill": prompt_backfill_mock,
+            "stdout": stdout.getvalue(),
+        }
+
+    def test_main_configures_intervals_secrets_and_variables(self) -> None:
+        out = self._run_main(previous_source="strava")
+        self.assertEqual(out["result"], 0)
+        out["garmin_auth"].assert_not_called()
+        out["set_secret"].assert_called_once_with("INTERVALS_API_KEY", "api-key", "owner/repo")
+        out["clear_secret"].assert_called_once_with("INTERVALS_ATHLETE_ID", "owner/repo")
+        calls = out["set_variable"].mock_calls
+        self.assertIn(mock.call("DASHBOARD_SOURCE", "intervals", "owner/repo"), calls)
+        self.assertIn(
+            mock.call("DASHBOARD_INTERVALS_PROFILE_URL", "https://intervals.icu", "owner/repo"), calls
+        )
+        self.assertIn(mock.call("DASHBOARD_INTERVALS_ACTIVITY_LINKS", "true", "owner/repo"), calls)
+        out["prompt_backfill"].assert_not_called()
+        out["dispatch"].assert_called_once_with("owner/repo", "intervals", full_backfill=False)
+        self.assertIn("Authorized athlete: Ada Lovelace", out["stdout"])
+        self.assertIn("Secrets set: INTERVALS_API_KEY", out["stdout"])
+        self.assertIn("DASHBOARD_INTERVALS_ACTIVITY_LINKS=true", out["stdout"])
+
+    def test_main_sets_intervals_athlete_id_secret_when_non_zero(self) -> None:
+        out = self._run_main(previous_source="garmin", athlete_id="i42")
+        self.assertIn(mock.call("INTERVALS_ATHLETE_ID", "i42", "owner/repo"), out["set_secret"].mock_calls)
+        out["clear_secret"].assert_not_called()
+
+    def test_main_clears_disabled_intervals_dashboard_variables(self) -> None:
+        out = self._run_main(previous_source="strava", activity_links=False, profile_pref=(False, ""))
+        clear_calls = out["clear_variable"].mock_calls
+        self.assertIn(mock.call("DASHBOARD_INTERVALS_PROFILE_URL", "owner/repo"), clear_calls)
+        self.assertIn(mock.call("DASHBOARD_INTERVALS_ACTIVITY_LINKS", "owner/repo"), clear_calls)
+
+    def test_main_prompts_full_backfill_on_same_intervals_rerun(self) -> None:
+        out = self._run_main(previous_source="intervals", full_backfill_prompt_result=True)
+        out["prompt_backfill"].assert_called_once_with("intervals")
+        out["dispatch"].assert_called_once_with("owner/repo", "intervals", full_backfill=True)
+
+    def test_main_reuse_intervals_settings_can_skip_credentials(self) -> None:
+        args = SetupAuthMainFlowTests._default_args()
+        existing_settings = setup_auth.ExistingDashboardSettings(
+            source="intervals", distance_unit="km", elevation_unit="m", week_start="monday"
+        )
+        with ExitStack() as stack:
+            stack.enter_context(mock.patch("setup_auth.parse_args", return_value=args))
+            stack.enter_context(mock.patch("setup_auth._bootstrap_env_and_reexec"))
+            stack.enter_context(mock.patch("setup_auth._isatty", return_value=True))
+            stack.enter_context(mock.patch("setup_auth._assert_gh_ready"))
+            stack.enter_context(mock.patch("setup_auth._resolve_repo_slug", return_value="owner/repo"))
+            stack.enter_context(mock.patch("setup_auth._assert_repo_access"))
+            stack.enter_context(mock.patch("setup_auth._assert_actions_secret_access"))
+            stack.enter_context(mock.patch("setup_auth._load_existing_dashboard_settings", return_value=existing_settings))
+            stack.enter_context(mock.patch("setup_auth._prompt_reuse_existing_settings", return_value=True))
+            stack.enter_context(mock.patch("setup_auth._prompt_full_backfill_choice", return_value=False))
+            stack.enter_context(mock.patch("setup_auth._list_secret_names", return_value={"INTERVALS_API_KEY"}))
+            prompt_update_mock = stack.enter_context(
+                mock.patch("setup_auth._prompt_update_credentials", return_value=False)
+            )
+            stack.enter_context(mock.patch("setup_auth._existing_dashboard_intervals_activity_links", return_value=True))
+            stack.enter_context(
+                mock.patch(
+                    "setup_auth._existing_dashboard_intervals_profile_url",
+                    return_value="https://intervals.icu/athlete/i42",
+                )
+            )
+            stack.enter_context(mock.patch("setup_auth._get_variable", return_value=None))
+            auth_mock = stack.enter_context(mock.patch("setup_auth._resolve_intervals_auth_values"))
+            set_secret_mock = stack.enter_context(mock.patch("setup_auth._set_secret"))
+            set_variable_mock = stack.enter_context(mock.patch("setup_auth._set_variable"))
+            stack.enter_context(mock.patch("setup_auth._clear_variable"))
+            stack.enter_context(mock.patch("setup_auth._try_enable_actions_permissions", return_value=(True, "ok")))
+            stack.enter_context(mock.patch("setup_auth._try_enable_repo_issues", return_value=(True, "ok")))
+            stack.enter_context(mock.patch("setup_auth._try_enable_workflows", return_value=(True, "ok")))
+            stack.enter_context(mock.patch("setup_auth._try_configure_pages", return_value=(True, "ok")))
+            stack.enter_context(mock.patch("setup_auth._try_dispatch_sync", return_value=(True, "ok")))
+            stack.enter_context(
+                mock.patch("setup_auth._find_latest_workflow_run", return_value=(123, "https://example.test/run/123"))
+            )
+            stack.enter_context(
+                mock.patch("setup_auth._dashboard_url_from_pages_api", return_value="https://owner.github.io/repo/")
+            )
+            stack.enter_context(mock.patch("sys.stdout", new_callable=io.StringIO))
+            result = setup_auth.main()
+
+        self.assertEqual(result, 0)
+        prompt_update_mock.assert_called_once_with()
+        auth_mock.assert_not_called()
+        set_secret_mock.assert_not_called()
+        calls = set_variable_mock.mock_calls
+        self.assertIn(mock.call("DASHBOARD_SOURCE", "intervals", "owner/repo"), calls)
+        self.assertIn(
+            mock.call("DASHBOARD_INTERVALS_PROFILE_URL", "https://intervals.icu/athlete/i42", "owner/repo"),
+            calls,
+        )
+        self.assertIn(mock.call("DASHBOARD_INTERVALS_ACTIVITY_LINKS", "true", "owner/repo"), calls)
+
+
 if __name__ == "__main__":
     unittest.main()

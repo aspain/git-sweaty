@@ -92,6 +92,14 @@ let pendingTooltipPoint = null;
 let tooltipResizeObserver = null;
 const PROFILE_PROVIDER_STRAVA = "strava";
 const PROFILE_PROVIDER_GARMIN = "garmin";
+const PROFILE_PROVIDER_INTERVALS = "intervals";
+// Source registry: source id -> display label (also used to map parsed profile
+// labels back to a provider icon class `profile-provider-<id>`).
+const PROVIDER_DISPLAY_NAMES = {
+  [PROFILE_PROVIDER_STRAVA]: "Strava",
+  [PROFILE_PROVIDER_GARMIN]: "Garmin",
+  [PROFILE_PROVIDER_INTERVALS]: "intervals.icu",
+};
 const TOUCH_TOOLTIP_TAP_MAX_MOVE_PX = 10;
 const TOUCH_TOOLTIP_TAP_MAX_SCROLL_PX = 2;
 const TOUCH_TOOLTIP_MAX_EFFECTIVE_ZOOM = 1.2;
@@ -395,12 +403,13 @@ function syncProfileLinkNavigationTarget() {
 
 function setProfileProviderIcon(provider) {
   if (!stravaProfileLink) return;
-  stravaProfileLink.classList.remove("profile-provider-strava", "profile-provider-garmin");
-  if (provider === PROFILE_PROVIDER_GARMIN) {
-    stravaProfileLink.classList.add("profile-provider-garmin");
-    return;
-  }
-  stravaProfileLink.classList.add("profile-provider-strava");
+  Object.keys(PROVIDER_DISPLAY_NAMES).forEach((id) => {
+    stravaProfileLink.classList.remove(`profile-provider-${id}`);
+  });
+  const resolved = Object.prototype.hasOwnProperty.call(PROVIDER_DISPLAY_NAMES, provider)
+    ? provider
+    : PROFILE_PROVIDER_STRAVA;
+  stravaProfileLink.classList.add(`profile-provider-${resolved}`);
 }
 
 function parseStravaProfileUrl(value) {
@@ -420,12 +429,14 @@ function parseStravaProfileUrl(value) {
   const host = String(parsed.hostname || "").toLowerCase();
   const isStravaHost = host === "strava.com" || host.endsWith(".strava.com");
   const isGarminHost = host === "connect.garmin.com" || host.endsWith(".connect.garmin.com");
-  if (!isStravaHost && !isGarminHost) {
+  const isIntervalsHost = host === "intervals.icu" || host.endsWith(".intervals.icu");
+  if (!isStravaHost && !isGarminHost && !isIntervalsHost) {
     return null;
   }
 
   const path = String(parsed.pathname || "").trim().replace(/\/+$/, "");
-  if (!path || path === "/") {
+  // intervals.icu has no public athlete pages, so its site root is an allowed profile link.
+  if (!path && !isIntervalsHost) {
     return null;
   }
 
@@ -440,7 +451,7 @@ function parseStravaProfileUrl(value) {
 
   return {
     href: `${parsed.protocol}//${parsed.host}${normalizedPath}${parsed.search}`,
-    label: isGarminHost ? "Garmin" : "Strava",
+    label: isGarminHost ? "Garmin" : (isIntervalsHost ? "intervals.icu" : "Strava"),
   };
 }
 
@@ -461,7 +472,8 @@ function parseStravaActivityUrl(value) {
   const host = String(parsed.hostname || "").toLowerCase();
   const isStravaHost = host === "strava.com" || host.endsWith(".strava.com");
   const isGarminHost = host === "connect.garmin.com" || host.endsWith(".connect.garmin.com");
-  if (!isStravaHost && !isGarminHost) {
+  const isIntervalsHost = host === "intervals.icu" || host.endsWith(".intervals.icu");
+  if (!isStravaHost && !isGarminHost && !isIntervalsHost) {
     return null;
   }
 
@@ -470,6 +482,9 @@ function parseStravaActivityUrl(value) {
     return null;
   }
   if (isGarminHost && !/^\/(?:modern\/)?activity\/[^/]+$/i.test(path)) {
+    return null;
+  }
+  if (isIntervalsHost && !/^\/activities\/[^/]+$/i.test(path)) {
     return null;
   }
 
@@ -490,9 +505,7 @@ function syncStravaProfileLink(profileUrl, source) {
   }
   stravaProfileLink.href = parsed.href;
   const providerLabel = parsed.label || providerDisplayName(source) || "Profile";
-  const provider = providerLabel === "Garmin"
-    ? PROFILE_PROVIDER_GARMIN
-    : PROFILE_PROVIDER_STRAVA;
+  const provider = providerIdForLabel(providerLabel) || PROFILE_PROVIDER_STRAVA;
   setProfileProviderIcon(provider);
   if (stravaProfileLabel) {
     stravaProfileLabel.textContent = providerLabel;
@@ -506,9 +519,13 @@ function syncStravaProfileLink(profileUrl, source) {
 
 function providerDisplayName(source) {
   const normalized = String(source || "").trim().toLowerCase();
-  if (normalized === "garmin") return "Garmin";
-  if (normalized === "strava") return "Strava";
-  return "";
+  return Object.prototype.hasOwnProperty.call(PROVIDER_DISPLAY_NAMES, normalized)
+    ? PROVIDER_DISPLAY_NAMES[normalized]
+    : "";
+}
+
+function providerIdForLabel(label) {
+  return Object.keys(PROVIDER_DISPLAY_NAMES).find((id) => PROVIDER_DISPLAY_NAMES[id] === label) || "";
 }
 
 function payloadRepoCandidate(payload) {
@@ -526,6 +543,8 @@ function payloadProfileUrl(payload) {
     || payload?.garmin_profile_url
     || payload?.garminProfileUrl
     || payload?.garmin_profile
+    || payload?.intervals_profile_url
+    || payload?.intervalsProfileUrl
     || payload?.strava_profile_url
     || payload?.stravaProfileUrl
     || payload?.strava_profile

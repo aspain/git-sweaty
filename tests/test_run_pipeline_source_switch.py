@@ -90,6 +90,55 @@ class RunPipelineSourceSwitchTests(unittest.TestCase):
 
         reset_mock.assert_called_once()
 
+    def test_run_pipeline_resets_when_switching_to_intervals(self) -> None:
+        reset_mock = self._run_pipeline_with_mocks(source="intervals", previous_source="garmin")
+        reset_mock.assert_called_once()
+
+    def _detect_hint_with(self, *, state_sources=(), raw_sources=()) -> Optional[str]:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            os.makedirs(os.path.join(tmpdir, "data"), exist_ok=True)
+            for source in state_sources:
+                with open(os.path.join(tmpdir, "data", f"backfill_state_{source}.json"), "w", encoding="utf-8") as f:
+                    f.write("{}\n")
+            for source in raw_sources:
+                os.makedirs(os.path.join(tmpdir, "activities", "raw", source), exist_ok=True)
+            previous_cwd = os.getcwd()
+            os.chdir(tmpdir)
+            try:
+                return run_pipeline._detect_persisted_source_hint()
+            finally:
+                os.chdir(previous_cwd)
+
+    def test_detect_persisted_source_hint_handles_all_sources(self) -> None:
+        self.assertIsNone(self._detect_hint_with())
+        self.assertEqual(self._detect_hint_with(state_sources=["strava"]), "strava")
+        self.assertEqual(self._detect_hint_with(raw_sources=["garmin"]), "garmin")
+        self.assertEqual(self._detect_hint_with(state_sources=["intervals"]), "intervals")
+        self.assertEqual(self._detect_hint_with(raw_sources=["intervals"]), "intervals")
+        self.assertEqual(
+            self._detect_hint_with(state_sources=["intervals"], raw_sources=["intervals"]),
+            "intervals",
+        )
+        self.assertEqual(
+            self._detect_hint_with(state_sources=["garmin"], raw_sources=["intervals"]),
+            run_pipeline.SOURCE_HINT_MIXED,
+        )
+        self.assertEqual(
+            self._detect_hint_with(state_sources=["strava", "intervals"]),
+            run_pipeline.SOURCE_HINT_MIXED,
+        )
+
+    def test_sync_for_source_dispatches_intervals(self) -> None:
+        with mock.patch("run_pipeline.sync_intervals", return_value={"source": "intervals"}) as sync_mock:
+            result = run_pipeline._sync_for_source("intervals", dry_run=True, prune_deleted=False)
+        sync_mock.assert_called_once_with(dry_run=True, prune_deleted=False)
+        self.assertEqual(result, {"source": "intervals"})
+
+    def test_resettable_lists_include_intervals_paths(self) -> None:
+        self.assertIn(os.path.join("data", "backfill_state_intervals.json"), run_pipeline.RESETTABLE_STATE_FILES)
+        self.assertIn(os.path.join("data", "athletes_intervals.json"), run_pipeline.RESETTABLE_STATE_FILES)
+        self.assertIn(os.path.join("activities", "raw", "intervals"), run_pipeline.RESETTABLE_RAW_DIRS)
+
     def test_run_pipeline_does_not_reset_for_missing_marker_with_no_hint_and_default_source(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             data_dir = os.path.join(tmpdir, "data")

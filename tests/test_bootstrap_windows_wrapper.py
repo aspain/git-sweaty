@@ -48,6 +48,14 @@ class BootstrapWindowsWrapperTests(unittest.TestCase):
         self.assertIn('if ($null -ne $SetupArgs -and $SetupArgs.Count -gt 0)', wrapper)
         self.assertIn('$bootstrapCommand = "$bootstrapCommand $(Join-BashArgs $SetupArgs)"', wrapper)
 
+    def test_windows_wrapper_does_not_restrict_setup_sources(self) -> None:
+        # Source selection (strava/garmin/intervals) is validated by setup_auth.py;
+        # the wrapper must forward flags such as --source intervals untouched.
+        wrapper = self._read_wrapper()
+
+        self.assertNotIn("ValidateSet", wrapper)
+        self.assertNotIn("--source", wrapper)
+
     def test_readme_points_windows_quick_start_to_direct_wsl_command(self) -> None:
         with open(README_PATH, "r", encoding="utf-8") as f:
             readme = f.read()

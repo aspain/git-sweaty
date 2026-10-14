@@ -424,6 +424,53 @@ exit 0
                 py_calls = f.read()
             self.assertIn(f"{local_clone}|scripts/setup_auth.py --source garmin", py_calls)
 
+    def test_bootstrap_forwards_intervals_setup_flags_to_setup_auth(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            fake_bin, git_log, py_log = self._make_fake_bin(tmpdir)
+            local_clone = os.path.join(tmpdir, "local-clone")
+            nested_dir = os.path.join(local_clone, "nested")
+            os.makedirs(os.path.join(local_clone, ".git"), exist_ok=True)
+            os.makedirs(os.path.join(local_clone, "scripts"), exist_ok=True)
+            os.makedirs(nested_dir, exist_ok=True)
+            with open(os.path.join(local_clone, "scripts", "setup_auth.py"), "w", encoding="utf-8") as f:
+                f.write("# test\n")
+
+            env = os.environ.copy()
+            env["PATH"] = f"{fake_bin}:{env['PATH']}"
+            env["FAKE_GIT_LOG"] = git_log
+            env["FAKE_GH_LOG"] = os.path.join(tmpdir, "gh.log")
+            env["FAKE_PY_LOG"] = py_log
+            env["FAKE_GIT_INSIDE_WORKTREE"] = "1"
+            env["FAKE_GIT_TOPLEVEL"] = local_clone
+
+            proc = subprocess.run(
+                [
+                    "bash",
+                    BOOTSTRAP_PATH,
+                    "--source",
+                    "intervals",
+                    "--intervals-athlete-id",
+                    "i42",
+                    "--intervals-activity-links",
+                    "yes",
+                ],
+                input="y\n",
+                text=True,
+                capture_output=True,
+                cwd=nested_dir,
+                env=env,
+                check=False,
+            )
+            self.assertEqual(proc.returncode, 0, msg=f"{proc.stdout}\n{proc.stderr}")
+
+            with open(py_log, "r", encoding="utf-8") as f:
+                py_calls = f.read()
+            self.assertIn(
+                f"{local_clone}|scripts/setup_auth.py --source intervals "
+                "--intervals-athlete-id i42 --intervals-activity-links yes",
+                py_calls,
+            )
+
     def test_bootstrap_can_install_missing_gh_and_prompt_for_sign_in(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             fake_bin, git_log, py_log = self._make_fake_bin(tmpdir)
