@@ -123,7 +123,77 @@ jobs:
           DASHBOARD_DISTANCE_UNIT: ${{ vars.DASHBOARD_DISTANCE_UNIT }}
           DASHBOARD_ELEVATION_UNIT: ${{ vars.DASHBOARD_ELEVATION_UNIT }}
           DASHBOARD_WEEK_START: ${{ vars.DASHBOARD_WEEK_START }}
-        run: python scripts/write_ci_config.py
+        run: |
+          cat <<CONFIG > config.local.yaml
+          source: "${SYNC_SOURCE}"
+          CONFIG
+
+          if [[ "${SYNC_SOURCE}" == "strava" ]]; then
+            cat <<CONFIG >> config.local.yaml
+          strava:
+            client_id: "${STRAVA_CLIENT_ID}"
+            client_secret: "${STRAVA_CLIENT_SECRET}"
+            refresh_token: "${STRAVA_REFRESH_TOKEN}"
+          CONFIG
+            if [[ -n "${DASHBOARD_STRAVA_PROFILE_URL}" ]]; then
+              echo "  profile_url: \"${DASHBOARD_STRAVA_PROFILE_URL}\"" >> config.local.yaml
+            fi
+            normalized_links_value="$(echo "${DASHBOARD_STRAVA_ACTIVITY_LINKS}" | tr '[:upper:]' '[:lower:]' | xargs)"
+            if [[ "${normalized_links_value}" == "1" || "${normalized_links_value}" == "true" || "${normalized_links_value}" == "yes" || "${normalized_links_value}" == "y" || "${normalized_links_value}" == "on" ]]; then
+              echo "  include_activity_urls: true" >> config.local.yaml
+            fi
+          elif [[ "${SYNC_SOURCE}" == "garmin" ]]; then
+            cat <<CONFIG >> config.local.yaml
+          garmin:
+            token_store_b64: "${GARMIN_TOKENS_B64}"
+            email: "${GARMIN_EMAIL}"
+            password: "${GARMIN_PASSWORD}"
+          CONFIG
+            if [[ -n "${DASHBOARD_GARMIN_PROFILE_URL}" ]]; then
+              echo "  profile_url: \"${DASHBOARD_GARMIN_PROFILE_URL}\"" >> config.local.yaml
+            fi
+            normalized_links_value="$(echo "${DASHBOARD_GARMIN_ACTIVITY_LINKS}" | tr '[:upper:]' '[:lower:]' | xargs)"
+            if [[ "${normalized_links_value}" == "1" || "${normalized_links_value}" == "true" || "${normalized_links_value}" == "yes" || "${normalized_links_value}" == "y" || "${normalized_links_value}" == "on" ]]; then
+              echo "  include_activity_urls: true" >> config.local.yaml
+            fi
+          elif [[ "${SYNC_SOURCE}" == "intervals" ]]; then
+            # yaml.safe_dump escapes quotes/backslashes in the API key and variables.
+            python - <<'PY' >> config.local.yaml
+          import os
+          import yaml
+
+          intervals = {
+              "api_key": os.environ.get("INTERVALS_API_KEY", ""),
+              "athlete_id": os.environ.get("INTERVALS_ATHLETE_ID", "").strip() or "0",
+          }
+          profile_url = os.environ.get("DASHBOARD_INTERVALS_PROFILE_URL", "").strip()
+          if profile_url:
+              intervals["profile_url"] = profile_url
+          links = os.environ.get("DASHBOARD_INTERVALS_ACTIVITY_LINKS", "").strip().lower()
+          if links in {"1", "true", "yes", "y", "on"}:
+              intervals["include_activity_urls"] = True
+          print(yaml.safe_dump({"intervals": intervals}, sort_keys=False), end="")
+          PY
+          fi
+
+          if [[ -n "${DASHBOARD_DISTANCE_UNIT}" || -n "${DASHBOARD_ELEVATION_UNIT}" ]]; then
+            cat <<'CONFIG' >> config.local.yaml
+          units:
+          CONFIG
+            if [[ -n "${DASHBOARD_DISTANCE_UNIT}" ]]; then
+              echo "  distance: \"${DASHBOARD_DISTANCE_UNIT}\"" >> config.local.yaml
+            fi
+            if [[ -n "${DASHBOARD_ELEVATION_UNIT}" ]]; then
+              echo "  elevation: \"${DASHBOARD_ELEVATION_UNIT}\"" >> config.local.yaml
+            fi
+          fi
+
+          if [[ -n "${DASHBOARD_WEEK_START}" ]]; then
+            echo "heatmaps:" >> config.local.yaml
+            echo "  week_start: \"${DASHBOARD_WEEK_START}\"" >> config.local.yaml
+          fi
+
+          echo "Generated config.local.yaml for source=${SYNC_SOURCE}"
 
       - name: Apply source-repo overrides (optional)
         if: ${{ github.repository == 'aspain/git-sweaty' }}

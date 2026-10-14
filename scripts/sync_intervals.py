@@ -2,6 +2,7 @@ import argparse
 import hashlib
 import json
 import os
+import shutil
 import sys
 import urllib.parse
 from datetime import date, datetime, timedelta, timezone
@@ -9,13 +10,12 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import intervals_api
 from intervals_api import IntervalsAuthError, IntervalsRateLimitError
-from sync_scope import activity_scope_from_config, activity_start_ts, boundary_still_covered, start_after_ts
+from sync_scope import activity_scope_from_config, activity_start_ts, start_after_ts
 from utils import (
     ensure_dir,
     load_config,
     raw_activity_dir,
     read_json,
-    reset_persisted_data,
     utc_now,
     write_json,
 )
@@ -26,6 +26,14 @@ SUMMARY_JSON = os.path.join("data", "last_sync_summary.json")
 SUMMARY_TXT = os.path.join("data", "last_sync_summary.txt")
 STATE_PATH = os.path.join("data", "backfill_state_intervals.json")
 ATHLETE_PATH = os.path.join("data", "athletes_intervals.json")
+# Generated outputs wiped (with raw files and backfill state) when the synced account changes.
+PERSISTED_OUTPUT_PATHS = (
+    os.path.join("data", "activities_normalized.json"),
+    os.path.join("data", "daily_aggregates.json"),
+    SUMMARY_JSON,
+    SUMMARY_TXT,
+    os.path.join("site", "data.json"),
+)
 WINDOW_DAYS = 180
 # Hard lower bound for the backfill walk when no start_date/lookback_years is configured.
 FLOOR_DATE = date(1990, 1, 1)
@@ -329,6 +337,14 @@ def _write_athlete_cache(athlete: Dict[str, Any]) -> None:
     )
 
 
+def _reset_persisted_data() -> None:
+    for path in (*PERSISTED_OUTPUT_PATHS, STATE_PATH):
+        if os.path.exists(path):
+            os.remove(path)
+    if os.path.exists(RAW_DIR):
+        shutil.rmtree(RAW_DIR)
+
+
 def _maybe_reset_for_new_account(athlete: Dict[str, Any]) -> None:
     stored = _load_account_fingerprint()
     if stored and stored != _account_fingerprint(str(athlete["id"])):
@@ -341,8 +357,18 @@ def _maybe_reset_for_new_account(athlete: Dict[str, Any]) -> None:
     else:
         _write_athlete_cache(athlete)
         return
-    reset_persisted_data(RAW_DIR, [STATE_PATH])
+    _reset_persisted_data()
     _write_athlete_cache(athlete)
+
+
+def _boundary_still_covered(state_after: Any, after: int) -> bool:
+    # sync.lookback_years recomputes `after` from now() on every run, so the bound creeps
+    # later over time. History already walked still covers it; only an earlier bound
+    # (more history wanted) or a missing/invalid saved bound needs a fresh walk.
+    try:
+        return int(state_after) <= after
+    except (TypeError, ValueError):
+        return False
 
 
 def _parse_cursor(value: Any) -> Optional[date]:
@@ -454,7 +480,7 @@ def sync_intervals(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
 
     state = dict(saved_state) if resume_backfill and not dry_run else {}
     if state:
-        if not boundary_still_covered(state.get("after"), after):
+        if not _boundary_still_covered(state.get("after"), after):
             print("Backfill boundary changed; restarting intervals.icu cursor.")
             state = {}
         elif state.get("activity_scope") != activity_scope:

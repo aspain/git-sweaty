@@ -64,12 +64,8 @@ class SourceParityStaticTests(unittest.TestCase):
             self.assertIn(f'"${{source}}" != "{source}"', workflow)
             self.assertIn(f'[[ "${{SYNC_SOURCE}}" == "{source}" ]]', workflow)
             self.assertIn(f"rm -f data/backfill_state_{source}.json", workflow)
-        self.assertIn("run: python scripts/write_ci_config.py", workflow)
-
-    def test_ci_config_writer_covers_every_source(self) -> None:
-        import write_ci_config
-
-        self.assertEqual(set(write_ci_config.SOURCE_CREDENTIAL_ENV), set(utils.SUPPORTED_SOURCES))
+        # Garmin config must not be written as a catch-all else-branch.
+        self.assertNotRegex(workflow, r"(?m)^\s*else\n\s*cat <<CONFIG >> config.local.yaml\n\s*garmin:")
 
 
 @unittest.skipUnless(shutil.which("node"), "node is required for JS unit tests")

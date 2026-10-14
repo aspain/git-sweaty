@@ -14,19 +14,6 @@ def lookback_after_ts(years: int) -> int:
     return int(start.timestamp())
 
 
-def boundary_still_covered(state_after: Any, after: int) -> bool:
-    """True when a saved backfill lower bound still covers this run's bound.
-
-    sync.lookback_years recomputes `after` from now() on every run, so the bound creeps
-    later over time. History already walked still covers it; only an earlier bound
-    (more history wanted) or a missing/invalid saved bound needs a fresh walk.
-    """
-    try:
-        return int(state_after) <= after
-    except (TypeError, ValueError):
-        return False
-
-
 def start_after_ts(config: Dict[str, Any]) -> int:
     sync_cfg = config.get("sync", {})
     start_date = sync_cfg.get("start_date")

@@ -3,6 +3,7 @@ import hashlib
 import hmac
 import json
 import os
+import shutil
 import sys
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple
@@ -20,19 +21,9 @@ from provider_fields import (
 from sync_scope import (
     activity_scope_from_config,
     activity_start_ts as _shared_activity_start_ts,
-    boundary_still_covered,
     start_after_ts as _shared_start_after_ts,
 )
-from utils import (
-    ensure_dir,
-    has_existing_persisted_data,
-    load_config,
-    raw_activity_dir,
-    read_json,
-    reset_persisted_data,
-    utc_now,
-    write_json,
-)
+from utils import ensure_dir, load_config, raw_activity_dir, read_json, utc_now, write_json
 
 RAW_DIR = raw_activity_dir("garmin")
 SUMMARY_JSON = os.path.join("data", "last_sync_summary.json")
@@ -285,6 +276,32 @@ def _account_fingerprint(config: Dict[str, Any]) -> Optional[str]:
     return None
 
 
+def _has_existing_data() -> bool:
+    candidates = [
+        os.path.join("data", "activities_normalized.json"),
+        os.path.join("data", "daily_aggregates.json"),
+        os.path.join("data", "last_sync_summary.json"),
+        os.path.join("data", "last_sync_summary.txt"),
+        os.path.join("site", "data.json"),
+    ]
+    return any(os.path.exists(path) for path in candidates)
+
+
+def _reset_persisted_data() -> None:
+    paths = [
+        os.path.join("data", "activities_normalized.json"),
+        os.path.join("data", "daily_aggregates.json"),
+        os.path.join("data", "last_sync_summary.json"),
+        os.path.join("data", "last_sync_summary.txt"),
+        os.path.join("site", "data.json"),
+    ]
+    for path in paths:
+        if os.path.exists(path):
+            os.remove(path)
+    if os.path.exists(RAW_DIR):
+        shutil.rmtree(RAW_DIR)
+
+
 def _maybe_reset_for_new_account(config: Dict[str, Any]) -> None:
     fingerprint = _account_fingerprint(config)
     if not fingerprint:
@@ -294,10 +311,10 @@ def _maybe_reset_for_new_account(config: Dict[str, Any]) -> None:
         return
     if stored and stored != fingerprint:
         print("Detected different Garmin account; resetting persisted data.")
-        reset_persisted_data(RAW_DIR)
-    elif not stored and has_existing_persisted_data():
+        _reset_persisted_data()
+    elif not stored and _has_existing_data():
         print("No Garmin account fingerprint found with existing data; resetting persisted data.")
-        reset_persisted_data(RAW_DIR)
+        _reset_persisted_data()
     _write_account_fingerprint(fingerprint)
 
 
@@ -601,7 +618,8 @@ def sync_garmin(dry_run: bool, prune_deleted: bool) -> Dict[str, Any]:
 
     state = _load_state() if resume_backfill and not dry_run else {}
     if state:
-        if not boundary_still_covered(state.get("after"), after):
+        state_after = _safe_int(state.get("after"))
+        if state_after != after:
             print("Backfill boundary changed; restarting Garmin cursor.")
             state = {}
         elif state.get("activity_scope") != activity_scope:

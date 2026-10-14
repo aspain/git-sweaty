@@ -3,6 +3,7 @@ import hashlib
 import hmac
 import json
 import os
+import shutil
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -13,19 +14,9 @@ import requests
 from sync_scope import (
     activity_scope_from_config,
     activity_start_ts,
-    boundary_still_covered,
     start_after_ts,
 )
-from utils import (
-    ensure_dir,
-    has_existing_persisted_data,
-    load_config,
-    raw_activity_dir,
-    read_json,
-    reset_persisted_data,
-    utc_now,
-    write_json,
-)
+from utils import ensure_dir, load_config, raw_activity_dir, read_json, utc_now, write_json
 
 TOKEN_CACHE = ".strava_token.json"
 RAW_DIR = raw_activity_dir("strava")
@@ -436,14 +427,39 @@ def _load_existing_activity_ids() -> set:
 
 
 def _has_existing_data() -> bool:
-    return has_existing_persisted_data(extra_paths=(STATE_PATH, LEGACY_STATE_PATH))
+    candidates = [
+        os.path.join("data", "activities_normalized.json"),
+        os.path.join("data", "daily_aggregates.json"),
+        os.path.join("data", "backfill_state_strava.json"),
+        os.path.join("data", "backfill_state.json"),
+        os.path.join("data", "last_sync_summary.json"),
+        os.path.join("data", "last_sync_summary.txt"),
+        os.path.join("site", "data.json"),
+    ]
+    for path in candidates:
+        if os.path.exists(path):
+            return True
+    return False
 
 
 def _reset_persisted_data() -> None:
-    reset_persisted_data(
-        RAW_DIR,
-        extra_paths=(STATE_PATH, LEGACY_STATE_PATH, ATHLETE_PATH, LEGACY_ATHLETE_PATH),
-    )
+    paths = [
+        os.path.join("data", "activities_normalized.json"),
+        os.path.join("data", "daily_aggregates.json"),
+        os.path.join("data", "backfill_state_strava.json"),
+        os.path.join("data", "backfill_state.json"),
+        os.path.join("data", "last_sync_summary.json"),
+        os.path.join("data", "last_sync_summary.txt"),
+        os.path.join("data", "athletes_strava.json"),
+        os.path.join("data", "athletes.json"),
+        os.path.join("site", "data.json"),
+    ]
+    for path in paths:
+        if os.path.exists(path):
+            os.remove(path)
+
+    if os.path.exists(RAW_DIR):
+        shutil.rmtree(RAW_DIR)
     legacy_raw_root = os.path.join("activities", "raw")
     if os.path.isdir(legacy_raw_root):
         for filename in os.listdir(legacy_raw_root):
@@ -689,15 +705,23 @@ def sync_strava(dry_run: bool, prune_deleted: bool) -> Dict:
     used_resume_cursor = False
 
     state = _load_state() if resume_backfill and not dry_run else {}
-    if state and not boundary_still_covered(state.get("after"), after):
-        print("Backfill boundary changed; restarting cursor.")
-        state = {}
+    state_after: Optional[int] = None
+    if state:
+        try:
+            state_after = int(state.get("after"))
+        except (TypeError, ValueError):
+            state_after = None
+        if state_after != after:
+            print("Backfill boundary changed; restarting cursor.")
+            state = {}
+            state_after = None
     if state and state.get("activity_scope") != activity_scope:
         print("Activity scope changed; restarting backfill cursor.")
         state = {}
+        state_after = None
     if state and state.get("completed"):
         skip_backfill = True
-    elif state and state.get("next_before") is not None:
+    elif state and state_after == after and state.get("next_before") is not None:
         try:
             before = int(state["next_before"])
             if before <= 0:
@@ -706,6 +730,7 @@ def sync_strava(dry_run: bool, prune_deleted: bool) -> Dict:
         except (TypeError, ValueError):
             print("Invalid backfill cursor; restarting from current time.")
             state = {}
+            state_after = None
             before = None
 
     if before is None and not skip_backfill:

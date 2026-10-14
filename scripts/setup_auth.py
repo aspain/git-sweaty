@@ -1600,7 +1600,11 @@ def _resolve_strava_profile_url(
 
     detected = _normalize_strava_profile_url(_detect_strava_profile_url(tokens or {}))
 
-    existing_value = _existing_dashboard_strava_profile_url(repo)
+    existing_raw = _get_variable("DASHBOARD_STRAVA_PROFILE_URL", repo)
+    try:
+        existing_value = _normalize_strava_profile_url(existing_raw)
+    except ValueError:
+        existing_value = ""
 
     try:
         prefilled_value = _normalize_strava_profile_url(prefilled_url)
@@ -1655,7 +1659,11 @@ def _resolve_garmin_profile_url(
             )
         )
 
-    existing_value = _existing_dashboard_garmin_profile_url(repo)
+    existing_raw = _get_variable("DASHBOARD_GARMIN_PROFILE_URL", repo)
+    try:
+        existing_value = _normalize_garmin_profile_url(existing_raw)
+    except ValueError:
+        existing_value = ""
 
     try:
         prefilled_value = _normalize_garmin_profile_url(prefilled_url)
@@ -1693,7 +1701,11 @@ def _resolve_strava_profile_link_preference(
             return False, ""
         return True, _normalize_strava_profile_url(explicit_text)
 
-    existing_value = _existing_dashboard_strava_profile_url(repo)
+    existing_raw = _get_variable("DASHBOARD_STRAVA_PROFILE_URL", repo)
+    try:
+        existing_value = _normalize_strava_profile_url(existing_raw)
+    except ValueError:
+        existing_value = ""
 
     if not interactive:
         return None, existing_value
@@ -1718,7 +1730,11 @@ def _resolve_garmin_profile_link_preference(
             return False, ""
         return True, _normalize_garmin_profile_url(explicit_text)
 
-    existing_value = _existing_dashboard_garmin_profile_url(repo)
+    existing_raw = _get_variable("DASHBOARD_GARMIN_PROFILE_URL", repo)
+    try:
+        existing_value = _normalize_garmin_profile_url(existing_raw)
+    except ValueError:
+        existing_value = ""
 
     if not interactive:
         return None, existing_value
