@@ -182,10 +182,10 @@ Optional but recommended for automatic Garmin token rotation:
 #### intervals.icu secrets
 
 1. In intervals.icu, open `Settings` -> `Developer Settings` and copy your API key.
-2. Add these secrets to your fork:
+2. Add this secret to your fork:
    - `INTERVALS_API_KEY`
-   - `INTERVALS_ATHLETE_ID` (optional; defaults to `0`, meaning the athlete that owns the API key)
-3. Optional: check the key works (the username is the literal `API_KEY`):
+3. Optional: to sync a different athlete than the key owner (for example as a coach), add a repository **variable** (not a secret) `INTERVALS_ATHLETE_ID`, e.g. `i12345`. It defaults to `0`, meaning the athlete that owns the API key. A secret with the same name is still honored as a fallback. Setup stores this variable for you and keeps it on re-runs unless you explicitly enter `0`.
+4. Optional: check the key works (the username is the literal `API_KEY`):
 
 ```bash
 curl -u API_KEY:YOUR_KEY https://intervals.icu/api/v1/athlete/0

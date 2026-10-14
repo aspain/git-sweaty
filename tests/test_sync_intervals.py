@@ -205,8 +205,10 @@ class SyncIntervalsTests(unittest.TestCase):
         self.assertEqual(summary["new_or_updated"], 1)
         self.assertTrue(summary["backfill_completed"])
         self.assertIsNone(summary["backfill_next_newest"])
-        # Seen once by the recent window and once by the backfill walk.
-        self.assertEqual(summary["skipped_strava_stubs"], 2)
+        self.assertEqual(summary["skipped_strava_stubs"], 1)
+        # The backfill walk starts below the recent window instead of re-fetching it.
+        recent_oldest = date.fromisoformat(self.activity_calls[0]["oldest"])
+        self.assertEqual(self.activity_calls[1]["newest"], (recent_oldest - timedelta(days=1)).isoformat())
         raw_dir = sync_intervals.RAW_DIR
         self.assertEqual(sorted(os.listdir(raw_dir)), ["i1.json"])
         self.assertEqual(read_json(os.path.join(raw_dir, "i1.json"))["provider"], "intervals")
@@ -338,13 +340,27 @@ class SyncIntervalsTests(unittest.TestCase):
         )
         self.assertTrue(summary["backfill_completed"])
 
-    def test_boundary_change_restarts_backfill(self) -> None:
+    def test_earlier_boundary_restarts_backfill(self) -> None:
         self._run(_config(), lambda *_a, **_k: _MockResponse(200, []))
-        new_start = (date.today() - timedelta(days=30)).isoformat()
+        new_start = (date.today() - timedelta(days=800)).isoformat()
         with mock.patch("builtins.print") as print_mock:
             self._run(_config(start_date=new_start), lambda *_a, **_k: _MockResponse(200, []))
         self.assertIn("Backfill boundary changed", str(print_mock.call_args_list))
         self.assertGreater(len(self.activity_calls), 1)
+
+    def test_later_boundary_keeps_completed_backfill(self) -> None:
+        # sync.lookback_years recomputes the bound from now(), so it moves later every run.
+        config = {"intervals": {"api_key": "k", "athlete_id": "i123"}, "sync": {"lookback_years": 1}}
+        after = int(sync_intervals.utc_now().timestamp()) - 365 * 86400
+        with mock.patch.object(sync_intervals, "start_after_ts", return_value=after):
+            self._run(config, lambda *_a, **_k: _MockResponse(200, []))
+        with mock.patch.object(sync_intervals, "start_after_ts", return_value=after + 86400), mock.patch(
+            "builtins.print"
+        ) as print_mock:
+            summary, _ = self._run(config, lambda *_a, **_k: _MockResponse(200, []))
+        self.assertNotIn("Backfill boundary changed", str(print_mock.call_args_list))
+        self.assertEqual(len(self.activity_calls), 1)
+        self.assertTrue(summary["backfill_completed"])
 
     def test_prune_deleted_removes_missing_activities_after_full_scan(self) -> None:
         today = date.today()
@@ -374,6 +390,81 @@ class SyncIntervalsTests(unittest.TestCase):
         self.assertTrue(summary["rate_limited"])
         self.assertEqual(summary["deleted"], 0)
         self.assertEqual(os.listdir(sync_intervals.RAW_DIR), ["i1.json"])
+
+    def test_prune_deleted_rescans_after_backfill_completed(self) -> None:
+        today = date.today()
+        old_day = today - timedelta(days=200)
+        self._run(
+            _config(),
+            lambda *_a, **_k: _MockResponse(200, [_ride("i1", today), _ride("i2", old_day)]),
+        )
+        self.assertTrue(read_json(sync_intervals.STATE_PATH)["completed"])
+
+        def handler(_method, _url, **kwargs):
+            params = kwargs["params"]
+            return _MockResponse(200, [_ride("i1", today)] if params["oldest"] <= today.isoformat() <= params["newest"] else [])
+
+        summary, _ = self._run(_config(), handler, prune_deleted=True)
+        self.assertGreater(len(self.activity_calls), 1)
+        self.assertEqual(summary["deleted"], 1)
+        self.assertEqual(os.listdir(sync_intervals.RAW_DIR), ["i1.json"])
+        self.assertTrue(read_json(sync_intervals.STATE_PATH)["completed"])
+
+    def test_rate_limited_prune_scan_keeps_completed_state(self) -> None:
+        today = date.today()
+        self._run(_config(), lambda *_a, **_k: _MockResponse(200, [_ride("i1", today)]))
+        calls = []
+
+        def limited(_method, _url, **kwargs):
+            calls.append(kwargs["params"])
+            return _MockResponse(200, []) if len(calls) == 1 else _MockResponse(429, {})
+
+        with mock.patch("builtins.print"):
+            summary, _ = self._run(_config(), limited, prune_deleted=True)
+        self.assertTrue(summary["rate_limited"])
+        self.assertEqual(summary["deleted"], 0)
+        self.assertTrue(summary["backfill_completed"])
+        self.assertTrue(read_json(sync_intervals.STATE_PATH)["completed"])
+        self.assertEqual(os.listdir(sync_intervals.RAW_DIR), ["i1.json"])
+
+    def test_profile_rate_limit_stops_before_writing(self) -> None:
+        today = date.today()
+        self._run(_config(), lambda *_a, **_k: _MockResponse(200, [_ride("i1", today)]))
+        os.remove(sync_intervals.ATHLETE_PATH)
+        state_before = read_json(sync_intervals.STATE_PATH)
+
+        with mock.patch.object(sync_intervals, "load_config", return_value=_config()), mock.patch.object(
+            sync_intervals.requests, "request", return_value=_MockResponse(429, {}), create=True
+        ) as request_mock, mock.patch.object(sync_intervals.time, "sleep"), mock.patch("builtins.print"):
+            summary = sync_intervals.sync_intervals(False, False)
+
+        self.assertTrue(summary["rate_limited"])
+        self.assertIn("rate limit", summary["rate_limit_message"])
+        self.assertTrue(summary["backfill_completed"])
+        self.assertEqual(summary["fetched"], 0)
+        # Only the profile request was attempted; no activities fetched or files touched.
+        self.assertTrue(all(c.args[1].endswith("/athlete/i123") for c in request_mock.call_args_list))
+        self.assertFalse(os.path.exists(sync_intervals.ATHLETE_PATH))
+        self.assertEqual(read_json(sync_intervals.STATE_PATH), state_before)
+        self.assertTrue(os.path.exists(os.path.join(sync_intervals.RAW_DIR, "i1.json")))
+
+    def test_overlapping_windows_count_each_activity_once(self) -> None:
+        today = date.today()
+        # Every window (recent and backfill) returns the same activities; each counts once.
+        with mock.patch("builtins.print"):
+            summary, _ = self._run(
+                _config(),
+                lambda *_a, **_k: _MockResponse(200, [_ride("i1", today), _strava_stub("i2", today)]),
+            )
+        self.assertGreater(len(self.activity_calls), 2)
+        self.assertEqual(summary["fetched"], 1)
+        self.assertEqual(summary["skipped_strava_stubs"], 1)
+
+    def test_strava_stub_detected_even_with_type(self) -> None:
+        stub = dict(_strava_stub("i2", date.today()), type="Ride")
+        self.assertTrue(sync_intervals._is_strava_stub(stub))
+        self.assertTrue(sync_intervals._is_strava_stub({"id": "i3", "type": "Run", "_note": "x"}))
+        self.assertFalse(sync_intervals._is_strava_stub(_ride("i1", date.today())))
 
     def test_main_writes_summary_files(self) -> None:
         summary = {

@@ -1936,6 +1936,85 @@ class SetupAuthIntervalsTests(unittest.TestCase):
         fetch_mock.assert_called_once_with("typed-key", "i77")
         self.assertIn("Settings -> Developer Settings", stdout.getvalue())
 
+    def test_existing_intervals_athlete_id_reads_variable(self) -> None:
+        with mock.patch("setup_auth._get_variable", return_value=" i999 ") as get_mock:
+            self.assertEqual(setup_auth._existing_intervals_athlete_id("owner/repo"), "i999")
+        get_mock.assert_called_once_with("INTERVALS_ATHLETE_ID", "owner/repo")
+        with mock.patch("setup_auth._get_variable", return_value=None):
+            self.assertIsNone(setup_auth._existing_intervals_athlete_id("owner/repo"))
+        with mock.patch("setup_auth._get_variable", return_value="bad/id"):
+            self.assertIsNone(setup_auth._existing_intervals_athlete_id("owner/repo"))
+
+    def test_resolve_intervals_auth_values_enter_keeps_stored_athlete_id(self) -> None:
+        args = Namespace(intervals_api_key="key", intervals_athlete_id=None)
+        with (
+            mock.patch("builtins.input", return_value="") as input_mock,
+            mock.patch("setup_auth._fetch_intervals_athlete", return_value={"id": "i999"}) as fetch_mock,
+            mock.patch("sys.stdout", new_callable=io.StringIO),
+        ):
+            _, athlete_id, athlete = setup_auth._resolve_intervals_auth_values(
+                args, interactive=True, existing_athlete_id="i999"
+            )
+        self.assertEqual(athlete_id, "i999")
+        self.assertEqual(athlete, {"id": "i999"})
+        self.assertIn("default: i999 (current)", input_mock.call_args.args[0])
+        fetch_mock.assert_called_once_with("key", "i999")
+
+    def test_resolve_intervals_auth_values_explicit_zero_overrides_stored_athlete_id(self) -> None:
+        args = Namespace(intervals_api_key="key", intervals_athlete_id=None)
+        with (
+            mock.patch("builtins.input", return_value="0"),
+            mock.patch("setup_auth._fetch_intervals_athlete", return_value={"id": "i1"}) as fetch_mock,
+            mock.patch("sys.stdout", new_callable=io.StringIO),
+        ):
+            _, athlete_id, _ = setup_auth._resolve_intervals_auth_values(
+                args, interactive=True, existing_athlete_id="i999", legacy_athlete_secret_present=True
+            )
+        self.assertEqual(athlete_id, "0")
+        fetch_mock.assert_called_once_with("key", "0")
+
+    def test_resolve_intervals_auth_values_enter_keeps_legacy_secret(self) -> None:
+        args = Namespace(intervals_api_key="key", intervals_athlete_id=None)
+        with (
+            mock.patch("builtins.input", return_value="") as input_mock,
+            mock.patch("setup_auth._fetch_intervals_athlete", return_value={"id": "i1", "name": "Coach"}),
+            mock.patch("sys.stdout", new_callable=io.StringIO) as stdout,
+        ):
+            values = setup_auth._resolve_intervals_auth_values(
+                args, interactive=True, legacy_athlete_secret_present=True
+            )
+        self.assertEqual(values, ("key", None, {}))
+        self.assertIn("keep the existing INTERVALS_ATHLETE_ID secret", input_mock.call_args.args[0])
+        self.assertIn("Keeping the athlete id", stdout.getvalue())
+
+    def test_resolve_intervals_auth_values_non_interactive_keeps_existing_athlete_id(self) -> None:
+        args = Namespace(intervals_api_key="key", intervals_athlete_id=None)
+        with (
+            mock.patch("builtins.input") as input_mock,
+            mock.patch("setup_auth._fetch_intervals_athlete", return_value={"id": "i999"}),
+            mock.patch("sys.stdout", new_callable=io.StringIO),
+        ):
+            stored = setup_auth._resolve_intervals_auth_values(
+                args, interactive=False, existing_athlete_id="i999"
+            )
+            legacy = setup_auth._resolve_intervals_auth_values(
+                args, interactive=False, legacy_athlete_secret_present=True
+            )
+        input_mock.assert_not_called()
+        self.assertEqual(stored[1], "i999")
+        self.assertIsNone(legacy[1])
+
+    def test_resolve_intervals_auth_values_explicit_arg_overrides_stored_athlete_id(self) -> None:
+        args = Namespace(intervals_api_key="key", intervals_athlete_id="0")
+        with (
+            mock.patch("setup_auth._fetch_intervals_athlete", return_value={"id": "i1"}),
+            mock.patch("sys.stdout", new_callable=io.StringIO),
+        ):
+            values = setup_auth._resolve_intervals_auth_values(
+                args, interactive=False, existing_athlete_id="i999", legacy_athlete_secret_present=True
+            )
+        self.assertEqual(values[1], "0")
+
     def test_resolve_intervals_activity_links(self) -> None:
         with mock.patch("setup_auth._existing_dashboard_intervals_activity_links", return_value=True):
             self.assertTrue(
@@ -2006,7 +2085,9 @@ class SetupAuthIntervalsMainFlowTests(unittest.TestCase):
         self,
         *,
         previous_source: str,
-        athlete_id: str = "0",
+        athlete_id="0",
+        existing_athlete_id=None,
+        secret_names=frozenset(),
         activity_links: bool = True,
         profile_pref: tuple = (True, "https://intervals.icu"),
         full_backfill_prompt_result: bool = False,
@@ -2036,6 +2117,10 @@ class SetupAuthIntervalsMainFlowTests(unittest.TestCase):
                 mock.patch("setup_auth._resolve_intervals_profile_link_preference", return_value=profile_pref)
             )
             stack.enter_context(mock.patch("setup_auth._get_variable", return_value=None))
+            stack.enter_context(
+                mock.patch("setup_auth._existing_intervals_athlete_id", return_value=existing_athlete_id)
+            )
+            stack.enter_context(mock.patch("setup_auth._list_secret_names", return_value=set(secret_names)))
             auth_mock = stack.enter_context(
                 mock.patch(
                     "setup_auth._resolve_intervals_auth_values",
@@ -2078,7 +2163,10 @@ class SetupAuthIntervalsMainFlowTests(unittest.TestCase):
         self.assertEqual(out["result"], 0)
         out["garmin_auth"].assert_not_called()
         out["set_secret"].assert_called_once_with("INTERVALS_API_KEY", "api-key", "owner/repo")
-        out["clear_secret"].assert_called_once_with("INTERVALS_ATHLETE_ID", "owner/repo")
+        out["clear_secret"].assert_not_called()
+        self.assertNotIn(
+            mock.call("INTERVALS_ATHLETE_ID", "owner/repo"), out["clear_variable"].mock_calls
+        )
         calls = out["set_variable"].mock_calls
         self.assertIn(mock.call("DASHBOARD_SOURCE", "intervals", "owner/repo"), calls)
         self.assertIn(
@@ -2091,10 +2179,65 @@ class SetupAuthIntervalsMainFlowTests(unittest.TestCase):
         self.assertIn("Secrets set: INTERVALS_API_KEY", out["stdout"])
         self.assertIn("DASHBOARD_INTERVALS_ACTIVITY_LINKS=true", out["stdout"])
 
-    def test_main_sets_intervals_athlete_id_secret_when_non_zero(self) -> None:
+    def test_main_stores_intervals_athlete_id_as_variable_when_non_zero(self) -> None:
         out = self._run_main(previous_source="garmin", athlete_id="i42")
-        self.assertIn(mock.call("INTERVALS_ATHLETE_ID", "i42", "owner/repo"), out["set_secret"].mock_calls)
+        self.assertIn(
+            mock.call("INTERVALS_ATHLETE_ID", "i42", "owner/repo"), out["set_variable"].mock_calls
+        )
+        out["set_secret"].assert_called_once_with("INTERVALS_API_KEY", "api-key", "owner/repo")
         out["clear_secret"].assert_not_called()
+        out["auth"].assert_called_once_with(
+            mock.ANY, True, existing_athlete_id=None, legacy_athlete_secret_present=False
+        )
+
+    def test_main_passes_stored_athlete_id_and_keeps_it(self) -> None:
+        out = self._run_main(previous_source="intervals", athlete_id="i999", existing_athlete_id="i999")
+        out["auth"].assert_called_once_with(
+            mock.ANY, True, existing_athlete_id="i999", legacy_athlete_secret_present=False
+        )
+        self.assertIn(
+            mock.call("INTERVALS_ATHLETE_ID", "i999", "owner/repo"), out["set_variable"].mock_calls
+        )
+        self.assertNotIn(
+            mock.call("INTERVALS_ATHLETE_ID", "owner/repo"), out["clear_variable"].mock_calls
+        )
+        out["clear_secret"].assert_not_called()
+
+    def test_main_keeps_legacy_athlete_secret_when_value_unchanged(self) -> None:
+        out = self._run_main(
+            previous_source="intervals",
+            athlete_id=None,
+            secret_names={"INTERVALS_API_KEY", "INTERVALS_ATHLETE_ID"},
+        )
+        out["auth"].assert_called_once_with(
+            mock.ANY, True, existing_athlete_id=None, legacy_athlete_secret_present=True
+        )
+        out["clear_secret"].assert_not_called()
+        self.assertNotIn(
+            "INTERVALS_ATHLETE_ID", [c.args[0] for c in out["set_variable"].mock_calls]
+        )
+        self.assertNotIn(
+            mock.call("INTERVALS_ATHLETE_ID", "owner/repo"), out["clear_variable"].mock_calls
+        )
+
+    def test_main_migrates_legacy_athlete_secret_to_variable(self) -> None:
+        out = self._run_main(
+            previous_source="intervals",
+            athlete_id="i5",
+            secret_names={"INTERVALS_API_KEY", "INTERVALS_ATHLETE_ID"},
+        )
+        self.assertIn(mock.call("INTERVALS_ATHLETE_ID", "i5", "owner/repo"), out["set_variable"].mock_calls)
+        out["clear_secret"].assert_called_once_with("INTERVALS_ATHLETE_ID", "owner/repo")
+
+    def test_main_explicit_zero_clears_stored_athlete_id(self) -> None:
+        out = self._run_main(
+            previous_source="intervals",
+            athlete_id="0",
+            existing_athlete_id="i999",
+            secret_names={"INTERVALS_API_KEY", "INTERVALS_ATHLETE_ID"},
+        )
+        self.assertIn(mock.call("INTERVALS_ATHLETE_ID", "owner/repo"), out["clear_variable"].mock_calls)
+        out["clear_secret"].assert_called_once_with("INTERVALS_ATHLETE_ID", "owner/repo")
 
     def test_main_clears_disabled_intervals_dashboard_variables(self) -> None:
         out = self._run_main(previous_source="strava", activity_links=False, profile_pref=(False, ""))

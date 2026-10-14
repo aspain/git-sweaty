@@ -25,7 +25,9 @@ class WorkflowSecretRotationTests(unittest.TestCase):
         self.assertIn('"${source}" != "intervals"', workflow)
         self.assertIn('missing+=("INTERVALS_API_KEY")', workflow)
         self.assertIn("INTERVALS_API_KEY: ${{ secrets.INTERVALS_API_KEY }}", workflow)
-        self.assertIn("INTERVALS_ATHLETE_ID: ${{ secrets.INTERVALS_ATHLETE_ID }}", workflow)
+        self.assertIn(
+            "INTERVALS_ATHLETE_ID: ${{ vars.INTERVALS_ATHLETE_ID || secrets.INTERVALS_ATHLETE_ID }}", workflow
+        )
         self.assertIn("DASHBOARD_INTERVALS_PROFILE_URL: ${{ vars.DASHBOARD_INTERVALS_PROFILE_URL }}", workflow)
         self.assertIn("DASHBOARD_INTERVALS_ACTIVITY_LINKS: ${{ vars.DASHBOARD_INTERVALS_ACTIVITY_LINKS }}", workflow)
         self.assertIn("rm -f data/backfill_state_intervals.json", workflow)

@@ -42,6 +42,7 @@ from garmin_token_store import (
     token_store_ready,
     write_token_store_bytes,
 )
+from source_links import normalize_profile_url
 from repo_helpers import (
     normalize_dashboard_url as _shared_normalize_dashboard_url,
     normalize_repo_slug as _shared_normalize_repo_slug,
@@ -61,6 +62,9 @@ AUTHORIZE_ENDPOINT = "https://www.strava.com/oauth/authorize"
 STRAVA_ATHLETE_ENDPOINT = "https://www.strava.com/api/v3/athlete"
 INTERVALS_API_BASE = "https://intervals.icu/api/v1"
 INTERVALS_DEFAULT_ATHLETE_ID = "0"
+# Stored as a (non-secret) repository variable so setup can show and preserve it on re-runs.
+# A secret with the same name is still honored by the workflow as a legacy fallback.
+INTERVALS_ATHLETE_ID_NAME = "INTERVALS_ATHLETE_ID"
 INTERVALS_DEFAULT_PROFILE_URL = "https://intervals.icu"
 CALLBACK_PATH = "/exchange_token"
 DEFAULT_PORT = 8765
@@ -82,9 +86,6 @@ UNIT_PRESETS = {
 }
 DEFAULT_WEEK_START = "sunday"
 WEEK_START_CHOICES = {"sunday", "monday"}
-STRAVA_HOST_RE = re.compile(r"(^|\.)strava\.com$", re.IGNORECASE)
-GARMIN_CONNECT_HOST_RE = re.compile(r"(^|\.)connect\.garmin\.com$", re.IGNORECASE)
-INTERVALS_HOST_RE = re.compile(r"(^|\.)intervals\.icu$", re.IGNORECASE)
 TRUTHY_BOOL_TEXT = {"1", "true", "yes", "y", "on"}
 FALSEY_BOOL_TEXT = {"0", "false", "no", "n", "off", ""}
 STRAVA_REQUIRED_SECRET_NAMES = {
@@ -1161,49 +1162,7 @@ def _resolve_source(
 
 
 def _normalize_provider_profile_url(value: Optional[str], source: str) -> str:
-    raw = str(value or "").strip()
-    if not raw:
-        return ""
-    if not re.match(r"^https?://", raw, flags=re.IGNORECASE):
-        raw = f"https://{raw.lstrip('/')}"
-    parsed = urllib.parse.urlparse(raw)
-    host = str(parsed.hostname or "").lower()
-    normalized_source = str(source or "").strip().lower()
-
-    if normalized_source == "strava":
-        if not host or not STRAVA_HOST_RE.search(host):
-            raise ValueError("Strava profile URL must use a strava.com hostname.")
-        path_error = "Strava profile URL must include a profile path (for example /athletes/<id>)."
-        normalized_path = str(parsed.path or "").strip().rstrip("/") or "/"
-        if not normalized_path or normalized_path == "/":
-            raise ValueError(path_error)
-    elif normalized_source == "garmin":
-        if not host or not GARMIN_CONNECT_HOST_RE.search(host):
-            raise ValueError("Garmin profile URL must use a connect.garmin.com hostname.")
-        path_error = "Garmin profile URL must include a profile path (for example /modern/profile/<id>)."
-        path = str(parsed.path or "").strip()
-        match = re.match(r"^/(?:modern/)?profile/([^/]+)(?:/.*)?$", path, flags=re.IGNORECASE)
-        if not match:
-            raise ValueError(path_error)
-        normalized_path = f"/modern/profile/{match.group(1)}"
-    elif normalized_source == "intervals":
-        if not host or not INTERVALS_HOST_RE.search(host):
-            raise ValueError("intervals.icu profile URL must use an intervals.icu hostname.")
-        normalized_path = str(parsed.path or "").strip().rstrip("/")
-    else:
-        raise ValueError(f"Unsupported source for profile URL normalization: {source!r}")
-
-    normalized = urllib.parse.urlunparse(
-        (
-            parsed.scheme or "https",
-            parsed.netloc,
-            normalized_path,
-            "",
-            parsed.query,
-            "",
-        )
-    )
-    return normalized
+    return normalize_profile_url(value, source)
 
 
 def _normalize_strava_profile_url(value: Optional[str]) -> str:
@@ -2211,7 +2170,30 @@ def _resolve_garmin_auth_values(args: argparse.Namespace, interactive: bool) -> 
     return token_store_b64, email, password
 
 
-def _resolve_intervals_auth_values(args: argparse.Namespace, interactive: bool) -> Tuple[str, str, dict]:
+def _existing_intervals_athlete_id(repo: str) -> Optional[str]:
+    """Return the athlete id stored in the INTERVALS_ATHLETE_ID repository variable, if any."""
+    raw = _get_variable(INTERVALS_ATHLETE_ID_NAME, repo)
+    if not raw:
+        return None
+    try:
+        return _normalize_intervals_athlete_id(raw)
+    except ValueError:
+        return None
+
+
+def _resolve_intervals_auth_values(
+    args: argparse.Namespace,
+    interactive: bool,
+    existing_athlete_id: Optional[str] = None,
+    legacy_athlete_secret_present: bool = False,
+) -> Tuple[str, Optional[str], dict]:
+    """Resolve the intervals.icu API key and athlete id.
+
+    The returned athlete id is None when an existing athlete id that cannot be read back
+    (the legacy INTERVALS_ATHLETE_ID secret) should be kept unchanged. A stored athlete id
+    is only replaced or cleared when the user explicitly provides a new value (``0`` for
+    the API key owner); leaving the prompt empty or omitting --intervals-athlete-id keeps it.
+    """
     api_key = str(getattr(args, "intervals_api_key", None) or "").strip()
     athlete_id_arg = getattr(args, "intervals_athlete_id", None)
 
@@ -2225,16 +2207,44 @@ def _resolve_intervals_auth_values(args: argparse.Namespace, interactive: bool) 
         if not api_key:
             raise ValueError("INTERVALS_API_KEY is required.")
 
-    if athlete_id_arg is None and interactive:
-        athlete_id_text = input(
-            "intervals.icu athlete id (for example i12345; default: 0 = API key owner): "
-        ).strip()
+    keep_legacy_secret = False
+    if athlete_id_arg is not None:
+        athlete_id = _normalize_intervals_athlete_id(str(athlete_id_arg))
     else:
-        athlete_id_text = str(athlete_id_arg or "").strip()
-    athlete_id = _normalize_intervals_athlete_id(athlete_id_text)
+        athlete_id_text = ""
+        if interactive:
+            if existing_athlete_id:
+                prompt_text = (
+                    "intervals.icu athlete id (for example i12345; 0 = API key owner; "
+                    f"default: {existing_athlete_id} (current)): "
+                )
+            elif legacy_athlete_secret_present:
+                prompt_text = (
+                    "intervals.icu athlete id (for example i12345; 0 = API key owner; "
+                    "default: keep the existing INTERVALS_ATHLETE_ID secret): "
+                )
+            else:
+                prompt_text = "intervals.icu athlete id (for example i12345; default: 0 = API key owner): "
+            athlete_id_text = input(prompt_text).strip()
+        if athlete_id_text:
+            athlete_id = _normalize_intervals_athlete_id(athlete_id_text)
+        elif existing_athlete_id:
+            athlete_id = existing_athlete_id
+        elif legacy_athlete_secret_present:
+            keep_legacy_secret = True
+            athlete_id = INTERVALS_DEFAULT_ATHLETE_ID
+        else:
+            athlete_id = INTERVALS_DEFAULT_ATHLETE_ID
 
     print("Validating intervals.icu API key...")
     athlete = _fetch_intervals_athlete(api_key, athlete_id)
+    if keep_legacy_secret:
+        # The stored athlete id is a secret and cannot be read back; the key itself is valid.
+        print(
+            "intervals.icu API key OK. Keeping the athlete id from the existing "
+            "INTERVALS_ATHLETE_ID secret."
+        )
+        return api_key, None, {}
     athlete_label = str(athlete.get("name") or "").strip()
     athlete_ref = str(athlete.get("id") or "").strip()
     if athlete_label and athlete_ref:
@@ -2977,7 +2987,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--intervals-athlete-id",
         default=None,
-        help="intervals.icu athlete id, for example i12345 (default: 0 = the athlete owning the API key).",
+        help=(
+            "intervals.icu athlete id, for example i12345, or 0 for the athlete owning the API key "
+            "(default: keep the currently configured athlete id, otherwise 0)."
+        ),
     )
     parser.add_argument(
         "--repo",
@@ -3303,17 +3316,31 @@ def main() -> int:
         )
     elif source == "intervals":
         if update_credentials:
+            existing_intervals_athlete_id = _existing_intervals_athlete_id(repo)
+            legacy_athlete_secret_present = INTERVALS_ATHLETE_ID_NAME in _list_secret_names(repo)
             intervals_api_key, intervals_athlete_id, intervals_athlete = _resolve_intervals_auth_values(
-                args, interactive
+                args,
+                interactive,
+                existing_athlete_id=existing_intervals_athlete_id,
+                legacy_athlete_secret_present=legacy_athlete_secret_present,
             )
             _set_secret("INTERVALS_API_KEY", intervals_api_key, repo)
             configured_secret_names.append("INTERVALS_API_KEY")
-            if intervals_athlete_id != INTERVALS_DEFAULT_ATHLETE_ID:
-                _set_secret("INTERVALS_ATHLETE_ID", intervals_athlete_id, repo)
-                configured_secret_names.append("INTERVALS_ATHLETE_ID")
+            if intervals_athlete_id is None:
+                # Keep the legacy INTERVALS_ATHLETE_ID secret untouched (its value cannot be read back).
+                pass
+            elif intervals_athlete_id != INTERVALS_DEFAULT_ATHLETE_ID:
+                _set_variable(INTERVALS_ATHLETE_ID_NAME, intervals_athlete_id, repo)
+                print(f"Variable set: {INTERVALS_ATHLETE_ID_NAME}={intervals_athlete_id}")
+                if legacy_athlete_secret_present:
+                    # Migrated to the variable; drop the legacy secret.
+                    _clear_secret(INTERVALS_ATHLETE_ID_NAME, repo)
             else:
-                # Drop a stale explicit athlete id so the workflow falls back to the key owner.
-                _clear_secret("INTERVALS_ATHLETE_ID", repo)
+                # Explicit 0 (or nothing stored): sync the API key owner.
+                if existing_intervals_athlete_id:
+                    _clear_variable(INTERVALS_ATHLETE_ID_NAME, repo)
+                if legacy_athlete_secret_present:
+                    _clear_secret(INTERVALS_ATHLETE_ID_NAME, repo)
             athlete_name = str(intervals_athlete.get("name") or "").strip()
         intervals_profile_url = _resolve_intervals_profile_url(
             args,

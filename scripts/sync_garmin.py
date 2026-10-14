@@ -3,7 +3,6 @@ import hashlib
 import hmac
 import json
 import os
-import shutil
 import sys
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple
@@ -23,7 +22,16 @@ from sync_scope import (
     activity_start_ts as _shared_activity_start_ts,
     start_after_ts as _shared_start_after_ts,
 )
-from utils import ensure_dir, load_config, raw_activity_dir, read_json, utc_now, write_json
+from utils import (
+    ensure_dir,
+    has_existing_persisted_data,
+    load_config,
+    raw_activity_dir,
+    read_json,
+    reset_persisted_data,
+    utc_now,
+    write_json,
+)
 
 RAW_DIR = raw_activity_dir("garmin")
 SUMMARY_JSON = os.path.join("data", "last_sync_summary.json")
@@ -276,32 +284,6 @@ def _account_fingerprint(config: Dict[str, Any]) -> Optional[str]:
     return None
 
 
-def _has_existing_data() -> bool:
-    candidates = [
-        os.path.join("data", "activities_normalized.json"),
-        os.path.join("data", "daily_aggregates.json"),
-        os.path.join("data", "last_sync_summary.json"),
-        os.path.join("data", "last_sync_summary.txt"),
-        os.path.join("site", "data.json"),
-    ]
-    return any(os.path.exists(path) for path in candidates)
-
-
-def _reset_persisted_data() -> None:
-    paths = [
-        os.path.join("data", "activities_normalized.json"),
-        os.path.join("data", "daily_aggregates.json"),
-        os.path.join("data", "last_sync_summary.json"),
-        os.path.join("data", "last_sync_summary.txt"),
-        os.path.join("site", "data.json"),
-    ]
-    for path in paths:
-        if os.path.exists(path):
-            os.remove(path)
-    if os.path.exists(RAW_DIR):
-        shutil.rmtree(RAW_DIR)
-
-
 def _maybe_reset_for_new_account(config: Dict[str, Any]) -> None:
     fingerprint = _account_fingerprint(config)
     if not fingerprint:
@@ -311,10 +293,10 @@ def _maybe_reset_for_new_account(config: Dict[str, Any]) -> None:
         return
     if stored and stored != fingerprint:
         print("Detected different Garmin account; resetting persisted data.")
-        _reset_persisted_data()
-    elif not stored and _has_existing_data():
+        reset_persisted_data(RAW_DIR)
+    elif not stored and has_existing_persisted_data():
         print("No Garmin account fingerprint found with existing data; resetting persisted data.")
-        _reset_persisted_data()
+        reset_persisted_data(RAW_DIR)
     _write_account_fingerprint(fingerprint)
 
 

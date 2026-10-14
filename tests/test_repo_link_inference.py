@@ -400,7 +400,7 @@ class RepoLinkInferenceTests(unittest.TestCase):
             result,
             {
                 "href": "https://www.strava.com/athletes/12345",
-                "label": "Strava",
+                "provider": "strava",
             },
         )
 
@@ -414,7 +414,7 @@ class RepoLinkInferenceTests(unittest.TestCase):
             result,
             {
                 "href": "https://connect.garmin.com/modern/profile/abcd-1234",
-                "label": "Garmin",
+                "provider": "garmin",
             },
         )
 
@@ -428,7 +428,7 @@ class RepoLinkInferenceTests(unittest.TestCase):
             result,
             {
                 "href": "https://connect.garmin.com/modern/profile/abcd-1234",
-                "label": "Garmin",
+                "provider": "garmin",
             },
         )
 
@@ -439,13 +439,13 @@ class RepoLinkInferenceTests(unittest.TestCase):
             result,
             {
                 "href": "https://intervals.icu/athlete/i12345",
-                "label": "intervals.icu",
+                "provider": "intervals",
             },
         )
 
     def test_accepts_bare_intervals_host_profile_url(self) -> None:
         result = self._parse_strava_profile("https://intervals.icu/")
-        self.assertEqual(result, {"href": "https://intervals.icu", "label": "intervals.icu"})
+        self.assertEqual(result, {"href": "https://intervals.icu", "provider": "intervals"})
 
     def test_rejects_bare_strava_host_profile_url(self) -> None:
         result = self._parse_strava_profile("https://www.strava.com/")

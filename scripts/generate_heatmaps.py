@@ -4,10 +4,11 @@ import re
 import subprocess
 import urllib.parse
 from datetime import date, timedelta
-from typing import Any, Callable, Dict, List, Optional
+from typing import Callable, Dict, List, Optional
 
 from activity_types import build_type_meta, featured_types_from_config, ordered_types
 from repo_helpers import choose_repo_slug_from_env, normalize_repo_slug
+from source_links import SOURCE_LINK_SPECS, normalize_profile_url
 from utils import (
     ensure_dir,
     format_distance,
@@ -48,39 +49,6 @@ DAY_LABELS_BY_WEEK_START = {
     "sunday": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     "monday": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 }
-STRAVA_HOST_RE = re.compile(r"(^|\.)strava\.com$", re.IGNORECASE)
-GARMIN_CONNECT_HOST_RE = re.compile(r"(^|\.)connect\.garmin\.com$", re.IGNORECASE)
-INTERVALS_HOST_RE = re.compile(r"(^|\.)intervals\.icu$", re.IGNORECASE)
-# Per-source link registry: profile host, optional profile path canonicalizer
-# (regex capturing the profile id + normalized path template), and the
-# individual activity URL template. intervals.icu has no public athlete pages,
-# so its profile link may point at the site root.
-SOURCE_LINK_SPECS: Dict[str, Dict[str, Any]] = {
-    "strava": {
-        "display_name": "Strava",
-        "host_re": STRAVA_HOST_RE,
-        "profile_path_re": None,
-        "profile_path_template": None,
-        "activity_url_template": "https://www.strava.com/activities/{id}",
-    },
-    "garmin": {
-        "display_name": "Garmin",
-        "host_re": GARMIN_CONNECT_HOST_RE,
-        "profile_path_re": re.compile(r"^/(?:modern/)?profile/([^/]+)(?:/.*)?$", re.IGNORECASE),
-        "profile_path_template": "/modern/profile/{id}",
-        "activity_url_template": "https://connect.garmin.com/modern/activity/{id}",
-    },
-    "intervals": {
-        "display_name": "intervals.icu",
-        "host_re": INTERVALS_HOST_RE,
-        "profile_path_re": None,
-        "profile_path_template": None,
-        "allow_root_profile": True,
-        "activity_url_template": "https://intervals.icu/activities/{id}",
-    },
-}
-
-
 def _year_range_from_config(config: Dict, aggregate_years: Dict) -> List[int]:
     sync_cfg = config.get("sync", {})
     current_year = utc_now().year
@@ -246,37 +214,11 @@ def _host_regex_for_source(source: str) -> Optional[re.Pattern]:
 
 
 def _profile_url_from_config(config: Dict, source: str) -> Optional[str]:
-    raw = str((config.get(source, {}) or {}).get("profile_url", "")).strip()
-    if not raw:
+    raw = (config.get(source, {}) or {}).get("profile_url", "")
+    try:
+        return normalize_profile_url(raw, source) or None
+    except ValueError:
         return None
-    if not re.match(r"^https?://", raw, flags=re.IGNORECASE):
-        raw = f"https://{raw.lstrip('/')}"
-    parsed = urllib.parse.urlparse(raw)
-    host = str(parsed.hostname or "").lower()
-    host_regex = _host_regex_for_source(source)
-    if not host or host_regex is None or not host_regex.search(host):
-        return None
-    profile_path_re = SOURCE_LINK_SPECS[source]["profile_path_re"]
-    if profile_path_re is not None:
-        path = str(parsed.path or "").strip()
-        match = profile_path_re.match(path)
-        if not match:
-            return None
-        normalized_path = SOURCE_LINK_SPECS[source]["profile_path_template"].format(id=match.group(1))
-    else:
-        normalized_path = str(parsed.path or "").strip().rstrip("/")
-        if not normalized_path and not SOURCE_LINK_SPECS[source].get("allow_root_profile"):
-            return None
-    return urllib.parse.urlunparse(
-        (
-            parsed.scheme or "https",
-            parsed.netloc,
-            normalized_path,
-            "",
-            parsed.query,
-            "",
-        )
-    )
 
 
 def _activity_links_enabled_from_config(config: Dict, source: str) -> bool:

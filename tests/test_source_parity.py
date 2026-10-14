@@ -80,7 +80,6 @@ class SourceParityAppJsTests(unittest.TestCase):
             r"const PROFILE_PROVIDER_INTERVALS = [^\n]+\n",
             r"const PROVIDER_DISPLAY_NAMES = \{[\s\S]*?\n\};\n",
             r"function providerDisplayName\(source\)\s*{[\s\S]*?\n}\n",
-            r"function providerIdForLabel\(label\)\s*{[\s\S]*?\n}\n",
             r"function parseStravaProfileUrl\(value\)\s*{[\s\S]*?\n}\n",
             r"function parseStravaActivityUrl\(value\)\s*{[\s\S]*?\n}\n",
             r"function payloadProfileUrl\(payload\)\s*{[\s\S]*?\n}\n",
@@ -111,25 +110,14 @@ class SourceParityAppJsTests(unittest.TestCase):
         names = self._run("PROVIDER_DISPLAY_NAMES")
         self.assertEqual(names, {"strava": "Strava", "garmin": "Garmin", "intervals": "intervals.icu"})
 
-    def test_provider_display_name_and_label_round_trip(self) -> None:
-        result = self._run(
-            "payload.map((id) => [providerDisplayName(id), providerIdForLabel(providerDisplayName(id))])",
-            ["strava", "garmin", "intervals", " Intervals "],
-        )
-        self.assertEqual(
-            result,
-            [
-                ["Strava", "strava"],
-                ["Garmin", "garmin"],
-                ["intervals.icu", "intervals"],
-                ["intervals.icu", "intervals"],
-            ],
-        )
+    def test_provider_display_names(self) -> None:
+        result = self._run("payload.map((id) => providerDisplayName(id))", ["strava", "garmin", "intervals", " Intervals "])
+        self.assertEqual(result, ["Strava", "Garmin", "intervals.icu", "intervals.icu"])
         self.assertEqual(self._run("providerDisplayName('fitbit')"), "")
 
-    def test_profile_url_label_maps_to_matching_provider(self) -> None:
+    def test_profile_url_resolves_registered_provider(self) -> None:
         result = self._run(
-            "payload.map((url) => providerIdForLabel(parseStravaProfileUrl(url).label))",
+            "payload.map((url) => parseStravaProfileUrl(url).provider)",
             [
                 "https://www.strava.com/athletes/1",
                 "https://connect.garmin.com/modern/profile/abc",
@@ -137,6 +125,7 @@ class SourceParityAppJsTests(unittest.TestCase):
             ],
         )
         self.assertEqual(result, ["strava", "garmin", "intervals"])
+        self.assertTrue(all(self._run(f"Object.prototype.hasOwnProperty.call(PROVIDER_DISPLAY_NAMES, {json.dumps(p)})") for p in result))
 
     def test_activity_urls_accepted_for_every_source(self) -> None:
         urls = [

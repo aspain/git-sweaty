@@ -1,7 +1,8 @@
 import json
 import os
+import shutil
 from datetime import datetime, timezone
-from typing import Any, Dict
+from typing import Any, Dict, Iterable
 
 import yaml
 
@@ -47,6 +48,28 @@ def normalize_source(value: Any) -> str:
 
 def raw_activity_dir(source: str) -> str:
     return os.path.join("activities", "raw", normalize_source(source))
+
+
+# Generated outputs shared by every source; wiped when the synced account changes.
+PERSISTED_OUTPUT_PATHS = (
+    os.path.join("data", "activities_normalized.json"),
+    os.path.join("data", "daily_aggregates.json"),
+    os.path.join("data", "last_sync_summary.json"),
+    os.path.join("data", "last_sync_summary.txt"),
+    os.path.join("site", "data.json"),
+)
+
+
+def has_existing_persisted_data(extra_paths: Iterable[str] = ()) -> bool:
+    return any(os.path.exists(path) for path in (*PERSISTED_OUTPUT_PATHS, *extra_paths))
+
+
+def reset_persisted_data(raw_dir: str, extra_paths: Iterable[str] = ()) -> None:
+    for path in (*PERSISTED_OUTPUT_PATHS, *extra_paths):
+        if os.path.exists(path):
+            os.remove(path)
+    if os.path.exists(raw_dir):
+        shutil.rmtree(raw_dir)
 
 
 def ensure_dir(path: str) -> None:

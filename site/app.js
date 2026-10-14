@@ -93,8 +93,8 @@ let tooltipResizeObserver = null;
 const PROFILE_PROVIDER_STRAVA = "strava";
 const PROFILE_PROVIDER_GARMIN = "garmin";
 const PROFILE_PROVIDER_INTERVALS = "intervals";
-// Source registry: source id -> display label (also used to map parsed profile
-// labels back to a provider icon class `profile-provider-<id>`).
+// Source registry: source id -> display label; the id also selects the provider
+// icon class `profile-provider-<id>`.
 const PROVIDER_DISPLAY_NAMES = {
   [PROFILE_PROVIDER_STRAVA]: "Strava",
   [PROFILE_PROVIDER_GARMIN]: "Garmin",
@@ -451,7 +451,8 @@ function parseStravaProfileUrl(value) {
 
   return {
     href: `${parsed.protocol}//${parsed.host}${normalizedPath}${parsed.search}`,
-    label: isGarminHost ? "Garmin" : (isIntervalsHost ? "intervals.icu" : "Strava"),
+    // Source ids match PROVIDER_DISPLAY_NAMES keys.
+    provider: isGarminHost ? "garmin" : (isIntervalsHost ? "intervals" : "strava"),
   };
 }
 
@@ -493,7 +494,7 @@ function parseStravaActivityUrl(value) {
   };
 }
 
-function syncStravaProfileLink(profileUrl, source) {
+function syncStravaProfileLink(profileUrl) {
   if (!stravaProfileLink) return;
   const parsed = parseStravaProfileUrl(profileUrl);
   if (!parsed) {
@@ -504,8 +505,8 @@ function syncStravaProfileLink(profileUrl, source) {
     return;
   }
   stravaProfileLink.href = parsed.href;
-  const providerLabel = parsed.label || providerDisplayName(source) || "Profile";
-  const provider = providerIdForLabel(providerLabel) || PROFILE_PROVIDER_STRAVA;
+  const provider = parsed.provider;
+  const providerLabel = providerDisplayName(provider);
   setProfileProviderIcon(provider);
   if (stravaProfileLabel) {
     stravaProfileLabel.textContent = providerLabel;
@@ -522,10 +523,6 @@ function providerDisplayName(source) {
   return Object.prototype.hasOwnProperty.call(PROVIDER_DISPLAY_NAMES, normalized)
     ? PROVIDER_DISPLAY_NAMES[normalized]
     : "";
-}
-
-function providerIdForLabel(label) {
-  return Object.keys(PROVIDER_DISPLAY_NAMES).find((id) => PROVIDER_DISPLAY_NAMES[id] === label) || "";
 }
 
 function payloadRepoCandidate(payload) {
@@ -4544,10 +4541,7 @@ async function init() {
   const sourceValue = payloadSource(payload);
   syncRepoLink(repoCandidate);
   syncFooterHostedLink(repoCandidate);
-  syncStravaProfileLink(
-    profileUrl,
-    sourceValue,
-  );
+  syncStravaProfileLink(profileUrl);
   setDashboardTitle(sourceValue);
   TYPE_META = payload.type_meta || {};
   OTHER_BUCKET = String(payload.other_bucket || "OtherSports");

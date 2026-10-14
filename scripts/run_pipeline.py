@@ -46,9 +46,6 @@ RESETTABLE_RAW_DIRS = [
     os.path.join("activities", "raw", "garmin"),
     os.path.join("activities", "raw", "intervals"),
 ]
-SOURCE_HINT_STRAVA = "strava"
-SOURCE_HINT_GARMIN = "garmin"
-SOURCE_HINT_INTERVALS = "intervals"
 SOURCE_HINT_MIXED = "mixed"
 README_LIVE_SITE_RE = re.compile(
     r"(?im)^([ \t]*(?:-\s*)?(?:Live site:\s*\[Interactive Heatmaps\]|View the Interactive \[Activity Dashboard\])\()https?://[^)]+(\)[ \t]*\.?[ \t]*)$",
