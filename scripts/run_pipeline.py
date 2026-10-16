@@ -15,6 +15,7 @@ from repo_helpers import (
     pages_url_from_slug,
 )
 from sync_garmin import sync_garmin
+from sync_intervals import sync_intervals
 from sync_strava import sync_strava
 from utils import ensure_dir, load_config, normalize_source, write_json
 from generate_heatmaps import generate as generate_heatmaps
@@ -33,17 +34,22 @@ RESETTABLE_STATE_FILES = [
     os.path.join("data", "backfill_state.json"),
     os.path.join("data", "backfill_state_strava.json"),
     os.path.join("data", "backfill_state_garmin.json"),
+    os.path.join("data", "backfill_state_intervals.json"),
     os.path.join("data", "athletes.json"),
     os.path.join("data", "athletes_strava.json"),
     os.path.join("data", "athletes_garmin.json"),
+    os.path.join("data", "athletes_intervals.json"),
 ]
 RESETTABLE_RAW_DIRS = [
     os.path.join("activities", "raw"),
     os.path.join("activities", "raw", "strava"),
     os.path.join("activities", "raw", "garmin"),
+    os.path.join("activities", "raw", "intervals"),
 ]
 SOURCE_HINT_STRAVA = "strava"
 SOURCE_HINT_GARMIN = "garmin"
+SOURCE_HINT_INTERVALS = "intervals"
+SOURCE_HINT_MIXED_INTERVALS = "mixed_intervals"
 SOURCE_HINT_MIXED = "mixed"
 README_LIVE_SITE_RE = re.compile(
     r"(?im)^([ \t]*(?:-\s*)?(?:Live site:\s*\[Interactive Heatmaps\]|View the Interactive \[Activity Dashboard\])\()https?://[^)]+(\)[ \t]*\.?[ \t]*)$",
@@ -198,15 +204,22 @@ def _detect_persisted_source_hint() -> Optional[str]:
     has_garmin_state = os.path.exists(os.path.join("data", "backfill_state_garmin.json"))
     has_strava_raw = os.path.isdir(os.path.join("activities", "raw", "strava"))
     has_garmin_raw = os.path.isdir(os.path.join("activities", "raw", "garmin"))
+    has_intervals_state = os.path.exists(os.path.join("data", "backfill_state_intervals.json"))
+    has_intervals_raw = os.path.isdir(os.path.join("activities", "raw", "intervals"))
 
     has_strava = has_strava_state or has_strava_raw
     has_garmin = has_garmin_state or has_garmin_raw
+    has_intervals = has_intervals_state or has_intervals_raw
     if has_strava and has_garmin:
         return SOURCE_HINT_MIXED
+    if has_intervals and (has_strava or has_garmin):
+        return SOURCE_HINT_MIXED_INTERVALS
     if has_strava:
         return SOURCE_HINT_STRAVA
     if has_garmin:
         return SOURCE_HINT_GARMIN
+    if has_intervals:
+        return SOURCE_HINT_INTERVALS
     return None
 
 
@@ -215,6 +228,8 @@ def _sync_for_source(source: str, dry_run: bool, prune_deleted: bool):
         return sync_strava(dry_run=dry_run, prune_deleted=prune_deleted)
     if source == "garmin":
         return sync_garmin(dry_run=dry_run, prune_deleted=prune_deleted)
+    if source == "intervals":
+        return sync_intervals(dry_run=dry_run, prune_deleted=prune_deleted)
     raise ValueError(f"Unsupported source '{source}'")
 
 
@@ -243,6 +258,13 @@ def run_pipeline(
             print(
                 "No saved source marker found and both Strava and Garmin persisted state were detected; "
                 "resetting persisted outputs, backfill state, and raw caches to avoid mixed-source history."
+            )
+            should_reset = True
+        elif source_hint == SOURCE_HINT_MIXED_INTERVALS:
+            print(
+                "No saved source marker found and intervals.icu persisted state was detected alongside "
+                "Strava or Garmin state; resetting persisted outputs, backfill state, and raw caches "
+                "to avoid mixed-source history."
             )
             should_reset = True
         elif source_hint and source_hint != source:

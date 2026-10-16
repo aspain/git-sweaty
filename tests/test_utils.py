@@ -30,13 +30,14 @@ class UtilsTests(unittest.TestCase):
     def test_normalize_source_accepts_supported_values_and_defaults(self) -> None:
         self.assertEqual(utils.normalize_source("Strava"), "strava")
         self.assertEqual(utils.normalize_source("  garmin "), "garmin")
+        self.assertEqual(utils.normalize_source("Intervals"), "intervals")
         self.assertEqual(utils.normalize_source(None), "strava")
 
     def test_normalize_source_rejects_unknown_value(self) -> None:
         with self.assertRaises(ValueError) as exc_ctx:
             utils.normalize_source("fitbit")
         self.assertIn("Unsupported source", str(exc_ctx.exception))
-        self.assertIn("garmin, strava", str(exc_ctx.exception))
+        self.assertIn("garmin, intervals, strava", str(exc_ctx.exception))
 
     def test_parse_iso_datetime_handles_z_suffix(self) -> None:
         dt = utils.parse_iso_datetime("2026-02-13T08:15:30Z")

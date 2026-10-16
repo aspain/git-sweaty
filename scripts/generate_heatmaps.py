@@ -50,6 +50,7 @@ DAY_LABELS_BY_WEEK_START = {
 }
 STRAVA_HOST_RE = re.compile(r"(^|\.)strava\.com$", re.IGNORECASE)
 GARMIN_CONNECT_HOST_RE = re.compile(r"(^|\.)connect\.garmin\.com$", re.IGNORECASE)
+INTERVALS_HOST_RE = re.compile(r"(^|\.)intervals\.icu$", re.IGNORECASE)
 
 
 def _year_range_from_config(config: Dict, aggregate_years: Dict) -> List[int]:
@@ -215,6 +216,8 @@ def _host_regex_for_source(source: str) -> Optional[re.Pattern]:
         return STRAVA_HOST_RE
     if source == "garmin":
         return GARMIN_CONNECT_HOST_RE
+    if source == "intervals":
+        return INTERVALS_HOST_RE
     return None
 
 
@@ -237,7 +240,8 @@ def _profile_url_from_config(config: Dict, source: str) -> Optional[str]:
         normalized_path = f"/modern/profile/{match.group(1)}"
     else:
         normalized_path = str(parsed.path or "").strip().rstrip("/")
-        if not normalized_path:
+        # intervals.icu has no public athlete pages, so its site root is an allowed profile link.
+        if not normalized_path and source != "intervals":
             return None
     return urllib.parse.urlunparse(
         (
@@ -272,6 +276,8 @@ def _activity_url_from_id(source: str, activity_id: object) -> Optional[str]:
         return f"https://www.strava.com/activities/{encoded}"
     if source == "garmin":
         return f"https://connect.garmin.com/modern/activity/{encoded}"
+    if source == "intervals":
+        return f"https://intervals.icu/activities/{encoded}"
     return None
 
 
@@ -459,6 +465,8 @@ def generate(write_svgs: bool = True):
         load_activities_kwargs["include_strava_activity_urls"] = include_activity_urls
     elif source == "garmin":
         load_activities_kwargs["include_garmin_activity_urls"] = include_activity_urls
+    elif source == "intervals":
+        load_activities_kwargs["include_activity_urls"] = include_activity_urls
     site_payload = {
         "source": source,
         "generated_at": utc_now().isoformat(),
@@ -478,6 +486,8 @@ def generate(write_svgs: bool = True):
             site_payload["strava_profile_url"] = profile_url
         elif source == "garmin":
             site_payload["garmin_profile_url"] = profile_url
+        elif source == "intervals":
+            site_payload["intervals_profile_url"] = profile_url
     repo_slug = _repo_slug_from_git()
     if repo_slug:
         site_payload["repo"] = repo_slug

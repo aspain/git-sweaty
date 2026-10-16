@@ -226,5 +226,20 @@ class TooltipActivityLinksTests(unittest.TestCase):
         self.assertEqual(result, {"href": "https://connect.garmin.com/modern/activity/123"})
 
 
+    def test_parse_strava_activity_url_accepts_intervals_activity_links(self) -> None:
+        result = self._run_js(
+            "parseStravaActivityUrl(payload.value)",
+            {"value": "https://intervals.icu/activities/i98765432"},
+        )
+        self.assertEqual(result, {"href": "https://intervals.icu/activities/i98765432"})
+
+    def test_parse_strava_activity_url_rejects_non_activity_intervals_links(self) -> None:
+        result = self._run_js(
+            "parseStravaActivityUrl(payload.value)",
+            {"value": "https://intervals.icu/athlete/i12345"},
+        )
+        self.assertIsNone(result)
+
+
 if __name__ == "__main__":
     unittest.main()

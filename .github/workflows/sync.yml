@@ -12,6 +12,7 @@ on:
         options:
           - strava
           - garmin
+          - intervals
         default: strava
       update_readme_link:
         description: "Update README dashboard URL in this fork"
@@ -62,8 +63,8 @@ jobs:
         run: |
           source="${WORKFLOW_SOURCE:-${DASHBOARD_SOURCE:-strava}}"
           source="$(echo "${source}" | tr '[:upper:]' '[:lower:]' | xargs)"
-          if [[ "${source}" != "strava" && "${source}" != "garmin" ]]; then
-            echo "Unsupported source '${source}'. Expected strava or garmin."
+          if [[ "${source}" != "strava" && "${source}" != "garmin" && "${source}" != "intervals" ]]; then
+            echo "Unsupported source '${source}'. Expected strava, garmin, or intervals."
             exit 1
           fi
           echo "SYNC_SOURCE=${source}" >> "$GITHUB_ENV"
@@ -78,6 +79,7 @@ jobs:
           GARMIN_TOKENS_B64: ${{ secrets.GARMIN_TOKENS_B64 }}
           GARMIN_EMAIL: ${{ secrets.GARMIN_EMAIL }}
           GARMIN_PASSWORD: ${{ secrets.GARMIN_PASSWORD }}
+          INTERVALS_API_KEY: ${{ secrets.INTERVALS_API_KEY }}
         run: |
           missing=()
 
@@ -89,8 +91,10 @@ jobs:
             if [[ -z "$GARMIN_TOKENS_B64" && ( -z "$GARMIN_EMAIL" || -z "$GARMIN_PASSWORD" ) ]]; then
               missing+=("GARMIN_TOKENS_B64 or GARMIN_EMAIL+GARMIN_PASSWORD")
             fi
+          elif [[ "${SYNC_SOURCE}" == "intervals" ]]; then
+            [[ -n "$INTERVALS_API_KEY" ]] || missing+=("INTERVALS_API_KEY")
           else
-            missing+=("SYNC_SOURCE must be strava or garmin")
+            missing+=("SYNC_SOURCE must be strava, garmin, or intervals")
           fi
 
           if [ ${#missing[@]} -gt 0 ]; then
@@ -112,6 +116,10 @@ jobs:
           GARMIN_TOKENS_B64: ${{ secrets.GARMIN_TOKENS_B64 }}
           GARMIN_EMAIL: ${{ secrets.GARMIN_EMAIL }}
           GARMIN_PASSWORD: ${{ secrets.GARMIN_PASSWORD }}
+          DASHBOARD_INTERVALS_PROFILE_URL: ${{ vars.DASHBOARD_INTERVALS_PROFILE_URL }}
+          DASHBOARD_INTERVALS_ACTIVITY_LINKS: ${{ vars.DASHBOARD_INTERVALS_ACTIVITY_LINKS }}
+          INTERVALS_API_KEY: ${{ secrets.INTERVALS_API_KEY }}
+          INTERVALS_ATHLETE_ID: ${{ vars.INTERVALS_ATHLETE_ID || secrets.INTERVALS_ATHLETE_ID }}
           DASHBOARD_DISTANCE_UNIT: ${{ vars.DASHBOARD_DISTANCE_UNIT }}
           DASHBOARD_ELEVATION_UNIT: ${{ vars.DASHBOARD_ELEVATION_UNIT }}
           DASHBOARD_WEEK_START: ${{ vars.DASHBOARD_WEEK_START }}
@@ -134,7 +142,7 @@ jobs:
             if [[ "${normalized_links_value}" == "1" || "${normalized_links_value}" == "true" || "${normalized_links_value}" == "yes" || "${normalized_links_value}" == "y" || "${normalized_links_value}" == "on" ]]; then
               echo "  include_activity_urls: true" >> config.local.yaml
             fi
-          else
+          elif [[ "${SYNC_SOURCE}" == "garmin" ]]; then
             cat <<CONFIG >> config.local.yaml
           garmin:
             token_store_b64: "${GARMIN_TOKENS_B64}"
@@ -148,6 +156,24 @@ jobs:
             if [[ "${normalized_links_value}" == "1" || "${normalized_links_value}" == "true" || "${normalized_links_value}" == "yes" || "${normalized_links_value}" == "y" || "${normalized_links_value}" == "on" ]]; then
               echo "  include_activity_urls: true" >> config.local.yaml
             fi
+          elif [[ "${SYNC_SOURCE}" == "intervals" ]]; then
+            # yaml.safe_dump escapes quotes/backslashes in the API key and variables.
+            python - <<'PY' >> config.local.yaml
+          import os
+          import yaml
+
+          intervals = {
+              "api_key": os.environ.get("INTERVALS_API_KEY", ""),
+              "athlete_id": os.environ.get("INTERVALS_ATHLETE_ID", "").strip() or "0",
+          }
+          profile_url = os.environ.get("DASHBOARD_INTERVALS_PROFILE_URL", "").strip()
+          if profile_url:
+              intervals["profile_url"] = profile_url
+          links = os.environ.get("DASHBOARD_INTERVALS_ACTIVITY_LINKS", "").strip().lower()
+          if links in {"1", "true", "yes", "y", "on"}:
+              intervals["include_activity_urls"] = True
+          print(yaml.safe_dump({"intervals": intervals}, sort_keys=False), end="")
+          PY
           fi
 
           if [[ -n "${DASHBOARD_DISTANCE_UNIT}" || -n "${DASHBOARD_ELEVATION_UNIT}" ]]; then
@@ -211,6 +237,7 @@ jobs:
             rm -f data/backfill_state.json
             rm -f data/backfill_state_strava.json
             rm -f data/backfill_state_garmin.json
+            rm -f data/backfill_state_intervals.json
             rm -f data/last_sync_summary.json
             rm -f data/last_sync_summary.txt
             rm -f data/source_state.json

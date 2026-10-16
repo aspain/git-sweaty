@@ -67,6 +67,14 @@ elif source == "garmin":
             "(set garmin.token_store_b64 or garmin.email+garmin.password)."
         )
         raise SystemExit(2)
+elif source == "intervals":
+    intervals = config.get("intervals") or {}
+    if not has_text(intervals.get("api_key")):
+        print(
+            "Sync preflight failed: missing intervals.icu API key in config.local.yaml "
+            "(set intervals.api_key)."
+        )
+        raise SystemExit(2)
 
 print(source)
 PY

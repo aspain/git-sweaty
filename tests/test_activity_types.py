@@ -22,6 +22,11 @@ class ActivityTypesTests(unittest.TestCase):
             "VirtualRide",
         )
 
+    def test_canonicalize_activity_type_keeps_intervals_strava_style_names(self) -> None:
+        for value in ("Ride", "VirtualRide", "Run", "WeightTraining", "NordicSki", "Rowing"):
+            self.assertEqual(activity_types.canonicalize_activity_type(value, source="intervals"), value)
+        self.assertEqual(activity_types.canonicalize_activity_type("virtualride", source="intervals"), "VirtualRide")
+
     def test_canonicalize_activity_type_falls_back_to_known_shape(self) -> None:
         self.assertEqual(activity_types.canonicalize_activity_type("strength session"), "WeightTraining")
         self.assertEqual(activity_types.canonicalize_activity_type(""), "Unknown")

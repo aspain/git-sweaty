@@ -6,11 +6,11 @@
   </sub>
 </p>
 
-****Note:** As of July 1, 2026, Strava [no longer allows](https://communityhub.strava.com/insider-journal-9/an-update-to-our-developer-program-13428) API access with free-tier accounts. Strava subscribers can continue using git-sweaty; free users can optionally re-run setup and switch to Garmin as a data source.**
+****Note:** As of July 1, 2026, Strava [no longer allows](https://communityhub.strava.com/insider-journal-9/an-update-to-our-developer-program-13428) API access with free-tier accounts. Strava subscribers can continue using git-sweaty; free users can optionally re-run setup and switch to Garmin or intervals.icu as a data source. Note that intervals.icu cannot re-export activities it imported from Strava, so connect your device (Garmin, Wahoo, Coros, etc.) directly to intervals.icu or upload files there.**
 
 # Workout --> Interactive Dashboard
 
-Turn your Strava and Garmin activities into GitHub-style contribution graphs. Automatically generate a free, interactive dashboard updated daily on GitHub Pages.  
+Turn your Strava, Garmin, and intervals.icu activities into GitHub-style contribution graphs. Automatically generate a free, interactive dashboard updated daily on GitHub Pages.  
 
 **No coding required.**  
 
@@ -57,7 +57,7 @@ You will be prompted for:
   - Advanced (Local clone + git remotes): setup script will prefer an existing compatible local clone when available, or guide fork-and-clone setup, then complete the rest of the setup.
   - Manual (No setup scripts): follow [Manual Setup (No Scripts)](#manual-setup-no-scripts)
 - GitHub Pages custom domain (if you have one, for example `yoursite.example.com`)
-- Source (`strava` or `garmin`)
+- Source (`strava`, `garmin`, or `intervals`)
 - Unit preference (`US` or `Metric`)
 - Heatmap week start (`Sunday` or `Monday`)
 - Optional profile link in the dashboard header for the selected source (`Yes` or `No`)
@@ -66,6 +66,7 @@ You will be prompted for:
   - Strava: prompt will provide a link to create a [Strava API application](https://www.strava.com/settings/api) first, set Authorization Callback Domain to `localhost`.
     - Then paste the `client_id` + `client_secret` values in the prompt, then a browser tab will open for OAuth approval
   - Garmin: account email + password
+  - intervals.icu: API key (from intervals.icu `Settings` -> `Developer Settings`) + optional athlete id (default `0`, meaning the athlete that owns the API key)
 
 The setup may take several minutes to complete when run for the first time. If any automation step fails, the script prints steps to remedy the failed step.  
 Once the script succeeds, it will provide the URL for your dashboard.
@@ -83,10 +84,10 @@ Once the script succeeds, it will provide the URL for your dashboard.
 
 ## Switching Sources Later
 
-You can switch between `strava` and `garmin` at any time.
+You can switch between `strava`, `garmin`, and `intervals` at any time.
 
 - Re-run `./scripts/bootstrap.sh` (or the quickstart curl command) and choose a different source.
-- If you re-run setup and choose the same source, setup asks whether to force a one-time full backfill. You can also update your response for unit preference, day of week start, placing strava/garmin profle link on your dashboard, and whether you'd like activity links in the tooltips.
+- If you re-run setup and choose the same source, setup asks whether to force a one-time full backfill. You can also update your response for unit preference, day of week start, placing strava/garmin/intervals.icu profle link on your dashboard, and whether you'd like activity links in the tooltips.
 
 ---
 
@@ -96,8 +97,8 @@ You can switch between `strava` and `garmin` at any time.
 - To click activity urls while viewing on desktop, click the graph dot to freeze the tooltip in place.
 - If a day contains multiple activity types, that day’s colored square is split into equal segments — one per unique activity type on that day.
 - Raw activities are stored locally for processing but are not committed (`activities/raw/` is ignored). This prevents publishing detailed per-activity payloads and GPS location traces.
-- If neither `sync.start_date` nor `sync.lookback_years` is set, the sync workflow backfills all available history from the selected source (i.e. Strava/Garmin).
-- Strava backfill state is stored in `data/backfill_state_strava.json`; Garmin backfill state is stored in `data/backfill_state_garmin.json`. If a backfill hits API limits (unlikely), this state allows the daily refresh automation to pick back up where it left off.
+- If neither `sync.start_date` nor `sync.lookback_years` is set, the sync workflow backfills all available history from the selected source (i.e. Strava/Garmin/intervals.icu).
+- Strava backfill state is stored in `data/backfill_state_strava.json`; Garmin backfill state is stored in `data/backfill_state_garmin.json`; intervals.icu backfill state is stored in `data/backfill_state_intervals.json`. If a backfill hits API limits (unlikely), this state allows the daily refresh automation to pick back up where it left off.
 - The Sync action workflow includes a toggle labeled `Reset backfill cursor and re-fetch full history for the selected source` which forces a one-time full backfill. This is useful if you add/delete/modify activities which have already been loaded.
 
 ---
@@ -106,7 +107,7 @@ You can switch between `strava` and `garmin` at any time.
 
 Use this if you do not want to run `bootstrap.sh` or `setup_auth.py`.
 
-### 1) Shared steps (Strava + Garmin)
+### 1) Shared steps (Strava + Garmin + intervals.icu)
 
 1. Fork this repository on GitHub.
 2. In your fork, keep `main` current with upstream using **Sync fork**.
@@ -116,7 +117,7 @@ Use this if you do not want to run `bootstrap.sh` or `setup_auth.py`.
    - `Settings` -> `Pages` -> `Source` -> `GitHub Actions`
 5. In your fork, add these repository variables:
    - `Settings` -> `Secrets and variables` -> `Actions` -> `Variables`
-   - `DASHBOARD_SOURCE`: `strava` or `garmin`
+   - `DASHBOARD_SOURCE`: `strava`, `garmin`, or `intervals`
    - `DASHBOARD_REPO`: your fork slug (example: `yourname/git-sweaty`)
    - `DASHBOARD_DISTANCE_UNIT`: `mi` or `km`
    - `DASHBOARD_ELEVATION_UNIT`: `ft` or `m`
@@ -124,6 +125,7 @@ Use this if you do not want to run `bootstrap.sh` or `setup_auth.py`.
 6. Optional variables for dashboard links:
    - Strava: `DASHBOARD_STRAVA_PROFILE_URL`, `DASHBOARD_STRAVA_ACTIVITY_LINKS` (`true`/`false`)
    - Garmin: `DASHBOARD_GARMIN_PROFILE_URL`, `DASHBOARD_GARMIN_ACTIVITY_LINKS` (`true`/`false`)
+   - intervals.icu: `DASHBOARD_INTERVALS_PROFILE_URL`, `DASHBOARD_INTERVALS_ACTIVITY_LINKS` (`true`/`false`)
 
 ### 2) Provider auth secrets
 
@@ -177,11 +179,25 @@ Optional but recommended for automatic Garmin token rotation:
 - Add `GARMIN_SECRET_UPDATE_TOKEN` (a GitHub token with repo write access to this fork). Setup attempts to configure this automatically from your current `gh` auth session.
 - Keep `GARMIN_EMAIL` and `GARMIN_PASSWORD` configured as a recovery path. If the saved token archive is malformed or can no longer be reused, the scheduled workflow can sign in, regenerate it, and rotate `GARMIN_TOKENS_B64` automatically.
 
+#### intervals.icu secrets
+
+1. In intervals.icu, open `Settings` -> `Developer Settings` and copy your API key.
+2. Add this secret to your fork:
+   - `INTERVALS_API_KEY`
+3. Optional: to sync a different athlete than the key owner (for example as a coach), add a repository **variable** (not a secret) `INTERVALS_ATHLETE_ID`, e.g. `i12345`. It defaults to `0`, meaning the athlete that owns the API key. A secret with the same name is still honored as a fallback. Setup stores this variable for you and keeps it on re-runs unless you explicitly enter `0`. If only the older `INTERVALS_ATHLETE_ID` secret exists, setup can't read its value back to validate it, so it asks you to re-enter the athlete id (non-interactive runs need `--intervals-athlete-id`). It then migrates the value to the variable and removes the secret.
+4. Optional: check the key works (the username is the literal `API_KEY`):
+
+```bash
+curl -u API_KEY:YOUR_KEY https://intervals.icu/api/v1/athlete/0
+```
+
+Activities that intervals.icu imported from Strava are not available through its API (Strava's API terms forbid re-export), so they are skipped during sync. To include them, connect Garmin/Wahoo/Coros/etc. directly to intervals.icu or upload activity files there.
+
 ### 3) Run the first sync and deploy
 
 1. Go to `Actions` -> `Sync Heatmaps`.
 2. Click `Run workflow` on the `main` branch.
-3. Optional: set `source` explicitly (`strava` or `garmin`) when running manually.
+3. Optional: set `source` explicitly (`strava`, `garmin`, or `intervals`) when running manually.
 4. Wait for `Sync Heatmaps` to complete successfully.
 5. Confirm `Deploy Pages` runs (automatically after a successful sync).
 6. Open your dashboard at:

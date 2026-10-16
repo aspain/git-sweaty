@@ -1,5 +1,5 @@
 # Base configuration. Put secrets in config.local.yaml (ignored by git).
-source: "strava"  # "strava" or "garmin"
+source: "strava"  # "strava", "garmin", or "intervals"
 
 strava:
   client_id: ""
@@ -15,6 +15,12 @@ garmin:
   profile_url: "" # optional dashboard header profile link
   include_activity_urls: false # when true, tooltip details can show links to individual Garmin activities
   strict_token_only: false # when true, only token_store_b64 is used (no email/password fallback)
+
+intervals:
+  api_key: "" # intervals.icu Settings -> Developer Settings -> API key
+  athlete_id: "0" # "0" = athlete that owns the API key
+  profile_url: "" # optional dashboard header profile link
+  include_activity_urls: false # when true, tooltip details can show links to individual intervals.icu activities
 
 sync:
   # Optional history limits:

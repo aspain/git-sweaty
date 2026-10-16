@@ -421,5 +421,137 @@ class GenerateHeatmapsRenderContractTests(unittest.TestCase):
         )
 
 
+    def test_load_activities_includes_intervals_urls_when_enabled(self) -> None:
+        rows = [
+            {
+                "id": "i98765432",
+                "date": "2026-02-01",
+                "year": 2026,
+                "type": "Ride",
+                "raw_type": "VirtualRide",
+                "start_date_local": "2026-02-01T09:15:00",
+                "name": "Zwift Ride",
+            }
+        ]
+        with tempfile.TemporaryDirectory() as tmpdir:
+            activities_path = os.path.join(tmpdir, "activities_normalized.json")
+            with open(activities_path, "w", encoding="utf-8") as handle:
+                json.dump(rows, handle)
+
+            with mock.patch("generate_heatmaps.ACTIVITIES_PATH", activities_path):
+                activities = generate_heatmaps._load_activities(
+                    source="intervals",
+                    include_activity_urls=True,
+                )
+                activities_without_urls = generate_heatmaps._load_activities(source="intervals")
+
+        self.assertEqual(activities[0]["url"], "https://intervals.icu/activities/i98765432")
+        self.assertEqual(activities[0]["name"], "Zwift Ride")
+        self.assertNotIn("url", activities_without_urls[0])
+
+    def test_generate_includes_intervals_profile_url_when_configured(self) -> None:
+        captured = {}
+
+        with (
+            mock.patch(
+                "generate_heatmaps.load_config",
+                return_value={
+                    "sync": {},
+                    "activities": {},
+                    "source": "intervals",
+                    "intervals": {"profile_url": "intervals.icu/athlete/i12345/"},
+                },
+            ),
+            mock.patch("generate_heatmaps.os.path.exists", return_value=False),
+            mock.patch("generate_heatmaps._load_activities", return_value=[]),
+            mock.patch("generate_heatmaps._repo_slug_from_git", return_value=None),
+            mock.patch("generate_heatmaps._write_site_data", side_effect=lambda payload: captured.setdefault("payload", payload)),
+        ):
+            generate_heatmaps.generate(write_svgs=False)
+
+        self.assertEqual(captured["payload"].get("source"), "intervals")
+        self.assertEqual(captured["payload"].get("profile_url"), "https://intervals.icu/athlete/i12345")
+        self.assertEqual(captured["payload"].get("intervals_profile_url"), "https://intervals.icu/athlete/i12345")
+
+    def test_generate_accepts_setup_default_intervals_profile_url(self) -> None:
+        captured = {}
+
+        with (
+            mock.patch(
+                "generate_heatmaps.load_config",
+                return_value={
+                    "sync": {},
+                    "activities": {},
+                    "source": "intervals",
+                    "intervals": {"profile_url": "https://intervals.icu"},
+                },
+            ),
+            mock.patch("generate_heatmaps.os.path.exists", return_value=False),
+            mock.patch("generate_heatmaps._load_activities", return_value=[]),
+            mock.patch("generate_heatmaps._repo_slug_from_git", return_value=None),
+            mock.patch("generate_heatmaps._write_site_data", side_effect=lambda payload: captured.setdefault("payload", payload)),
+        ):
+            generate_heatmaps.generate(write_svgs=False)
+
+        self.assertEqual(captured["payload"].get("intervals_profile_url"), "https://intervals.icu")
+
+    def test_generate_rejects_non_intervals_profile_url_for_intervals_source(self) -> None:
+        captured = {}
+
+        with (
+            mock.patch(
+                "generate_heatmaps.load_config",
+                return_value={
+                    "sync": {},
+                    "activities": {},
+                    "source": "intervals",
+                    "intervals": {"profile_url": "https://www.strava.com/athletes/123"},
+                },
+            ),
+            mock.patch("generate_heatmaps.os.path.exists", return_value=False),
+            mock.patch("generate_heatmaps._load_activities", return_value=[]),
+            mock.patch("generate_heatmaps._repo_slug_from_git", return_value=None),
+            mock.patch("generate_heatmaps._write_site_data", side_effect=lambda payload: captured.setdefault("payload", payload)),
+        ):
+            generate_heatmaps.generate(write_svgs=False)
+
+        self.assertNotIn("profile_url", captured["payload"])
+
+    def test_generate_passes_intervals_activity_link_opt_in_to_load_activities(self) -> None:
+        load_args = {}
+
+        def _fake_load_activities(*, source: str, **kwargs):
+            load_args["source"] = source
+            load_args["kwargs"] = kwargs
+            return []
+
+        with (
+            mock.patch(
+                "generate_heatmaps.load_config",
+                return_value={
+                    "sync": {},
+                    "activities": {},
+                    "source": "intervals",
+                    "intervals": {"include_activity_urls": "true"},
+                },
+            ),
+            mock.patch("generate_heatmaps.os.path.exists", return_value=False),
+            mock.patch("generate_heatmaps._load_activities", side_effect=_fake_load_activities),
+            mock.patch("generate_heatmaps._repo_slug_from_git", return_value=None),
+            mock.patch("generate_heatmaps._write_site_data"),
+        ):
+            generate_heatmaps.generate(write_svgs=False)
+
+        self.assertEqual(load_args, {"source": "intervals", "kwargs": {"include_activity_urls": True}})
+
+    def test_intervals_activity_url_and_profile_host(self) -> None:
+        self.assertEqual(
+            generate_heatmaps._activity_url_from_id("intervals", "i42"),
+            "https://intervals.icu/activities/i42",
+        )
+        self.assertIsNone(generate_heatmaps._activity_url_from_id("intervals", "a/b"))
+        self.assertTrue(generate_heatmaps._host_regex_for_source("intervals").search("intervals.icu"))
+        self.assertIsNone(generate_heatmaps._host_regex_for_source("intervals").search("strava.com"))
+
 if __name__ == "__main__":
     unittest.main()
