@@ -149,15 +149,19 @@ def _load_activities(
         if not date_str or year is None or not activity_type or not subtype or not start_date_local:
             continue
         try:
-            hour = parse_iso_datetime(start_date_local).hour
+            start_dt = parse_iso_datetime(start_date_local)
+            hour = start_dt.hour
+            minute = start_dt.minute
         except Exception:
             hour = None
+            minute = None
         activity = {
             "date": date_str,
             "year": int(year),
             "type": activity_type,
             "subtype": str(subtype),
             "hour": hour,
+            "minute": minute,
         }
         include_provider_activity_urls = include_activity_urls
         if source == "strava" and include_strava_activity_urls:

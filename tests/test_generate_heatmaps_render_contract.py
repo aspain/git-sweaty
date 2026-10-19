@@ -143,7 +143,9 @@ class GenerateHeatmapsRenderContractTests(unittest.TestCase):
 
         self.assertEqual(len(activities), 2)
         self.assertEqual(activities[0]["hour"], 9)
+        self.assertEqual(activities[0]["minute"], 15)
         self.assertIsNone(activities[1]["hour"])
+        self.assertIsNone(activities[1]["minute"])
         self.assertNotIn("url", activities[0])
 
     def test_load_activities_includes_strava_urls_when_enabled(self) -> None:

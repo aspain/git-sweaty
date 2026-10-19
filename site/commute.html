@@ -437,6 +437,18 @@
         renderTimeBandsChart();
       }
 
+      /** Local start time as fractional hour (uses minute when present in data.json). */
+      function getActivityStartHour(activity) {
+        if (activity.hour === undefined || activity.hour === null) {
+          return null;
+        }
+        const minute =
+          activity.minute !== undefined && activity.minute !== null
+            ? activity.minute / 60
+            : 0;
+        return activity.hour + minute;
+      }
+
       function convertDistance(meters) {
         return currentUnits === 'km' 
           ? meters * METERS_TO_KM 
@@ -812,13 +824,8 @@
 
           // Draw dots for activities
           activities.forEach(activity => {
-            // Use actual minute data if available
-            const minute = activity.minute !== undefined && activity.minute !== null 
-              ? activity.minute / 60 
-              : 0;
-            
-            const hour = activity.hour + minute;
-            if (hour < hourMin || hour > hourMax) return;
+            const hour = getActivityStartHour(activity);
+            if (hour === null || hour < hourMin || hour > hourMax) return;
 
             // Calculate Y position based on week
             const activityDate = activity.fullDate;
@@ -937,7 +944,8 @@
         weeks.forEach(weekKey => {
           const activities = weekMap.get(weekKey);
           activities.forEach(activity => {
-            const hour = activity.hour;
+            const hour = getActivityStartHour(activity);
+            if (hour === null) return;
             if (hour >= 6 && hour < 10) {
               morningCount++;
             } else if (hour >= 16 && hour < 20) {
