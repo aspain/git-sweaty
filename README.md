@@ -14,7 +14,7 @@ Turn your Strava and Garmin activities into GitHub-style contribution graphs. Au
 
 **No coding required.**  
 
-View the Interactive [Activity Dashboard](http://adamspain.com/git-sweaty/).  
+View the Interactive [Activity Dashboard](https://sugarsmax.github.io/strava_calendar_map/).  
 Once setup is complete, this dashboard link will automatically update to your own GitHub Pages URL.
 
 

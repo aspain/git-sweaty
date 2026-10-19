@@ -106,7 +106,7 @@ DEFAULT_TYPE_LABELS = {
     "Hike": "Hike",
     "Walk": "Walk",
     "Golf": "Golf",
-    "WeightTraining": "Weight Training",
+    "WeightTraining": "Weights",
     "WalkHike": "Walk / Hike",
     "Swim": "Swim",
     "WaterSports": "Water Sports",
@@ -119,6 +119,7 @@ DEFAULT_TYPE_LABELS = {
     "SkateSports": "Skate Sports",
     "AdaptiveSports": "Adaptive Sports",
     "OtherSports": "Other Sports",
+    "Commute": "Commute",
 }
 
 TYPE_ACCENT_COLORS = {
@@ -141,6 +142,7 @@ TYPE_ACCENT_COLORS = {
     "SkateSports": "#9ef01a",
     "AdaptiveSports": "#8338ec",
     "OtherSports": "#ff006e",
+    "Commute": "#666666",
 }
 
 FALLBACK_VAPORWAVE_COLORS = [
@@ -399,17 +401,23 @@ def normalize_activity_type(
         return value
 
     slug = _slug(value)
+    featured_set = set(featured_types)
 
+    # Resolve to a candidate group via slug heuristics or known mappings.
+    candidate = None
     if "run" in slug and "row" not in slug:
-        return "Run"
-    if any(token in slug for token in ("ride", "bike", "cycle")):
-        return "Ride"
-    if any(token in slug for token in ("weight", "strength")):
-        return "WeightTraining"
+        candidate = "Run"
+    elif any(token in slug for token in ("ride", "bike", "cycle")):
+        candidate = "Ride"
+    elif any(token in slug for token in ("weight", "strength")):
+        candidate = "WeightTraining"
+    else:
+        candidate = KNOWN_TYPE_GROUPS_BY_SLUG.get(slug)
 
-    known_group = KNOWN_TYPE_GROUPS_BY_SLUG.get(slug)
-    if known_group:
-        return known_group
+    # Only use the candidate if it is actually a featured type;
+    # otherwise collapse into the catch-all bucket.
+    if candidate and candidate in featured_set:
+        return candidate
 
     return other_bucket
 
@@ -440,10 +448,11 @@ def type_accent(activity_type: str) -> str:
 def ordered_types(type_counts: Dict[str, int], featured_types: Sequence[str]) -> List[str]:
     counts = {str(k): int(v) for k, v in (type_counts or {}).items() if int(v) > 0}
     featured_present = [activity_type for activity_type in featured_types if counts.get(activity_type, 0) > 0]
+    featured_absent = [activity_type for activity_type in featured_types if counts.get(activity_type, 0) == 0]
     remaining = [activity_type for activity_type in counts.keys() if activity_type not in featured_present]
     remaining.sort(key=lambda item: (-counts[item], type_label(item).lower()))
 
-    ordered = featured_present + remaining
+    ordered = featured_present + featured_absent + remaining
     if ordered:
         return ordered
     return list(featured_types)

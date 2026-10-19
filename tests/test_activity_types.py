@@ -57,7 +57,13 @@ class ActivityTypesTests(unittest.TestCase):
         counts = {"Run": 2, "Swim": 3, "Walk": 3}
         featured = ["Run", "Ride"]
         ordered = activity_types.ordered_types(counts, featured)
-        self.assertEqual(ordered, ["Run", "Swim", "Walk"])
+        self.assertEqual(ordered, ["Run", "Ride", "Swim", "Walk"])
+
+    def test_ordered_types_includes_featured_types_without_counts(self) -> None:
+        counts = {"Run": 5, "Swim": 3}
+        featured = ["Run", "Ride", "Commute", "Swim"]
+        ordered = activity_types.ordered_types(counts, featured)
+        self.assertEqual(ordered, ["Run", "Swim", "Ride", "Commute"])
 
     def test_ordered_types_falls_back_to_featured_when_no_counts(self) -> None:
         self.assertEqual(activity_types.ordered_types({}, ["Run", "Ride"]), ["Run", "Ride"])

@@ -75,6 +75,11 @@ def _normalize_activity(activity: Dict, type_aliases: Dict[str, str], source: st
     raw_type = str(activity.get("sport_type") or raw_activity_type or "Unknown")
     canonical_raw_type = _resolve_canonical_type(raw_type, source)
     activity_type = type_aliases.get(raw_type, type_aliases.get(canonical_raw_type, canonical_raw_type))
+
+    # Override type to Commute if marked as commute
+    if activity.get("commute"):
+        activity_type = "Commute"
+
     distance = _coalesce(activity.get("distance"), activity.get("totalDistance"))
     moving_time = _pick_duration_seconds(*_duration_candidates(activity))
     elevation_gain = _coalesce(
@@ -92,6 +97,7 @@ def _normalize_activity(activity: Dict, type_aliases: Dict[str, str], source: st
         "raw_activity_type": raw_activity_type,
         "raw_type": raw_type,
         "type": activity_type,
+        "is_commute": bool(activity.get("commute")),
         "distance": _safe_float(distance),
         "moving_time": _safe_float(moving_time),
         "elevation_gain": _safe_float(elevation_gain),
@@ -179,6 +185,12 @@ def normalize() -> List[Dict]:
         raw_type = str(item.get("raw_type") or raw_activity_type or other_bucket)
         item["raw_activity_type"] = raw_activity_type
         item["raw_type"] = raw_type
+
+        # Preserve commute override: commute is a flag, not a sport type
+        if item.get("is_commute") and "Commute" in featured_set:
+            item["type"] = "Commute"
+            continue
+
         canonical_raw_type = _resolve_canonical_type(raw_type, source)
         source_type = type_aliases.get(raw_type, type_aliases.get(canonical_raw_type, canonical_raw_type))
         item["type"] = normalize_activity_type(

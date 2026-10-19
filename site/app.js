@@ -4556,6 +4556,12 @@ async function init() {
   let currentUnitSystem = getUnitSystemFromUnits(setupUnits);
   let currentUnits = getUnitsForSystem(currentUnitSystem);
   let currentVisibleYears = payload.years.slice().sort((a, b) => b - a);
+
+  const defaultYears = currentVisibleYears.slice(0, 4);
+  if (defaultYears.length > 0 && defaultYears.length < currentVisibleYears.length) {
+    allYearsMode = false;
+    selectedYears = new Set(defaultYears);
+  }
   let hoverClearedSummaryType = null;
   let hoverClearedSummaryYearMetricKey = null;
   const selectedYearMetricByYear = new Map();

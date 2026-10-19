@@ -35,62 +35,27 @@ rate_limits:
 
 activities:
   types:
-    - AlpineSki
-    - BackcountrySki
-    - Badminton
-    - Canoeing
-    - Crossfit
-    - EBikeRide
-    - Elliptical
-    - EMountainBikeRide
-    - Golf
-    - GravelRide
-    - Handcycle
-    - HighIntensityIntervalTraining
-    - Hike
-    - IceSkate
-    - InlineSkate
-    - Kayaking
-    - Kitesurf
-    - MountainBikeRide
-    - NordicSki
-    - Pickleball
-    - Pilates
-    - Racquetball
     - Ride
-    - RockClimbing
-    - RollerSki
-    - Rowing
-    - Run
-    - Sail
-    - Skateboard
+    - Hike
+    - MountainBikeRide
     - Snowboard
-    - Snowshoe
-    - Soccer
-    - Squash
-    - StairStepper
-    - StandUpPaddling
-    - Surfing
     - Swim
-    - TableTennis
-    - Tennis
-    - TrailRun
-    - Velomobile
-    - VirtualRide
-    - VirtualRow
-    - VirtualRun
     - Walk
     - WeightTraining
-    - Wheelchair
-    - Windsurf
-    - Workout
-    - Yoga
+    - Tennis
+    - Soccer
+    - Rowing
+    - Elliptical
+    - RockClimbing
+    - StandUpPaddling
+    - Commute
   include_all_types: true   # include all observed activity types by default
   exclude_types: []         # optional explicit exclusions while still allowing new sport types
-  group_other_types: false  # when false, keep raw source activity names as-is
+  group_other_types: true   # non-featured types collapse into other_bucket
   other_bucket: OtherSports # fallback bucket for unknown activity categories
   group_aliases: {}         # optional explicit group overrides, e.g. {SkiErg: WinterSports}
-  type_aliases: {}          # optional explicit remaps; keep empty for exact source naming
+  type_aliases:             # remap raw source types before normalization
+    Workout: WeightTraining # combine Workout into Weights
 
 units:
   distance: "mi"   # "mi" or "km"

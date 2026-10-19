@@ -195,8 +195,11 @@ jobs:
         run: |
           set -euo pipefail
           branch="${DASHBOARD_DATA_BRANCH}"
-          if git ls-remote --exit-code --heads origin "${branch}" >/dev/null; then
-            git fetch origin "${branch}"
+          if git ls-remote --exit-code --heads origin "${branch}" >/dev/null 2>&1; then
+            git fetch origin "${branch}" 2>/dev/null || {
+              echo "Warning: Could not fetch ${branch}; starting with empty state."
+              exit 0
+            }
             rm -rf data site/data.json
             git restore --source "origin/${branch}" --worktree -- data || true
             git restore --source "origin/${branch}" --worktree -- site/data.json || true

@@ -1,0 +1,1009 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="format-detection" content="telephone=no,email=no,address=no,date=no" />
+    <title>Commute Analytics</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9A%B4%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --space-0: 0px;
+        --space-1: 4px;
+        --space-2: 6px;
+        --space-3: 8px;
+        --space-4: 10px;
+        --space-5: 12px;
+        --space-6: 14px;
+        --space-7: 16px;
+        --space-8: 24px;
+        --bg: #0f172a;
+        --bg-2: #111827;
+        --card: rgba(255, 255, 255, 0.06);
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --accent: #38bdf8;
+        --radius: 14px;
+        --shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at top left, #1e293b, var(--bg)) fixed;
+        min-height: 100vh;
+        padding: 40px 20px;
+      }
+
+      .app {
+        max-width: 1240px;
+        margin: 0 auto;
+        display: grid;
+        gap: var(--space-8);
+        min-width: 0;
+      }
+
+      header {
+        background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), transparent);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: var(--radius);
+        padding: var(--space-8);
+        box-shadow: var(--shadow);
+      }
+
+      .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-5);
+      }
+
+      .header-link {
+        color: var(--muted);
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .header-link:hover {
+        color: var(--accent);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 0.4px;
+        text-align: center;
+      }
+
+      .controls {
+        display: flex;
+        gap: var(--space-5);
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .unit-toggle {
+        display: flex;
+        gap: var(--space-2);
+        background: var(--bg-2);
+        border-radius: 8px;
+        padding: 4px;
+      }
+
+      .unit-button {
+        background: transparent;
+        border: none;
+        color: var(--muted);
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.2s;
+      }
+
+      .unit-button.active {
+        background: var(--accent);
+        color: var(--bg);
+        font-weight: 600;
+      }
+
+      .unit-button:hover:not(.active) {
+        color: var(--text);
+      }
+
+      .chart-card {
+        background: var(--card);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        border-radius: var(--radius);
+        padding: var(--space-8);
+        box-shadow: var(--shadow);
+      }
+
+      .chart-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 var(--space-5) 0;
+        color: var(--text);
+      }
+
+      .chart-subtitle {
+        font-size: 13px;
+        color: var(--muted);
+        margin: 0 0 var(--space-6) 0;
+      }
+
+      #cumulativeChart {
+        width: 100%;
+        height: 400px;
+        position: relative;
+      }
+
+      #timeBandsChart {
+        width: 100%;
+        min-height: 1200px;
+        position: relative;
+        overflow-x: auto;
+      }
+
+      canvas {
+        display: block;
+        cursor: crosshair;
+      }
+
+      .legend {
+        display: flex;
+        gap: var(--space-7);
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: var(--space-6);
+        padding-top: var(--space-6);
+        border-top: 1px solid rgba(148, 163, 184, 0.1);
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .legend-item.year-toggle {
+        cursor: pointer;
+        user-select: none;
+        transition: opacity 0.2s;
+        border-radius: 6px;
+        padding: 3px 6px;
+      }
+
+      .legend-item.year-toggle:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .legend-item.year-toggle.hidden-year {
+        opacity: 0.35;
+      }
+
+      .legend-item.year-toggle.hidden-year span {
+        text-decoration: line-through;
+      }
+
+      .legend-color {
+        width: 16px;
+        height: 16px;
+        border-radius: 3px;
+      }
+
+
+      .tooltip {
+        position: fixed;
+        background: var(--bg-2);
+        border: 1px solid rgba(148, 163, 184, 0.3);
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 13px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .tooltip.visible {
+        opacity: 1;
+      }
+
+      .tooltip-label {
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .tooltip-value {
+        color: var(--muted);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--space-5);
+        margin-top: var(--space-6);
+        padding-top: var(--space-6);
+        border-top: 1px solid rgba(148, 163, 184, 0.1);
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+      }
+
+      .stat-value {
+        font-size: 24px;
+        font-weight: 600;
+        font-family: "JetBrains Mono", monospace;
+        color: var(--accent);
+      }
+
+      .updated {
+        color: var(--muted);
+        font-size: 12px;
+        text-align: center;
+        margin-top: var(--space-3);
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 20px 12px;
+        }
+
+        h1 {
+          font-size: 22px;
+        }
+
+        .chart-card {
+          padding: var(--space-6);
+        }
+
+        #cumulativeChart {
+          height: 300px;
+        }
+
+        #timeBandsChart {
+          height: 500px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <div class="header-top">
+          <a href="index.html" class="header-link">← Back to Dashboard</a>
+          <h1>Commute Analytics</h1>
+          <div style="width: 140px;"></div>
+        </div>
+        <div class="controls">
+          <div class="unit-toggle">
+            <button class="unit-button active" id="miButton">Miles</button>
+            <button class="unit-button" id="kmButton">Kilometers</button>
+          </div>
+        </div>
+        <p class="updated" id="updated"></p>
+      </header>
+
+      <div class="chart-card">
+        <h2 class="chart-title">Cumulative Commute Distance by Year</h2>
+        <p class="chart-subtitle">How commute miles accumulate throughout each year</p>
+        <div id="cumulativeChart">
+          <canvas id="cumulativeCanvas"></canvas>
+        </div>
+        <div class="legend" id="yearLegend"></div>
+        <p class="chart-subtitle" style="text-align:center;margin-top:6px;">Click a year to show/hide it</p>
+        <div class="stats-grid" id="cumulativeStats"></div>
+      </div>
+
+      <div class="chart-card">
+        <h2 class="chart-title">Recent Commute Time Patterns</h2>
+        <p class="chart-subtitle">Hour of day for last 52 weeks with commute activity, by weekday</p>
+        <div id="timeBandsChart">
+          <canvas id="timeBandsCanvas"></canvas>
+        </div>
+        <div class="legend">
+          <div class="legend-item">
+            <div class="legend-color" style="background: #3b82f6;"></div>
+            <span>Morning (6-10am)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #10b981;"></div>
+            <span>Evening (4-8pm)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #94a3b8;"></div>
+            <span>Other times</span>
+          </div>
+        </div>
+        <div class="stats-grid" id="timeBandsStats"></div>
+      </div>
+    </div>
+
+    <div class="tooltip" id="tooltip">
+      <div class="tooltip-label" id="tooltipLabel"></div>
+      <div class="tooltip-value" id="tooltipValue"></div>
+    </div>
+
+    <script>
+      // Constants
+      const METERS_TO_MILES = 0.000621371;
+      const METERS_TO_KM = 0.001;
+      const YEAR_COLORS = [
+        '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
+        '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#14b8a6'
+      ];
+
+      // State
+      let data = null;
+      let currentUnits = 'mi';
+      let hiddenYears = new Set();
+
+      // DOM Elements
+      const miButton = document.getElementById('miButton');
+      const kmButton = document.getElementById('kmButton');
+      const updated = document.getElementById('updated');
+      const tooltip = document.getElementById('tooltip');
+      const tooltipLabel = document.getElementById('tooltipLabel');
+      const tooltipValue = document.getElementById('tooltipValue');
+      const cumulativeCanvas = document.getElementById('cumulativeCanvas');
+      const timeBandsCanvas = document.getElementById('timeBandsCanvas');
+      const cumulativeCtx = cumulativeCanvas.getContext('2d');
+      const timeBandsCtx = timeBandsCanvas.getContext('2d');
+
+      // Unit toggle handlers
+      miButton.addEventListener('click', () => {
+        if (currentUnits !== 'mi') {
+          currentUnits = 'mi';
+          miButton.classList.add('active');
+          kmButton.classList.remove('active');
+          renderAllCharts();
+        }
+      });
+
+      kmButton.addEventListener('click', () => {
+        if (currentUnits !== 'km') {
+          currentUnits = 'km';
+          kmButton.classList.add('active');
+          miButton.classList.remove('active');
+          renderAllCharts();
+        }
+      });
+
+
+      // Load data
+      fetch('data.json')
+        .then(response => response.json())
+        .then(loadedData => {
+          data = loadedData;
+          
+          // Set updated time
+          if (data.generated_at) {
+            const date = new Date(data.generated_at);
+            updated.textContent = `Updated ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+          }
+
+          // Set default units from data
+          if (data.units && data.units.distance === 'km') {
+            currentUnits = 'km';
+            kmButton.classList.add('active');
+            miButton.classList.remove('active');
+          }
+
+          renderAllCharts();
+        })
+        .catch(error => {
+          console.error('Error loading data:', error);
+        });
+
+      function renderAllCharts() {
+        if (!data) return;
+        renderCumulativeChart();
+        renderTimeBandsChart();
+      }
+
+      /** Local start time as fractional hour (uses minute when present in data.json). */
+      function getActivityStartHour(activity) {
+        if (activity.hour === undefined || activity.hour === null) {
+          return null;
+        }
+        const minute =
+          activity.minute !== undefined && activity.minute !== null
+            ? activity.minute / 60
+            : 0;
+        return activity.hour + minute;
+      }
+
+      function convertDistance(meters) {
+        return currentUnits === 'km' 
+          ? meters * METERS_TO_KM 
+          : meters * METERS_TO_MILES;
+      }
+
+      function getUnitLabel() {
+        return currentUnits === 'km' ? 'km' : 'mi';
+      }
+
+      function renderCumulativeChart() {
+        if (!data || !data.aggregates) return;
+
+        const container = cumulativeCanvas.parentElement;
+        const dpr = window.devicePixelRatio || 1;
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        cumulativeCanvas.width = width * dpr;
+        cumulativeCanvas.height = height * dpr;
+        cumulativeCanvas.style.width = width + 'px';
+        cumulativeCanvas.style.height = height + 'px';
+        cumulativeCtx.scale(dpr, dpr);
+
+        const padding = { top: 20, right: 60, bottom: 50, left: 60 };
+        const chartWidth = width - padding.left - padding.right;
+        const chartHeight = height - padding.top - padding.bottom;
+
+        // Clear canvas
+        cumulativeCtx.clearRect(0, 0, width, height);
+
+        // Get commute data per year
+        const yearData = {};
+        const years = Object.keys(data.aggregates).filter(year => {
+          return year >= 2018 && 
+                 data.aggregates[year].Commute && 
+                 Object.keys(data.aggregates[year].Commute).length > 0;
+        }).sort();
+
+        if (years.length === 0) {
+          cumulativeCtx.fillStyle = '#94a3b8';
+          cumulativeCtx.font = '14px Space Grotesk';
+          cumulativeCtx.textAlign = 'center';
+          cumulativeCtx.fillText('No commute data available', width / 2, height / 2);
+          return;
+        }
+
+        // Build cumulative data for each year (starting from 2018)
+        years.forEach(year => {
+          if (year < 2018) return; // Skip years before 2018
+          
+          const commuteData = data.aggregates[year].Commute;
+          const dates = Object.keys(commuteData).sort();
+          
+          let cumulative = 0;
+          const points = dates.map(dateStr => {
+            const distance = convertDistance(commuteData[dateStr].distance || 0);
+            cumulative += distance;
+            const date = new Date(dateStr);
+            const dayOfYear = getDayOfYear(date);
+            return { dayOfYear, cumulative, date: dateStr };
+          });
+
+          yearData[year] = points;
+        });
+
+        // Find max values for scaling (only visible years)
+        let maxDay = 365;
+        let maxDistance = 0;
+        Object.entries(yearData).forEach(([year, points]) => {
+          if (hiddenYears.has(year)) return;
+          points.forEach(p => {
+            maxDistance = Math.max(maxDistance, p.cumulative);
+          });
+        });
+
+        if (maxDistance === 0) return;
+
+        // Draw grid lines
+        cumulativeCtx.strokeStyle = 'rgba(148, 163, 184, 0.1)';
+        cumulativeCtx.lineWidth = 1;
+
+        // Horizontal grid lines
+        const ySteps = 5;
+        for (let i = 0; i <= ySteps; i++) {
+          const y = padding.top + (chartHeight * i / ySteps);
+          cumulativeCtx.beginPath();
+          cumulativeCtx.moveTo(padding.left, y);
+          cumulativeCtx.lineTo(padding.left + chartWidth, y);
+          cumulativeCtx.stroke();
+        }
+
+        // Y-axis labels
+        cumulativeCtx.fillStyle = '#94a3b8';
+        cumulativeCtx.font = '12px Space Grotesk';
+        cumulativeCtx.textAlign = 'right';
+        cumulativeCtx.textBaseline = 'middle';
+        for (let i = 0; i <= ySteps; i++) {
+          const value = maxDistance * (1 - i / ySteps);
+          const y = padding.top + (chartHeight * i / ySteps);
+          cumulativeCtx.fillText(Math.round(value).toLocaleString(), padding.left - 10, y);
+        }
+
+        // Y-axis label
+        cumulativeCtx.save();
+        cumulativeCtx.translate(20, padding.top + chartHeight / 2);
+        cumulativeCtx.rotate(-Math.PI / 2);
+        cumulativeCtx.textAlign = 'center';
+        cumulativeCtx.fillText(`Distance (${getUnitLabel()})`, 0, 0);
+        cumulativeCtx.restore();
+
+        // X-axis labels (months)
+        cumulativeCtx.textAlign = 'center';
+        cumulativeCtx.textBaseline = 'top';
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        months.forEach((month, idx) => {
+          const dayOfYear = idx * 30.5; // Approximate
+          const x = padding.left + (dayOfYear / 365) * chartWidth;
+          cumulativeCtx.fillText(month, x, padding.top + chartHeight + 10);
+        });
+
+        // Draw lines for each year
+        Object.entries(yearData).forEach(([year, points], idx) => {
+          if (points.length === 0) return;
+          if (hiddenYears.has(year)) return;
+
+          const color = YEAR_COLORS[idx % YEAR_COLORS.length];
+          cumulativeCtx.strokeStyle = color;
+          cumulativeCtx.lineWidth = 2.5;
+          cumulativeCtx.beginPath();
+
+          points.forEach((point, i) => {
+            const x = padding.left + (point.dayOfYear / 365) * chartWidth;
+            const y = padding.top + chartHeight - (point.cumulative / maxDistance) * chartHeight;
+            
+            if (i === 0) {
+              cumulativeCtx.moveTo(x, y);
+            } else {
+              cumulativeCtx.lineTo(x, y);
+            }
+          });
+
+          cumulativeCtx.stroke();
+
+          // Draw dots
+          cumulativeCtx.fillStyle = color;
+          points.forEach(point => {
+            const x = padding.left + (point.dayOfYear / 365) * chartWidth;
+            const y = padding.top + chartHeight - (point.cumulative / maxDistance) * chartHeight;
+            cumulativeCtx.beginPath();
+            cumulativeCtx.arc(x, y, 3, 0, Math.PI * 2);
+            cumulativeCtx.fill();
+          });
+        });
+
+        // Update stats and legend
+        updateCumulativeStats(yearData);
+        updateYearLegend(years, yearData);
+      }
+
+      function updateYearLegend(years, yearData) {
+        const legendContainer = document.getElementById('yearLegend');
+        if (!legendContainer) return;
+
+        let html = '';
+        years.forEach((year, idx) => {
+          const color = YEAR_COLORS[idx % YEAR_COLORS.length];
+          const points = yearData[year];
+          const total = points.length > 0 ? points[points.length - 1].cumulative : 0;
+          const isHidden = hiddenYears.has(year);
+          html += `
+            <div class="legend-item year-toggle${isHidden ? ' hidden-year' : ''}" data-year="${year}">
+              <div class="legend-color" style="background: ${color};"></div>
+              <span>${year} (${Math.round(total).toLocaleString()} ${getUnitLabel()})</span>
+            </div>
+          `;
+        });
+
+        legendContainer.innerHTML = html;
+
+        legendContainer.querySelectorAll('.year-toggle').forEach(el => {
+          el.addEventListener('click', () => {
+            const year = el.dataset.year;
+            if (hiddenYears.has(year)) {
+              hiddenYears.delete(year);
+            } else {
+              hiddenYears.add(year);
+            }
+            renderCumulativeChart();
+          });
+        });
+      }
+
+      function renderTimeBandsChart() {
+        if (!data || !data.activities) return;
+
+        // Filter commute activities
+        const commuteActivities = data.activities.filter(a => a.type === 'Commute');
+        
+        if (commuteActivities.length === 0) {
+          const container = timeBandsCanvas.parentElement;
+          timeBandsCanvas.width = container.clientWidth;
+          timeBandsCanvas.height = 200;
+          timeBandsCtx.clearRect(0, 0, timeBandsCanvas.width, timeBandsCanvas.height);
+          timeBandsCtx.fillStyle = '#94a3b8';
+          timeBandsCtx.font = '14px Space Grotesk';
+          timeBandsCtx.textAlign = 'center';
+          timeBandsCtx.fillText('No commute data available', timeBandsCanvas.width / 2, 100);
+          return;
+        }
+
+        // Get last 52 weeks with activity
+        const weekMap = new Map();
+        commuteActivities.forEach(activity => {
+          // Parse date correctly - add 'T12:00:00' to avoid timezone shift
+          const date = new Date(activity.date + 'T12:00:00');
+          const weekStart = getWeekStart(date);
+          const weekKey = weekStart.toISOString().split('T')[0];
+          
+          if (!weekMap.has(weekKey)) {
+            weekMap.set(weekKey, []);
+          }
+          weekMap.get(weekKey).push(activity);
+        });
+
+        const sortedWeeks = Array.from(weekMap.keys()).sort().reverse().slice(0, 52);
+        
+        if (sortedWeeks.length === 0) return;
+
+        // Group activities by weekday
+        const weekdayData = {
+          1: [], // Monday
+          2: [], // Tuesday
+          3: [], // Wednesday
+          4: [], // Thursday
+          5: []  // Friday
+        };
+
+        sortedWeeks.forEach(weekKey => {
+          const activities = weekMap.get(weekKey);
+          activities.forEach(activity => {
+            // Parse date correctly - add 'T12:00:00' to avoid timezone shift
+            const date = new Date(activity.date + 'T12:00:00');
+            const dayOfWeek = date.getDay();
+            // Convert Sunday=0 to Monday=1, Tuesday=2, etc., skip weekends
+            // getDay: 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+            const adjustedDay = dayOfWeek === 0 ? 7 : dayOfWeek;
+            
+            if (adjustedDay >= 1 && adjustedDay <= 5) {
+              weekdayData[adjustedDay].push({
+                ...activity,
+                weekKey: weekKey,
+                fullDate: date
+              });
+            }
+          });
+        });
+
+        const container = timeBandsCanvas.parentElement;
+        const dpr = window.devicePixelRatio || 1;
+        
+        // Layout: 5 panels side by side (one per weekday)
+        const numWeeks = sortedWeeks.length;
+        const panelWidth = 180; // Width per weekday panel
+        const panelGap = 20;
+        const rowHeight = 20; // Height per week
+        
+        const width = Math.max(container.clientWidth, (panelWidth + panelGap) * 5 + 100);
+        const height = 80 + (numWeeks * rowHeight) + 60; // Header + weeks + footer
+
+        timeBandsCanvas.width = width * dpr;
+        timeBandsCanvas.height = height * dpr;
+        timeBandsCanvas.style.width = width + 'px';
+        timeBandsCanvas.style.height = height + 'px';
+        timeBandsCtx.scale(dpr, dpr);
+
+        const padding = { top: 60, right: 20, bottom: 40, left: 80 };
+        
+        // Clear canvas
+        timeBandsCtx.clearRect(0, 0, width, height);
+
+        const weekdayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+        const hourMin = 6;
+        const hourMax = 20;
+        const hourRange = hourMax - hourMin;
+
+        // Get date range for Y-axis
+        const startDate = new Date(sortedWeeks[0]);
+        const endDate = new Date(sortedWeeks[sortedWeeks.length - 1]);
+        endDate.setDate(endDate.getDate() + 6); // End of last week
+
+        // Draw each weekday panel side by side
+        [1, 2, 3, 4, 5].forEach((dayNum, panelIdx) => {
+          const activities = weekdayData[dayNum];
+          const dayName = weekdayNames[dayNum - 1];
+          
+          const xOffset = padding.left + (panelIdx * (panelWidth + panelGap));
+          const chartHeight = numWeeks * rowHeight;
+
+          // Draw panel background
+          timeBandsCtx.fillStyle = 'rgba(255, 255, 255, 0.02)';
+          timeBandsCtx.fillRect(xOffset, padding.top, panelWidth, chartHeight);
+
+          // Draw panel border
+          timeBandsCtx.strokeStyle = 'rgba(148, 163, 184, 0.2)';
+          timeBandsCtx.lineWidth = 1;
+          timeBandsCtx.strokeRect(xOffset, padding.top, panelWidth, chartHeight);
+
+          // Draw weekday label at top
+          timeBandsCtx.fillStyle = '#e5e7eb';
+          timeBandsCtx.font = '14px Space Grotesk';
+          timeBandsCtx.textAlign = 'center';
+          timeBandsCtx.textBaseline = 'bottom';
+          timeBandsCtx.fillText(dayName, xOffset + panelWidth / 2, padding.top - 25);
+
+          // Draw hour labels below weekday name
+          timeBandsCtx.fillStyle = '#94a3b8';
+          timeBandsCtx.font = '10px Space Grotesk';
+          timeBandsCtx.textAlign = 'center';
+          timeBandsCtx.textBaseline = 'top';
+          for (let hour = hourMin; hour <= hourMax; hour += 2) {
+            const x = xOffset + ((hour - hourMin) / hourRange) * panelWidth;
+            timeBandsCtx.fillText(`${hour}`, x, padding.top - 10);
+          }
+
+          // Draw vertical grid lines (hours)
+          timeBandsCtx.strokeStyle = 'rgba(148, 163, 184, 0.1)';
+          for (let hour = hourMin; hour <= hourMax; hour += 2) {
+            const x = xOffset + ((hour - hourMin) / hourRange) * panelWidth;
+            timeBandsCtx.beginPath();
+            timeBandsCtx.moveTo(x, padding.top);
+            timeBandsCtx.lineTo(x, padding.top + chartHeight);
+            timeBandsCtx.stroke();
+          }
+
+          // Draw horizontal grid lines (weeks) and week labels (only on first panel)
+          if (panelIdx === 0) {
+            timeBandsCtx.textBaseline = 'middle';
+            
+            sortedWeeks.forEach((weekKey, weekIdx) => {
+              const y = padding.top + (weekIdx * rowHeight);
+              const date = new Date(weekKey);
+              const year = date.getFullYear();
+              const prevYear = weekIdx > 0 ? new Date(sortedWeeks[weekIdx - 1]).getFullYear() : year;
+              const isYearBoundary = year !== prevYear;
+
+              // Draw grid line — brighter at year boundaries
+              timeBandsCtx.strokeStyle = isYearBoundary
+                ? 'rgba(148, 163, 184, 0.3)'
+                : 'rgba(148, 163, 184, 0.05)';
+              timeBandsCtx.lineWidth = isYearBoundary ? 1 : 1;
+              timeBandsCtx.beginPath();
+              timeBandsCtx.moveTo(padding.left, y);
+              timeBandsCtx.lineTo(padding.left + (panelWidth + panelGap) * 5, y);
+              timeBandsCtx.stroke();
+
+              // Draw week date label
+              timeBandsCtx.fillStyle = '#94a3b8';
+              timeBandsCtx.font = '9px Space Grotesk';
+              timeBandsCtx.textAlign = 'right';
+              const label = `${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+              timeBandsCtx.fillText(label, padding.left - 10, y + rowHeight / 2);
+
+              // Draw year label at year boundaries
+              if (isYearBoundary) {
+                timeBandsCtx.fillStyle = '#e5e7eb';
+                timeBandsCtx.font = 'bold 9px Space Grotesk';
+                timeBandsCtx.textAlign = 'right';
+                timeBandsCtx.fillText(String(year), padding.left - 42, y + rowHeight / 2);
+              }
+            });
+          }
+
+          // Draw dots for activities
+          activities.forEach(activity => {
+            const hour = getActivityStartHour(activity);
+            if (hour === null || hour < hourMin || hour > hourMax) return;
+
+            // Calculate Y position based on week
+            const activityDate = activity.fullDate;
+            const activityWeekStart = getWeekStart(activityDate);
+            const weekKey = activityWeekStart.toISOString().split('T')[0];
+            const weekIdx = sortedWeeks.indexOf(weekKey);
+            
+            if (weekIdx === -1) return;
+            
+            const yPos = padding.top + (weekIdx * rowHeight) + (rowHeight / 2);
+            const x = xOffset + ((hour - hourMin) / hourRange) * panelWidth;
+
+            // Determine color based on time of day
+            let color;
+            if (hour >= 6 && hour < 10) {
+              color = '#3b82f6'; // Morning blue
+            } else if (hour >= 16 && hour < 20) {
+              color = '#10b981'; // Evening green
+            } else {
+              color = '#94a3b8'; // Other gray
+            }
+
+            timeBandsCtx.fillStyle = color;
+            timeBandsCtx.beginPath();
+            timeBandsCtx.arc(x, yPos, 3, 0, Math.PI * 2);
+            timeBandsCtx.fill();
+
+            // Add slight stroke for visibility
+            timeBandsCtx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            timeBandsCtx.lineWidth = 0.5;
+            timeBandsCtx.stroke();
+          });
+        });
+
+        // Draw X-axis label at bottom
+        timeBandsCtx.fillStyle = '#94a3b8';
+        timeBandsCtx.font = '12px Space Grotesk';
+        timeBandsCtx.textAlign = 'center';
+        timeBandsCtx.textBaseline = 'top';
+        timeBandsCtx.fillText('Hour of Day', padding.left + ((panelWidth + panelGap) * 5) / 2, padding.top + (numWeeks * rowHeight) + 15);
+
+        // Update stats
+        updateTimeBandsStats(commuteActivities, sortedWeeks, weekMap);
+      }
+
+      function updateCumulativeStats(yearData) {
+        const statsContainer = document.getElementById('cumulativeStats');
+        if (!statsContainer) return;
+
+        const years = Object.keys(yearData).sort().reverse();
+        const currentYear = new Date().getFullYear();
+        
+        let html = '';
+
+        // Total distance this year
+        if (yearData[currentYear]) {
+          const points = yearData[currentYear];
+          const totalThisYear = points.length > 0 ? points[points.length - 1].cumulative : 0;
+          html += `
+            <div class="stat-item">
+              <div class="stat-label">This Year (${currentYear})</div>
+              <div class="stat-value">${Math.round(totalThisYear).toLocaleString()}</div>
+            </div>
+          `;
+        }
+
+        // Best year
+        let maxYear = null;
+        let maxDistance = 0;
+        Object.entries(yearData).forEach(([year, points]) => {
+          if (points.length > 0) {
+            const total = points[points.length - 1].cumulative;
+            if (total > maxDistance) {
+              maxDistance = total;
+              maxYear = year;
+            }
+          }
+        });
+
+        if (maxYear) {
+          html += `
+            <div class="stat-item">
+              <div class="stat-label">Best Year (${maxYear})</div>
+              <div class="stat-value">${Math.round(maxDistance).toLocaleString()}</div>
+            </div>
+          `;
+        }
+
+        // Average per year
+        const totals = Object.values(yearData).map(points => 
+          points.length > 0 ? points[points.length - 1].cumulative : 0
+        ).filter(t => t > 0);
+        
+        if (totals.length > 0) {
+          const average = totals.reduce((a, b) => a + b, 0) / totals.length;
+          html += `
+            <div class="stat-item">
+              <div class="stat-label">Average per Year</div>
+              <div class="stat-value">${Math.round(average).toLocaleString()}</div>
+            </div>
+          `;
+        }
+
+        statsContainer.innerHTML = html;
+      }
+
+      function updateTimeBandsStats(commuteActivities, weeks, weekMap) {
+        const statsContainer = document.getElementById('timeBandsStats');
+        if (!statsContainer) return;
+
+        // Calculate stats for the displayed weeks
+        let morningCount = 0;
+        let eveningCount = 0;
+        let otherCount = 0;
+
+        weeks.forEach(weekKey => {
+          const activities = weekMap.get(weekKey);
+          activities.forEach(activity => {
+            const hour = getActivityStartHour(activity);
+            if (hour === null) return;
+            if (hour >= 6 && hour < 10) {
+              morningCount++;
+            } else if (hour >= 16 && hour < 20) {
+              eveningCount++;
+            } else {
+              otherCount++;
+            }
+          });
+        });
+
+        const totalCommutes = weeks.reduce((sum, weekKey) => 
+          sum + weekMap.get(weekKey).length, 0
+        );
+
+        const avgPerWeek = totalCommutes / weeks.length;
+
+        const html = `
+          <div class="stat-item">
+            <div class="stat-label">Total Commutes</div>
+            <div class="stat-value">${totalCommutes}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Avg per Week</div>
+            <div class="stat-value">${avgPerWeek.toFixed(1)}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Morning (6-10am)</div>
+            <div class="stat-value">${morningCount}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Evening (4-8pm)</div>
+            <div class="stat-value">${eveningCount}</div>
+          </div>
+        `;
+
+        statsContainer.innerHTML = html;
+      }
+
+      function getDayOfYear(date) {
+        const start = new Date(date.getFullYear(), 0, 1);
+        const diff = date - start;
+        const oneDay = 1000 * 60 * 60 * 24;
+        return Math.floor(diff / oneDay) + 1;
+      }
+
+      function getWeekStart(date) {
+        const d = new Date(date);
+        const day = d.getDay();
+        const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Adjust to Monday
+        return new Date(d.setDate(diff));
+      }
+
+      // Handle window resize
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(renderAllCharts, 250);
+      });
+    </script>
+  </body>
+</html>
