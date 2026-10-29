@@ -18718,5 +18718,18 @@
     "start_date_local": "2026-10-27T07:28:24",
     "type": "VirtualRide",
     "year": 2026
+  },
+  {
+    "date": "2026-10-29",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24892496594",
+    "moving_time": 2933.032958984375,
+    "name": "Strength",
+    "raw_activity_type": "strength_training",
+    "raw_type": "strength_training",
+    "start_date_local": "2026-10-29T07:32:51",
+    "type": "WeightTraining",
+    "year": 2026
   }
 ]
