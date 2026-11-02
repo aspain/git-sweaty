@@ -18744,5 +18744,31 @@
     "start_date_local": "2026-10-30T07:24:46",
     "type": "TrailRun",
     "year": 2026
+  },
+  {
+    "date": "2026-11-01",
+    "distance": 0.0,
+    "elevation_gain": 0.0,
+    "id": "24933577424",
+    "moving_time": 3644.743896484375,
+    "name": "Strength",
+    "raw_activity_type": "strength_training",
+    "raw_type": "strength_training",
+    "start_date_local": "2026-11-01T09:08:16",
+    "type": "WeightTraining",
+    "year": 2026
+  },
+  {
+    "date": "2026-11-02",
+    "distance": 5372.509765625,
+    "elevation_gain": 156.0,
+    "id": "24938723613",
+    "moving_time": 2344.0,
+    "name": "Baltimore County Trail Running",
+    "raw_activity_type": "trail_running",
+    "raw_type": "trail_running",
+    "start_date_local": "2026-11-02T06:54:35",
+    "type": "TrailRun",
+    "year": 2026
   }
 ]
