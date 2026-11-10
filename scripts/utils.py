@@ -97,7 +97,9 @@ def format_duration(seconds: float) -> str:
     minutes = (total % 3600) // 60
     if hours > 0:
         return f"{hours}h {minutes}m"
-    return f"{minutes}m"
+    if minutes > 0:
+        return f"{minutes}m"
+    return f"{total}s"
 
 
 def format_distance(meters: float, unit: str) -> str:
