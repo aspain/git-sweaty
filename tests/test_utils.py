@@ -46,6 +46,11 @@ class UtilsTests(unittest.TestCase):
         dt = utils.parse_iso_datetime("2026-02-13T08:15:30.123456789+00:00")
         self.assertEqual(dt, datetime.fromisoformat("2026-02-13T08:15:30.123456+00:00"))
 
+    def test_format_duration_spells_out_sub_minute_durations(self) -> None:
+        self.assertEqual(utils.format_duration(45), "45s")
+        self.assertEqual(utils.format_duration(0), "0s")
+        self.assertEqual(utils.format_duration(90), "1m")
+
     def test_format_helpers_cover_us_and_metric_units(self) -> None:
         self.assertEqual(utils.format_duration(3599.7), "1h 0m")
         self.assertEqual(utils.format_duration(90), "1m")
