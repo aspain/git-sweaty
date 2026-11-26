@@ -16,6 +16,9 @@ garmin:
   include_activity_urls: false # when true, tooltip details can show links to individual Garmin activities
   strict_token_only: false # when true, only token_store_b64 is used (no email/password fallback)
 
+intervals:
+  include_activity_urls: true # tooltip details link to each intervals.icu activity
+
 sync:
   # Optional history limits:
   start_date: "2017-01-01" # YYYY-MM-DD lower bound (all intervals.icu history)

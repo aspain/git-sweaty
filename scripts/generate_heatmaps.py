@@ -272,6 +272,8 @@ def _activity_url_from_id(source: str, activity_id: object) -> Optional[str]:
         return f"https://www.strava.com/activities/{encoded}"
     if source == "garmin":
         return f"https://connect.garmin.com/modern/activity/{encoded}"
+    if source == "intervals":
+        return f"https://intervals.icu/activities/{encoded}"
     return None
 
 
@@ -459,6 +461,8 @@ def generate(write_svgs: bool = True):
         load_activities_kwargs["include_strava_activity_urls"] = include_activity_urls
     elif source == "garmin":
         load_activities_kwargs["include_garmin_activity_urls"] = include_activity_urls
+    elif source == "intervals":
+        load_activities_kwargs["include_activity_urls"] = include_activity_urls
     site_payload = {
         "source": source,
         "generated_at": utc_now().isoformat(),
